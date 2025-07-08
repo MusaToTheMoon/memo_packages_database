@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Script to fetch code from either a single url or a csv of urls
-    a CSV file    : fetch_code.py csv path_to_csv_file.csv            # csv file should contain the file_name,source_type,url triples
+    a CSV file    : fetch_code.py csv path_to_csv_file                # csv file should contain the file_name,source_type,url triples
     a single URL  : fetch_code.py url file_name source_type url       # handles a single url, must also provide file_name and source_type
 
 Format for file_name, source_type:
@@ -167,3 +167,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+### Task List:
+# - [ ] Update to work with the new phase based directory structure
+# - [ ] Automatically write failed URLs to a separate CSV file along with the file_name, source_type
+    # like done in label_llm.py
