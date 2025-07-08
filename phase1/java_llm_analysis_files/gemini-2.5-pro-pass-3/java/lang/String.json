@@ -1,0 +1,2159 @@
+{
+  "file_name": "java.lang.String",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/String.java",
+  "source_code_file_path": "java_source_code_files/java/lang/String.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751921457,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 316.655,
+  "llm_analysis": [
+    {
+      "methodSignature": "boolean bytesCompatible(java.nio.charset.Charset charset)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method reads the internal 'coder' and 'value' fields to determine if the string's internal byte representation is compatible with the given charset without re-encoding.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is purely for internal checking and does not modify any state or have any observable side effects like I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic is based on checking the string's internal encoding and its contents against specific, constant Charset instances (ISO_8859_1, UTF_8, US_ASCII). It is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the 'this' object and the provided 'charset' argument. Its behavior is consistent for the same inputs.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic check based on its instance state and argument, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void copyToSegmentRaw(java.lang.foreign.MemorySegment segment, long offset)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' byte array to copy its contents.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect: it writes data into the 'segment' MemorySegment object provided as an argument. Modifying an argument is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method performs a memory copy operation, which is a deterministic process. It does not involve any non-deterministic function calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's action (copying bytes) depends on the state of 'this' and the arguments 'segment' and 'offset'. However, due to its side effect of modifying the 'segment' argument, it is not considered to depend 'only' on arguments in a pure functional sense.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of writing to the 'segment' argument, which modifies external state. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int length()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal final fields 'value' (the byte array) and 'coder' (the encoding identifier) to calculate the length of the string. The length is the byte array length divided by 1 for UTF-16 or a no-op for LATIN-1.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only operation. It calculates and returns an integer value without performing I/O, modifying state, or having any other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The calculation is based on immutable internal state and does not involve any calls to time, random, or environment-dependent functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no explicit arguments and its return value depends only on the immutable state of the `this` object, which acts as the implicit argument. Therefore, it depends only on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is deterministic, has no side effects, and its result is solely dependent on the immutable state of the string instance. It is an excellent candidate for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isEmpty()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the length of the internal final field 'value' (the byte array) to determine if the string is empty.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only check. It does not modify any state or have any observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The check is based on the length of an internal immutable array and involves no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result is determined entirely by the immutable state of the `this` object (the implicit argument).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It's a deterministic, side-effect-free check on the string's immutable state. It is highly suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "char charAt(int index)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'coder' field to determine the encoding and then reads from the internal 'value' byte array at a calculated position to retrieve the character.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only operation that returns a character. It has no side effects. Throwing IndexOutOfBoundsException is part of its contract and not considered a side effect in this context.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The character retrieval logic is deterministic and does not rely on any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value is determined solely by the 'index' argument and the immutable state of the 'this' object.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free lookup based on the input index and the string's immutable content. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int codePointAt(int index)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'coder' and 'value' fields. Depending on the encoding, it reads one or two character units from the 'value' array to assemble the Unicode code point.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only operation with no side effects. It computes and returns an integer code point.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The logic for calculating a code point is based on the Unicode standard and is deterministic. No non-deterministic calls are made.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'index' argument and the immutable state of the 'this' object.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Its result is a deterministic function of its arguments (the index and the string instance) and it has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int codePointBefore(int index)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'coder' and 'value' fields to look at the character units preceding the given index to calculate the corresponding Unicode code point.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method performs a read-only computation and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The code point calculation is based on the Unicode standard and is fully deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value is determined solely by the 'index' argument and the immutable state of the 'this' object.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is deterministic, has no side effects, and depends only on its arguments (the index and the string instance). It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int codePointCount(int beginIndex, int endIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'coder' and 'value' fields to iterate through the specified range of the string and count the number of Unicode code points, handling surrogate pairs correctly.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a pure calculation and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The counting process is based on the Unicode standard and is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result is a function of the 'beginIndex' and 'endIndex' arguments and the immutable state of the 'this' object.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It's a deterministic counting operation on an immutable data structure with no side effects, making it ideal for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int offsetByCodePoints(int index, int codePointOffset)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method accesses the string's characters by calling other methods on 'this', which in turn read the internal 'value' and 'coder' fields. It does not access fields directly.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method delegates to `Character.offsetByCodePoints`, which is a pure computational method. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The calculation is based on the Unicode standard and is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting index is determined entirely by the input arguments ('index', 'codePointOffset') and the character sequence of the 'this' object.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic calculation based on its arguments and the immutable string content, and it has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'coder' and 'value' fields to access the string's character data.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a clear side effect: it modifies the state of the 'dst' character array passed as an argument by copying characters into it.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation of copying characters is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's primary purpose is its side effect on the 'dst' argument. Its behavior depends on its arguments, but it is not a pure function because it modifies one of them.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of writing to the 'dst' array argument. Methods with side effects are not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void getBytes(int srcBegin, int srcEnd, byte[] dst, int dstBegin)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'coder' and 'value' fields to get the character data that needs to be copied.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This deprecated method has the side effect of modifying the 'dst' byte array passed as an argument by copying the low-order byte of each character into it.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The character-to-byte conversion logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's primary outcome is the modification of the 'dst' argument, which makes it impure and not solely dependent on its inputs for a return value (which is void).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It writes data into the 'dst' array argument, which is a side effect. Therefore, it is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "byte[] getBytes(java.lang.String charsetName)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'coder' and 'value' fields to access the string's character data for encoding.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new byte array. It has no side effects like I/O or modifying external state. It may throw an exception if the charset name is unsupported.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the availability of the specified charset, but for a given, supported charset, the encoding process is deterministic. The lookup of the charset itself ('Charset.forName') is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends only on the state of the 'this' object and the provided 'charsetName' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically transforms the string into a byte array based on the specified charset, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "byte[] getBytes(java.nio.charset.Charset charset)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'coder' and 'value' fields to get the character data that will be encoded.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new byte array and has no other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "For a given Charset object, the encoding process is deterministic. It does not rely on any external non-deterministic factors.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting byte array depends only on the state of the 'this' object and the 'charset' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Its output is a deterministic function of its inputs (the string and the charset) and it has no side effects. It is a good candidate for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "byte[] getBytes()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'coder' and 'value' fields of the string to get the character data for encoding.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new byte array. It has no other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because it uses `Charset.defaultCharset()`. The default charset is an external, environment-dependent setting that can vary between different JVMs or be changed at runtime.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the system's default charset, which is an implicit external dependency, not an argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its reliance on the system's default charset makes it non-deterministic. The same string can produce different results in different environments, making it unsuitable for general-purpose memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean equals(java.lang.Object anObject)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads its own 'coder' and 'value' fields, and if 'anObject' is a String, it reads the 'coder' and 'value' fields of 'anObject' to perform the comparison.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a pure comparison and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The comparison logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the state of the 'this' object and the 'anObject' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free comparison between two objects. It is suitable for memoization, though the benefit depends on the cost of the comparison vs. the hash lookup.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean contentEquals(java.lang.StringBuffer sb)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads its own 'value' and 'coder' fields. It also reads the internal state (value, length, coder) of the 'sb' StringBuffer argument.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect of synchronizing on the 'sb' argument, which involves acquiring a lock. This affects the global state of the application's monitors.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's result depends on the state of the 'sb' StringBuffer, which is mutable and can be changed by other threads. This makes the method's outcome potentially non-deterministic from the caller's perspective if the buffer is shared.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the state of 'sb', which is an argument. However, since 'sb' is mutable and its state can change between calls even if the reference is the same, the function is not pure.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It synchronizes on its argument, which is a side effect, and it reads from a mutable StringBuffer, making its result dependent on external state changes and thus non-deterministic in a concurrent environment. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean contentEquals(java.lang.CharSequence cs)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads its own internal state ('value', 'coder'). If the CharSequence 'cs' is a StringBuffer or StringBuilder, it accesses their internal arrays. Otherwise, it calls 'cs.length()' and 'cs.charAt(i)', accessing the state of the 'cs' object.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "If the argument 'cs' is a StringBuffer, the method synchronizes on it, which is a side effect. Otherwise, it is side-effect free.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's result is non-deterministic if the 'cs' argument is a mutable CharSequence (like StringBuilder or StringBuffer) whose content can be changed by another thread between the length check and character comparisons.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the state of the 'cs' argument. Because 'cs' can be mutable, the method's output is not guaranteed to be the same for the same object reference if its content has been changed externally. This violates purity.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It may have the side effect of synchronization, and it depends on the state of a potentially mutable CharSequence argument, making it non-deterministic in concurrent scenarios. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean equalsIgnoreCase(java.lang.String anotherString)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method reads the internal 'value' and 'coder' fields of both 'this' string and the 'anotherString' argument to perform a case-insensitive comparison.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a pure comparison and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The case-insensitive comparison logic is based on the Unicode standard and is not locale-dependent, making it fully deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends entirely on the immutable state of the 'this' object and the 'anotherString' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free comparison. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int compareTo(java.lang.String anotherString)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' and 'coder' fields from both 'this' string and the 'anotherString' argument to perform a lexicographical comparison.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a pure comparison and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The lexicographical comparison is based on Unicode values and is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The outcome depends only on the immutable states of the 'this' object and the 'anotherString' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It's a deterministic, side-effect-free comparison based on its inputs, making it suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int compareToIgnoreCase(java.lang.String str)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' and 'coder' fields of both this string and the argument string via the `CASE_INSENSITIVE_ORDER` comparator.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a pure comparison and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The comparison logic is complex but based on Unicode case-folding rules, not on a variable locale. It is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the immutable content of the 'this' object and the 'str' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free, case-insensitive comparison. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean regionMatches(int toffset, java.lang.String other, int ooffset, int len)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of both 'this' string and the 'other' string to compare the specified regions.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a pure comparison method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The byte-for-byte comparison is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the arguments ('toffset', 'other', 'ooffset', 'len') and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It's a deterministic, side-effect-free comparison of string regions. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean regionMatches(boolean ignoreCase, int toffset, java.lang.String other, int ooffset, int len)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of both 'this' and 'other' strings to perform either a direct or case-insensitive comparison of the specified regions.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a pure comparison method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The comparison logic, including the case-insensitive path, is based on Unicode standards and is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the arguments ('ignoreCase', 'toffset', 'other', 'ooffset', 'len') and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic comparison with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean startsWith(java.lang.String prefix, int toffset)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of both 'this' string and the 'prefix' string to perform the comparison.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a pure comparison method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The comparison is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'prefix' and 'toffset' arguments and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free check based on its inputs. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean startsWith(java.lang.String prefix)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method delegates to `startsWith(prefix, 0)`, which reads the internal state of both this string and the prefix.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a pure comparison method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The comparison is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'prefix' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free check based on its inputs. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean endsWith(java.lang.String suffix)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method delegates to `startsWith`, which reads the internal state ('value' and 'coder') of both this string and the suffix.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a pure comparison method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The comparison is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'suffix' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free check based on its inputs. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int hashCode()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'hash' and 'hashIsZero' fields to check for a cached hash code. If the hash is not cached (i.e., 'hash' is 0 and 'hashIsZero' is false), it reads the 'value' and 'coder' fields to compute the hash. It then writes the computed value back to 'hash' (or sets 'hashIsZero' to true if the hash is 0). This is a lazy initialization pattern.",
+      "stateAccesses": [
+        {
+          "name": "this.hash",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.hashIsZero",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.hash",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.hashIsZero",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect of mutating the internal cache fields 'hash' and 'hashIsZero'. However, this mutation is considered benign because it is idempotent and does not change the logical, externally observable state of the immutable String object. It's a benign data race.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The hash code calculation is a deterministic algorithm based entirely on the string's character data. It does not involve any random, time-based, or environment-dependent calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends solely on the immutable state of the 'this' object (the implicit argument), as it takes no explicit arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method can be considered pure for memoization purposes. Although it modifies internal cache fields, this is a benign side effect for lazy initialization. The calculation is deterministic and idempotent, and the logical state of the object is unchanged. Memoizing the result is safe and is what the class itself does internally.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int indexOf(int ch)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' and 'coder' fields to search for the specified character.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'ch' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic search on immutable data with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int indexOf(int ch, int fromIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' and 'coder' fields to search for the character starting from the given index.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'ch' and 'fromIndex' arguments and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic search on immutable data with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int indexOf(int ch, int beginIndex, int endIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' and 'coder' fields to search for the specified character within a given range.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the arguments ('ch', 'beginIndex', 'endIndex') and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic search on immutable data within a specified range, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int lastIndexOf(int ch)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method delegates to `lastIndexOf(ch, length() - 1)`, which reads the internal 'value' and 'coder' fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'ch' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free search. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int lastIndexOf(int ch, int fromIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' and 'coder' fields to search for the character backward from the given index.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'ch' and 'fromIndex' arguments and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic search on immutable data with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int indexOf(java.lang.String str)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of both 'this' string and the 'str' argument to search for the substring.",
+      "stateAccesses": [
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The substring search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'str' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free search for a substring. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int indexOf(java.lang.String str, int fromIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of both 'this' string and the 'str' argument to search for the substring from a given index.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The substring search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'str' and 'fromIndex' arguments and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free search for a substring. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int indexOf(java.lang.String str, int beginIndex, int endIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method may delegate to `indexOf(char, int, int)` or call a helper that reads the 'value' and 'coder' fields of both 'this' and 'str' to search within a range.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The substring search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'str', 'beginIndex', and 'endIndex' arguments and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free search for a substring within a specified range. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int lastIndexOf(java.lang.String str)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method delegates to `lastIndexOf(str, length())`, which reads the 'value' and 'coder' fields of both 'this' and 'str'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The substring search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'str' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free search. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int lastIndexOf(java.lang.String str, int fromIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of both 'this' string and the 'str' argument to perform a backward search.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a read-only search operation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The substring search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'str' and 'fromIndex' arguments and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free search. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String substring(int beginIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method delegates to `substring(beginIndex, length())`, which reads the 'value' and 'coder' fields of 'this' object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new String object. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'beginIndex' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It creates a new string based on the original's immutable data and an index, is deterministic, and has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String substring(int beginIndex, int endIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of 'this' object to create a new byte array for the new substring.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new String object. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'beginIndex' and 'endIndex' arguments and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It creates a new string based on the original's immutable data and indices, is deterministic, and has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.CharSequence subSequence(int beginIndex, int endIndex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method delegates to `substring(beginIndex, endIndex)`, which reads the internal 'value' and 'coder' fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method returns a new String object (which is a CharSequence) and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting sequence depends only on the 'beginIndex' and 'endIndex' arguments and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple delegate to the pure `substring` method. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String concat(java.lang.String str)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal state ('value', 'coder') of both 'this' string and the 'str' argument to create the new concatenated string.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new String object and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "String concatenation is a deterministic operation.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the immutable state of 'this' and the 'str' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically creates a new string from its inputs and has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String replace(char oldChar, char newChar)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of 'this' object to find and replace characters, producing a new string.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new String object (or returns 'this' if no changes are made). It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The character replacement is a deterministic operation.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'oldChar' and 'newChar' arguments and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically produces a new string based on its inputs with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean matches(java.lang.String regex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method does not directly access state; it passes 'this' as a CharSequence to `Pattern.matches`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method delegates to `Pattern.matches`, which compiles a regex and matches it. This is a computational task with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "Regular expression matching as implemented in `java.util.regex` is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'regex' argument and the character sequence of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic regex match, which is a pure computation. It is suitable for memoization, especially if the regex is complex.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean contains(java.lang.CharSequence s)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method delegates to `indexOf(s.toString())`, which reads the internal state of 'this' string and the newly created string from 's'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The `s.toString()` call could be non-deterministic if 's' is a CharSequence with a non-deterministic `toString()` implementation. Assuming standard CharSequence implementations like String, StringBuilder, it is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the content of 'this' and the content of the argument 's'. If `s.toString()` is deterministic, then the method depends only on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure, assuming the `toString()` method of the provided CharSequence is pure. For standard library classes, this holds. It performs a deterministic search with no side effects and is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String replaceFirst(java.lang.String regex, java.lang.String replacement)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method does not directly access internal state. It creates a Pattern and Matcher, passing 'this' to the matcher.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is purely computational, creating a new string. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "Regex operations in Java are deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string is determined solely by the 'regex' and 'replacement' arguments and the content of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It's a deterministic string manipulation based on a regular expression, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String replaceAll(java.lang.String regex, java.lang.String replacement)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method does not directly access internal state. It creates a Pattern and Matcher, passing 'this' to the matcher.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is purely computational, creating a new string. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "Regex operations in Java are deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string is determined solely by the 'regex' and 'replacement' arguments and the content of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It's a deterministic string manipulation based on a regular expression, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String replace(java.lang.CharSequence target, java.lang.CharSequence replacement)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' and 'coder' fields of this string, and also the state of the 'target' and 'replacement' CharSequences by calling `toString()` on them.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new String. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method relies on `target.toString()` and `replacement.toString()`. If these methods are non-deterministic, so is `replace`. Assuming standard implementations, the operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on 'this' and the string values of 'target' and 'replacement'. Assuming `toString()` is deterministic, it depends only on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure, with the caveat that the `toString()` methods of the arguments must also be pure. For standard types, this is a safe assumption. The method performs deterministic replacement with no side effects and is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String[] split(java.lang.String regex, int limit)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal state of 'this' string to perform the split operation. For the fast path, it accesses 'value' and 'coder' fields directly or via indexOf.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new array of strings. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The splitting logic, whether by simple character or by regex, is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting array depends only on the 'regex' and 'limit' arguments and the state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic split operation and returns a new array, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String[] splitWithDelimiters(java.lang.String regex, int limit)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal state of 'this' string to perform the split operation. It may access 'value' and 'coder' fields directly or via helper methods.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new array of strings. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The splitting logic, whether by simple character or by regex, is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting array depends only on the 'regex' and 'limit' arguments and the state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic split operation and returns a new array, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String[] split(java.lang.String regex)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method delegates to `split(regex, 0)`, which reads the internal state of 'this' string.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new array of strings. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The splitting logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'regex' argument and the state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free operation that returns a new array. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String join(java.lang.CharSequence delimiter, java.lang.CharSequence... elements)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method and does not access any instance state. It only processes its arguments.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new String. It calls `String.valueOf()` on elements, which in turn calls `toString()`. If an element's `toString()` has side effects, this method would propagate them. Assuming pure `toString()` implementations, it is side-effect free.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method could be non-deterministic if any element's `toString()` method is non-deterministic. Assuming standard, deterministic `toString()` implementations, this method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the provided 'delimiter' and 'elements' arguments, assuming their `toString()` methods are pure.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure, under the common assumption that the `toString()` methods of the provided elements are pure. It combines its arguments deterministically into a new string with no other side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String join(java.lang.CharSequence delimiter, java.lang.Iterable elements)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method and does not access any instance state. It only processes its arguments.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new String. It iterates over the 'elements' and calls `String.valueOf()` on them, which may call `toString()`. If an element's `toString()` or the iterator itself has side effects, this method would propagate them. Assuming purity, it is side-effect free.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's result could be non-deterministic if the iterator or the elements' `toString()` methods are non-deterministic. The order of elements also depends on the `Iterable` implementation.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the provided 'delimiter' and 'elements' arguments. However, the nature of `Iterable` can introduce non-determinism (e.g., iterating over a `HashSet` does not guarantee order).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not strictly pure. Its determinism depends on the implementation of the `Iterable` argument (e.g., iteration order) and the purity of its elements' `toString()` methods. For ordered collections like a `List` with pure elements, it behaves purely. Due to the general case, it is not guaranteed to be pure and thus is a risky candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String toLowerCase(java.util.Locale locale)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of 'this' string to perform the case conversion.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new string. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The case conversion rules are determined by the provided 'locale'. For a given locale, the conversion is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'locale' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Its transformation is deterministic for a given string and locale, and it has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String toLowerCase()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method delegates to `toLowerCase(Locale.getDefault())`, which reads the 'value' and 'coder' fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new string. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it calls `Locale.getDefault()`. The default locale is an external, environment-dependent setting.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the system's default locale, which is an implicit external input, not an argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its reliance on the default locale makes it non-deterministic across different environments. It is not suitable for memoization in a general context.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String toUpperCase(java.util.Locale locale)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields of 'this' string to perform the case conversion.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new string. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The case conversion rules are determined by the provided 'locale'. For a given locale, the conversion is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'locale' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Its transformation is deterministic for a given string and locale, and it has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String toUpperCase()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method delegates to `toUpperCase(Locale.getDefault())`, which reads the 'value' and 'coder' fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new string. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it calls `Locale.getDefault()`. The default locale is an external, environment-dependent setting.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the system's default locale, which is an implicit external input, not an argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its reliance on the default locale makes it non-deterministic across different environments. It is not suitable for memoization in a general context.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String trim()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields to find the first and last non-whitespace characters.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new string (or 'this'). It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The definition of whitespace for `trim()` (codepoint <= ' ') is fixed and the operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic string manipulation with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String strip()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields to analyze the characters and remove leading/trailing whitespace.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new string (or 'this'). It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method uses `Character.isWhitespace()`, which is based on the Unicode standard and is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic string manipulation based on Unicode standards, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String stripLeading()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields to find the first non-whitespace character.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new string (or 'this'). It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method uses `Character.isWhitespace()`, which is based on the Unicode standard and is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic string manipulation with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String stripTrailing()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields to find the last non-whitespace character.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new string (or 'this'). It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method uses `Character.isWhitespace()`, which is based on the Unicode standard and is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic string manipulation with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isBlank()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields via its call to `indexOfNonWhitespace` to check if the string contains any non-whitespace characters.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a read-only check with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The check is based on `Character.isWhitespace()`, which follows the deterministic Unicode standard.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free check on the string's content. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.util.stream.Stream lines()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields to set up a Spliterator for the stream.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method returns a new Stream object. The creation of the stream and its spliterator is not a side effect. The processing is lazy and happens upon terminal operation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The definition of line terminators is fixed, making the splitting logic deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned stream's content is derived solely from the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically creates a lazy Stream over the string's content with no side effects. The operation of creating the stream is pure and memoizable.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String indent(int n)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method accesses the internal state of the string through its call to the `lines()` method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new String. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The indentation logic is purely computational and deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'n' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic transformation on the string's lines and produces a new string, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String stripIndent()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the string's content by calling `lines()` and other helper methods like `indexOfNonWhitespace` which in turn access the internal 'value' and 'coder' fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new String. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The logic for determining and stripping incidental whitespace is based on deterministic rules and `Character.isWhitespace`, making the method deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic algorithm to remove common indentation from a block of text, producing a new string with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String translateEscapes()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method accesses the string's content via `toCharArray()`, which reads the internal 'value' and 'coder' fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new String. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The translation of escape sequences follows a fixed set of rules defined in the Java Language Specification. The process is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It applies a deterministic set of translation rules to the string content and produces a new string, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.Object transform(java.util.function.Function f)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method does not access any state itself, but passes 'this' to an external function.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has a potential side effect of executing arbitrary code contained in the Function 'f'. The function 'f' could perform I/O, modify global state, or have other side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The provided Function 'f' could be non-deterministic. Therefore, this method is non-deterministic by extension.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result is entirely determined by the Function 'f' applied to 'this'. Since 'f' is external and unknown, the method cannot be considered to depend only on its arguments in a pure sense.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a higher-order function that executes arbitrary, unknown code from the 'f' argument. This function could have side effects or be non-deterministic. Therefore, `transform` is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String toString()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method does not access any state. It simply returns the current object instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns 'this', the implicit argument, so its result depends only on its argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It simply returns a reference to itself, which is a deterministic, side-effect-free operation. It is suitable for memoization (though trivially so).",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.util.stream.IntStream chars()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' field to create a spliterator for the stream.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new IntStream object. This is not considered a side effect.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The content of the resulting stream depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It creates a lazy, deterministic stream from the string's immutable content with no side effects. The stream creation itself is a pure operation.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.util.stream.IntStream codePoints()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the internal 'value' field to create a spliterator that can decode code points.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new IntStream object. This is not a side effect.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The decoding of code points from the internal representation is deterministic based on Unicode rules.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The content of the resulting stream depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It creates a lazy, deterministic stream of code points from the string's immutable content with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "char[] toCharArray()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value' and 'coder' fields to create a new character array representing the string's content.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new character array. It has no other side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The conversion from the internal byte representation to a char array is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned array's content depends only on the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically creates a new array from the string's immutable data and has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String format(java.lang.String format, java.lang.Object... args)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method and does not access any instance state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method can have side effects if the `toString()` or `formatTo()` methods of the provided `args` have side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because it uses the default locale for formatting (`Locale.getDefault(Locale.Category.FORMAT)`), which is an environment-dependent setting. Also, the `toString()` methods of the arguments could be non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the system's default locale and the behavior of `toString()` on its arguments, not just the arguments themselves.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It relies on the default system locale, making it non-deterministic. It also invokes `toString()` on arbitrary objects, which could have side effects or be non-deterministic. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String format(java.util.Locale l, java.lang.String format, java.lang.Object... args)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method and does not access any instance state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method can have side effects if the `toString()` or `formatTo()` methods of the provided `args` have side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method could be non-deterministic if the `toString()` or `formatTo()` methods of the `args` objects are non-deterministic. However, with the locale provided as an argument, a major source of non-determinism is removed.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method depends on its arguments, but it also depends on the implementation of `toString()` for the objects in `args`, which are external dependencies. This makes it impure.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It invokes formatting and `toString()` methods on arbitrary objects, which could have side effects or be non-deterministic. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String formatted(java.lang.Object... args)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This method does not access state directly, but uses `this` string as the format string in a call to `Formatter`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method can have side effects if the `toString()` or `formatTo()` methods of the provided `args` have side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because its underlying `Formatter` uses the default locale, an environment-dependent setting. The arguments' `toString()` methods could also be non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the system's default locale and the behavior of `toString()` on its arguments, not just the arguments themselves.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It relies on the default system locale and invokes `toString()` on arbitrary objects, making it non-deterministic and potentially having side effects. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String valueOf(java.lang.Object obj)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method that does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's side effects depend entirely on the `obj.toString()` implementation, which could do anything.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic if the `obj.toString()` implementation is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the behavior of `obj.toString()`, an external call, making it impure.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it calls the `toString()` method on an arbitrary object. This external call could have side effects or be non-deterministic. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String valueOf(char[] data)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This static method does not access any state; it creates a new String, which involves reading the input array.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new String object and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'data' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically creates a new string from the input array with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String valueOf(char[] data, int offset, int count)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This static method does not access any state; it creates a new String, which involves reading the input array.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new String object and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'data', 'offset', and 'count' arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically creates a new string from a subarray with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String copyValueOf(char[] data, int offset, int count)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This static method does not access any state; it creates a new String, which involves reading the input array.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new String object and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'data', 'offset', and 'count' arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically creates a new string from a subarray with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String copyValueOf(char[] data)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This static method does not access any state; it creates a new String, which involves reading the input array.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new String object and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'data' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically creates a new string from the input array with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String valueOf(boolean b)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method that does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method returns a constant string and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'b' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns one of two constant strings based on the boolean input. It is deterministic and side-effect free.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String valueOf(char c)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method that does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new String and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'c' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically creates a new one-character string with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String valueOf(int i)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method that does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method delegates to `Integer.toString(i)`, which is a pure computation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The conversion from integer to string is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'i' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free wrapper for `Integer.toString()`. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String valueOf(long l)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method that does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method delegates to `Long.toString(l)`, which is a pure computation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The conversion from long to string is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'l' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free wrapper for `Long.toString()`. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String valueOf(float f)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method that does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method delegates to `Float.toString(f)`, which is a pure computation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The conversion from float to string is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'f' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free wrapper for `Float.toString()`. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String valueOf(double d)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a static method that does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method delegates to `Double.toString(d)`, which is a pure computation with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The conversion from double to string is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The resulting string depends only on the 'd' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free wrapper for `Double.toString()`. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "native java.lang.String intern()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "This is a native method. It interacts with the JVM's internal string pool, which is a form of global state. It reads from this pool and may write to it (by adding the current string).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of modifying a shared, global state: the JVM's string pool. If the string is not already in the pool, it is added.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic in a sense that its performance and memory behavior can depend on the previous history of all `intern` calls in the JVM. However, for a given string content, it will always return a reference to a string with that same content.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the state of the global string pool, not just the content of 'this' string. It returns a pre-existing object from the pool if available.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads from and writes to a shared global state (the string pool), which is a significant side effect. Its behavior is stateful. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String repeat(int count)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method reads the 'value', 'coder', and length of 'this' string to construct the repeated string.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.coder",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new String object. It has no other side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The operation is a deterministic computation based on the string content and the repeat count.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends only on the 'count' argument and the immutable state of 'this'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically creates a new string by repeating its content, with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.util.Optional describeConstable()",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method does not access any fields. It wraps the `this` reference in an Optional.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It returns a new Optional object containing `this`.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned Optional's content depends only on the `this` reference, which is the implicit argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect free operation that returns a new Optional wrapper around the `this` reference. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String resolveConstantDesc(java.lang.invoke.MethodHandles.Lookup lookup)",
+      "className": "java.lang.String",
+      "reasonAboutStateAccesses": "The method does not access any fields. It returns the `this` reference.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic. It ignores the lookup argument.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned value is the `this` reference, which is the implicit argument. The 'lookup' argument is ignored.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect free operation that returns `this`. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

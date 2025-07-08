@@ -1,0 +1,1416 @@
+{
+  "file_name": "java.util.ArrayList",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/ArrayList.java",
+  "source_code_file_path": "java_source_code_files/java/util/ArrayList.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751922243,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 254.577,
+  "llm_analysis": [
+    {
+      "methodSignature": "void trimToSize()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method modifies the internal state of the ArrayList. It increments 'this.modCount' (inherited from AbstractList), reads 'this.size' and 'this.elementData.length'. If the capacity is greater than the size, it creates a new, smaller array and assigns it to 'this.elementData', effectively changing the list's capacity.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect because it modifies the internal state of the object, specifically the 'elementData' array and the 'modCount' field. This change is observable through subsequent calls to methods like 'size()' or by inspecting memory usage.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic. It relies on array copying and size comparisons, which are deterministic operations.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method does not take any arguments. Its behavior depends entirely on the internal state of the ArrayList instance ('size' and 'elementData').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects as it modifies the internal state of the ArrayList instance ('modCount', 'elementData'). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void ensureCapacity(int minCapacity)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method may modify the internal state. It reads 'this.elementData.length' to check if the current capacity is sufficient. If not, it increments 'this.modCount' and calls the 'grow' method, which reassigns 'this.elementData' to a new, larger array.",
+      "stateAccesses": [
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a potential side effect of modifying the list's internal state ('elementData' and 'modCount') if the requested minimum capacity is larger than the current capacity. This is an observable change.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic, based on comparisons and array allocation logic in the 'grow' method.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on both its argument 'minCapacity' and the internal state of the list ('elementData').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has potential side effects by modifying the list's internal storage array ('elementData') and modification count ('modCount'). Its behavior also depends on the current state, not just its input argument. Thus, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "private Object[] grow(int minCapacity)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This private helper method reads 'this.elementData' to determine its current length and content. It then allocates a new, larger array and writes this new array back to 'this.elementData'. It does not access 'size' or 'modCount' directly.",
+      "stateAccesses": [
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the 'elementData' field of the ArrayList instance. This is a core part of its function to increase the list's capacity.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method uses deterministic logic for calculating the new capacity via 'ArraysSupport.newLength' and for copying the array. It does not use random or time-based functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value depend on the input 'minCapacity' as well as the internal state field 'this.elementData'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It directly modifies the internal state ('this.elementData') and its behavior depends on this state. It is an internal state-mutating helper method and is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "private Object[] grow()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This private helper method reads the internal field 'this.size' and passes 'size + 1' to the 'grow(int)' method. The 'grow(int)' method then modifies 'this.elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect because it calls 'grow(int)', which modifies the internal 'elementData' array of the list.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. It calls 'grow(int)' with a deterministically calculated value.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method takes no arguments and its behavior depends on the internal state field 'this.size'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It causes a side effect by calling another method ('grow(int)') that modifies the internal state of the ArrayList. Its behavior also depends on the internal 'size' field. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int size()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads the internal primitive field 'this.size' to return the number of elements in the list.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only query of the list's size. It does not perform any I/O, UI updates, or modifications to its internal or any external state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any random, time-based, or system-dependent calls. Its behavior is entirely deterministic based on the current state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is not solely dependent on its arguments (it has none). It depends on the internal state field 'this.size'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the internal state of the ArrayList instance ('this.size'), not just its input arguments. It does not have side effects, but its dependency on mutable state makes it unsuitable for general memoization, as its result changes whenever the list is modified.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isEmpty()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads the internal primitive field 'this.size' to check if it is equal to zero.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only query. It does not modify any state, internal or external, and has no other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is fully deterministic, based on the value of the 'size' field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments. Its return value depends on the internal state of the list ('this.size').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its return value depends on the mutable internal state ('this.size') rather than solely on its inputs. Therefore, it is not a good candidate for memoization across state changes.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean contains(Object o)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method calls 'indexOf(o)', which in turn calls 'indexOfRange'. This chain of calls results in reading the internal state fields 'this.size' and 'this.elementData' to search for the specified object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a read-only operation. It queries the list's contents without modifying any state. It has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic. Its result depends on the 'equals' method of the elements in the list, which could potentially be non-deterministic, but the 'contains' method logic does not introduce non-determinism.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its argument 'o' and the internal state of the list ('this.size', 'this.elementData').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has no side effects, but its result is dependent on the mutable internal state of the ArrayList ('elementData' and 'size'). Its result can change if the list is modified. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int indexOf(Object o)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method calls 'indexOfRange(o, 0, size)', which involves reading the internal state fields 'this.size' and 'this.elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only query that searches the list. It does not modify any state and has no other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic. Non-determinism could be introduced by the 'equals' method of the elements being searched, but not by 'indexOf' itself.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the argument 'o' and the internal state of the list ('elementData' and 'size').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the mutable internal state of the ArrayList. While it has no side effects, this dependency makes it unsuitable for memoization as the list's contents can change.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int indexOfRange(Object o, int start, int end)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This package-private method reads the internal object field 'this.elementData' to iterate through a specified range of elements and find a match.",
+      "stateAccesses": [
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only helper method. It does not modify any state and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic. It performs a linear search. The behavior of the 'equals' method on the elements could be non-deterministic, but that is external to this method's implementation.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its arguments ('o', 'start', 'end') and the contents of the internal 'elementData' array.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the internal 'elementData' state. While it is a read-only operation, this state dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int lastIndexOf(Object o)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method calls 'lastIndexOfRange(o, 0, size)', which involves reading the internal state fields 'this.size' and 'this.elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only query method. It does not modify the list's state or have other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's control flow is deterministic. The 'equals' method of the list elements could be non-deterministic, but 'lastIndexOf' itself does not introduce non-determinism.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the argument 'o' as well as the internal state ('elementData' and 'size').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result is dependent on the mutable internal state of the ArrayList. Although it lacks side effects, this dependency on state that can change makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int lastIndexOfRange(Object o, int start, int end)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This package-private method reads the internal object field 'this.elementData' to iterate backwards through a specified range of elements and find a match.",
+      "stateAccesses": [
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only helper method. It does not modify any state and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic, performing a reverse linear search. Any non-determinism would originate from the 'equals' method of the elements, not this method.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the arguments ('o', 'start', 'end') and the contents of the internal 'elementData' array.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the internal 'elementData' state. While it is a read-only operation, this state dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Object clone()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method reads the internal state of the list, specifically 'this.elementData' and 'this.size', to create a shallow copy. It does not write to the state of the current instance.",
+      "stateAccesses": [
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects on the current object. Its purpose is to create and return a new ArrayList instance, which is not considered a side effect in this context. It does modify the state of the newly created clone (setting its modCount to 0), but not 'this' object.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. Cloning and array copying are deterministic operations.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. The returned object's state depends entirely on the state of the instance being cloned ('this').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects on the current instance, its return value is a new object whose state is determined by the mutable internal state of 'this'. The concept of purity and memoization is not typically applied to factory/cloning methods like this.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Object[] toArray()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads the internal fields 'this.elementData' and 'this.size' to create a new array containing the list's elements.",
+      "stateAccesses": [
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method does not have side effects. It creates and returns a new array, but does not modify the internal state of the ArrayList.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. The 'Arrays.copyOf' operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments. The returned array's content depends on the internal state of the list ('elementData' and 'size').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has no side effects on the list itself, but its return value depends on the list's mutable internal state. Memoizing the result would only be valid as long as the list remains unchanged.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "<T> T[] toArray(T[] a)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads the internal fields 'this.elementData' and 'this.size' to copy elements into the provided array or a new array.",
+      "stateAccesses": [
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect: it modifies the contents of the array 'a' passed as an argument if 'a' is large enough to hold the list's elements. This is an observable modification of an external object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic, relying on array copying and length checks.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior depend on the argument 'a' (its type and length) and the internal state of the list ('elementData' and 'size').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a side effect of modifying its argument array 'a'. Its behavior also depends on the list's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "E elementData(int index)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This package-private helper method performs a direct read from the internal 'this.elementData' array at the given index.",
+      "stateAccesses": [
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only operation and has no side effects. It simply retrieves a value from an internal data structure.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. It performs a simple array access.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its argument 'index' and the internal state of the 'elementData' array.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the mutable internal state ('this.elementData'). While it has no side effects, this dependency makes it unsuitable for memoization across different states of the list.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "static <E> E elementAt(Object[] es, int index)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This is a static helper method. It does not access any instance fields of ArrayList. It only accesses the array 'es' passed as an argument.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It is a read-only operation on its input arguments.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, performing a simple array access.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends only on its input arguments 'es' and 'index'. It does not depend on any class or instance state.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects and its output is determined solely by its input arguments. It would be a suitable candidate for memoization if calls to it were expensive and repetitive.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "E get(int index)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method first reads 'this.size' to perform a bounds check ('Objects.checkIndex'). If the check passes, it calls 'elementData(index)', which reads from the 'this.elementData' array.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a read-only query. It does not modify any state and has no observable side effects (throwing an exception for an invalid index is not considered a side effect here).",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, performing a bounds check and an array access.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its argument 'index' and the internal state of the list ('elementData' and 'size').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it lacks side effects, its result depends on the mutable internal state of the ArrayList. Memoizing its result would be unreliable as the list's contents can change.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "E getFirst()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads the 'size' field to check if the list is empty. If not empty, it calls 'elementData(0)', which reads the first element from the 'elementData' array.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only query method. It does not modify any state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. It checks the size and accesses the first element of an array.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method has no arguments and its output depends on the internal state of the list (specifically, the element at index 0).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output depends on the mutable state of the list. It has no side effects, but due to its state dependency, it's not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "E getLast()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads the 'size' field to calculate the index of the last element. If the list is not empty, it calls 'elementData(last)', which reads from the 'elementData' array.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only query method. It does not modify any state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. It involves a calculation and an array access.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method has no arguments and its output depends on the internal state of the list (specifically, the last element).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output depends on the mutable state of the list. It has no side effects, but this dependency on state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "E set(int index, E element)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method reads 'this.size' for a bounds check. It then reads 'this.elementData' at the given index to retrieve the old value, and subsequently writes the new 'element' to the same position in 'this.elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a clear side effect: it modifies the internal 'elementData' array by replacing an element. This is a structural modification that is observable in subsequent calls.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (which element is replaced) and its return value (the old element) depend on its arguments and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying the list's internal array. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "private void add(E e, Object[] elementData, int s)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This private helper method may call 'grow()', which writes to 'this.elementData'. It then writes the new element 'e' into the 'elementData' array (passed as an argument, but it is 'this.elementData' from the caller). Finally, it writes to 'this.size'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the list's state, specifically 'this.size' and potentially 'this.elementData' (by writing an element and via the 'grow' call).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments and the state of 'this.elementData' and 'this.size'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a private helper designed specifically to mutate the instance's state ('size' and 'elementData'). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean add(E e)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method writes to 'this.modCount'. It then calls a private 'add' helper method which reads 'this.elementData' and 'this.size', and writes to 'this.size' and potentially 'this.elementData' (if a grow operation is needed).",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects as it modifies the list's internal state: it adds an element to 'elementData', increments 'size', and increments 'modCount'. These are observable state changes.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its argument 'e' and the list's internal state (current size and capacity).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is to cause a side effect: modifying the list by adding an element. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void add(int index, E element)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method reads 'this.size' for a bounds check. It writes to 'this.modCount'. It reads 'this.size' and 'this.elementData' again to check for capacity, potentially calling 'grow' which writes to 'this.elementData'. It then modifies 'this.elementData' via 'System.arraycopy' and direct assignment, and finally writes to 'this.size'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It modifies the list's contents ('elementData'), size ('size'), and modification count ('modCount'). This is a structural modification of the list.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments ('index', 'element') and the list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to mutate the list by inserting an element at a specific position, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void addFirst(E element)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method delegates its work to 'add(0, element)', which reads and writes internal state fields such as 'modCount', 'size', and 'elementData'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it calls 'add(0, element)', which performs a structural modification on the list by adding an element to the beginning.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, as it calls another deterministic method.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its argument 'element' and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It causes a side effect by calling 'add(0, element)' to mutate the list. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void addLast(E element)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method delegates its work to 'add(element)', which reads and writes internal state fields such as 'modCount', 'size', and 'elementData'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it calls 'add(element)', which performs a structural modification on the list by appending an element.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, as it calls another deterministic method.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its argument 'element' and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It causes a side effect by calling 'add(element)' to mutate the list. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "E remove(int index)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads 'this.size' for a bounds check, and reads from 'this.elementData' to get the value to be returned. It then calls 'fastRemove', which writes to 'this.modCount', 'this.size', and 'this.elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It removes an element from the list, which involves modifying 'elementData', decrementing 'size', and incrementing 'modCount'. This is a structural modification.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value depend on the argument 'index' and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is to mutate the list by removing an element, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "E removeFirst()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method reads 'size' to check for emptiness, then reads 'elementData[0]' to get the return value. It then calls 'fastRemove(es, 0)', which modifies 'modCount', 'size', and 'elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It performs a structural modification by removing the first element, which alters 'elementData', 'size', and 'modCount'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its behavior and return value depend entirely on the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to mutate the list by removing the first element. This is a side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "E removeLast()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method reads 'size' to find the last element's index and to check for emptiness. It reads 'elementData' at the last index for the return value. It then calls 'fastRemove(es, last)', which modifies 'modCount', 'size', and 'elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It performs a structural modification by removing the last element, which alters 'elementData', 'size', and 'modCount'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its behavior and return value depend entirely on the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to mutate the list by removing the last element. This is a side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean equals(Object o)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method reads the internal field 'this.modCount' to check for concurrent modifications. It also calls helper methods ('equalsArrayList' or 'equalsRange') which read 'this.size' and 'this.elementData' to compare with the other list.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only comparison and does not modify the state of 'this' instance. It has no observable side effects (throwing ConcurrentModificationException is a control flow mechanism, not a state change).",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic. However, the result depends on the 'equals' and 'hashCode' methods of the elements contained in the list, which may be non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the argument 'o' and the internal state of both 'this' list and the list 'o'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its result depends on the mutable internal state of the list. Its value can change if the list is modified, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int hashCode()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads 'this.modCount' to check for concurrent modifications. It then calls 'hashCodeRange', which reads 'this.size' and iterates over 'this.elementData' to compute the hash code.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a read-only operation. It computes a value based on the list's contents but does not modify any state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's own logic is deterministic. The final hash code depends on the 'hashCode()' implementation of the elements within the list, which could potentially be non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its return value is entirely dependent on the internal state of the list ('elementData' and 'size').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has no side effects, but its return value depends on the mutable state of the list. The hash code will change if the list's contents change, so memoization would be invalid across state changes.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean remove(Object o)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads 'this.elementData' and 'this.size' to find the first occurrence of the object 'o'. If found, it calls 'fastRemove', which writes to 'this.modCount', 'this.size', and 'this.elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a potential side effect. If the object is found and removed, it causes a structural modification to the list, changing 'elementData', 'size', and 'modCount'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its argument 'o' and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to conditionally mutate the list's state by removing an element, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "private void fastRemove(Object[] es, int i)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This private helper method directly manipulates the list's state. It writes to 'this.modCount' and 'this.size'. It also modifies the contents of the 'es' array (which is 'this.elementData') using 'System.arraycopy' and by nulling out the last element.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method's sole purpose is to perform side effects: modifying the 'modCount', 'size', and the backing array ('elementData') to efficiently remove an element.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments and the internal 'size' field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a private helper that exists purely to mutate the state of the list. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clear()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method writes to 'this.modCount'. It then iterates from 0 to 'this.size', writing null to each position in 'this.elementData'. Finally, it writes 0 to 'this.size'.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It structurally modifies the list by removing all elements, which involves changing 'elementData', 'size', and 'modCount'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its behavior is to change the internal state to an empty representation.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its entire purpose is to mutate the list state into an empty state. This is a significant side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean addAll(Collection<? extends E> c)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method writes to 'this.modCount'. It reads 'this.elementData' and 'this.size'. It may call 'grow', which writes to 'this.elementData'. It then writes to 'this.elementData' via 'System.arraycopy' and updates 'this.size'.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It modifies the list by appending all elements from the given collection, which changes 'elementData', 'size', and 'modCount'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. The order of elements added is determined by the collection's 'toArray' method.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the argument collection 'c' and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is to mutate the list by adding multiple elements, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean addAll(int index, Collection<? extends E> c)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads 'this.size' for a bounds check. It writes to 'this.modCount'. It reads 'this.elementData' and 'this.size' again. It may write to 'this.elementData' via 'grow'. It writes to 'this.elementData' via 'System.arraycopy' and updates 'this.size'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It structurally modifies the list by inserting all elements from the given collection at a specified index, changing 'elementData', 'size', and 'modCount'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments ('index', 'c') and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It mutates the list's state by inserting a collection of elements, which is a side effect. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "protected void removeRange(int fromIndex, int toIndex)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method writes to 'this.modCount'. It then calls 'shiftTailOverGap', which reads 'this.size' and modifies 'this.elementData' and 'this.size' to remove a range of elements.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It performs a structural modification by removing a range of elements from the list, which alters 'elementData', 'size', and 'modCount'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments 'fromIndex' and 'toIndex' and the list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to mutate the list by removing a range of elements, which is a side effect. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean removeAll(Collection<?> c)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method calls 'batchRemove', which reads 'this.elementData' and 'this.size', and writes to 'this.modCount', 'this.size', and 'this.elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects. If any elements from the specified collection are present in the list, it will structurally modify the list by removing them, altering 'elementData', 'size', and 'modCount'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic. Its behavior depends on the 'contains' method of the argument collection 'c'.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the argument collection 'c' and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to conditionally mutate the list's state, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean retainAll(Collection<?> c)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method calls 'batchRemove', which reads 'this.elementData' and 'this.size', and writes to 'this.modCount', 'this.size', and 'this.elementData'.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects. If the list contains elements not present in the specified collection, it will structurally modify the list by removing them, altering 'elementData', 'size', and 'modCount'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic. Its behavior depends on the 'contains' method of the argument collection 'c'.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the argument collection 'c' and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to conditionally mutate the list's state, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ListIterator<E> listIterator(int index)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads 'this.size' to perform a bounds check via the 'rangeCheckForAdd' helper method.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method itself has no side effects. It creates and returns a new 'ListItr' object. However, the returned iterator can later be used to modify the list, which is a deferred side effect.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value (a new iterator) depends on the 'index' argument, but the behavior of that iterator depends on the list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it does not directly modify state, it returns an object (an iterator) that is intrinsically tied to the mutable state of the list and can be used to mutate it. Factory methods for stateful objects are generally considered impure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ListIterator<E> listIterator()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method does not directly access any state fields. It creates a new ListItr object, whose behavior will depend on the list's state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method itself has no side effects. It creates and returns a new 'ListItr' object. The returned iterator can be used to modify the list.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments, and the returned object's behavior depends on the list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It returns an iterator, an object that is coupled with the list's mutable state and can be used to modify that state. Such factory methods are not considered pure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Iterator<E> iterator()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method does not directly access any state fields. It creates a new Itr object, whose behavior will depend on the list's state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method itself has no side effects. It creates and returns a new 'Itr' object. The returned iterator can be used to modify the list via its 'remove' method.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments, and the returned object's behavior depends on the list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a factory for an iterator object which is stateful and coupled to the list's mutable state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "List<E> subList(int fromIndex, int toIndex)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method reads 'this.size' to perform a bounds check ('subListRangeCheck').",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method itself does not have side effects. It creates and returns a new 'SubList' object. However, this returned object is a view of the original list, and modifications to the sublist will modify the original list.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's arguments determine the range of the sublist, but the returned object is a view of the original list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It returns a 'view' object that shares mutable state with the original list. Operations on the returned list directly affect the original list. This shared mutable state makes the operation impure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void forEach(Consumer<? super E> action)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method reads 'this.modCount', 'this.elementData', and 'this.size' to iterate through the elements. It also re-reads 'modCount' to check for concurrent modifications.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.elementData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects because it executes the provided 'action' for each element. The 'Consumer' action is external code that can perform any operation, including I/O, state mutation, etc.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's own logic is deterministic, but the provided 'action' can be non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the provided 'action' and the internal state of the list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It accepts a 'Consumer' function as an argument and executes it, which is an explicit side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Spliterator<E> spliterator()",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "The method does not directly access any state fields. It creates a new ArrayListSpliterator object, whose behavior will depend on the list's state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method itself has no side effects. It is a factory method that creates and returns a new 'ArrayListSpliterator' object. The returned spliterator is stateful and operates on the list's state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments. The returned spliterator's behavior depends on the list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a factory for a stateful 'Spliterator' object that is coupled to the list's mutable state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean removeIf(Predicate<? super E> filter)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method delegates to an internal 'removeIf' implementation, which reads 'this.size', 'this.modCount', and 'this.elementData', and can write to 'this.modCount', 'this.size', and 'this.elementData' if elements are removed.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects. It iterates through the list and removes elements that match the predicate. This is a structural modification. Additionally, the predicate itself is external code that could have its own side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic, but the provided 'filter' predicate can be non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the 'filter' predicate and the list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to mutate the list based on a predicate, which is a side effect. It also executes external code (the predicate). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void replaceAll(UnaryOperator<E> operator)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method calls 'replaceAllRange' which reads 'this.modCount' and reads/writes to 'this.elementData'. This method itself then writes to 'this.modCount'.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It modifies the 'elementData' array by applying the operator to each element. It also increments 'modCount'. The operator itself is external code that can have side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's own logic is deterministic, but the provided 'operator' can be non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the 'operator' and the list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It mutates the list's internal 'elementData' by applying an operator, which is a side effect. It also executes external code. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sort(Comparator<? super E> c)",
+      "className": "java.util.ArrayList",
+      "reasonAboutStateAccesses": "This method calls 'sortRange', which reads 'this.modCount' and modifies 'this.elementData' by sorting it. This method then increments 'this.modCount'.",
+      "stateAccesses": [
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a clear side effect: it reorders the elements within the internal 'elementData' array and increments 'modCount'. This is a modification of the list's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The sorting algorithm itself is deterministic. The behavior of the comparator is external but typically deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the 'c' comparator and the list's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is to mutate the list's state by sorting its elements. This is a side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

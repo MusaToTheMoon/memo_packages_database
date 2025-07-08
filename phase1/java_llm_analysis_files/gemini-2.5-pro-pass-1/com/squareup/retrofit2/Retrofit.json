@@ -1,0 +1,864 @@
+{
+  "file_name": "com.squareup.retrofit2.Retrofit",
+  "source_type": "github",
+  "url": "https://github.com/square/retrofit/blob/master/retrofit/src/main/java/retrofit2/Retrofit.java",
+  "source_code_file_path": "java_source_code_files/com/squareup/retrofit2/Retrofit.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751897579,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 466.588,
+  "llm_analysis": [
+    {
+      "methodSignature": "<T> T create(final Class<T> service)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "The method accesses the internal boolean field 'this.validateEagerly' to decide whether to validate the service interface eagerly. It also implicitly uses other internal fields (like baseUrl, callFactory, etc.) by creating a proxy that captures the 'this' reference. The InvocationHandler created within this method calls 'loadServiceMethod', which reads and writes to the 'serviceMethodCache', an internal ConcurrentHashMap used for caching parsed method information. It also reads from the global state 'Platform.reflection'.",
+      "stateAccesses": [
+        {
+          "name": "this.validateEagerly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.serviceMethodCache",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.serviceMethodCache",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "retrofit2.Platform.reflection",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The primary side effect is the creation of a new Proxy instance using 'Proxy.newProxyInstance'. This method allocates memory and creates a new object with its own state and behavior. Additionally, it calls 'validateServiceInterface', which can throw an 'IllegalArgumentException', another observable side effect. The created proxy's methods, when invoked, will perform network I/O, which is a major side effect, but this happens after the 'create' method returns.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method relies on Java reflection through 'Proxy.newProxyInstance' and 'Platform.reflection', which can have non-deterministic aspects depending on the security environment and runtime platform. The behavior of the created proxy's default method invocation also depends on the platform-specific reflection implementation.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output, a proxy object, does not depend solely on its arguments. Its behavior is configured by the state of the 'Retrofit' instance (e.g., 'baseUrl', 'converterFactories', 'callFactory'). The 'validateEagerly' field also directly influences its execution path.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a significant side effect of creating a new proxy object. Its behavior also depends on the internal state of the 'Retrofit' instance, not just its input arguments. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void validateServiceInterface(Class<?> service)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method reads the internal boolean field 'this.validateEagerly'. If this field is true, it proceeds to call 'loadServiceMethod' for each method in the service interface, which in turn reads from and writes to the 'this.serviceMethodCache' map. It also accesses global state via 'Platform.reflection'.",
+      "stateAccesses": [
+        {
+          "name": "this.validateEagerly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "retrofit2.Platform.reflection",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.serviceMethodCache",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method can have side effects. It can throw an 'IllegalArgumentException' if the service interface is invalid. If 'validateEagerly' is true, it modifies the internal state 'this.serviceMethodCache' by calling 'loadServiceMethod', which populates the cache.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on reflection ('service.getDeclaredMethods', 'Platform.reflection'), which can be considered non-deterministic in some contexts. The iteration over declared methods depends on the JVM's implementation, although it's generally stable.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, the method's behavior is not solely dependent on its arguments. It is critically dependent on the internal state field 'this.validateEagerly' and it interacts with the 'serviceMethodCache'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of potentially modifying the 'serviceMethodCache', an internal state field. It can also throw exceptions, altering the control flow. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ServiceMethod<?> loadServiceMethod(Class<?> service, Method method)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method heavily interacts with the internal state 'this.serviceMethodCache', which is a ConcurrentHashMap. It performs reads ('get') and conditional writes ('putIfAbsent', 'put', 'remove') to implement a thread-safe, lazy-loading cache for parsed ServiceMethod objects.",
+      "stateAccesses": [
+        {
+          "name": "this.serviceMethodCache",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.serviceMethodCache",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The primary side effect of this method is the mutation of the 'this.serviceMethodCache' map. It's designed to populate this cache. It also calls 'ServiceMethod.parseAnnotations', which can throw various exceptions during parsing, another observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic by design due to its handling of concurrency. It uses 'synchronized' blocks and 'putIfAbsent' on a concurrent map. The exact execution path and timing depend on thread scheduling and interleaving, making its behavior non-deterministic in a multi-threaded environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, this method's return value and behavior are highly dependent on the current state of the 'serviceMethodCache', not just the input arguments. The same call at different times can yield different execution paths (e.g., building the object vs. retrieving it from the cache).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It mutates the internal 'serviceMethodCache', its behavior is non-deterministic due to concurrency handling, and it can throw exceptions. It is fundamentally a stateful caching mechanism and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "okhttp3.Call.Factory callFactory()",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method performs a single read access on the internal final field 'this.callFactory'. 'callFactory' is an object type.",
+      "stateAccesses": [
+        {
+          "name": "this.callFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a simple getter that returns a reference to an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any non-deterministic calls. It directly returns a field reference.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the 'Retrofit' instance ('this.callFactory'), not on any input arguments (as it has none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is pure and suitable for memoization. It is a simple getter for an effectively immutable field of the Retrofit object (it's final and set at construction). It has no side effects and is deterministic.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "HttpUrl baseUrl()",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method performs a single read access on the internal final field 'this.baseUrl'. 'baseUrl' is an object type.",
+      "stateAccesses": [
+        {
+          "name": "this.baseUrl",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a simple getter that returns a reference to an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any non-deterministic calls. It directly returns a field reference.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the 'Retrofit' instance ('this.baseUrl'), not on any input arguments (as it has none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is pure and suitable for memoization. It's a simple getter for an effectively immutable field of the Retrofit object. It has no side effects and its output is deterministic for a given Retrofit instance.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "List<CallAdapter.Factory> callAdapterFactories()",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method reads the internal final field 'this.callAdapterFactories', which is an unmodifiable list of objects.",
+      "stateAccesses": [
+        {
+          "name": "this.callAdapterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a simple getter that returns a reference to an unmodifiable list, preventing mutation by the caller.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls; it just returns a field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the 'Retrofit' instance ('this.callAdapterFactories'), not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is pure and suitable for memoization. It is a getter for an immutable field (an unmodifiable list set at construction). It has no side effects and is deterministic.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "CallAdapter<?, ?> callAdapter(Type returnType, Annotation[] annotations)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method doesn't directly access state but delegates to 'nextCallAdapter(null, returnType, annotations)', which reads the internal 'this.callAdapterFactories' list.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has potential side effects because it calls 'nextCallAdapter', which iterates through a list of user-provided 'CallAdapter.Factory' instances and invokes their 'get' method. These external methods could have any side effect. It can also throw an 'IllegalArgumentException' if no suitable adapter is found.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The determinism of this method depends on the implementations of the 'get' method in the provided 'CallAdapter.Factory' instances. If any of those factories are non-deterministic, this method will be as well.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, the result depends on the internal 'callAdapterFactories' list, which is part of the Retrofit instance's state, in addition to the method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It delegates to external, user-provided code (the call adapter factories), whose behavior is unknown and could include side effects or non-determinism. This makes it unsuitable for general memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "CallAdapter<?, ?> nextCallAdapter(@Nullable CallAdapter.Factory skipPast, Type returnType, Annotation[] annotations)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method reads the internal field 'this.callAdapterFactories', which is a list of objects, to iterate over the available factories.",
+      "stateAccesses": [
+        {
+          "name": "this.callAdapterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects because it iterates through and invokes the 'get' method on external 'CallAdapter.Factory' objects. The behavior of this external code is not guaranteed and could involve I/O, state mutation, or other side effects. It also throws an 'IllegalArgumentException' if no adapter is found.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's determinism depends entirely on the 'get' methods of the configured 'CallAdapter.Factory' instances. If any of them rely on random numbers, system time, or other non-deterministic sources, this method will also be non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, the method's result depends on the internal list of 'callAdapterFactories' in addition to its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it invokes external code provided by the user (the 'CallAdapter.Factory' instances). The behavior of these factories is unknown and could be impure. Passing 'this' to the factories also allows them to call back into Retrofit, creating complex dependencies. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "List<Converter.Factory> converterFactories()",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method reads the internal final field 'this.converterFactories', which is an unmodifiable list of objects.",
+      "stateAccesses": [
+        {
+          "name": "this.converterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It returns an unmodifiable list, which safely exposes the internal state without allowing mutation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the 'Retrofit' instance ('this.converterFactories'), not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is pure and suitable for memoization. It is a simple, deterministic getter for an immutable field (an unmodifiable list) and has no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "<T> Converter<T, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method delegates its work to 'nextRequestBodyConverter', which reads the internal 'this.converterFactories' list. It does not access state directly.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has potential side effects as it calls 'nextRequestBodyConverter', which invokes methods on external, user-supplied 'Converter.Factory' objects. These external methods could have side effects. It can also throw an 'IllegalArgumentException'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's determinism depends on the 'requestBodyConverter' methods of the configured 'Converter.Factory' instances. If those are non-deterministic, this method will be too.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, the outcome depends on the configured 'converterFactories' list within the Retrofit instance, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It calls out to external code (converter factories) whose behavior is unknown and could be impure. This makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> Converter<T, RequestBody> nextRequestBodyConverter(@Nullable Converter.Factory skipPast, Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method reads the internal state field 'this.converterFactories' to iterate through the list of available converter factories.",
+      "stateAccesses": [
+        {
+          "name": "this.converterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has potential side effects because it calls the 'requestBodyConverter' method on external 'Converter.Factory' objects. This external code is user-provided and can perform any action. It also throws an 'IllegalArgumentException' if no suitable converter is found.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's determinism is dependent on the implementations of the 'Converter.Factory' instances it calls. If any factory's 'requestBodyConverter' method is non-deterministic, this method will be as well.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, the method's behavior and return value depend on the internal 'converterFactories' list, not only on its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary logic involves invoking methods on external, user-provided factory objects. The behavior of this external code is unknown and could introduce side effects or non-determinism, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> Converter<ResponseBody, T> responseBodyConverter(Type type, Annotation[] annotations)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method delegates its work to 'nextResponseBodyConverter', which reads the internal 'this.converterFactories' list. It does not access state directly.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has potential side effects because it calls 'nextResponseBodyConverter', which invokes methods on external 'Converter.Factory' objects. These user-supplied methods may have side effects. It can also throw an 'IllegalArgumentException'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method's determinism depends on the 'responseBodyConverter' methods of the configured 'Converter.Factory' instances. If any are non-deterministic, this method will be as well.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, its result depends on the internal 'converterFactories' list of the Retrofit instance, in addition to its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It invokes external code from user-provided converter factories, whose behavior is unknown and could be impure. This makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> Converter<ResponseBody, T> nextResponseBodyConverter(@Nullable Converter.Factory skipPast, Type type, Annotation[] annotations)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method reads the internal list 'this.converterFactories' to find a suitable converter factory.",
+      "stateAccesses": [
+        {
+          "name": "this.converterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have side effects because it calls 'responseBodyConverter' on external 'Converter.Factory' objects. This is external code that can have arbitrary behavior. It also throws an 'IllegalArgumentException' if no converter is found.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method's determinism is dependent on the 'Converter.Factory' implementations it invokes. If any of those are non-deterministic, this method will be as well.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, the result is dependent on the state of the 'converterFactories' list within the Retrofit instance, not solely on the method's arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It iterates through and calls methods on external, user-provided objects (factories). The behavior of this external code is unknown, potentially including side effects or non-determinism, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> Converter<T, String> stringConverter(Type type, Annotation[] annotations)",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method reads the internal list 'this.converterFactories' to find a string converter. It also reads the global static field 'BuiltInConverters.ToStringConverter.INSTANCE' as a fallback.",
+      "stateAccesses": [
+        {
+          "name": "this.converterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "retrofit2.BuiltInConverters.ToStringConverter.INSTANCE",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method can have side effects because it calls the 'stringConverter' method on external 'Converter.Factory' objects. This user-provided code can have arbitrary behavior.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The determinism of this method depends on the 'stringConverter' methods of the configured 'Converter.Factory' instances. If any of these are non-deterministic, this method will be too.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, its return value depends on the internal 'converterFactories' list, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it invokes methods on external, user-provided factory objects. The behavior of this code is unknown and could be impure, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@Nullable Executor callbackExecutor()",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "This method performs a single read access on the internal final field 'this.callbackExecutor'.",
+      "stateAccesses": [
+        {
+          "name": "this.callbackExecutor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the 'Retrofit' instance ('this.callbackExecutor'), not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is pure and suitable for memoization. It is a simple getter for an effectively immutable field, is deterministic, and has no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Builder newBuilder()",
+      "className": "com.squareup.retrofit2.Retrofit",
+      "reasonAboutStateAccesses": "The method reads all the configuration fields from the current 'Retrofit' instance ('this') to initialize a new 'Builder' object. This includes reading 'callFactory', 'baseUrl', 'converterFactories', 'callAdapterFactories', 'callbackExecutor', and 'validateEagerly'.",
+      "stateAccesses": [
+        {
+          "name": "this.callFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.baseUrl",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.converterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.defaultConverterFactoriesSize",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.callAdapterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.defaultCallAdapterFactoriesSize",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.callbackExecutor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.validateEagerly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to create and return a new 'Builder' object. Object creation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not involve non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, the state of the newly created 'Builder' object depends entirely on the state of the current 'Retrofit' instance ('this'), not on any arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its main function is to produce a side effect: the creation of a new 'Builder' object. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder client(OkHttpClient client)",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method is a convenience wrapper that calls 'this.callFactory(factory)', which writes to the internal 'this.callFactory' field of the builder.",
+      "stateAccesses": [
+        {
+          "name": "this.callFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the internal state of the Builder object by setting the 'callFactory' field. It returns 'this' to allow for method chaining.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself does not make non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, this is a state-modifying method (a setter). Its purpose is to alter the internal state of the builder object, not to compute a value from arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter in a builder pattern, which by definition modifies the object's state. State mutation is a side effect, so it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder callFactory(okhttp3.Call.Factory factory)",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "The method writes the provided 'factory' object to the internal 'this.callFactory' field.",
+      "stateAccesses": [
+        {
+          "name": "this.callFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the 'callFactory' field of the builder instance. It returns 'this' for chaining.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, this method is a setter. It modifies the internal state of the object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. As a setter in a builder, its purpose is to mutate the object's internal state. This is a side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder baseUrl(URL baseUrl)",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method delegates to another 'baseUrl' overload, which ultimately writes to the internal 'this.baseUrl' field.",
+      "stateAccesses": [
+        {
+          "name": "this.baseUrl",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the builder's internal state by setting the base URL. It can also throw an exception via the overloaded method if the URL is not valid.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, this method is a setter that modifies the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is part of a builder pattern and its function is to mutate the builder's state, which is a side effect. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder baseUrl(String baseUrl)",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method delegates to another 'baseUrl' overload, which ultimately writes to the internal 'this.baseUrl' field.",
+      "stateAccesses": [
+        {
+          "name": "this.baseUrl",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the builder's internal state by setting the base URL. It can also throw an exception if the URL string is invalid or doesn't meet Retrofit's criteria.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, this method is a setter that modifies the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a builder method designed to mutate internal state, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder baseUrl(HttpUrl baseUrl)",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method writes the provided 'baseUrl' object to the internal 'this.baseUrl' field.",
+      "stateAccesses": [
+        {
+          "name": "this.baseUrl",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the 'baseUrl' field of the builder instance. It also performs validation and throws an 'IllegalArgumentException' if the URL does not end with a '/'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, this method is a setter that modifies the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It mutates the internal state of the builder, which is a side effect. It also throws an exception, which alters control flow. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder addConverterFactory(Converter.Factory factory)",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method writes to the internal 'this.converterFactories' list by adding a new element to it.",
+      "stateAccesses": [
+        {
+          "name": "this.converterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the builder's state by adding a factory to the 'converterFactories' list.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, this method modifies the internal state of the builder object rather than computing a return value from arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It mutates the internal state of the builder (adding to a list), which is a side effect. It's unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder addCallAdapterFactory(CallAdapter.Factory factory)",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method writes to the internal 'this.callAdapterFactories' list by adding a new element to it.",
+      "stateAccesses": [
+        {
+          "name": "this.callAdapterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the builder's state by adding a factory to the 'callAdapterFactories' list.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, this method modifies the internal state of the builder object rather than computing a return value from arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It mutates the builder's internal state by adding an item to a list. This is a side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder callbackExecutor(Executor executor)",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method writes the provided 'executor' object to the internal 'this.callbackExecutor' field.",
+      "stateAccesses": [
+        {
+          "name": "this.callbackExecutor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the 'callbackExecutor' field of the builder instance.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, this is a setter method that modifies the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a builder setter method that mutates the object's internal state, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "List<CallAdapter.Factory> callAdapterFactories()",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method reads and returns the internal 'this.callAdapterFactories' list.",
+      "stateAccesses": [
+        {
+          "name": "this.callAdapterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a subtle but significant side effect: it returns a reference to the internal *modifiable* list. This allows external code to mutate the builder's internal state, breaking encapsulation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, it returns a reference to an internal field, so its result depends on the object's state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It breaks encapsulation by returning a direct reference to its internal mutable list. A caller could modify this list, which is a side effect from the perspective of the builder's state integrity. This makes it impure and not safe for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "List<Converter.Factory> converterFactories()",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method reads and returns the internal 'this.converterFactories' list.",
+      "stateAccesses": [
+        {
+          "name": "this.converterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "Similar to 'callAdapterFactories()', this method has the side effect of returning a reference to its internal modifiable list, which allows callers to mutate the builder's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, its return value is dependent on the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. By returning a reference to its internal mutable list, it allows for side effects (mutation of the builder's state by an external caller). This breaks encapsulation and makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder validateEagerly(boolean validateEagerly)",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method writes the provided boolean value to the internal 'this.validateEagerly' field.",
+      "stateAccesses": [
+        {
+          "name": "this.validateEagerly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the 'validateEagerly' field of the builder instance.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "No, this is a setter method that modifies the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a builder setter that mutates the object's state. This is a side effect, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Retrofit build()",
+      "className": "com.squareup.retrofit2.Retrofit.Builder",
+      "reasonAboutStateAccesses": "This method reads all of the builder's internal fields ('baseUrl', 'callFactory', 'callbackExecutor', 'converterFactories', 'callAdapterFactories', 'validateEagerly') to construct a new Retrofit object. It also reads from global state: 'Platform.callbackExecutor' and 'Platform.builtInFactories'.",
+      "stateAccesses": [
+        {
+          "name": "this.baseUrl",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.callFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.callbackExecutor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.callAdapterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.converterFactories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.validateEagerly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "retrofit2.Platform.callbackExecutor",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "retrofit2.Platform.builtInFactories",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's main purpose is to create a new 'Retrofit' object, which is a side effect. It may also create a new 'OkHttpClient' if one was not provided. It creates defensive copies of factory lists. It can also throw an 'IllegalStateException' if 'baseUrl' is missing.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method depends on global 'Platform' state, which can be different depending on the execution environment (e.g., Android vs. JVM), making it non-deterministic across platforms. Creating a 'new OkHttpClient()' can also be non-deterministic as it may set up platform-specific defaults.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No, the method has no arguments. Its behavior and output are determined entirely by the internal state of the builder and global platform state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is the terminal operation of a builder, with the explicit side effect of creating a complex new object. It also depends on global platform-specific state, making it non-deterministic and impure. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

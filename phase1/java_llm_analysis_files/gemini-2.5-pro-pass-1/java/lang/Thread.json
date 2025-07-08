@@ -1,0 +1,2412 @@
+{
+  "file_name": "java.lang.Thread",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/Thread.java",
+  "source_code_file_path": "java_source_code_files/java/lang/Thread.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751895079,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 393.039,
+  "llm_analysis": [
+    {
+      "methodSignature": "ThreadLocal.ThreadLocalMap terminatingThreadLocals()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads the instance field `holder`, which is an object, and then reads the `terminatingThreadLocals` field from it. This constitutes a read of internal object state.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.terminatingThreadLocals",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter that returns the value of an internal field. It does not perform any I/O, logging, or modification of any state, thus it has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not invoke any functions that rely on random numbers, system time, or other non-deterministic sources. Its return value is solely dependent on the object's current state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the internal state of the object (`holder.terminatingThreadLocals`), which can be modified elsewhere.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the mutable internal state of the `Thread` object. The `terminatingThreadLocals` field can be changed, so different calls on the same object can yield different results. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setTerminatingThreadLocals(ThreadLocal.ThreadLocalMap map)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes the provided `map` argument to the `terminatingThreadLocals` field within the internal `holder` object. This is a write to internal object state.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.terminatingThreadLocals",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies the internal state of the `Thread` object by updating one of its fields. State mutation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's execution does not depend on any non-deterministic sources like time or random numbers.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect. It does not return a value, so the concept of its output depending on arguments does not apply in the typical sense.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the internal state of the `Thread` object. Methods with side effects are unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ThreadLocal.ThreadLocalMap threadLocals()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads and returns the value of the internal instance field `threadLocals`.",
+      "stateAccesses": [
+        {
+          "name": "this.threadLocals",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method that reads an internal field. It does not modify any state or have other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions. Its output is determined by the object's current state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal instance field `threadLocals`, not on its (non-existent) arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the value of the `threadLocals` field, which is mutable internal state. Since this state can change, the method's output can vary over time for the same object instance, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setThreadLocals(ThreadLocal.ThreadLocalMap map)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes the provided `map` argument to the internal instance field `threadLocals`.",
+      "stateAccesses": [
+        {
+          "name": "this.threadLocals",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to modify the internal state of the `Thread` object by setting the `threadLocals` field. This state mutation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect; it doesn't return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it has the side effect of mutating the object's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ThreadLocal.ThreadLocalMap inheritableThreadLocals()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads and returns the value of the internal instance field `inheritableThreadLocals`.",
+      "stateAccesses": [
+        {
+          "name": "this.inheritableThreadLocals",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method. It reads an internal field and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`inheritableThreadLocals`), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the value of the `inheritableThreadLocals` field, which is mutable internal state. Since this state can change, the method is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setInheritableThreadLocals(ThreadLocal.ThreadLocalMap map)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes the provided `map` argument to the internal instance field `inheritableThreadLocals`.",
+      "stateAccesses": [
+        {
+          "name": "this.inheritableThreadLocals",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies the internal state of the `Thread` object by setting the `inheritableThreadLocals` field, which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect; it doesn't return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it mutates the internal state of the object. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Object scopedValueBindings()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method first calls `currentThread()` to get the current thread object, and then reads its `scopedValueBindings` instance field. `currentThread()` accesses non-deterministic global VM state.",
+      "stateAccesses": [
+        {
+          "name": "currentThread().scopedValueBindings",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary action is reading state. It has no observable side effects like I/O or state mutation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because its result depends on `currentThread()`, which returns a different object depending on which thread calls the method. The state of `scopedValueBindings` on that thread is also variable.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the state of the currently executing thread, which is external and non-deterministic.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is non-deterministic as its output depends entirely on the context of the calling thread. Memoizing a static method that depends on `currentThread()` would be incorrect and unsafe.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setScopedValueBindings(Object bindings)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method calls `currentThread()` to get the current thread object and then writes to its `scopedValueBindings` instance field. This modifies the state of the current thread, which is a global resource from the perspective of this static method.",
+      "stateAccesses": [
+        {
+          "name": "currentThread().scopedValueBindings",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the state of the currently executing thread. This is a mutation of shared (thread-local) state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior (which thread's state is modified) is non-deterministic because it depends on `currentThread()`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect. The side effect depends on both the argument and the current thread.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is non-deterministic and has side effects, as it modifies the state of whatever thread happens to be executing it. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Object findScopedValueBindings()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a native method. It is annotated as `@IntrinsicCandidate` and its purpose is to search the stack. This implies it accesses deep VM state that is not represented by Java fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "As a native method that interacts with the VM's execution stack, it is assumed to have potential side effects or depend on complex internal VM state, making it unsafe to treat as pure.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's result depends on the current execution stack, which is inherently non-deterministic from the caller's perspective. The call stack changes with every function call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its outcome is dependent on the runtime call stack.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method that depends on the non-deterministic state of the execution stack. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void inheritScopedValueBindings(ThreadContainer container)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads state from the `container` argument, the current thread via `currentThread()`, and writes to `this.scopedValueBindings`. It accesses both internal state of `this` and external state via the argument and `currentThread`.",
+      "stateAccesses": [
+        {
+          "name": "this.scopedValueBindings",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies the internal state (`this.scopedValueBindings`) and can throw a `StructureViolationException` based on a state comparison, which alters control flow. State modification is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on `currentThread()`, which makes its validation logic non-deterministic with respect to the calling context.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. Its behavior depends on its arguments, `this` object's state, and the current thread's state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects (modifying `this.scopedValueBindings`) and its logic is non-deterministic due to its reliance on `currentThread()`. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Interruptible nioBlocker()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads and returns the value of the internal instance field `nioBlocker`.",
+      "stateAccesses": [
+        {
+          "name": "this.nioBlocker",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter. It reads an internal field and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions. Its output is determined by the object's current state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`nioBlocker`), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the mutable internal state field `nioBlocker`. Since this state can change, the method's output is not guaranteed to be the same across different calls on the same object. Thus, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void blockedOn(Interruptible b)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes the provided `b` argument to the internal instance field `nioBlocker`. The write is protected by a `synchronized` block on `this.interruptLock`.",
+      "stateAccesses": [
+        {
+          "name": "this.nioBlocker",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.interruptLock",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies the internal state (`this.nioBlocker`), which is a side effect. It also involves synchronization, which affects how threads interact.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect; it doesn't return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying the internal state of the `Thread` object. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Continuation getContinuation()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads and returns the value of the internal instance field `cont`.",
+      "stateAccesses": [
+        {
+          "name": "this.cont",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method with no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not invoke any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`cont`), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns a mutable internal state field (`cont`). Since the state can change, the method is not referentially transparent and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setContinuation(Continuation cont)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes the provided `cont` argument to the internal instance field `cont`.",
+      "stateAccesses": [
+        {
+          "name": "this.cont",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies the internal state of the `Thread` object, which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect; it doesn't return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Thread currentCarrierThread()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a native, intrinsic method. It accesses internal VM state to determine and return the current carrier thread.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "As a native method that interacts with the VM's scheduling and thread management system, it's assumed to have dependencies on system state that make it non-pure.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because its return value depends on which thread is currently executing and, for a virtual thread, which carrier thread it is running on. This is determined by the scheduler.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its output depends on the non-deterministic state of the thread scheduler.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native, non-deterministic method whose result depends on the current execution context. It is fundamentally un-memoizable.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Thread currentThread()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a native, intrinsic method that accesses internal VM state to return a reference to the `Thread` object for the currently executing thread.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "While primarily a read operation, it depends on the global, mutable state of the VM's thread scheduler. It has no observable side effects like I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is fundamentally non-deterministic. Its return value is entirely dependent on which thread calls it, a classic example of a context-dependent, non-deterministic function.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value is dependent on the execution context.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a canonical example of a non-deterministic function, as its result changes based on the calling thread. It cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setCurrentThread(Thread thread)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a native, intrinsic instance method. It modifies internal VM state related to the current thread.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "As a native method that alters the VM's perception of the current thread, it has significant side effects on the execution environment.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's effect is context-dependent, but the primary issue is its side effect, not non-determinism in its return value (which is void).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a native method with profound side effects on the VM state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Object[] scopedValueCache()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a native, intrinsic method. It accesses an internal VM cache associated with the current thread.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "It reads from a cache, which is a form of state access. No other side effects are apparent, but being native, caution is warranted.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as it depends on the state of the current thread and its associated cache, which can change.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and depends on the non-deterministic state of the current thread's cache.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method that reads from a non-deterministic, context-dependent cache in the VM. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setScopedValueCache(Object[] cache)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a native, intrinsic method that modifies an internal VM cache associated with the current thread.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of modifying a VM-level cache, which is a form of global state mutation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's effect is non-deterministic as it modifies the cache of whatever thread is currently running.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method with non-deterministic side effects on a VM cache. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void ensureMaterializedForStackWalk(Object o)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a native, intrinsic method. Its purpose is to interact with the VM to ensure an object is ready for stack walking, implying it may alter VM-internal object representations or state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method interacts with the VM's internal state for stack walking, which constitutes a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's necessity and behavior depend on the VM's internal state, which can be considered non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method with side effects related to the VM's internal object and stack management. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void yield()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method calls `currentThread()` to access the current thread object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a hint to the thread scheduler to relinquish the CPU. Interacting with the scheduler is a significant side effect that affects program execution and timing.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `currentThread()`, and its overall behavior is non-deterministic as it depends on the scheduler.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the intended side effect of interacting with the system's thread scheduler, which is a non-deterministic operation. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void yield0()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private native method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method implements the core thread yielding logic by communicating with the OS/VM scheduler. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "Interaction with the scheduler is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method with the explicit side effect of influencing thread scheduling. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ThreadSleepEvent beforeSleep(long nanos)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method does not access any fields but creates a new `ThreadSleepEvent` object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and begins a `ThreadSleepEvent`, which is a form of logging or monitoring. This interaction with an event system is a side effect. It can also throw `OutOfMemoryError`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The behavior of the event system (`event.isEnabled()`) could be considered non-deterministic if it can be configured externally at runtime.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output (a new event object or null) and side effect depend on the argument `nanos` and the state of the eventing system.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of creating and starting a monitoring event, which interacts with an external system. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void afterSleep(ThreadSleepEvent event)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method accesses the `event` argument.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method calls `event.commit()`, which finalizes a monitoring event. This interaction with an external event system is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "No non-deterministic calls are made within this method itself, but it's part of a larger non-deterministic process (sleeping).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of committing a monitoring event. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sleepNanos(long nanos) throws InterruptedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method calls `currentThread()` to get the current thread object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method causes the current thread to cease execution, which is a major side effect. It also interacts with a monitoring event system (`beforeSleep`, `afterSleep`) and can be interrupted by other threads.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The actual time spent sleeping is subject to scheduler precision, and it can be interrupted externally. It also calls `currentThread()`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on the system scheduler and other threads, not just its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the explicit side effect of pausing thread execution, which is a non-deterministic operation. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sleepNanos0(long nanos) throws InterruptedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private native method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method implements the core thread sleeping logic by interacting with the OS/VM. Pausing the thread is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The duration of the sleep and the possibility of interruption make this a non-deterministic operation.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method with the explicit side effect of pausing the thread, a non-deterministic operation. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sleep(long millis) throws InterruptedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "No direct state access, but it calls `sleepNanos` which interacts with the current thread.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method causes the currently executing thread to sleep, which is a major side effect controlled by the system scheduler.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The exact duration of sleep and the possibility of interruption are non-deterministic. The conversion from milliseconds to nanoseconds can also be affected by `Long.MAX_VALUE`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on the system scheduler and other threads, not just its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the explicit side effect of pausing thread execution, a non-deterministic operation. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sleep(long millis, int nanos) throws InterruptedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "No direct state access, but it calls `sleepNanos` which interacts with the current thread.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method causes the currently executing thread to sleep, a major side effect controlled by the system scheduler.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The exact duration of sleep and the possibility of interruption are non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on the system scheduler and other threads, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the explicit side effect of pausing thread execution, a non-deterministic operation. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sleep(Duration duration) throws InterruptedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "No direct state access, but it calls `sleepNanos` which interacts with the current thread.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method causes the currently executing thread to sleep, a major side effect controlled by the system scheduler. It is a no-op for negative durations.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The exact duration of sleep and the possibility of interruption are non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on the system scheduler and other threads, not just its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the explicit side effect of pausing thread execution (if duration is positive), which is a non-deterministic operation. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onSpinWait()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is an intrinsic method with no body, so it does not access any Java fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a hint to the runtime/hardware to optimize a spin-wait loop. This interaction with the underlying execution environment is a side effect, albeit a subtle one.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The effect of this hint is non-deterministic and platform-dependent.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is an intrinsic hint to the runtime with non-deterministic performance effects. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Builder.OfPlatform ofPlatform()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method does not access any class or instance state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new `ThreadBuilders.PlatformThreadBuilder` object. Object creation is not considered a side effect in this context.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its output is always a new builder object. While not strictly dependent on arguments, its behavior is constant.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It's a factory method that takes no arguments and always returns a new builder instance without modifying any state. While memoizing a factory for new objects is unusual, the method itself is pure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Builder.OfVirtual ofVirtual()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method does not access any class or instance state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new `ThreadBuilders.VirtualThreadBuilder` object. Object creation is not considered a side effect.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its output is always a new builder object. Its behavior is constant.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It's a factory method that takes no arguments and always returns a new builder instance without modifying any state. While memoizing a factory for new objects is unusual, the method itself is pure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Object clone() throws CloneNotSupportedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method unconditionally throws a `CloneNotSupportedException`. Throwing an exception is a side effect that alters control flow.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic: it always throws an exception.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends only on its being called, not on arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it always throws an exception, which is a side effect. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String genThreadName()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method calls `ThreadNumbering.next()`, which reads and atomically increments the static volatile field `ThreadNumbering.next` using `Unsafe`. This is a read/write operation on global state.",
+      "stateAccesses": [
+        {
+          "name": "java.lang.Thread.ThreadNumbering.next",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies a global static counter (`ThreadNumbering.next`). This state mutation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because its output depends on a global counter, so each call produces a different result. It is designed to be non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its output is designed to be different on each invocation, based on global state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is non-deterministic and has the side effect of modifying a global counter. Memoizing it would break its core functionality of generating unique names.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String checkName(String name)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method does not access any class or instance fields. It only operates on its argument.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's only effect is to return its input or throw a `NullPointerException`. Throwing an exception for an invalid argument does not modify any external state and can be considered a part of its defined output for that input.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. A null input always throws; a non-null input is always returned.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (return value or exception) depends exclusively on its `name` argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Its behavior is entirely determined by its input argument, and it has no side effects on external state. For a given input, the output (either the input itself or an exception) is always the same.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Thread startVirtualThread(Runnable task)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method creates a new thread object and calls `start()` on it. The `start` method accesses and modifies the new thread's internal state (`holder.threadStatus`).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the significant side effect of creating a new thread and scheduling it for execution. This fundamentally changes the state of the application.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "Thread creation involves generating a new thread ID, which is a non-deterministic operation. The scheduling of the new thread is also non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's side effect depends on the `task` argument, but its overall behavior is non-deterministic and state-changing.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is the side effect of starting a new thread, a non-deterministic operation that alters program state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isVirtual()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method performs an `instanceof` check on `this`, which inspects the object's type. It does not access any fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a query that performs a type check and returns a boolean. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The type of an object is fixed upon creation, so this check is deterministic for any given object instance.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the immutable type of the `this` object, not on any arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Its result depends only on the immutable type of the object instance (`this`) and it has no side effects. The same instance will always yield the same result. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void start()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads and modifies the `threadStatus` field within the internal `holder` object. The read checks the current state, and the subsequent call to `start0` modifies it.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.threadStatus",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.holder.threadStatus",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The primary purpose of this method is to cause the side effect of starting a new thread of execution in the JVM. This is a fundamental change to the program's state and is managed by the native method `start0`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The scheduling and execution of the new thread are non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a major side effect. Its behavior depends on the state of the thread object (`threadStatus`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its function is to produce a significant, non-deterministic side effect: starting a new thread. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void start(ThreadContainer container)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads `holder.threadStatus` and `this.container`. It writes to `this.container` via `setThreadContainer`. It also calls other methods (`inheritScopedValueBindings`, `start0`) that modify state.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.threadStatus",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.container",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.container",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major side effects: it starts a new thread of execution (`start0`), adds the thread to a container, and inherits scoped value bindings. These actions fundamentally alter program state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The scheduling and execution of the new thread are non-deterministic. The call to `inheritScopedValueBindings` also involves `currentThread()` and is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects that depend on the argument, the object state, and the current thread.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It exists to cause significant, non-deterministic side effects, including starting a thread and registering it with a container. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void start0()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private native method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method is responsible for communicating with the VM to actually start the new thread. This is a fundamental side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "Thread scheduling is inherently non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method that performs the core, non-deterministic side effect of starting a thread. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void run()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads the `task` field from the internal `holder` object and reads `scopedValueBindings`. The primary state access/modification happens within the `task.run()` method, which is external.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.task",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The primary side effect of this method is executing the `run()` method of the `Runnable` task it was constructed with. The nature of this side effect is unknown and depends entirely on the provided task.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself doesn't make non-deterministic calls, but the `Runnable` task it executes very well might. It also calls `scopedValueBindings()`, which is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. Its behavior depends on the internal state (`holder.task`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its entire purpose is to execute a `Runnable` task, which is an arbitrary operation with unknown side effects. It is the entry point for a new thread's execution and is fundamentally stateful and un-memoizable.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void runWith(Object bindings, Runnable op)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "No direct state access in this method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method calls `ensureMaterializedForStackWalk`, a native method with VM-level side effects. More importantly, it executes `op.run()`, which can have arbitrary side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The executed `op.run()` can be non-deterministic. `ensureMaterializedForStackWalk` may also have non-deterministic behavior.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects that depend on the `op` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It invokes arbitrary code (`op.run()`) and calls a native VM-interaction method. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearReferences()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes `null` to several internal, volatile instance fields: `threadLocals`, `inheritableThreadLocals`, `uncaughtExceptionHandler`, and `nioBlocker`.",
+      "stateAccesses": [
+        {
+          "name": "this.threadLocals",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.inheritableThreadLocals",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.uncaughtExceptionHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.nioBlocker",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying multiple fields of the `Thread` object, clearing them to `null` to aid garbage collection after thread termination.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. It has no arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the explicit side effect of nulling out several internal fields. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void exit()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads `headStackableScopes`, `container`, and `holder.terminatingThreadLocals` to perform cleanup actions. It modifies state via `clearReferences()`.",
+      "stateAccesses": [
+        {
+          "name": "this.headStackableScopes",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.container",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.holder.terminatingThreadLocals",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has numerous side effects as part of thread cleanup: it pops scopes, removes the thread from its container, processes terminating thread-locals, and clears internal references. These actions modify the state of this thread and potentially other related objects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operations within this method, such as `StackableScope.popAll()` and `TerminatingThreadLocal.threadTerminated()`, can have non-deterministic behavior depending on the state of the thread when it exits.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. It has no arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a lifecycle callback with extensive, non-deterministic side effects designed to clean up a thread's resources. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void stop()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method unconditionally throws an `UnsupportedOperationException`. Throwing an exception is a side effect that alters control flow.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic: it always throws an exception.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends only on its being called, not on arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it always throws an exception, which is a side effect. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void interrupt()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method writes `true` to the volatile `interrupted` field. It also reads the `nioBlocker` field inside a synchronized block.",
+      "stateAccesses": [
+        {
+          "name": "this.interrupted",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.nioBlocker",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.interruptLock",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of setting the thread's interrupt status, which can cause other operations (like `sleep` or I/O) to terminate abruptly. It calls `interrupt0()` (native) and may call `blocker.interrupt()`, both of which are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The effect of an interrupt is non-deterministic; it depends on what the target thread is doing at the moment of interruption. The call to `Thread.currentThread()` adds another layer of non-determinism.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. It has no arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to produce a non-deterministic side effect on another thread (or itself). It is a core part of Java's concurrency mechanism and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean interrupted()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method gets the current thread via `currentThread()` and then calls `getAndClearInterrupt()` on it, which reads and writes the `interrupted` field of that thread.",
+      "stateAccesses": [
+        {
+          "name": "currentThread().interrupted",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "currentThread().interrupted",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of clearing the interrupt status of the current thread. This is a state mutation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. It depends on `currentThread()` and the interrupt status of that thread, which can be changed asynchronously by other threads.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its result and side effect depend on the non-deterministic state of the current thread.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is non-deterministic and has the side effect of clearing the current thread's interrupt flag. Memoizing it would break its specified behavior.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isInterrupted()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads the volatile instance field `interrupted`.",
+      "stateAccesses": [
+        {
+          "name": "this.interrupted",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple query of the thread's interrupt status. It does not modify any state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The value of the `interrupted` flag can be changed by another thread at any time, making the result of this method non-deterministic from the perspective of a single thread of execution over time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its result depends on the volatile, mutable internal state of the object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its result is non-deterministic because the `interrupted` flag can be changed concurrently by another thread. Memoizing it would lead to stale data.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setInterrupt()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads and writes the volatile `interrupted` field.",
+      "stateAccesses": [
+        {
+          "name": "this.interrupted",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.interrupted",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method sets the interrupt status by writing to the `interrupted` field and calling the native `interrupt0()` method. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The effect of the interrupt depends on the thread's state, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. It has no arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to cause the side effect of setting the thread's interrupt status. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearInterrupt()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads and writes the volatile `interrupted` field.",
+      "stateAccesses": [
+        {
+          "name": "this.interrupted",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.interrupted",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method clears the interrupt status by writing to the `interrupted` field and calling the native `clearInterruptEvent()` method. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "No non-deterministic calls are made inside this method, but it is part of a non-deterministic concurrency mechanism.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. It has no arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to cause the side effect of clearing the thread's interrupt status. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean getAndClearInterrupt()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads and then conditionally writes to the volatile `interrupted` field.",
+      "stateAccesses": [
+        {
+          "name": "this.interrupted",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.interrupted",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of clearing the interrupt status if it was set. This involves a state write and a call to the native method `clearInterruptEvent()`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The return value is non-deterministic as the interrupt status can be changed by other threads at any time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and side effect depend on the non-deterministic state of the `interrupted` flag.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is non-deterministic and has the side effect of clearing the interrupt flag, which is essential to its contract. Memoizing it would be incorrect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isAlive()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method calls `alive()`, which reads the volatile instance field `eetop`.",
+      "stateAccesses": [
+        {
+          "name": "this.eetop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query of the thread's lifecycle state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The liveness of a thread is a non-deterministic property that changes as the thread is started and terminated by the VM. Reading this volatile field reflects this non-determinism.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the thread's lifecycle state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its result is non-deterministic as it depends on the thread's lifecycle state, which changes over time. Memoizing it would produce stale results.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean alive()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads the volatile instance field `eetop`, which is used by the VM to track thread liveness.",
+      "stateAccesses": [
+        {
+          "name": "this.eetop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query of the thread's lifecycle state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The liveness of a thread is a non-deterministic property managed by the VM. Reading the `eetop` field reflects this external, changing state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the thread's lifecycle state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result is non-deterministic as it reflects the live state of the thread, which can change. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setPriority(int newPriority)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads internal state via `isVirtual()` and then calls `priority()` which reads `holder.group` and writes to `holder.priority`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of changing the thread's priority by calling `priority()`, which involves internal state mutation and a native call (`setPriority0`).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The behavior is not non-deterministic in its logic, but it affects the non-deterministic scheduling of the thread.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. The side effect depends on the argument and the thread's state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying the thread's priority, which is part of its mutable state and influences the scheduler. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void priority(int newPriority)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads `holder.group` to get the max priority, then writes the computed priority to `holder.priority`.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.group",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.holder.priority",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies the internal `priority` field and calls the native method `setPriority0` to update the priority in the VM. These are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "No non-deterministic calls are made.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect that depends on the argument and the thread's group.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects of modifying internal state and calling a native method to influence the scheduler. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getPriority()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method either returns a constant (`NORM_PRIORITY`) for virtual threads or reads the `priority` field from the internal `holder` object for platform threads.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.priority",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple query of the thread's priority and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "No non-deterministic calls are made.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the internal, mutable state of the object (`holder.priority`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the thread's priority, which is a mutable property. Since the priority can be changed, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setName(String name)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This synchronized method writes the `name` argument to the volatile instance field `this.name`. It also calls `isVirtual()` and `currentThread()`.",
+      "stateAccesses": [
+        {
+          "name": "this.name",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of changing the thread's name. If it's the current platform thread, it also calls the native method `setNativeName` to update the OS-level thread name, another side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior conditionally depends on `currentThread()`, which is a non-deterministic call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. The side effect depends on the argument and potentially the current thread context.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying the thread's name (both in the object and potentially in the OS) and has non-deterministic behavior. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getName()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads and returns the value of the volatile instance field `name`.",
+      "stateAccesses": [
+        {
+          "name": "this.name",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "No non-deterministic calls are made.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the internal, mutable `name` field of the object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the thread's name, which is mutable state. Since the name can be changed, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ThreadGroup getThreadGroup()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads internal state to determine if the thread is terminated or virtual. It then returns either a global constant (`virtualThreadGroup()`), `null`, or the internal field `holder.group`.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.group",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query of the thread's group and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's result depends on the thread's lifecycle state (`isTerminated`), which is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the internal, mutable, and non-deterministic state of the thread object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the thread's lifecycle state, which is non-deterministic, and its group, which is part of its mutable state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int activeCount()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method gets the current thread, its thread group, and then calls `activeCount()` on the group. This involves accessing global VM state to find the current thread and then traversing the thread group structure.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a query and has no side effects, though it traverses a complex, shared data structure.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. It depends on `currentThread()` and the number of active threads in the group at the exact moment of execution, which is constantly changing in a multi-threaded application.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its result depends on the current, non-deterministic state of the entire thread group.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result is highly non-deterministic, providing a snapshot of the number of active threads. Memoizing it would be pointless and incorrect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int enumerate(Thread[] tarray)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method gets the current thread's group and calls `enumerate` on it. This accesses the shared, global state of the thread group hierarchy.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the contents of the array `tarray` passed as an argument. Modifying arguments is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The threads populated into the array depend on which threads are alive at the moment of execution, which is a changing state. It also depends on `currentThread()`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's side effect (populating the array) depends on the non-deterministic state of the thread group.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying its input array, and its behavior is non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void join(long millis) throws InterruptedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads the thread's liveness state via `isAlive()`, which reads the volatile field `eetop`. The platform thread implementation also uses `wait()`, which interacts with the object's monitor.",
+      "stateAccesses": [
+        {
+          "name": "this.eetop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the major side effect of blocking the calling thread until this thread terminates or the timeout elapses. This involves interaction with the thread scheduler.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. It depends on when another thread terminates, the system scheduler, and potential interrupts from other threads. The platform implementation also uses `System.nanoTime()`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on external events (another thread's termination) and system state, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a fundamental concurrency primitive with the explicit side effect of blocking the current thread. Its behavior is non-deterministic. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void join(long millis, int nanos) throws InterruptedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "Similar to `join(long)`, this method checks the thread's liveness state (`isAlive()`).",
+      "stateAccesses": [
+        {
+          "name": "this.eetop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the major side effect of blocking the calling thread until this thread terminates or the timeout elapses.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic, depending on the termination of another thread, the system scheduler, and potential interrupts.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on external events and system state, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a concurrency primitive for waiting on another thread, which is a non-deterministic side effect. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void join() throws InterruptedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method calls `join(0)`, which accesses the thread's liveness state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the major side effect of blocking the calling thread indefinitely until this thread terminates.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic, depending on the termination of another thread and potential interrupts.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a non-deterministic side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a fundamental concurrency primitive for waiting on another thread, which is a non-deterministic side effect. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean join(Duration duration) throws InterruptedException",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads the thread state via `threadState()` which reads `holder.threadStatus`.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.threadStatus",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of blocking the calling thread for a specified duration while waiting for this thread to terminate.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic, as it depends on the target thread's lifecycle, the system scheduler, and potential interrupts.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and side effects depend on the non-deterministic state of the target thread and scheduler, not just the duration argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a concurrency primitive that blocks the current thread, a non-deterministic side effect. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void dumpStack()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method does not access any fields. It creates a new `Exception` object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of writing the current thread's stack trace to the standard error stream (`System.err`) via `printStackTrace()`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The content of the stack trace is non-deterministic as it depends on the execution path taken to call `dumpStack()`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect. It has no arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of performing I/O (writing to standard error) and its output is non-deterministic (the current stack trace). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setDaemon(boolean on)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads the thread's state via `isVirtual()` and `isAlive()`. If allowed, it calls `daemon()` which writes to `holder.daemon`.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.daemon",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the thread's daemon status. It must be called before the thread is started.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's check against `isAlive()` depends on the non-deterministic lifecycle state of the thread.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect. Its behavior depends on the argument and the thread's lifecycle state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying the thread's internal state (daemon status) and its validity depends on the thread's non-deterministic lifecycle state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void daemon(boolean on)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes the `on` argument to the `daemon` field within the internal `holder` object.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.daemon",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the internal `daemon` field.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the thread's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isDaemon()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method either returns `true` for virtual threads or reads the `daemon` field from the internal `holder` object for platform threads.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.daemon",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple query of the thread's daemon status and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "No non-deterministic calls are made.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the internal, mutable state of the object (`holder.daemon`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the thread's daemon status, which is a mutable property (can be set before the thread starts). Because the state can be changed, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void checkAccess()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method body is empty and accesses no state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a no-op and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and no return value, and its behavior is constant (it does nothing).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no inputs, no outputs, and no side effects. It is a no-op.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String toString()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method accesses several internal state fields by calling their respective getters: `threadId()` (reads `tid`), `getName()` (reads `name`), `getPriority()` (reads `holder.priority`), and `getThreadGroup()` (reads `holder.group`).",
+      "stateAccesses": [
+        {
+          "name": "this.tid",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.name",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.holder.priority",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.holder.group",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates a `StringBuilder` and a `String`, but does not modify any existing state or perform I/O. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's dependency on `getThreadGroup()` makes its output non-deterministic, as the group can be null if the thread is terminated.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on several mutable internal fields (`name`, `priority`, `group`) and the thread's lifecycle state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output depends on multiple mutable and non-deterministic properties of the thread (name, priority, group, terminated status). Memoizing it would produce stale representations.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ClassLoader getContextClassLoader()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads and returns the value of the volatile instance field `contextClassLoader`.",
+      "stateAccesses": [
+        {
+          "name": "this.contextClassLoader",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "No non-deterministic calls are made.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the internal, mutable `contextClassLoader` field of the object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the `contextClassLoader` field, which is mutable state. Since the class loader can be changed, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setContextClassLoader(ClassLoader cl)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes the `cl` argument to the volatile instance field `contextClassLoader`.",
+      "stateAccesses": [
+        {
+          "name": "this.contextClassLoader",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the thread's context class loader.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying the thread's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean holdsLock(Object obj)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a static native method that queries the VM about the lock state of the given object with respect to the current thread.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a query and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its result depends on the current thread's execution context and the locking state of the object, which can change at any time in a concurrent program.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the non-deterministic locking state of the `obj` argument in relation to the current thread.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method whose result is non-deterministic, as it depends on the dynamic locking state of the system. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StackTraceElement[] getStackTrace()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method's behavior depends on whether `this` is the current thread. It reads thread state via `isAlive()` and `asyncGetStackTrace()` (which calls a native method).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method queries the VM for stack trace information. This is a read-only operation and generally has no side effects, although creating a new Exception object to get the stack trace for the current thread is a notable implementation detail.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. The returned stack trace depends entirely on the program's execution state at the moment the method is called. It also uses `currentThread()` for a comparison.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result is a snapshot of the thread's call stack, a non-deterministic property.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output is a snapshot of the thread's call stack, which is inherently non-deterministic. Memoizing it would be pointless.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StackTraceElement[] asyncGetStackTrace()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method calls the native method `getStackTrace0()` which accesses internal VM state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a query of VM state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic, as the stack trace it retrieves depends on the thread's execution state at that moment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the non-deterministic state of the thread's call stack.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It calls a native method to retrieve the thread's non-deterministic call stack. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Object getStackTrace0()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private native method that accesses internal VM data structures to get the stack trace.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method queries VM state and is not expected to have side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This native method is non-deterministic as the stack trace depends on the runtime execution state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the non-deterministic state of the thread's call stack.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a native method that returns a non-deterministic value (the call stack). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Map<Thread, StackTraceElement[]> getAllStackTraces()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method calls native methods `getThreads()` and `dumpThreads()` to get a snapshot of all live threads and their stack traces. This accesses global VM state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a query of the entire VM's thread state. It creates a new Map. It has no side effects on existing state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. The set of live threads and their respective call stacks are constantly changing in a multi-threaded application.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its result is a non-deterministic snapshot of the VM's state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output is a non-deterministic snapshot of the state of all threads in the JVM. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Thread[] getAllThreads()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method calls the native method `getThreads()` which accesses global VM state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a query and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as the set of live threads changes over time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its result is a non-deterministic snapshot of all threads.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It returns a non-deterministic list of all threads currently alive in the VM. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StackTraceElement[][] dumpThreads(Thread[] threads)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private static native method that accesses the state of multiple threads.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a query and likely has no side effects on the threads themselves.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This native method is non-deterministic as the stack traces of the provided threads depend on their runtime execution state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the non-deterministic state of the threads in the input array, not just the array reference itself.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method that returns non-deterministic data (stack traces). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Thread[] getThreads()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private static native method that accesses global VM state to find all threads.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a query and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This native method is non-deterministic as the set of live threads changes over time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its result is a non-deterministic list of all threads.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method that returns a non-deterministic list of all threads. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "long getId()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method calls `threadId()`, which reads the final instance field `tid`.",
+      "stateAccesses": [
+        {
+          "name": "this.tid",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter for an immutable property and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the immutable `tid` field of the object instance, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a final, immutable value (`tid`) and has no side effects. It is suitable for memoization, although it is a simple delegation.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "long threadId()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads the final instance field `tid`.",
+      "stateAccesses": [
+        {
+          "name": "this.tid",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter for a final (immutable) field and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the immutable `tid` field of the object instance, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a final, immutable value and has no side effects. For a given `Thread` object, it will always return the same ID. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "State getState()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method calls `threadState()`, which reads the volatile field `holder.threadStatus`.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.threadStatus",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query of the thread's lifecycle state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The thread's state is non-deterministic as it changes based on the thread's lifecycle (NEW, RUNNABLE, TERMINATED, etc.), which is managed by the VM.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the non-deterministic lifecycle state of the thread object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its result is non-deterministic because the thread's state changes over its lifetime. Memoizing it would produce stale data.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "State threadState()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads the volatile field `holder.threadStatus`.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.threadStatus",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query of the thread's lifecycle state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The thread's state is non-deterministic as it is managed by the VM and changes throughout the thread's lifecycle.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the non-deterministic lifecycle state of the thread object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result is non-deterministic as it reflects the current state of the thread's lifecycle. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isTerminated()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method calls `threadState()`, which reads the volatile field `holder.threadStatus`.",
+      "stateAccesses": [
+        {
+          "name": "this.holder.threadStatus",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query of the thread's lifecycle state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The thread's state is non-deterministic. Whether it is terminated can change over time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the non-deterministic lifecycle state of the thread object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its result is non-deterministic as it depends on the thread's lifecycle. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setDefaultUncaughtExceptionHandler(UncaughtExceptionHandler ueh)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method writes the `ueh` argument to the static volatile field `defaultUncaughtExceptionHandler`.",
+      "stateAccesses": [
+        {
+          "name": "java.lang.Thread.defaultUncaughtExceptionHandler",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying a global, static field, which affects the behavior of all threads that don't have their own handler.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of mutating global state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "UncaughtExceptionHandler getDefaultUncaughtExceptionHandler()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method reads the static volatile field `defaultUncaughtExceptionHandler`.",
+      "stateAccesses": [
+        {
+          "name": "java.lang.Thread.defaultUncaughtExceptionHandler",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter for a static field and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "No non-deterministic calls are made.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on global, mutable state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on a mutable, global static field. Since this field can be changed by other parts of the application at any time, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "UncaughtExceptionHandler getUncaughtExceptionHandler()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method reads the thread's terminated status, and then reads either the `uncaughtExceptionHandler` field or gets the `ThreadGroup`.",
+      "stateAccesses": [
+        {
+          "name": "this.uncaughtExceptionHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's result depends on the thread's lifecycle state (`isTerminated`), which is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the internal, mutable state (`uncaughtExceptionHandler`) and non-deterministic state (lifecycle) of the object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the mutable `uncaughtExceptionHandler` field and the thread's non-deterministic lifecycle state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setUncaughtExceptionHandler(UncaughtExceptionHandler ueh)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method calls `uncaughtExceptionHandler()`, which writes to the `uncaughtExceptionHandler` field.",
+      "stateAccesses": [
+        {
+          "name": "this.uncaughtExceptionHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the thread's specific uncaught exception handler.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying the thread's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void uncaughtExceptionHandler(UncaughtExceptionHandler ueh)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes the `ueh` argument to the volatile instance field `uncaughtExceptionHandler`.",
+      "stateAccesses": [
+        {
+          "name": "this.uncaughtExceptionHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the thread's `uncaughtExceptionHandler` field.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void dispatchUncaughtException(Throwable e)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "The method calls `getUncaughtExceptionHandler()`, which reads internal state like `uncaughtExceptionHandler` and the thread's terminated status.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has a significant side effect: it invokes the `uncaughtException` method on the determined handler. The handler can perform arbitrary actions, such as logging or terminating the application.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The behavior is non-deterministic because the handler that gets called depends on the thread's state, which can be modified.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. Its behavior depends on the thread's state and the `e` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is to invoke an external, stateful handler, which is a major side effect. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ThreadGroup virtualThreadGroup()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method reads the final static field `Constants.VTHREAD_GROUP`. This is a read of immutable global state.",
+      "stateAccesses": [
+        {
+          "name": "java.lang.Thread.Constants.VTHREAD_GROUP",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter for a static final field and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method always returns the same object, so it is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and returns a constant value.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a reference to a global, constant object (`static final`) and has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ThreadContainer threadContainer()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads and returns the value of the instance field `container`.",
+      "stateAccesses": [
+        {
+          "name": "this.container",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method with no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not invoke any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`container`), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns a mutable internal state field (`container`). Since the state can change, the method is not referentially transparent and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setThreadContainer(ThreadContainer container)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method writes the provided `container` argument to the internal instance field `container`.",
+      "stateAccesses": [
+        {
+          "name": "this.container",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the internal state of the `Thread` object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StackableScope headStackableScopes()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This method reads and returns the value of the volatile instance field `headStackableScopes`.",
+      "stateAccesses": [
+        {
+          "name": "this.headStackableScopes",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method with no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not invoke any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`headStackableScopes`), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns a mutable internal state field (`headStackableScopes`). Since the state can change, the method is not referentially transparent and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setHeadStackableScope(StackableScope scope)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This static method calls `currentThread()` to get the current thread object and then writes to its `headStackableScopes` instance field. This modifies the state of a global resource (the current thread).",
+      "stateAccesses": [
+        {
+          "name": "currentThread().headStackableScopes",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the state of the currently executing thread.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior (which thread's state is modified) is non-deterministic because it depends on `currentThread()`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is non-deterministic and has side effects, as it modifies the state of whatever thread happens to be executing it. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setPriority0(int newPriority)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private native method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method communicates with the VM/OS to change the thread's actual scheduling priority. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The effect of changing priority on scheduling is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method with the explicit side effect of influencing thread scheduling. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void interrupt0()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private native method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method informs the VM that an interrupt has occurred, which may involve waking up the thread or setting a flag in the OS. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The effect of the interrupt is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method that triggers the non-deterministic interrupt mechanism. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearInterruptEvent()",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private static native method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method likely interacts with the VM/OS to clear an underlying interrupt event or flag associated with the current thread. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This is part of the non-deterministic interruption mechanism.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method that produces a side effect as part of the concurrency machinery. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setNativeName(String name)",
+      "className": "java.lang.Thread",
+      "reasonAboutStateAccesses": "This is a private native method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method has the side effect of changing the thread's name at the operating system level, which is an interaction with an external system.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The success or exact effect of this operation could be platform-dependent and thus non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with a side effect.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a native method with the explicit side effect of changing OS-level state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

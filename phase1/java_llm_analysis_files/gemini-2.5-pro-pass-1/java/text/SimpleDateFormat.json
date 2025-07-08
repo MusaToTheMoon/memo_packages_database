@@ -1,0 +1,806 @@
+{
+  "file_name": "java.text.SimpleDateFormat",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/text/SimpleDateFormat.java",
+  "source_code_file_path": "java_source_code_files/java/text/SimpleDateFormat.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751897112,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 190.869,
+  "llm_analysis": [
+    {
+      "methodSignature": "void initialize(java.util.Locale loc)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method initializes instance fields. It writes to `this.compiledPattern` and `this.numberFormat` based on the `this.pattern` and `loc` argument. It reads the static field `cachedNumberFormatData` to potentially reuse a NumberFormat instance, and writes to it if a new one is created. It also calls `initializeDefaultCentury` which modifies other instance fields.",
+      "stateAccesses": [
+        {
+          "name": "this.pattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.compiledPattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "java.text.SimpleDateFormat.cachedNumberFormatData",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "java.text.SimpleDateFormat.cachedNumberFormatData",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.numberFormat",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects as it modifies several internal fields of the `SimpleDateFormat` instance, including `compiledPattern`, `numberFormat`, and fields modified by the call to `initializeDefaultCentury()`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method calls `initializeDefaultCentury()`, which in turn calls `System.currentTimeMillis()`, making its behavior dependent on the system clock. Therefore, it has non-deterministic behavior.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the instance field `pattern` and the static cache `cachedNumberFormatData`, in addition to its `loc` argument. It also has non-deterministic behavior due to the system time call. Therefore, its output (the modified state of the object) does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the object (`compiledPattern`, `numberFormat`), which is a side effect. It also has a non-deterministic component, as it relies on `System.currentTimeMillis()` via a helper method. Its behavior is not solely dependent on its input arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void initializeCalendar(java.util.Locale loc)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method initializes the `calendar` field. It first checks if `calendar` is null, and if so, it creates a new `Calendar` instance using `Calendar.getInstance(loc)` and assigns it to the `calendar` field. This constitutes a write access to an internal state field.",
+      "stateAccesses": [
+        {
+          "name": "this.calendar",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.calendar",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect because it conditionally modifies the internal state of the object by assigning a new object to the `calendar` field.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `Calendar.getInstance(loc)`, which initializes the calendar with the default time zone for the given locale. The default time zone can vary depending on the environment where the code is run, making the method's behavior non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the current state of the `calendar` field and the system's default timezone, not just its input `loc` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state (`calendar` field) and its behavior is non-deterministic as it depends on the system's default time zone via `Calendar.getInstance()`. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "char[] compile(java.lang.String pattern)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "The method reads the static final field `DateFormatSymbols.patternChars` to look up pattern character indices. It also writes to the internal field `forceStandaloneForm` based on the parsed pattern. It does not access any other instance or global state.",
+      "stateAccesses": [
+        {
+          "name": "java.text.DateFormatSymbols.patternChars",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.forceStandaloneForm",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect as it modifies the instance field `forceStandaloneForm`. Although its primary purpose is to return a compiled pattern, this state modification makes it impure.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions like random number generators or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output (the returned char array) and its side effect (setting `forceStandaloneForm`) depend only on the input `pattern` argument and the static `DateFormatSymbols.patternChars` constant. However, the side effect prevents it from being considered purely dependent on arguments for its overall behavior.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although the returned `char[]` is determined solely by the input `pattern`, the method has a side effect of modifying the instance field `forceStandaloneForm`. This state modification makes the method impure and thus not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void encode(int tag, int length, java.lang.StringBuilder buffer)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method does not access any instance or global state. It operates solely on its parameters.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a side effect because it modifies the `StringBuilder` object passed as the `buffer` argument by appending characters to it.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (the modification of the buffer) depends only on its input arguments `tag`, `length`, and `buffer`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has a side effect: it modifies the state of the `StringBuilder` object passed as an argument. Pure functions should not modify their arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void initializeDefaultCentury()",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method accesses and modifies the internal `calendar` field. It then calls `parseAmbiguousDatesAsAfter`, which writes to the `defaultCenturyStart` and `defaultCenturyStartYear` fields.",
+      "stateAccesses": [
+        {
+          "name": "this.calendar",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects because it modifies the internal state of the `SimpleDateFormat` instance, specifically the `calendar`, `defaultCenturyStart`, and `defaultCenturyStartYear` fields.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it calls `System.currentTimeMillis()` to get the current time, which is then used to calculate the default century start date. The result will change depending on when the method is executed.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This method takes no arguments and its behavior is determined by the system clock and the internal `calendar` state. Therefore, it does not depend only on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects by modifying instance state and is non-deterministic due to its reliance on `System.currentTimeMillis()`. This makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void parseAmbiguousDatesAsAfter(java.util.Date startDate)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method writes to the internal instance fields `defaultCenturyStart` and `defaultCenturyStartYear`. It also accesses and modifies the state of the `calendar` field by calling `setTime` and `get` on it.",
+      "stateAccesses": [
+        {
+          "name": "this.defaultCenturyStart",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.calendar",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.defaultCenturyStartYear",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects because it modifies the internal state of the `SimpleDateFormat` object by setting the `defaultCenturyStart` and `defaultCenturyStartYear` fields.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions. Its behavior is determined by its argument and the state of the `calendar` object.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its `startDate` argument but also on the internal `calendar` object. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter-like method that modifies the internal state of the object (`defaultCenturyStart`, `defaultCenturyStartYear`), which is a side effect. Therefore, it is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void set2DigitYearStart(java.util.Date startDate)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method indirectly writes to instance state by calling `parseAmbiguousDatesAsAfter(new Date(startDate.getTime()))`. The `parseAmbiguousDatesAsAfter` method modifies `defaultCenturyStart` and `defaultCenturyStartYear`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it changes the internal configuration of the formatter, specifically how it interprets two-digit years. This is achieved by modifying fields like `defaultCenturyStart` via a helper method.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's purpose is to alter the object's state based on the `startDate` argument. Thus, its overall behavior does not depend only on its arguments, as it results in a state change.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a classic setter method that modifies the internal state of the `SimpleDateFormat` instance to alter its parsing behavior. This mutation is a side effect, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.util.Date get2DigitYearStart()",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `defaultCenturyStart` to return a copy of it.",
+      "stateAccesses": [
+        {
+          "name": "this.defaultCenturyStart",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects. It returns a clone of the internal `Date` object, which prevents external modification of the instance's state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value of this method depends on the internal state of the `defaultCenturyStart` field, which can be changed via `set2DigitYearStart`. It does not depend on any arguments as it has none.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it lacks side effects, its return value is dependent on the mutable internal state of the `SimpleDateFormat` object. A pure function's output must depend only on its inputs. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.StringBuffer format(java.util.Date date, java.lang.StringBuffer toAppendTo, java.text.FieldPosition pos)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method delegates to another `format` method, which reads numerous internal state fields such as `calendar`, `compiledPattern`, `useDateFormatSymbols`, `formatData`, `locale`, and `numberFormat`. The `calendar`'s state is also modified by setting the time.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has significant side effects. It modifies the `toAppendTo` StringBuffer by appending the formatted date string to it. It also modifies the `pos` FieldPosition object to indicate the boundaries of the formatted fields.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The underlying formatting logic does not involve non-deterministic calls like `System.currentTimeMillis()` or random number generators.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output (the modified `toAppendTo` buffer) depends on the `date` argument and the extensive internal state of the `SimpleDateFormat` object (pattern, symbols, locale, calendar settings). It does not depend solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has major side effects by modifying its `toAppendTo` and `pos` arguments. Its output is also heavily dependent on the object's internal, mutable state. Therefore, it is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.text.AttributedCharacterIterator formatToCharacterIterator(java.lang.Object obj)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method internally calls the `format` method, which reads a wide range of instance fields including `calendar`, `compiledPattern`, `formatData`, `locale`, `numberFormat`, and others to perform the formatting.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method does not have direct side effects on its arguments or global state. It creates and returns a new `AttributedCharacterIterator` object. The internal `format` call has side effects on its local `StringBuf` and `FieldDelegate` objects, but these are not observable from the outside.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The underlying formatting logic does not involve non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the `obj` argument (which is converted to a Date) and the extensive internal state of the `SimpleDateFormat` instance (pattern, symbols, locale, etc.). It does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value is critically dependent on the formatter's internal, mutable state (e.g., pattern, symbols). A pure function's output must depend solely on its inputs. Thus, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.util.Date parse(java.lang.String text, java.text.ParsePosition pos)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads extensively from the object's state, including `compiledPattern`, `numberFormat`, `calendar`, `formatData`, `locale`, and `defaultCenturyStart`. It also calls `checkNegativeNumberExpression`, which can read and write several fields related to number formatting. The helper `subParseZoneString` may also call `setTimeZone`, which modifies the `calendar`'s timezone.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a primary side effect of modifying the `pos` argument to update the parse position and error index. It can also modify the instance's timezone if a timezone is parsed in the text.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior can be non-deterministic because its helper method `subParseZoneString` calls `TimeZone.getDefault()`, which depends on the system environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and side effects depend on the `text` and `pos` arguments, the extensive internal state of the formatter, and potentially non-deterministic system properties like the default timezone. It does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects (modifying the `pos` argument and potentially instance state), depends on the object's internal state, and can be non-deterministic due to its reliance on the system's default timezone. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean charEquals(char ch1, char ch2)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads the `lenient` property of the `calendar` via the inherited `isLenient()` method.",
+      "stateAccesses": [
+        {
+          "name": "this.calendar",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects; it only performs a comparison and returns a boolean.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not have any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its `ch1` and `ch2` arguments as well as the internal `lenient` state of the formatter's calendar. Therefore, it does not depend solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its behavior depends on the internal state of the object, specifically the `lenient` flag of the `calendar`. A pure function's output must only depend on its inputs. This state dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean shouldObeyCount(int tag, int count)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method does not access any instance or global state. It's a static-like decision function.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It simply evaluates its inputs and returns a boolean.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is determined entirely by its input arguments, `tag` and `count`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, is deterministic, and its output depends only on its input arguments. It behaves like a static utility function and is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String translatePattern(java.lang.String pattern, java.lang.String from, java.lang.String to)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method does not access any instance or global state. It operates only on its input arguments.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It creates and returns a new `String` object without modifying any existing state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a direct and deterministic function of its input arguments `pattern`, `from`, and `to`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic function whose return value depends exclusively on its input arguments, and it has no side effects. It is an excellent candidate for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String toPattern()",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `pattern`.",
+      "stateAccesses": [
+        {
+          "name": "this.pattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects; it simply returns a string.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value is dependent on the internal state of the `pattern` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a getter for an internal, mutable field (`pattern`). Its return value depends on the object's state, not on inputs. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String toLocalizedPattern()",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads the internal instance fields `pattern` and `formatData`. It uses these to call the `translatePattern` helper method.",
+      "stateAccesses": [
+        {
+          "name": "this.pattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.formatData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It computes and returns a new string.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the internal state of the `pattern` and `formatData` fields.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the internal, mutable state of the `SimpleDateFormat` object (`pattern` and `formatData`). Since its output is not solely determined by its inputs, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void applyPattern(java.lang.String pattern)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method delegates to `applyPatternImpl`, which writes to the internal instance fields `compiledPattern` and `this.pattern`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal state of the `SimpleDateFormat` instance, changing how it will format and parse dates.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a setter; its purpose is to modify the object's state based on the `pattern` argument. Its behavior is not just about returning a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies the object's internal pattern and compiled pattern state. This mutation is a side effect, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void applyPatternImpl(java.lang.String pattern)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method writes to two internal instance fields: `this.pattern` is updated with the new pattern string, and `this.compiledPattern` is updated with the result of compiling that new pattern.",
+      "stateAccesses": [
+        {
+          "name": "this.pattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.compiledPattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method's primary purpose is to cause a side effect: modifying the internal state of the object (`pattern` and `compiledPattern`) to change its formatting and parsing behavior.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "As a setter method that modifies state, its behavior is not solely about producing an output from its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It directly modifies the internal state of the instance, which is a side effect. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void applyLocalizedPattern(java.lang.String pattern)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads from `formatData` to get the localized pattern characters, translates the given `pattern`, and then writes the result to the internal fields `this.pattern` and `this.compiledPattern`.",
+      "stateAccesses": [
+        {
+          "name": "this.formatData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.pattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.compiledPattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal state of the `SimpleDateFormat` instance (`pattern` and `compiledPattern`), which changes its future behavior.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the `pattern` argument and the internal state of `formatData`. It is a state-mutating method.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the object based on the input pattern and existing `formatData` state. This mutation is a side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.text.DateFormatSymbols getDateFormatSymbols()",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `formatData` and returns a clone of it.",
+      "stateAccesses": [
+        {
+          "name": "this.formatData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It returns a clone to prevent external modification of the internal state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments, and its return value is dependent on the internal state of the `formatData` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a getter that returns a value based on the object's internal, mutable state (`formatData`). A pure function's output must depend only on its inputs. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setDateFormatSymbols(java.text.DateFormatSymbols newFormatSymbols)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method writes to two internal instance fields: `this.formatData` is set to a clone of the input, and `this.useDateFormatSymbols` is set to true.",
+      "stateAccesses": [
+        {
+          "name": "this.formatData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.useDateFormatSymbols",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal state of the formatter (`formatData` and `useDateFormatSymbols`), which will alter its future formatting and parsing behavior.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a setter; its purpose is to modify the object's state based on the `newFormatSymbols` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies the internal state of the object. This mutation is a side effect, which makes the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.Object clone()",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads the `formatData` field to clone it for the new object. The `super.clone()` call performs a shallow copy of all other fields.",
+      "stateAccesses": [
+        {
+          "name": "this.formatData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to create a new object, which is an allocation but not typically considered a side effect in the context of purity. It does not modify any existing state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output (the new object) is a function of the state of the object being cloned, not of any input arguments (as there are none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it lacks side effects, its result depends on the internal state of the object being cloned rather than on input parameters. Pure functions must depend only on their inputs.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int hashCode()",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `pattern` to compute the hash code.",
+      "stateAccesses": [
+        {
+          "name": "this.pattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments, and its return value depends on the internal state of the `pattern` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the object's internal, mutable state (`pattern`), not on any input arguments. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "java.lang.String toString()",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads the internal instance fields `locale` and `pattern` to construct the string representation.",
+      "stateAccesses": [
+        {
+          "name": "this.locale",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.pattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls. `locale.getDisplayName()` is deterministic for a given locale object.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the internal state of the `locale` and `pattern` fields.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its returned string is dependent on the internal, mutable state of the object (`locale` and `pattern`). This dependency on state rather than arguments means it is not a pure function and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean equals(java.lang.Object obj)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads the `pattern` and `formatData` fields of both `this` object and the `obj` parameter (if it is a SimpleDateFormat). It also calls `super.equals`, which may access fields from the parent `DateFormat` class, like `calendar`.",
+      "stateAccesses": [
+        {
+          "name": "this.pattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.formatData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects; it is a comparison method.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the `obj` argument, but also on the internal state of `this` object. Therefore, it does not depend solely on its arguments in the sense of a static function.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the internal state of `this` object and the passed `obj`. Pure functions should not depend on instance state. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void readObject(java.io.ObjectInputStream stream)",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method performs extensive writes to the object's state. It reads data from the `stream` and uses it to populate nearly all instance fields, such as `pattern`, `compiledPattern`, `serialVersionOnStream`, `defaultCenturyStart`, and the `calendar`'s time zone.",
+      "stateAccesses": [
+        {
+          "name": "this.pattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.compiledPattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.serialVersionOnStream",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.defaultCenturyStart",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.calendar",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has profound side effects, as its sole purpose is to initialize the state of the current object from a serialized stream.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method can have non-deterministic behavior. The call to `initializeDefaultCentury()` uses `System.currentTimeMillis()`. Also, `TimeZone.getTimeZone(id)` can behave differently depending on the availability of timezone data in the runtime environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends entirely on the content of the `stream` argument and potentially non-deterministic system properties, not on a simple input-output relationship.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to cause side effects by mutating the object's state based on an external resource (the input stream). It is also non-deterministic. It is fundamentally opposed to the principles of purity.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void checkNegativeNumberExpression()",
+      "className": "java.text.SimpleDateFormat",
+      "reasonAboutStateAccesses": "This method reads from `numberFormat`, `originalNumberFormat`, and `originalNumberPattern`. It may write to `hasFollowingMinusSign`, `minusSign`, `originalNumberPattern`, and `originalNumberFormat` if the number format has changed.",
+      "stateAccesses": [
+        {
+          "name": "this.numberFormat",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.originalNumberFormat",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.originalNumberPattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.hasFollowingMinusSign",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.minusSign",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.originalNumberPattern",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.originalNumberFormat",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects, as it potentially modifies several internal fields of the object (`hasFollowingMinusSign`, `minusSign`, etc.) to synchronize them with the state of the current `numberFormat`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its behavior depends on the internal state of `numberFormat` and the other fields it checks and updates.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads and writes to the instance's internal state, which constitutes a side effect. Its behavior is entirely dependent on this state, not on any input arguments. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

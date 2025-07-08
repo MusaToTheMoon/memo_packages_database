@@ -1,0 +1,461 @@
+{
+  "file_name": "java.util.concurrent.Executors",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/concurrent/Executors.java",
+  "source_code_file_path": "java_source_code_files/java/util/concurrent/Executors.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751896921,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 425.494,
+  "llm_analysis": [
+    {
+      "methodSignature": "ExecutorService newFixedThreadPool(int nThreads)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not read or write any static or instance fields. It creates new objects, but does not access any pre-existing state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to create new stateful objects (`ThreadPoolExecutor`, `LinkedBlockingQueue`). This object creation is an observable side effect. The returned ExecutorService manages threads and tasks, which are external state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any calls to sources of non-determinism like random number generators or system clocks.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `ThreadPoolExecutor` instance upon every invocation. While the configuration of the new instance is determined by the input argument `nThreads`, the returned object reference is unique for each call. Therefore, the return value is not solely dependent on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a factory method that creates and returns a new `ThreadPoolExecutor` instance. Creating new objects with external state (thread pools) is a side effect. The method is not idempotent and its output (the object reference) is different on every call. Therefore, it is not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService newWorkStealingPool(int parallelism)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method reads the static field `ForkJoinPool.defaultForkJoinWorkerThreadFactory` to configure the new `ForkJoinPool`. This is a read of global state.",
+      "stateAccesses": [
+        {
+          "name": "ForkJoinPool.defaultForkJoinWorkerThreadFactory",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates a new `ForkJoinPool` instance, which is a stateful object managing a pool of threads. Object instantiation of this nature is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic does not depend on time, randomness, or other non-deterministic system properties.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `ForkJoinPool` instance on each call, so the return value (the object reference) is not the same. Additionally, it depends on the global static field `ForkJoinPool.defaultForkJoinWorkerThreadFactory`, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that creates a new `ForkJoinPool`. It has the side effect of object creation and depends on the global state `ForkJoinPool.defaultForkJoinWorkerThreadFactory`. Therefore, it is not pure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService newWorkStealingPool()",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method reads the static field `ForkJoinPool.defaultForkJoinWorkerThreadFactory` to configure the new `ForkJoinPool`.",
+      "stateAccesses": [
+        {
+          "name": "ForkJoinPool.defaultForkJoinWorkerThreadFactory",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates a new `ForkJoinPool` object, which is a side effect. It also calls `Runtime.getRuntime().availableProcessors()`, which queries system state, another form of side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `Runtime.getRuntime().availableProcessors()`, whose return value depends on the underlying hardware and operating system environment, making the method's behavior non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its behavior depends on external, non-deterministic factors like the number of available processors (`Runtime.getRuntime().availableProcessors()`) and a global static field (`ForkJoinPool.defaultForkJoinWorkerThreadFactory`). The returned object is also a new instance on each call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is a factory method that creates a new `ForkJoinPool`. Its behavior is non-deterministic as it depends on `Runtime.getRuntime().availableProcessors()`. It also has the side effect of object creation. Therefore, it is not pure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService newFixedThreadPool(int nThreads, ThreadFactory threadFactory)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any static or instance fields. It operates solely on its arguments to create new objects.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's purpose is to create and return a new `ThreadPoolExecutor`, which is a stateful object. This object creation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic does not involve any calls to sources of non-determinism like random number generators or system clocks.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `ThreadPoolExecutor` instance upon every invocation. Although the new object's configuration is determined by the input arguments, the returned object reference is unique for each call, making the return value not solely dependent on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that creates a new `ThreadPoolExecutor` instance. Creating a new stateful object is a side effect. Therefore, the method is not pure and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService newSingleThreadExecutor()",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method itself does not directly access any fields. However, it calls `defaultThreadFactory()`, which creates a `DefaultThreadFactory`. The `DefaultThreadFactory` constructor reads the current thread's group and reads and increments the static `DefaultThreadFactory.poolNumber` field, which constitutes an access and modification of global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a factory method that creates several new objects, including a thread pool executor. This object instantiation is a side effect. The created executor also manages system resources (threads), which is a significant side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because it relies on `defaultThreadFactory()`. The factory uses a static atomic integer (`poolNumber`) to generate unique pool names, making each call produce a differently configured factory. It also depends on the `ThreadGroup` of the calling thread.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments. Its result depends on the state of the `DefaultThreadFactory` (specifically its static `poolNumber`) and the `ThreadGroup` of the calling thread. The returned value is a new object instance on each call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a factory for creating a single-threaded executor. It has side effects (object creation) and its behavior is non-deterministic due to its reliance on a static counter within `DefaultThreadFactory` and the calling thread's context. It is therefore not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService newSingleThreadExecutor(ThreadFactory threadFactory)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It creates new objects based on its arguments.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates several new objects, including a `ThreadPoolExecutor` and a wrapper. The `AutoShutdownDelegatedExecutorService` constructor registers a cleanup action with the `Cleaner`, which is a side effect involving system resources. This is a factory method.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic does not depend on time, randomness, or other non-deterministic system properties. The behavior of the created executor depends on the provided `threadFactory`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `AutoShutdownDelegatedExecutorService` instance on each call. While the configuration of the new instance is determined by the input argument `threadFactory`, the returned object reference is unique for each call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that creates a new executor service. It has the side effect of instantiating stateful objects and registering a system `Cleanable`. It is not pure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService newCachedThreadPool()",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not read or write any static or instance fields. It instantiates new objects with constant values.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a factory that creates a new `ThreadPoolExecutor` and `SynchronousQueue`. This object instantiation is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any calls to sources of non-determinism like random number generators or system clocks.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and returns a new `ThreadPoolExecutor` instance upon every invocation. The returned object reference is unique for each call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that creates a new cached thread pool. Creating a new stateful object is a side effect. Therefore, the method is not pure and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService newCachedThreadPool(ThreadFactory threadFactory)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It creates new objects based on its arguments.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a factory that creates a new `ThreadPoolExecutor` and `SynchronousQueue`, configured with the provided thread factory. This object creation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic does not involve any calls to sources of non-determinism like random number generators or system clocks.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `ThreadPoolExecutor` instance on each call. While the configuration of the new instance is determined by the input argument `threadFactory`, the returned object reference is unique for each call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that creates a new thread pool. It has the side effect of instantiating stateful objects. It is not pure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService newThreadPerTaskExecutor(ThreadFactory threadFactory)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any static or instance fields. It calls a factory method in another class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method acts as a factory, delegating the creation of a new `ThreadPerTaskExecutor` instance to another class. Creating a new stateful executor object is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself does not contain non-deterministic calls. The behavior of the created executor will depend on the provided `threadFactory`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new executor instance on each call. The returned object reference is unique, so the return value is not determined solely by the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that creates a new executor. It has the side effect of object creation. Therefore, it is not pure and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService newVirtualThreadPerTaskExecutor()",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not directly access any static or instance fields. It creates a new factory object locally.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a factory that creates a `ThreadFactory` and then uses it to create a new `ExecutorService`. This object creation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method creates a virtual thread factory using `Thread.ofVirtual().factory()`. The internal implementation of this factory might involve non-deterministic elements, such as thread naming counters, similar to `defaultThreadFactory`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and returns a new `ExecutorService` instance on each call. The returned object reference is unique.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method creating a new executor for virtual threads. It has side effects (object creation) and may have non-deterministic behavior from the underlying thread factory creation. It is not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ScheduledExecutorService newSingleThreadScheduledExecutor()",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any static or instance fields. It instantiates new objects.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a factory that creates new stateful objects: `DelegatedScheduledExecutorService` and `ScheduledThreadPoolExecutor`. This object instantiation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method creates a `ScheduledThreadPoolExecutor`, which internally uses `defaultThreadFactory()`. The factory uses a static atomic integer (`poolNumber`) to generate unique pool names, making each call produce a differently configured executor. This introduces non-determinism.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments. It returns a new object on each invocation, and its internal state (e.g., thread names) is non-deterministic due to the use of `defaultThreadFactory`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method with side effects (object creation) and non-deterministic behavior inherited from the default thread factory. It is not pure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ScheduledExecutorService newSingleThreadScheduledExecutor(ThreadFactory threadFactory)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It creates new objects based on its arguments.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a factory that creates new stateful objects: `DelegatedScheduledExecutorService` and `ScheduledThreadPoolExecutor`. This object instantiation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic does not depend on time, randomness, or other non-deterministic system properties. Its behavior is determined by the provided `threadFactory`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new object instance on each call. The returned object reference is unique, so the return value is not determined solely by the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that creates a new scheduled executor service. It has the side effect of instantiating stateful objects. It is not pure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ScheduledExecutorService newScheduledThreadPool(int corePoolSize)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any static or instance fields. It instantiates a new object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a factory that creates a new `ScheduledThreadPoolExecutor`. This object instantiation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method creates a `ScheduledThreadPoolExecutor`, which by default uses `defaultThreadFactory()`. This factory's use of a static counter for pool naming introduces non-determinism.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new object instance on each call. Furthermore, its internal state is influenced by the non-deterministic `defaultThreadFactory`, so its output is not solely dependent on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method with side effects (object creation) and non-deterministic behavior from the default thread factory. It is not pure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ScheduledExecutorService newScheduledThreadPool(int corePoolSize, ThreadFactory threadFactory)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It creates new objects based on its arguments.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a factory that creates a new `ScheduledThreadPoolExecutor`. This object instantiation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic does not depend on time, randomness, or other non-deterministic system properties. Its behavior is determined by the provided arguments.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `ScheduledThreadPoolExecutor` instance on each call. The returned object reference is unique, so the return value is not determined solely by the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that creates a new scheduled executor service. It has the side effect of instantiating stateful objects. It is not pure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ExecutorService unconfigurableExecutorService(ExecutorService executor)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It checks its argument for null and creates a new wrapper object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new `DelegatedExecutorService` wrapper object. This object creation is a minor side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `DelegatedExecutorService` instance for each call, even with the same input `executor`. Therefore, the returned object reference is not solely dependent on the argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a factory that creates a new wrapper object. While the wrapper is simple, the act of creating a new object instance is a side effect. The method is not idempotent. Therefore, it is not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ScheduledExecutorService unconfigurableScheduledExecutorService(ScheduledExecutorService executor)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It checks its argument for null and creates a new wrapper object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new `DelegatedScheduledExecutorService` wrapper object. This object creation is a minor side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `DelegatedScheduledExecutorService` instance for each call, even with the same input `executor`. Therefore, the returned object reference is not solely dependent on the argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a factory for a wrapper object. Creating a new object is a side effect, and the method is not idempotent. Therefore, it is not pure and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ThreadFactory defaultThreadFactory()",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method itself doesn't access state, but it instantiates `DefaultThreadFactory`, whose constructor accesses and modifies global state (`DefaultThreadFactory.poolNumber`) and reads thread-local state (`ThreadGroup`).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new `DefaultThreadFactory` object. The constructor of this object reads the current thread's group and modifies the static `poolNumber` counter, which are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method creates a `DefaultThreadFactory`. The factory's internal state (`namePrefix`) is determined by a static, incrementing `poolNumber`, making the result of each call different. It also depends on the `ThreadGroup` of the thread that calls it. This makes the method's output non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the state of the static `poolNumber` in `DefaultThreadFactory` and the calling thread's `ThreadGroup`. It also returns a new object instance on each call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that produces a `ThreadFactory`. It is not pure because it has side effects (object creation, modification of a static counter) and its behavior is non-deterministic, depending on a global counter and the calling thread's context. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ThreadFactory privilegedThreadFactory()",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method instantiates `PrivilegedThreadFactory`. Its constructor (and super constructor) accesses and modifies global state (`DefaultThreadFactory.poolNumber`) and reads thread-local state (`ThreadGroup`, context class loader).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates and returns a new `PrivilegedThreadFactory` object. The constructor of this object reads the current thread's context (class loader, thread group) and modifies the static `poolNumber` counter, which are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. It creates a `PrivilegedThreadFactory` which captures the `ClassLoader` and `ThreadGroup` of the calling thread. It also inherits the non-determinism from `DefaultThreadFactory`'s static `poolNumber`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the calling thread's context (class loader, thread group) and the static `poolNumber` in `DefaultThreadFactory`. It also returns a new object instance.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This factory method is non-deterministic, depending on the calling thread's context and a global counter. It has side effects (object creation, state modification). It is not pure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> Callable<T> callable(Runnable task, T result)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It checks its argument for null and creates a new wrapper object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new `RunnableAdapter` wrapper object. This object creation is a minor side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `RunnableAdapter` instance for each call. The returned object reference is unique, so the return value is not determined solely by the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a factory that creates a new wrapper object. Creating a new object instance is a side effect, making the method not idempotent. Therefore, it is not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Callable<Object> callable(Runnable task)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It checks its argument for null and creates a new wrapper object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new `RunnableAdapter` wrapper object. This object creation is a minor side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `RunnableAdapter` instance for each call. The returned object reference is unique, so the return value is not determined solely by the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a factory that creates a new wrapper object. Creating a new object instance is a side effect. It is not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Callable<Object> callable(PrivilegedAction<?> action)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It checks its argument for null and creates a new anonymous `Callable` object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new anonymous `Callable` wrapper object. This object creation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new anonymous `Callable` instance for each call. The returned object reference is unique, so the return value is not determined solely by the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a factory that creates a new wrapper object. Creating a new object instance is a side effect, making the method not idempotent. Therefore, it is not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Callable<Object> callable(PrivilegedExceptionAction<?> action)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It checks its argument for null and creates a new anonymous `Callable` object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new anonymous `Callable` wrapper object. This object creation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new anonymous `Callable` instance for each call. The returned object reference is unique, so the return value is not determined solely by the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a factory that creates a new wrapper object. Creating a new object instance is a side effect. It is not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> Callable<T> privilegedCallable(Callable<T> callable)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It checks its argument for null and creates a new wrapper object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new `PrivilegedCallable` wrapper object. This object creation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new `PrivilegedCallable` instance for each call. The returned object reference is unique, so the return value is not determined solely by the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a factory that creates a new wrapper object. Creating a new object instance is a side effect. It is not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> Callable<T> privilegedCallableUsingCurrentClassLoader(Callable<T> callable)",
+      "className": "java.util.concurrent.Executors",
+      "reasonAboutStateAccesses": "The method does not access any fields. It creates a new `PrivilegedCallableUsingCurrentClassLoader` object, whose constructor reads the calling thread's context class loader.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new `PrivilegedCallableUsingCurrentClassLoader` wrapper object. The constructor has the side effect of reading the current thread's context class loader.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic as it creates an object that captures the context class loader of the thread that invokes it. This value can vary between calls.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's returned object depends on the context class loader of the calling thread, not just the input arguments. It also returns a new object instance on each call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This factory method is non-deterministic as its behavior depends on the calling thread's context class loader. It also has the side effect of creating a new object. It is not pure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

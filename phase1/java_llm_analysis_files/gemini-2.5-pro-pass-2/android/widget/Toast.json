@@ -1,0 +1,1171 @@
+{
+  "file_name": "android.widget.Toast",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/Toast.java",
+  "source_code_file_path": "java_source_code_files/android/widget/Toast.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751828530,
+  "run_name": "gemini-2.5-pro-pass-2",
+  "llm_response_time_seconds": 191.42,
+  "llm_analysis": [
+    {
+      "methodSignature": "Looper getLooper(Looper looper)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method accesses global, thread-local state via the static call `Looper.myLooper()`. This call retrieves the looper associated with the current thread.",
+      "stateAccesses": [
+        {
+          "name": "android.os.Looper.myLooper()",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects. It checks for a null argument and retrieves the current thread's looper if necessary, then returns a Looper object.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's return value is non-deterministic as it depends on the state of the current thread. The call to `Looper.myLooper()` will return different values or throw an exception depending on whether `Looper.prepare()` has been called on the executing thread.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output does not depend solely on its arguments. If the input `looper` is null, the return value depends on the thread-local state fetched by `Looper.myLooper()`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value can be non-deterministic, depending on the thread's state (`Looper.myLooper()`). It reads global state, so its output is not solely determined by its inputs. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void show()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads multiple internal state fields: `this.mNextView`, `this.mText`, `this.mContext`, `this.mToken`, `this.mTN`, `this.mDuration`, and `this.mCallbacks`. It modifies the state of the nested `mTN` object by setting its `mNextView` or `mNextViewWeakRef` field. It also reads the global static field `sService` via the `getService()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mTN",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mDuration",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mCallbacks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "android.widget.Toast.sService",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to produce a side effect: displaying a toast notification on the screen. It achieves this by making a remote procedure call (RPC) via `service.enqueueToast()` or `service.enqueueTextToast()` to the system's `INotificationManager`. This interaction with a system service to modify the system UI is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. It calls `Compatibility.isChangeEnabled()`, which depends on the application's target SDK and the Android version. It also calls `mContext.getDisplayId()` and `mContext.isUiContext()`, which depend on the current runtime environment. The call to `getService()` and the subsequent RPC to `enqueueToast` depend on the availability and state of the system's notification service.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior does not depend on arguments only, as it's a void method with no arguments. Its logic is entirely driven by the internal state of the `Toast` object (e.g., `mNextView`, `mText`, `mDuration`) and external system state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has significant side effects (displaying a UI element via an IPC call) and its behavior is non-deterministic, depending on both internal object state and external system state. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void cancel()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "The method reads the internal fields `mNextView`, `mContext`, `mToken`, and `mTN`. It also accesses the global static field `sService` through the `getService()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mTN",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "android.widget.Toast.sService",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a clear side effect: it cancels a toast notification. It either calls `mTN.cancel()`, which internally sends a message to a handler to hide the toast view, or it makes a direct remote procedure call (RPC) to `getService().cancelToast()` to instruct the system notification service to remove the toast.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's execution path is non-deterministic because it depends on the result of `Compatibility.isChangeEnabled()`, which varies with the app's target SDK and the OS version. The interaction with the notification service via `getService()` is also non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a void method with no arguments. Its behavior depends entirely on the internal state (`mNextView`, `mContext`, `mToken`) and external system state (compatibility flags, notification service state).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has significant side effects, namely canceling a UI element through system service interaction. Its behavior also depends on internal state and non-deterministic system properties. Therefore, it is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setView(View view)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method performs a write operation on the internal state of the object by assigning the provided `view` to the `mNextView` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have any observable side effects. It only modifies an internal field of the `Toast` object. This state change is not visible externally until another method like `show()` is called.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's purpose is to modify internal state based on its argument, so its behavior is dependent on the argument, but it is not functionally pure as it causes a state change. As a void method, it has no return value to consider.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the internal state of the object (`this.mNextView`). Pure functions must not have side effects, and state mutation is a side effect. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View getView()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method performs a read operation on the internal `mNextView` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects; it is a simple getter that returns a reference to an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the `mNextView` field, not just on its arguments (of which there are none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the mutable internal state of the object (`this.mNextView`). While it has no side effects, a pure function's output must depend only on its inputs. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setDuration(int duration)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method writes to the internal primitive field `mDuration` and also writes to the `mDuration` field of the nested `mTN` object.",
+      "stateAccesses": [
+        {
+          "name": "this.mDuration",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mTN.mDuration",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have any observable side effects. It only modifies internal fields. This state change is not externally visible until a method like `show()` is called.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's purpose is to modify internal state based on its argument. As a void method, it is not functionally pure because it causes a state change.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the internal state of the object (`this.mDuration` and `this.mTN.mDuration`). Pure functions must not have side effects, which includes state mutation. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getDuration()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method performs a read operation on the internal primitive field `mDuration`.",
+      "stateAccesses": [
+        {
+          "name": "this.mDuration",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects; it is a simple getter that returns the value of an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the `mDuration` field, not on its arguments (of which there are none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the mutable internal state of the object (`this.mDuration`). Although it lacks side effects, its output is not solely determined by its inputs. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setMargin(float horizontalMargin, float verticalMargin)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method writes to the `mHorizontalMargin` and `mVerticalMargin` fields of the nested `mTN` object. It also reads `this.mNextView` via the `isSystemRenderedTextToast()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mTN.mHorizontalMargin",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mTN.mVerticalMargin",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method can produce a side effect by logging an error message using `Log.e` if it is called on a text toast on a recent Android version.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because its logging side effect depends on the result of `isSystemRenderedTextToast()`, which in turn calls `Compatibility.isChangeEnabled()`, a function whose result depends on the system environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method modifies internal state based on its arguments, but also has potential side effects (logging) and non-deterministic behavior, so it does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the `mTN` object, can produce a logging side effect, and contains non-deterministic logic based on system compatibility flags. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "float getHorizontalMargin()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads the `mHorizontalMargin` field from the nested `mTN` object. It also reads `this.mNextView` via the `isSystemRenderedTextToast()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mTN.mHorizontalMargin",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method can produce a side effect by logging an error message using `Log.e` if it is called on a text toast on a recent Android version.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because its logging side effect depends on the result of `isSystemRenderedTextToast()`, which in turn calls `Compatibility.isChangeEnabled()`, a function whose result depends on the system environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior (logging) depend on internal state (`mTN.mHorizontalMargin`, `mNextView`) and non-deterministic system calls, not only on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on internal state, it can produce a logging side effect, and its behavior is non-deterministic. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "float getVerticalMargin()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads the `mVerticalMargin` field from the nested `mTN` object. It also reads `this.mNextView` via the `isSystemRenderedTextToast()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mTN.mVerticalMargin",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method can produce a side effect by logging an error message using `Log.e` if it is called on a text toast on a recent Android version.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because its logging side effect depends on the result of `isSystemRenderedTextToast()`, which in turn calls `Compatibility.isChangeEnabled()`, a function whose result depends on the system environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior (logging) depend on internal state (`mTN.mVerticalMargin`, `mNextView`) and non-deterministic system calls, not only on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on internal state, it can produce a logging side effect, and its behavior is non-deterministic. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setGravity(int gravity, int xOffset, int yOffset)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method writes to the `mGravity`, `mX`, and `mY` fields of the nested `mTN` object. It also reads `this.mNextView` via the `isSystemRenderedTextToast()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mTN.mGravity",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mTN.mX",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mTN.mY",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method can produce a side effect by logging an error message using `Log.e` if it is called on a text toast on a recent Android version.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because its logging side effect depends on the result of `isSystemRenderedTextToast()`, which in turn calls `Compatibility.isChangeEnabled()`, a function whose result depends on the system environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method modifies internal state based on its arguments, but also has potential side effects (logging) and non-deterministic behavior, so it does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the `mTN` object, can produce a logging side effect, and contains non-deterministic logic based on system compatibility flags. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getGravity()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads the `mGravity` field from the nested `mTN` object. It also reads `this.mNextView` via the `isSystemRenderedTextToast()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mTN.mGravity",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method can produce a side effect by logging an error message using `Log.e` if it is called on a text toast on a recent Android version.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because its logging side effect depends on the result of `isSystemRenderedTextToast()`, which in turn calls `Compatibility.isChangeEnabled()`, a function whose result depends on the system environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior (logging) depend on internal state (`mTN.mGravity`, `mNextView`) and non-deterministic system calls, not only on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on internal state, it can produce a logging side effect, and its behavior is non-deterministic. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getXOffset()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads the `mX` field from the nested `mTN` object. It also reads `this.mNextView` via the `isSystemRenderedTextToast()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mTN.mX",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method can produce a side effect by logging an error message using `Log.e` if it is called on a text toast on a recent Android version.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because its logging side effect depends on the result of `isSystemRenderedTextToast()`, which in turn calls `Compatibility.isChangeEnabled()`, a function whose result depends on the system environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior (logging) depend on internal state (`mTN.mX`, `mNextView`) and non-deterministic system calls, not only on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on internal state, it can produce a logging side effect, and its behavior is non-deterministic. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getYOffset()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads the `mY` field from the nested `mTN` object. It also reads `this.mNextView` via the `isSystemRenderedTextToast()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mTN.mY",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method can produce a side effect by logging an error message using `Log.e` if it is called on a text toast on a recent Android version.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because its logging side effect depends on the result of `isSystemRenderedTextToast()`, which in turn calls `Compatibility.isChangeEnabled()`, a function whose result depends on the system environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior (logging) depend on internal state (`mTN.mY`, `mNextView`) and non-deterministic system calls, not only on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on internal state, it can produce a logging side effect, and its behavior is non-deterministic. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isSystemRenderedTextToast()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads the internal object field `mNextView` to check if it is null.",
+      "stateAccesses": [
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's return value is non-deterministic as it depends on `Compatibility.isChangeEnabled()`. The result of this call varies based on the Android version the code is running on and the target SDK of the application, which are external environmental factors.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value does not depend on arguments only. It depends on the internal state (`mNextView`) and the non-deterministic result of a system compatibility check.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on internal state (`mNextView`) and is non-deterministic due to the `Compatibility.isChangeEnabled()` call. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void addCallback(Callback callback)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method writes to the internal state by adding an element to the `mCallbacks` list. The access is synchronized.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallbacks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the internal collection `mCallbacks`. This change affects the behavior of other methods that use this list, such as `show()` and `cancel()` (indirectly via callbacks).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method modifies internal state and is void, so it does not depend on arguments only in a functional sense.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the object by adding an element to the `mCallbacks` list. This state mutation is a side effect. Thus, the method is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void removeCallback(Callback callback)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method writes to the internal state by removing an element from the `mCallbacks` list. The access is synchronized.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallbacks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the internal collection `mCallbacks`. This alters the object's state and affects which callbacks are executed later.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method modifies internal state and is void, so it does not depend on arguments only in a functional sense.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the object by removing an element from the `mCallbacks` list. This state mutation is a side effect. Thus, the method is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "WindowManager.LayoutParams getWindowParams()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads internal state from `mNextView` and from the nested `mTN` object's `mParams` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mTN.mParams",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's return value is non-deterministic as its logic depends on `Compatibility.isChangeEnabled()`, which varies based on system and application properties.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is not determined by arguments alone; it depends on internal state (`mNextView`) and a non-deterministic system check.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the object's internal state and a non-deterministic check of system compatibility flags. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Toast makeText(Context context, CharSequence text, int duration)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method is static and does not access any fields of a `Toast` instance. However, its delegate method `makeText(Context, Looper, CharSequence, int)` accesses global state such as the current thread's Looper, system resources via the Context, and compatibility flags.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This static factory method has side effects because it creates a new `Toast` object, a process which itself involves side effects like accessing system resources (`context.getResources()`) and potentially inflating a view layout.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the creation of the `Toast` object within its delegate involves `Looper.myLooper()` (thread-dependent) and `Compatibility.isChangeEnabled()` (environment-dependent).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output (a new `Toast` object) is not solely dependent on its arguments. The state of the returned object is influenced by non-deterministic factors like system compatibility flags and the thread's Looper state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a factory method that creates a new object, which involves side effects (resource access) and non-deterministic behavior (depending on system state and thread state). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Toast makeText(Context context, Looper looper, CharSequence text, int duration)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This static method accesses global state. If the `looper` argument is null, it calls `Looper.myLooper()` which accesses thread-local state. The constructor and `ToastPresenter.getTextToastView` call also access global system resources via the `context` argument.",
+      "stateAccesses": [
+        {
+          "name": "android.os.Looper.myLooper()",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This static factory method has side effects. It creates a new `Toast` object, which accesses system resources. Depending on compatibility flags, it may also call `ToastPresenter.getTextToastView`, which involves inflating a view layout from resources, a form of I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its behavior depends on `Compatibility.isChangeEnabled()` and potentially `Looper.myLooper()`, both of which depend on the execution environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output, a new `Toast` object, is not solely dependent on its arguments. The internal state of the created toast is influenced by non-deterministic system compatibility flags and potentially the current thread's Looper.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. As a factory for a complex object, its execution involves side effects (resource access) and is non-deterministic (dependent on system and thread state). Therefore, it cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Toast makeCustomToastWithIcon(Context context, Looper looper, CharSequence text, int duration, Drawable icon)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This static method accesses global state. The `Toast` constructor it calls will access `Looper.myLooper()` if the `looper` argument is null, which is thread-local state. It also accesses system resources via the `context` to create the view.",
+      "stateAccesses": [
+        {
+          "name": "android.os.Looper.myLooper()",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This static factory method has side effects. It creates a `Toast` object and calls `ToastPresenter.getTextToastViewWithIcon`, which involves inflating a view layout and setting its content. This is a form of I/O and external state mutation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the `Toast` constructor it calls may depend on `Looper.myLooper()`, which is dependent on the calling thread's state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `Toast` object's state is not determined by the input arguments alone. Its creation depends on system resources and potentially thread state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a factory method whose execution involves side effects like resource loading and view inflation, and it relies on non-deterministic thread state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Toast makeText(Context context, int resId, int duration)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This static method does not directly access class fields, but it accesses global system resources by calling `context.getResources().getText(resId)`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This static factory method has side effects. It performs I/O by reading a string resource from the application's resources via `context.getResources().getText(resId)`. It then calls another `makeText` method which has further side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the text returned by `context.getResources().getText(resId)` can vary depending on the device's current locale and configuration. The subsequent call to `makeText` is also non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is not solely dependent on its arguments because loading a resource is a non-deterministic operation that depends on the external environment (device configuration, available resources).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs I/O (resource loading) and is non-deterministic due to its dependency on device configuration (e.g., locale). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setText(int resId)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads the internal `mContext` field to access system resources. The delegated call to `setText(CharSequence)` then reads `mNextView` and writes to `mText`.",
+      "stateAccesses": [
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It performs I/O by calling `mContext.getText(resId)` to load a string resource. The subsequent call to `setText(CharSequence s)` has further side effects of modifying a View's text content.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because `mContext.getText(resId)` can return different strings based on the device's locale and configuration.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not dependent on arguments only. It depends on the internal `mContext` field and the non-deterministic outcome of resource loading.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs I/O (resource loading), which is a side effect and non-deterministic. It also modifies internal state or the state of an associated View object. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setText(CharSequence s)",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method's behavior depends on a compatibility flag. It either writes to the internal `mText` field, or it reads the `mNextView` field to find a child `TextView` and modify it.",
+      "stateAccesses": [
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It either modifies the internal `mText` field, or it modifies the state of an external `View` object by calling `tv.setText(s)`. Modifying an external object is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's execution path is non-deterministic as it depends on the result of `Compatibility.isChangeEnabled()`, which varies based on system and application properties.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior does not depend on arguments only. It depends on internal state (`mNextView`) and non-deterministic system properties, and its purpose is to cause a state change.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects (modifying internal state or an external View object) and follows a non-deterministic path based on system flags. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "TN getTn()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This method reads the internal object field `mTN` and returns it.",
+      "stateAccesses": [
+        {
+          "name": "this.mTN",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the `mTN` field, not on arguments (of which there are none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it has no side effects, its return value depends on the object's internal, mutable state (`this.mTN`). A pure function's result must depend only on its inputs. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "INotificationManager getService()",
+      "className": "android.widget.Toast",
+      "reasonAboutStateAccesses": "This static method reads and potentially writes to the global static field `sService`. If `sService` is null, it is assigned the result of a call to `ServiceManager.getService()`.",
+      "stateAccesses": [
+        {
+          "name": "android.widget.Toast.sService",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "android.widget.Toast.sService",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect when `sService` is null, as it modifies the global static state (`sService`). More significantly, `ServiceManager.getService()` is an IPC call to the system's service manager to retrieve a binder to another service, which is a form of I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The `ServiceManager.getService()` call's success and return value depend on the state of the Android system at runtime (i.e., whether the notification service is running).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method is static and has no arguments. Its return value depends entirely on global state (`sService`) and non-deterministic system calls.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads and writes to global static state, performs an IPC call to a system service (a side effect), and its outcome is non-deterministic. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "List<Callback> getCallbacks()",
+      "className": "android.widget.Toast.TN",
+      "reasonAboutStateAccesses": "This method reads the `mCallbacks` field, which is a `WeakReference` to a list.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallbacks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It retrieves a weak reference, checks if the referent is non-null, and returns a new `ArrayList` copy.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's result can be considered non-deterministic because the value of a `WeakReference` can become null at any time due to garbage collection, which is an external, non-deterministic process.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the internal `mCallbacks` field and the non-deterministic behavior of the garbage collector, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on internal state (`mCallbacks`) and is subject to non-deterministic garbage collection behavior affecting the `WeakReference`. Thus, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void show(IBinder windowToken)",
+      "className": "android.widget.Toast.TN",
+      "reasonAboutStateAccesses": "This method reads the internal `mHandler` field to post a message.",
+      "stateAccesses": [
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It performs logging via `Log.v` and, more importantly, sends a message to a `Handler`. This schedules an asynchronous operation (`handleShow`) that will ultimately display a UI element, a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself contains no non-deterministic calls, but the asynchronous action it triggers will have non-deterministic behavior.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (posting a message) depends on the internal state (`mHandler`) and its argument (`windowToken`), not on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is to trigger a significant side effect (showing a toast) asynchronously by sending a message to a Handler. It also performs logging. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void hide()",
+      "className": "android.widget.Toast.TN",
+      "reasonAboutStateAccesses": "This method reads the internal `mHandler` field to post a message.",
+      "stateAccesses": [
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It performs logging via `Log.v` and sends a message to a `Handler`. This schedules an asynchronous operation (`handleHide`) that will hide a UI element.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its behavior depends on internal state (`mHandler`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to trigger an asynchronous side effect (hiding a toast) via a Handler. It also performs logging. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void cancel()",
+      "className": "android.widget.Toast.TN",
+      "reasonAboutStateAccesses": "This method reads the internal `mHandler` field to post a message.",
+      "stateAccesses": [
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It performs logging via `Log.v` and sends a message to a `Handler`. This schedules an asynchronous operation that will hide the toast and make an IPC call to the notification service.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its behavior depends on internal state (`mHandler`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It triggers asynchronous side effects (hiding a toast, IPC call) via a Handler. It also performs logging. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void handleShow(IBinder windowToken)",
+      "className": "android.widget.Toast.TN",
+      "reasonAboutStateAccesses": "This method reads many internal fields: `mHandler`, `mNextView` (or `mNextViewWeakRef`), `mView`, `mToken`, `mDuration`, `mGravity`, `mX`, `mY`, `mHorizontalMargin`, `mVerticalMargin`, and `mCallbacks`. It also writes to the `mView` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mNextViewWeakRef",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mDuration",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mGravity",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mX",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mY",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mHorizontalMargin",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mVerticalMargin",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mCallbacks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major side effects. It calls `mPresenter.show(...)`, which is responsible for adding the toast's view to the window manager, making it visible on screen. It also calls `handleHide()` to remove any existing view and performs logging.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. It checks the handler's message queue with `mHandler.hasMessages()`, which depends on the timing of asynchronous events. The behavior of `WeakReference.get()` is also non-deterministic due to garbage collection.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends heavily on internal state and non-deterministic message queue checks, not just its `windowToken` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a major UI side effect (displaying a view), modifies internal state, and its logic is non-deterministic, depending on the message queue and garbage collection. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void handleHide()",
+      "className": "android.widget.Toast.TN",
+      "reasonAboutStateAccesses": "This method reads the internal fields `mView` and `mPresenter`. It writes to `mView`, setting it to null.",
+      "stateAccesses": [
+        {
+          "name": "this.mView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mPresenter",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a major side effect: it calls `mPresenter.hide(...)`, which removes the toast's view from the window manager, making it disappear from the screen. It also performs logging.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its behavior is dependent on internal state (`mView`, `mPresenter`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a significant UI side effect (hiding a view), modifies internal state, and performs logging. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View getNextView()",
+      "className": "android.widget.Toast.TN",
+      "reasonAboutStateAccesses": "The method reads the internal fields `mNextView` or `mNextViewWeakRef`.",
+      "stateAccesses": [
+        {
+          "name": "this.mNextView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mNextViewWeakRef",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its execution path depends on the feature flag `Flags.toastNoWeakref()`. Furthermore, if the flag is false, the result of `mNextViewWeakRef.get()` depends on the garbage collector, which is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state and non-deterministic factors (feature flag, garbage collection), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result is non-deterministic, depending on a feature flag and potentially garbage collection. It also depends on internal state. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onToastShown()",
+      "className": "android.widget.Toast.CallbackBinder",
+      "reasonAboutStateAccesses": "This method reads the internal `mHandler` and `mCallbacks` fields.",
+      "stateAccesses": [
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mCallbacks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It posts a new task to a `Handler`, which causes asynchronous execution. The executed task then iterates over a list of external `Callback` objects and invokes a method on them, causing external state changes or other side effects defined by those callbacks.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is not non-deterministic, but it schedules an asynchronous task whose execution timing is non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its behavior depends on internal state (`mHandler`, `mCallbacks`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It schedules an asynchronous task that invokes external, user-provided callback methods. This is a significant side effect and the behavior is not self-contained. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onToastHidden()",
+      "className": "android.widget.Toast.CallbackBinder",
+      "reasonAboutStateAccesses": "This method reads the internal `mHandler` and `mCallbacks` fields.",
+      "stateAccesses": [
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mCallbacks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It posts a new task to a `Handler`, which causes asynchronous execution. The executed task then iterates over a list of external `Callback` objects and invokes a method on them, causing external state changes or other side effects defined by those callbacks.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is not non-deterministic, but it schedules an asynchronous task whose execution timing is non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its behavior depends on internal state (`mHandler`, `mCallbacks`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It schedules an asynchronous task that invokes external, user-provided callback methods. This is a significant side effect and the behavior is not self-contained. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "List<Callback> getCallbacks()",
+      "className": "android.widget.Toast.CallbackBinder",
+      "reasonAboutStateAccesses": "This method reads the internal `mCallbacks` list within a synchronized block.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallbacks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It creates and returns a new `ArrayList` containing the elements from the internal list.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the `mCallbacks` list, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it lacks side effects, its return value is dependent on the mutable internal state of the `mCallbacks` field. A pure function must only depend on its inputs. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

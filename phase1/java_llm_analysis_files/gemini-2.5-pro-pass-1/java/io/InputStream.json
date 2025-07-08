@@ -1,0 +1,296 @@
+{
+  "file_name": "java.io.InputStream",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/io/InputStream.java",
+  "source_code_file_path": "java_source_code_files/java/io/InputStream.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751896412,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 129.541,
+  "llm_analysis": [
+    {
+      "methodSignature": "InputStream nullInputStream()",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state. It creates a new anonymous inner class instance but does not read from or write to any fields of the containing `InputStream` class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no observable side effects. It is a factory method that creates and returns a new object. It does not perform I/O, modify arguments, or alter any existing state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not rely on any non-deterministic functions like random number generators or system time. It deterministically creates and returns a new object with a known, fixed behavior.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its output (a new InputStream instance with a fixed behavior) is always the same. Therefore, its behavior depends only on its (non-existent) arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, does not access any mutable state, is not non-deterministic, and its behavior is solely dependent on its inputs (of which there are none). It consistently returns a new object with predictable behavior.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int read(byte[] b)",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "This method does not directly access any state. It delegates to `read(b, 0, b.length)`, which in turn relies on the abstract `read()` method. Concrete implementations will access the state of the underlying stream.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it delegates to `read(b, 0, b.length)`, which modifies the state of the input byte array `b` by filling it with data from the stream. It also advances the position of the underlying input stream, which is a side effect on the stream's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its return value (number of bytes read) and the data written into the buffer `b` depend on the external state of the input stream, which is unpredictable.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output does not depend only on its arguments. It is fundamentally dependent on the current state and content of the underlying input stream from which it reads.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects (modifies the argument `b` and the stream's state) and is non-deterministic because its behavior is dependent on an external I/O resource. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int read(byte[] b, int off, int len)",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "This method does not directly access any fields. Its logic is based on repeatedly calling the abstract `read()` method, whose implementations would access stream-specific state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has significant side effects. It modifies the contents of the passed byte array `b` with data from the stream. It also consumes data from the underlying input stream by calling `read()`, which modifies the stream's internal position/state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The data read into the buffer and the number of bytes read depend on the state of the external input stream at the time of the call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output and side effects are not solely determined by its arguments. They are critically dependent on the external state of the input stream.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It produces side effects by modifying an argument array and consuming data from an external stream. Its behavior is non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "byte[] readAllBytes()",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "This method does not access any state itself, but delegates to `readNBytes(Integer.MAX_VALUE)`, which reads from constant static fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of consuming all bytes from the input stream by calling other read methods, advancing its position to the end. This is a modification of the stream's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic as its return value (the byte array containing the stream's content) is entirely dependent on the external input stream.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments, but its output is not constant. It depends on the state of the `this` object (the stream). Therefore, it does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of consuming the stream and its return value is non-deterministic, depending on an external resource. It cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "byte[] readNBytes(int len)",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "The method reads two static final fields: `DEFAULT_BUFFER_SIZE` for its internal buffer allocation and `MAX_BUFFER_SIZE` for an allocation limit check. These are reads of immutable constants, not mutable state.",
+      "stateAccesses": [
+        {
+          "name": "java.io.InputStream.DEFAULT_BUFFER_SIZE",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "java.io.InputStream.MAX_BUFFER_SIZE",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of consuming bytes from the input stream by calling `read()`, which modifies the stream's internal state (e.g., its position).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's return value is non-deterministic because the bytes it reads and returns are dependent on the content of the external input stream.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the argument `len` and the state of the underlying input stream, not just the argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It consumes data from an external stream (a side effect) and its output is non-deterministic, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int readNBytes(byte[] b, int off, int len)",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "This method does not access any fields directly. It repeatedly calls `read(byte[], int, int)`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It modifies the content of the input byte array `b`. It also consumes bytes from the underlying stream by calling `read()`, thus changing the stream's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The number of bytes read and the data placed into the buffer `b` depend on the external state of the input stream.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is not determined solely by its arguments; it is fundamentally dependent on the state and content of the external input stream.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects (modifying an argument and the stream state) and is non-deterministic. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "long skip(long n)",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "The method reads the static final field `MAX_SKIP_BUFFER_SIZE` to create a temporary buffer. This is a read of an immutable constant.",
+      "stateAccesses": [
+        {
+          "name": "java.io.InputStream.MAX_SKIP_BUFFER_SIZE",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to cause a side effect: advancing the position of the input stream by consuming and discarding bytes. This modifies the state of the stream.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The actual number of bytes skipped (the return value) depends on how much data is available in the external input stream.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is not determined solely by the argument `n`. It also depends on the current state and remaining length of the underlying stream.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It exists to perform a side effect (modifying the stream's state) and its result is non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void skipNBytes(long n)",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "The method does not access any fields. It relies on calls to `skip()` and `read()`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: advancing the stream's position by exactly `n` bytes. It does this by calling `skip()` and `read()`, which modify the stream's state. It can also throw an exception, which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. Whether it successfully completes or throws an `EOFException` depends on the amount of data available in the external input stream.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (success or exception) is not determined by its argument `n` alone; it depends on the state of the underlying stream.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its function is to produce a side effect on the stream, and its successful execution is non-deterministic. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int available()",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The default implementation has no side effects; it simply returns 0. Subclasses are expected to override this with implementations that would have the side effect of querying an external resource, but this specific method does not.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The default implementation is deterministic; it always returns 0. It does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and always returns 0. Therefore, its output depends only on its (non-existent) arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This specific implementation in the base `InputStream` class is pure. It has no side effects and always returns the constant value 0. This is a trivial case, as any useful subclass implementation would be non-pure and non-deterministic.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void close()",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The default implementation in the `InputStream` class has no side effects; it is an empty method. Subclasses are expected to override this to release system resources, which is a significant side effect.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic; it does nothing.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and has no return value, so its behavior vacuously depends only on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The base class implementation of `close` is pure, as it does nothing. However, this is a placeholder. Any meaningful implementation in a subclass will have side effects (releasing resources) and will not be pure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void mark(int readlimit)",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The default implementation in `InputStream` has no side effects; it is an empty method. Subclasses that support marking would implement this to record the current position, which would be a side effect on the stream's internal state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic; it does nothing.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value and performs no actions, so its behavior vacuously depends only on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The base class implementation of `mark` is pure as it's a no-op. A functional implementation in a subclass would modify the stream's state and thus be impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void reset()",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method's only behavior is to throw an `IOException`. Throwing an exception is considered a side effect as it alters the normal control flow of the program.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic; it always throws the same type of exception with the same message.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its behavior (throwing an exception) is constant. Therefore, it depends only on its (non-existent) arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its sole purpose is to produce a side effect (throwing an exception). It cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean markSupported()",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It simply returns a boolean constant.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic; it always returns `false`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value is constant. Thus, it depends only on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple accessor that returns a constant value with no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "long transferTo(OutputStream out)",
+      "className": "java.io.InputStream",
+      "reasonAboutStateAccesses": "The method reads the static final field `DEFAULT_BUFFER_SIZE` to create a temporary buffer. This is a read of an immutable constant.",
+      "stateAccesses": [
+        {
+          "name": "java.io.InputStream.DEFAULT_BUFFER_SIZE",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant I/O side effects. It consumes data from `this` input stream (modifying its state) and writes data to the provided `OutputStream` argument (modifying its state).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The data transferred and the total number of bytes (the return value) depend on the state of the external input stream. Its success also depends on the state of the external output stream.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It depends heavily on the state of `this` object (the input stream) and the state of the `out` object (the output stream).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs I/O operations on two streams, which are major side effects. Its behavior is non-deterministic. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

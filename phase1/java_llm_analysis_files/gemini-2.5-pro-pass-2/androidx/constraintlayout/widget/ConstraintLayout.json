@@ -1,0 +1,847 @@
+{
+  "file_name": "androidx.constraintlayout.widget.ConstraintLayout",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/opt/sherpa/+/studio-3.0/constraintlayout/src/main/java/android/support/constraint/ConstraintLayout.java",
+  "source_code_file_path": "java_source_code_files/androidx/constraintlayout/widget/ConstraintLayout.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751904432,
+  "run_name": "gemini-2.5-pro-pass-2",
+  "llm_response_time_seconds": 245.085,
+  "llm_analysis": [
+    {
+      "methodSignature": "void setDesignInformation(int type, java.lang.Object value1, java.lang.Object value2)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method writes to the internal object field `mDesignIds`. It initializes the HashMap if it's null and then adds a new entry to it. This constitutes a write access to the internal state of the object.",
+      "stateAccesses": [
+        {
+          "name": "this.mDesignIds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mDesignIds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to modify the internal state by adding an entry to the `mDesignIds` HashMap. This state modification is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic, including string manipulation, is deterministic. It does not call any non-deterministic functions like those related to time or randomness.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method does not return a value. Its side effect, modifying `mDesignIds`, is determined solely by its input arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a void method that causes a side effect by modifying the internal state field `mDesignIds`. Therefore, it is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.Object getDesignInformation(int type, java.lang.Object value)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads from the internal object field `mDesignIds`. It checks for the existence of a key and retrieves the corresponding value if present.",
+      "stateAccesses": [
+        {
+          "name": "this.mDesignIds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have any observable side effects. It only reads from an internal map and returns a value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions like random number generators or time-based functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the `mDesignIds` map, not solely on its input arguments. The map can be modified by `setDesignInformation`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the internal state field `mDesignIds`, which is mutable. Calls with the same arguments can produce different results if the state changes between calls. Thus, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setId(int id)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "The method modifies the internal `mChildrenByIds` SparseArray by removing the old ID and adding the new one. This constitutes a write access to an internal object field. It also calls `super.setId(id)` which modifies state in the parent class.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildrenByIds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects as it modifies the internal `mChildrenByIds` map and calls `super.setId(id)`, which changes the View's ID property, a fundamental piece of its state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effects are dependent on the input `id` and the view's current ID, which it retrieves via `getId()`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a `void` return type and its purpose is to modify the internal state of the object (`mChildrenByIds`) and its parent. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setTitle(java.lang.String title)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method performs a write operation on the internal object field `mTitle`.",
+      "stateAccesses": [
+        {
+          "name": "this.mTitle",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect of modifying the internal field `mTitle`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effect (setting the title) depends only on the input argument `title`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a standard setter method. It is not pure because it modifies the internal state of the object and returns void. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "java.lang.String getTitle()",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads the value of the internal object field `mTitle`.",
+      "stateAccesses": [
+        {
+          "name": "this.mTitle",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state field `mTitle`, not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a standard getter method. It is not pure because its return value depends on the internal state (`mTitle`), which can be modified by the `setTitle` method. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void addView(android.view.View child, int index, android.view.ViewGroup.LayoutParams params)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method does not directly access fields of `ConstraintLayout`. Instead, it delegates state modification to `super.addView` and `onViewAdded`, which modify the view hierarchy and internal tracking structures, respectively.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has significant side effects. It modifies the view hierarchy by adding a new child view, which is a core function of a `ViewGroup` and affects rendering and layout.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the value of `Build.VERSION.SDK_INT`, which is a form of dependency on the system environment, making it non-deterministic across different Android versions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effects depend on the `child` view being added and system properties like the Android SDK version.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It modifies the UI view hierarchy, a major side effect. Its behavior also depends on the Android system version. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void removeView(android.view.View view)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method does not directly access fields of `ConstraintLayout`. It delegates state modification to `super.removeView` and `onViewRemoved`, which modify the view hierarchy and internal tracking structures.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has significant side effects. It modifies the view hierarchy by removing a child view, altering the UI structure, rendering, and layout.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is conditional on `Build.VERSION.SDK_INT`, making it dependent on the system environment and thus non-deterministic across different Android versions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effects depend on the `view` being removed and system properties like the Android SDK version.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It modifies the UI view hierarchy, which is a major side effect, and its behavior depends on the Android system version. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onViewAdded(android.view.View view)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method writes to several internal state fields: it adds the new view to `mChildrenByIds`, may add it to `mConstraintHelpers`, and sets the `mDirtyHierarchy` flag to true. It also modifies the `LayoutParams` object of the added view.",
+      "stateAccesses": [
+        {
+          "name": "this.mConstraintHelpers",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mChildrenByIds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mDirtyHierarchy",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It modifies internal data structures (`mChildrenByIds`, `mConstraintHelpers`, `mDirtyHierarchy`) to reflect the new child view and updates the view's `LayoutParams`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is conditional on `Build.VERSION.SDK_INT`, making it dependent on the system environment and thus non-deterministic across different Android versions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effects depend on the properties of the passed `view` object (e.g., its class, ID, LayoutParams) and the system's Android version.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a callback that modifies several internal state fields to handle the addition of a child view. Its behavior also depends on the Android version. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onViewRemoved(android.view.View view)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method writes to multiple internal state fields. It removes the view's ID from `mChildrenByIds`, removes the corresponding widget from `mLayoutWidget`, removes the view from `mConstraintHelpers`, and sets the `mDirtyHierarchy` flag.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildrenByIds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mLayoutWidget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mConstraintHelpers",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mDirtyHierarchy",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects as it modifies internal data structures to reflect the removal of a child view, cleaning up references and flagging the hierarchy as dirty.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is conditional on `Build.VERSION.SDK_INT`, making it dependent on the system environment and thus non-deterministic across different Android versions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effects depend on the `view` being removed and the system's Android version.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It's a callback that modifies internal state upon a child view's removal. Its behavior also depends on the Android version. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setMinWidth(int value)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "The method reads the current value of `mMinWidth` for comparison and writes a new value to it if they are different.",
+      "stateAccesses": [
+        {
+          "name": "this.mMinWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMinWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect of modifying the `mMinWidth` field and, more importantly, calling `requestLayout()`, which schedules a re-measure and re-layout of the view hierarchy.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effects depend on the input `value` compared to the current state of `mMinWidth`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and triggers a significant side effect (`requestLayout`). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setMinHeight(int value)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "The method reads the current value of `mMinHeight` for comparison and writes a new value to it if they are different.",
+      "stateAccesses": [
+        {
+          "name": "this.mMinHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMinHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect of modifying the `mMinHeight` field and calling `requestLayout()`, which schedules a re-measure and re-layout of the view hierarchy.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effects depend on the input `value` compared to the current state of `mMinHeight`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and triggers a significant side effect (`requestLayout`). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getMinWidth()",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field `mMinWidth`.",
+      "stateAccesses": [
+        {
+          "name": "this.mMinWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state field `mMinWidth`, not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a standard getter. It is not pure because its return value depends on the mutable internal state `mMinWidth`. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getMinHeight()",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field `mMinHeight`.",
+      "stateAccesses": [
+        {
+          "name": "this.mMinHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state field `mMinHeight`, not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a standard getter. It is not pure because its return value depends on the mutable internal state `mMinHeight`. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setMaxWidth(int value)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "The method reads the current value of `mMaxWidth` for comparison and writes a new value to it if they are different.",
+      "stateAccesses": [
+        {
+          "name": "this.mMaxWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMaxWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect of modifying the `mMaxWidth` field and calling `requestLayout()`, which schedules a re-measure and re-layout of the view hierarchy.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effects depend on the input `value` compared to the current state of `mMaxWidth`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and triggers a significant side effect (`requestLayout`). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setMaxHeight(int value)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "The method reads the current value of `mMaxHeight` for comparison and writes a new value to it if they are different.",
+      "stateAccesses": [
+        {
+          "name": "this.mMaxHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMaxHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect of modifying the `mMaxHeight` field and calling `requestLayout()`, which schedules a re-measure and re-layout of the view hierarchy.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effects depend on the input `value` compared to the current state of `mMaxHeight`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and triggers a significant side effect (`requestLayout`). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getMaxWidth()",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field `mMaxWidth`.",
+      "stateAccesses": [
+        {
+          "name": "this.mMaxWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state field `mMaxWidth`, not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a standard getter. It is not pure because its return value depends on the mutable internal state `mMaxWidth`. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getMaxHeight()",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field `mMaxHeight`.",
+      "stateAccesses": [
+        {
+          "name": "this.mMaxHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state field `mMaxHeight`, not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a standard getter. It is not pure because its return value depends on the mutable internal state `mMaxHeight`. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "android.support.constraint.solver.widgets.ConstraintWidget getTargetWidget(int id)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads from internal state. It reads the `mLayoutWidget` field and accesses the `mChildrenByIds` sparse array to find a widget associated with the given ID.",
+      "stateAccesses": [
+        {
+          "name": "this.mLayoutWidget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mChildrenByIds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a lookup method that retrieves an object from internal data structures.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its `id` argument and the current state of the internal fields `mChildrenByIds` and `mLayoutWidget`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the mutable internal state of the `ConstraintLayout` (the set of children and their IDs). Since this state can change, the method is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "android.support.constraint.solver.widgets.ConstraintWidget getViewWidget(android.view.View view)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads the internal `mLayoutWidget` field. It also accesses the `LayoutParams` of the provided `view` to get its corresponding `ConstraintWidget`.",
+      "stateAccesses": [
+        {
+          "name": "this.mLayoutWidget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a lookup method.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the input `view` (and its associated `LayoutParams`) and the internal `mLayoutWidget` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the state of the passed `view` argument (specifically its `LayoutParams` and associated widget) and the internal `mLayoutWidget` field, all of which are mutable. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onMeasure(int widthMeasureSpec, int heightMeasureSpec)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads and writes to a large number of internal fields, including `mLayoutWidget`, `mDirtyHierarchy`, `mVariableDimensionsWidgets`, `mMinWidth`, `mMinHeight`, `mMaxWidth`, and `mMaxHeight`. It orchestrates the entire measurement process, which involves extensive state manipulation.",
+      "stateAccesses": [
+        {
+          "name": "this.mLayoutWidget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mDirtyHierarchy",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mDirtyHierarchy",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mVariableDimensionsWidgets",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMinWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMinHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMaxWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMaxHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This is a core Android View lifecycle method with extensive side effects. It triggers measurement of child views (`child.measure`), solves the constraint system (`solveLinearSystem`), and ultimately determines the view's own size by calling `setMeasuredDimension`. These are all state-modifying operations.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on `Build.VERSION.SDK_INT`. The overall result of measurement also depends on the state of all child views, which is external to this method.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends not only on the input measure specs but also on the entire state of the view hierarchy it contains (`mDirtyHierarchy`, children's properties, etc.).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is fundamentally impure. As a core part of the Android layout system, its purpose is to calculate and set state based on a complex web of dependencies including its children and system-provided constraints. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onLayout(boolean changed, int left, int top, int right, int bottom)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "The method reads from the internal `mConstraintHelpers` list and reads the computed positions and sizes from the `mLayoutWidget`'s children. It does not write to its own fields but reads from the results of the measurement pass.",
+      "stateAccesses": [
+        {
+          "name": "this.mConstraintHelpers",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mLayoutWidget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This is a core Android View lifecycle method with major side effects. Its primary purpose is to call `child.layout(l, t, r, b)` for each child, which physically positions the child views on the screen.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `isInEditMode()`, which depends on the execution environment (Android Studio vs. a real device). This makes its behavior non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is dependent on the state computed during the `onMeasure` pass (the positions stored in the internal `ConstraintWidget`s), not just its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is fundamentally impure. As the `onLayout` callback, its main job is to produce the side effect of positioning child views on the screen. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setOptimizationLevel(int level)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method writes to the internal `mLayoutWidget` object by calling its `setOptimizationLevel` method, thus modifying the state of the internal solver engine.",
+      "stateAccesses": [
+        {
+          "name": "this.mLayoutWidget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of changing a configuration property on the internal `mLayoutWidget` object, which will affect how subsequent layout calculations are performed.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effect depends only on the input `level`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a setter method that modifies the internal state of a component (`mLayoutWidget`). It is impure and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "android.support.constraint.ConstraintLayout.LayoutParams generateLayoutParams(android.util.AttributeSet attrs)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method does not access any state fields of the `ConstraintLayout` instance itself.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of creating a new `LayoutParams` object. The constructor for `LayoutParams` itself has side effects, as it calls `getContext().obtainStyledAttributes` which interacts with the Android resource system.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic as it relies on `getContext()` and the Android resource system to parse attributes from XML. The available resources can vary.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned object depends on the `attrs` argument and the application's `Context` and associated resources, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a factory method that is not pure. It creates a new object and its initialization depends on the external Android context and resource system. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "android.support.constraint.ConstraintLayout.LayoutParams generateDefaultLayoutParams()",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method does not access any state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of allocating a new `LayoutParams` object each time it is called.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments, and the state of the new object it creates is always the same. However, it returns a new instance each time.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it allocates a new object instance on each call, which is a side effect. While the object's initial state is constant, memoizing this would be incorrect as the framework expects distinct `LayoutParams` objects for distinct views.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "android.view.ViewGroup.LayoutParams generateLayoutParams(android.view.ViewGroup.LayoutParams p)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method does not access any state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of allocating a new `LayoutParams` object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The state of the returned object depends only on the input `LayoutParams` object `p`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure because it allocates a new object instance on each call. It is a factory/conversion method and is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean checkLayoutParams(android.view.ViewGroup.LayoutParams p)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method does not access any state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is determined solely by the runtime type of its input argument `p`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a simple `instanceof` check on its argument, which is a deterministic operation, and has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setConstraintSet(android.support.constraint.ConstraintSet set)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method writes to the internal object field `mConstraintSet`.",
+      "stateAccesses": [
+        {
+          "name": "this.mConstraintSet",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the `mConstraintSet` field. This will change how the layout computes its constraints in the next layout pass.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its side effect depends only on the input `set`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This is a setter method that modifies internal state. It is not pure and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "android.view.View getViewById(int id)",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method reads from the internal `mChildrenByIds` SparseArray to look up a view.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildrenByIds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the input `id` and the internal state of the `mChildrenByIds` map.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable internal state `mChildrenByIds`. Calls with the same ID may return different views (or null) if children are added or removed. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void requestLayout()",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method writes to the internal primitive field `mDirtyHierarchy`.",
+      "stateAccesses": [
+        {
+          "name": "this.mDirtyHierarchy",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It calls `super.requestLayout()`, which invalidates the view and schedules a layout pass for the entire view tree. This is a core mechanism for triggering UI updates.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its purpose is to produce a side effect.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. Its sole purpose is to trigger the side effect of a layout pass in the Android UI framework. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean shouldDelayChildPressedState()",
+      "className": "android.support.constraint.ConstraintLayout",
+      "reasonAboutStateAccesses": "This method does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It simply returns a constant value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and always returns the constant value `false`. Therefore, its output depends only on its (non-existent) arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, does not depend on any state, and always returns the same constant value. It is perfectly suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

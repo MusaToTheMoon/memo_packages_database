@@ -1,0 +1,1330 @@
+{
+  "file_name": "android.content.BroadcastReceiver",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/content/BroadcastReceiver.java",
+  "source_code_file_path": "java_source_code_files/android/content/BroadcastReceiver.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751826920,
+  "run_name": "gemini-2.5-pro-pass-2",
+  "llm_response_time_seconds": 176.857,
+  "llm_analysis": [
+    {
+      "methodSignature": "boolean guessAssumeDelivered(int type, boolean ordered)",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "This method reads static final fields from its own class, which are effectively constants. It does not access any instance state.",
+      "stateAccesses": [
+        {
+          "name": "android.content.BroadcastReceiver.PendingResult.TYPE_COMPONENT",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.content.BroadcastReceiver.PendingResult.TYPE_UNREGISTERED",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method performs a logical comparison and returns a boolean value. It does not perform any I/O, logging, or modifications to external state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions like random number generators or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is determined solely by its input arguments 'type' and 'ordered' and the compile-time constants it reads.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Its output depends only on its input arguments and class constants. It has no side effects and does not rely on any mutable state. Therefore, it is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setResultCode(int code)",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method writes the provided 'code' to the internal instance field 'mResultCode', modifying the state of the object.",
+      "stateAccesses": [
+        {
+          "name": "this.mResultCode",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method calls 'checkSynchronousHint()', which can log an error message if certain conditions are not met. This logging constitutes a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not invoke any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (state modification) depends on its argument, but it has no return value. It is not a function in the mathematical sense.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the object by writing to the 'mResultCode' field. It also has a potential side effect through the 'checkSynchronousHint()' call, which can perform logging. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getResultCode()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads the value of the internal instance field 'mResultCode'.",
+      "stateAccesses": [
+        {
+          "name": "this.mResultCode",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and does not have any observable side effects like I/O or logging.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the current state of the internal field 'mResultCode', not just the input arguments (of which there are none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a getter method whose return value depends on the mutable internal state ('mResultCode') of the object. Since the state can change, the method is not referentially transparent and thus not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setResultData(String data)",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method writes the provided 'data' to the internal instance field 'mResultData', modifying the object's state.",
+      "stateAccesses": [
+        {
+          "name": "this.mResultData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method calls 'checkSynchronousHint()', which may log an error message. This logging is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (state modification) depends on its argument, but it is a void method and doesn't return a value based on inputs.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the object by writing to 'mResultData' and has a potential side effect of logging via 'checkSynchronousHint()'. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getResultData()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads the value of the internal instance field 'mResultData'.",
+      "stateAccesses": [
+        {
+          "name": "this.mResultData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value is dependent on the internal state of the 'mResultData' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a getter method that returns the value of a mutable internal field ('mResultData'). Its output is not guaranteed to be the same for every call, as the state can be changed by other methods. Thus, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setResultExtras(Bundle extras)",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method writes the provided 'extras' Bundle object to the internal instance field 'mResultExtras', modifying the state.",
+      "stateAccesses": [
+        {
+          "name": "this.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method calls 'checkSynchronousHint()', which can perform logging, a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's purpose is to modify state based on its argument. It does not return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the object's internal state ('mResultExtras') and has a potential logging side effect from calling 'checkSynchronousHint()'. It is therefore not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Bundle getResultExtras(boolean makeMap)",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mResultExtras'. If the argument 'makeMap' is true and the field is null, it writes a new Bundle object to 'mResultExtras', thus conditionally modifying state.",
+      "stateAccesses": [
+        {
+          "name": "this.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to access and potentially modify state. It does not have other side effects like I/O or logging.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of 'mResultExtras' and the 'makeMap' argument. Because it depends on mutable state, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads and can conditionally write to the internal state field 'mResultExtras'. Its behavior and return value depend on the object's mutable state, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setResult(int code, String data, Bundle extras)",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method writes to three internal instance fields: 'mResultCode', 'mResultData', and 'mResultExtras', modifying the object's state based on the provided arguments.",
+      "stateAccesses": [
+        {
+          "name": "this.mResultCode",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mResultData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method calls 'checkSynchronousHint()', which has a potential logging side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed for state modification based on its arguments, not for returning a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies multiple internal state fields ('mResultCode', 'mResultData', 'mResultExtras') and has a potential side effect of logging via the 'checkSynchronousHint()' call. Therefore, it is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean getAbortBroadcast()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads the value of the internal boolean field 'mAbortBroadcast'.",
+      "stateAccesses": [
+        {
+          "name": "this.mAbortBroadcast",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state of the 'mAbortBroadcast' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a getter method whose return value depends on the mutable internal state ('mAbortBroadcast') of the object. Since the state can be changed by other methods, the method is not referentially transparent and thus not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void abortBroadcast()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method writes 'true' to the internal instance field 'mAbortBroadcast', modifying the object's state.",
+      "stateAccesses": [
+        {
+          "name": "this.mAbortBroadcast",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method calls 'checkSynchronousHint()', which has a potential logging side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments, designed to modify internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the object's internal state ('mAbortBroadcast') and has a potential side effect of logging via the 'checkSynchronousHint()' call. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearAbortBroadcast()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method writes 'false' to the internal instance field 'mAbortBroadcast', modifying the object's state.",
+      "stateAccesses": [
+        {
+          "name": "this.mAbortBroadcast",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have any observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments, designed to modify internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the object's internal state by writing to the 'mAbortBroadcast' field. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void finish()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads several internal fields ('mReceiverClassName', 'mType', 'mToken') and a global static field ('DEBUG_STORE_ENABLED'). It also reads 'ActivityThread.DEBUG_BROADCAST', another global static. It does not write to any fields of this class.",
+      "stateAccesses": [
+        {
+          "name": "this.mReceiverClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "com.android.internal.os.Flags.debugStoreEnabled",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mType",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.app.ActivityThread.DEBUG_BROADCAST",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It interacts with the Android system by performing tracing (`Trace.traceCounter`), debugging (`DebugStore.recordFinish`), logging (`Slog.i`), queuing work on a separate thread (`QueuedWork.queue`), and most importantly, making a remote procedure call to the Activity Manager service via `sendFinished(mgr)`. This RPC informs the system that the broadcast processing is complete.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic as it depends on external system state. It calls `System.identityHashCode(this)`, which depends on object allocation. It also interacts with the Activity Manager service (`ActivityManager.getService()`) and the `QueuedWork` scheduler, whose states are external and variable.",
+      "hasNonDeterministicCalls": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It has numerous strong side effects, including system tracing, logging, and making a remote procedure call to a core system service. It also relies on non-deterministic calls and external system state. It is fundamentally a command to the operating system and is not suitable for memoization in any capacity.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setExtrasClassLoader(ClassLoader cl)",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads the internal object field 'mResultExtras'. It doesn't write to the field itself, but it calls a method on the object referenced by the field, which modifies that object's internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect of modifying the state of the object referenced by the 'mResultExtras' field. The 'setClassLoader' method changes the ClassLoader used for unmarshalling the Bundle, which is an observable change in its behavior.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void and its purpose is to cause a side effect on an internal field's state based on an argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It causes a side effect by modifying the state of the Bundle object referenced by the 'mResultExtras' field. Modifying the state of a referenced object makes the method impure and thus unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendFinished(IActivityManager am)",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads and writes to the internal boolean field 'mFinished'. It also reads many other internal fields ('mResultExtras', 'mAssumeDeliveredHint', 'mOrderedHint', 'mToken', 'mResultCode', etc.) to pass them to the Activity Manager.",
+      "stateAccesses": [
+        {
+          "name": "this.mFinished",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFinished",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAssumeDeliveredHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOrderedHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mResultCode",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mResultData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAbortBroadcast",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major side effects. It can throw an 'IllegalStateException'. Its primary purpose is to make a remote procedure call (RPC) to the system's Activity Manager service (`am.finishReceiver`), which is a significant interaction with the operating system. It also modifies the state of the 'mResultExtras' Bundle by calling 'setAllowFds(false)'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The outcome of the remote call to the Activity Manager is non-deterministic as it depends on the state of the system and the service itself.",
+      "hasNonDeterministicCalls": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It modifies internal state ('mFinished'), modifies the state of a referenced object ('mResultExtras'), can throw an exception, and performs a remote procedure call to a core system service. This external interaction is a major side effect. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getSendingUserId()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads the value of the internal instance field 'mSendingUser'.",
+      "stateAccesses": [
+        {
+          "name": "this.mSendingUser",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state of the 'mSendingUser' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a getter that returns an internal state value ('mSendingUser') which is set at construction time. While it's read-only within this method, the object's state is not guaranteed to be immutable, and the method's purpose is to expose this state. It's not suitable for memoization as it depends on instance state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getSentFromUid()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads the value of the internal instance field 'mSentFromUid'.",
+      "stateAccesses": [
+        {
+          "name": "this.mSentFromUid",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state of the 'mSentFromUid' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a getter that returns an internal state value ('mSentFromUid') which is set at construction time. The method's purpose is to expose this state, making it dependent on the instance rather than just its inputs. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String getSentFromPackage()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads the value of the internal instance field 'mSentFromPackage'.",
+      "stateAccesses": [
+        {
+          "name": "this.mSentFromPackage",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state of the 'mSentFromPackage' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a getter that returns an internal state value ('mSentFromPackage') which is set at construction time. The method's purpose is to expose this state, making it dependent on the instance rather than just its inputs. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void checkSynchronousHint()",
+      "className": "android.content.BroadcastReceiver.PendingResult",
+      "reasonAboutStateAccesses": "The method reads two internal boolean fields, 'mOrderedHint' and 'mInitialStickyHint', for a conditional check.",
+      "stateAccesses": [
+        {
+          "name": "this.mOrderedHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mInitialStickyHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects. It can throw a 'RuntimeException' or log an error message to the system log (`Log.e`), both of which are observable side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that depends on internal state. Its purpose is to perform a check and potentially cause a side effect, not return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on the internal state of the object ('mOrderedHint', 'mInitialStickyHint') and has significant potential side effects, including throwing an exception or performing system logging. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "PendingResult goAsync()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' into a local variable and then writes null to it, effectively clearing the field. It also reads the global static field 'DEBUG_STORE_ENABLED'.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "com.android.internal.os.Flags.debugStoreEnabled",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects through logging and system tracing. It calls `DebugStore.recordGoAsync` and `Trace.traceCounter`, which are external calls that record system state for debugging and performance analysis.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `System.identityHashCode(res)`, which returns a value based on the object's memory address, making it non-deterministic. The name of the class is also retrieved, which could vary with subclasses.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior depend entirely on the internal state of the `mPendingResult` field, not on any arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state ('mPendingResult'), performs logging and tracing side effects, and relies on a non-deterministic call (`System.identityHashCode`). Its return value is dependent on internal state. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "IBinder peekService(Context myContext, Intent service)",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method does not access any fields of the BroadcastReceiver class. It interacts with external system state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has significant side effects. It makes a remote procedure call (RPC) to the Android Activity Manager service (`am.peekService`) to query system state. It also calls `service.prepareToLeaveProcess(myContext)`, which can modify the state of the passed Intent object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's result is highly non-deterministic. It depends on the state of the Android system at the moment of the call, specifically whether the requested service is running and has a bound interface. This state is external and can change at any time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the arguments and the current state of the entire Android operating system, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a remote procedure call to an external system service, which is a major side effect. Its return value is non-deterministic as it depends on the runtime state of the operating system. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setResultCode(int code)",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method accesses the internal field 'mPendingResult' and then writes to a field ('mResultCode') within that object, thus modifying the state of a referenced object.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult.mResultCode",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method calls `checkSynchronousHint()`, which can throw an exception or log an error to the system log. This constitutes a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to modify state based on its input, not to return a value based only on inputs.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the state of the `mPendingResult` object, which is part of the BroadcastReceiver's state. It also has potential side effects of logging or throwing an exception via `checkSynchronousHint()`. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getResultCode()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' and, if it is not null, reads the 'mResultCode' field from the referenced object.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mResultCode",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects; it is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the 'mPendingResult' field and the state of the object it references, not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value is dependent on the mutable internal state of the `mPendingResult` field. Since this state can be changed by other methods, the output is not guaranteed to be the same across calls, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setResultData(String data)",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method accesses the internal field 'mPendingResult' and then writes to the 'mResultData' field of that object, modifying its state.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult.mResultData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method calls `checkSynchronousHint()`, which can throw an exception or log an error, which are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state based on its argument; it does not return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the state of the object referenced by `mPendingResult` and has potential side effects from `checkSynchronousHint()`. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getResultData()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' and, if it is not null, reads the 'mResultData' field from the referenced object.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mResultData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the 'mPendingResult' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable internal state of the `mPendingResult` field. Since this state can change, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setResultExtras(Bundle extras)",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method accesses the internal field 'mPendingResult' and then writes to the 'mResultExtras' field of that object, modifying its state.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method calls `checkSynchronousHint()`, which can throw an exception or log an error, both of which are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state based on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the state of the object referenced by `mPendingResult` and has potential side effects from `checkSynchronousHint()`. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Bundle getResultExtras(boolean makeMap)",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult'. If it is not null, it reads the 'mResultExtras' field from the referenced object. It can also conditionally write a new Bundle object to 'mPendingResult.mResultExtras' if 'makeMap' is true and the field is null.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects beyond its state interactions.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the 'makeMap' argument and the state of the 'mPendingResult' field. Because it depends on mutable state, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads and potentially modifies the state of the object referenced by `mPendingResult`. Its behavior and return value depend on mutable internal state, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setResult(int code, String data, Bundle extras)",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method accesses the internal field 'mPendingResult' and then writes to multiple fields ('mResultCode', 'mResultData', 'mResultExtras') of that object, modifying its state.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult.mResultCode",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mPendingResult.mResultData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mPendingResult.mResultExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method calls `checkSynchronousHint()`, which can throw an exception or log an error, both of which are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state based on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies multiple state fields of the object referenced by `mPendingResult` and has potential side effects from `checkSynchronousHint()`. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean getAbortBroadcast()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' and, if it is not null, reads the 'mAbortBroadcast' field from the referenced object.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mAbortBroadcast",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the 'mPendingResult' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable internal state of the `mPendingResult` field. Because this state can be changed externally, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void abortBroadcast()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method accesses the internal field 'mPendingResult' and then writes to the 'mAbortBroadcast' field of that object, modifying its state.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult.mAbortBroadcast",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method calls `checkSynchronousHint()`, which can throw an exception or log an error, both of which are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to modify state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the state of the object referenced by `mPendingResult` and has potential side effects from `checkSynchronousHint()`. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearAbortBroadcast()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' and, if it is not null, writes to the 'mAbortBroadcast' field of the referenced object.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mAbortBroadcast",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have any observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to modify state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the state of the object referenced by the internal field `mPendingResult`. State modification makes a method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isOrderedBroadcast()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' and, if it is not null, reads the 'mOrderedHint' field from the referenced object.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mOrderedHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the 'mPendingResult' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable internal state of the `mPendingResult` field. Because this state can be changed externally, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isInitialStickyBroadcast()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' and, if it is not null, reads the 'mInitialStickyHint' field from the referenced object.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mInitialStickyHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the 'mPendingResult' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable internal state of the `mPendingResult` field. Because this state can be changed externally, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setOrderedHint(boolean isOrdered)",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method has an empty body and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty body and therefore no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has an empty body and makes no calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void and has no behavior, so its output (nothing) depends only on its inputs (which are ignored). This is vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has an empty body, accesses no state, has no side effects, and makes no calls. While it is a no-op, it satisfies the conditions of purity. It is suitable for memoization, though memoizing a void no-op method is pointless.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setPendingResult(PendingResult result)",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method writes the provided 'result' object to the internal instance field 'mPendingResult', modifying the state of the BroadcastReceiver.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple setter and has no side effects beyond state modification.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state based on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It directly modifies the internal state of the object by assigning a new value to the 'mPendingResult' field. State modification makes a method impure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "PendingResult getPendingResult()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads and returns the internal instance field 'mPendingResult'.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends entirely on the internal state of the 'mPendingResult' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a getter that returns a reference to an internal, mutable state object. Its return value is dependent on this state, which can change. Thus, it is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "UserHandle getSendingUser()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the 'mSendingUser' field from the object referenced by the internal 'mPendingResult' field.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult.mSendingUser",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the 'mPendingResult' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable state of the object referenced by `mPendingResult`. This dependency on external, mutable state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getSendingUserId()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the 'mSendingUser' field from the object referenced by the internal 'mPendingResult' field.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult.mSendingUser",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the 'mPendingResult' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable state of the object referenced by `mPendingResult`. This dependency on mutable state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getSentFromUid()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' and, if it's not null, reads the 'mSentFromUid' field from it. It also reads the global static final constant `Process.INVALID_UID`.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mSentFromUid",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.os.Process.INVALID_UID",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the 'mPendingResult' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable state of the object referenced by `mPendingResult`. This dependency on mutable state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String getSentFromPackage()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' and, if it's not null, reads the 'mSentFromPackage' field from it.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mSentFromPackage",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the 'mPendingResult' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable state of the object referenced by `mPendingResult`. This dependency on mutable state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setDebugUnregister(boolean debug)",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method writes the provided 'debug' value to the internal instance field 'mDebugUnregister', modifying the state of the object.",
+      "stateAccesses": [
+        {
+          "name": "this.mDebugUnregister",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple setter and has no side effects beyond state modification.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state based on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It directly modifies the internal state of the object by assigning a value to the 'mDebugUnregister' field. State modification makes a method impure and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean getDebugUnregister()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads and returns the value of the internal instance field 'mDebugUnregister'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDebugUnregister",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends entirely on the internal state of the 'mDebugUnregister' field, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a getter that returns an internal state value. Because this state is mutable, the method is not referentially transparent and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void checkSynchronousHint()",
+      "className": "android.content.BroadcastReceiver",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mPendingResult' and then accesses the 'mOrderedHint' and 'mInitialStickyHint' fields of the referenced object.",
+      "stateAccesses": [
+        {
+          "name": "this.mPendingResult",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mOrderedHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPendingResult.mInitialStickyHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects. It can throw an 'IllegalStateException' or a 'RuntimeException', or it can log an error message to the system log (`Log.e`). These are all observable side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on internal state, not arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on the internal state of the `mPendingResult` field and has significant potential side effects, including throwing exceptions or performing system logging. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

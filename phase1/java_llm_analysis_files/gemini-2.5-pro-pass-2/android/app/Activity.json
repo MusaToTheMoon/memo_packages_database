@@ -1,0 +1,823 @@
+{
+  "file_name": "android.app.Activity",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/app/Activity.java",
+  "source_code_file_path": "java_source_code_files/android/app/Activity.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751826579,
+  "run_name": "gemini-2.5-pro-pass-2",
+  "llm_response_time_seconds": 132.654,
+  "llm_analysis": [
+    {
+      "methodSignature": "String getDlWarning()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "This is a native method. Its implementation is not available in the Java source code, but it likely interacts with the underlying system state to retrieve linker warnings.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a native method, which implies it might interact with the system at a low level, such as reading system logs or properties, which can be considered a side effect. Without the source, it's impossible to be certain, but it is assumed to have side effects of interacting with the system.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's return value depends on the state of the dynamic linker, which is external and non-deterministic from the perspective of the Java code.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the state of the native environment (dynamic linker), not just on inputs.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a native method, and its behavior is not visible from the Java source. It is assumed to be impure as it interacts with the underlying system's dynamic linker state, which is non-deterministic and constitutes a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Intent getIntent()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal object field 'this.mIntent' and returns its value. This is a direct read of the activity's internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mIntent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method only reads and returns a field. It does not perform I/O, UI updates, logging, or modify any state. It has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions. The value of 'mIntent' is determined by external calls to other methods.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is the value of the internal field 'mIntent'. It does not take any arguments, but its return value depends on the mutable state of the object, not just constants.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the internal state of the Activity (`this.mIntent`), which can be changed by other methods. While it has no side effects, this dependency on mutable state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setIntent(Intent newIntent)",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "This method calls 'internalSetIntent', which writes to the internal object fields 'this.mIntent' and 'this.mCaller'.",
+      "stateAccesses": [
+        {
+          "name": "this.mIntent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mCaller",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to mutate the internal state of the Activity object by changing the 'mIntent' and 'mCaller' fields. This is a clear side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose purpose is to mutate state, not to compute a return value based on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a mutator ('setter') that modifies the internal state of the activity (`this.mIntent` and `this.mCaller`). Pure functions cannot have such side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ComponentCaller getCaller()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads and returns the value of the internal object field 'this.mCaller'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCaller",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method that only reads an internal field. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object ('this.mCaller'), not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value is dependent on the mutable internal state field 'this.mCaller'. While it lacks side effects, this state dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setIntent(Intent newIntent, ComponentCaller newCaller)",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "This method calls 'internalSetIntent', which writes to the internal object fields 'this.mIntent' and 'this.mCaller'.",
+      "stateAccesses": [
+        {
+          "name": "this.mIntent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mCaller",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to mutate the internal state of the Activity object by changing the 'mIntent' and 'mCaller' fields. This is a clear side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose purpose is to mutate state, not to compute a return value based on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a mutator ('setter') that modifies the internal state of the activity (`this.mIntent` and `this.mCaller`). Pure functions cannot have such side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void internalSetIntent(Intent newIntent, ComponentCaller newCaller)",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "This method directly writes to the internal object fields 'this.mIntent' and 'this.mCaller'.",
+      "stateAccesses": [
+        {
+          "name": "this.mIntent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mCaller",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method mutates the internal state of the Activity by assigning new values to 'mIntent' and 'mCaller'. This state mutation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that mutates state based on its arguments. It does not produce a return value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it modifies the internal state of the Activity. Methods that cause side effects like state mutation cannot be pure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setLocusContext(LocusId locusId, Bundle bundle)",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads internal state fields 'mComponent' and 'mToken' to pass to a system service call.",
+      "stateAccesses": [
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It makes a remote procedure call to the 'ActivityManager' service to set the locus context. It also calls 'setLocusContextToContentCapture', which interacts with the Content Capture system, another side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The interaction with system services like ActivityManager and ContentCaptureManager is non-deterministic, as their behavior depends on the state of the wider system.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that performs system-level actions based on its arguments and internal state. It is not about computing a return value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It communicates with external system services (ActivityManager, ContentCaptureManager), which is a major side effect. Its behavior depends on the system state, making it non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void requestOpenInBrowserEducation()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal field 'this.mToken' to pass to a system service.",
+      "stateAccesses": [
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method performs a remote procedure call to the 'ActivityTaskManager' service to request that a UI element be shown. Interacting with system services and influencing the UI are significant side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The success and behavior of this request depend on the external state of the Android system, making the call non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments. Its action depends on internal state ('mToken') and the state of the Android system.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It initiates a system call that can result in UI changes, which is a major side effect. The outcome of this call is non-deterministic. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Application getApplication()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads and returns the internal object field 'this.mApplication'.",
+      "stateAccesses": [
+        {
+          "name": "this.mApplication",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal field 'mApplication', not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the internal state of the Activity ('this.mApplication'). While it has no side effects, this dependency on mutable object state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isChild()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal object field 'this.mParent' to check if it is null.",
+      "stateAccesses": [
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method performs a null check on a field and returns a boolean. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "There are no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal field 'mParent', not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its result is dependent on the mutable internal state field 'this.mParent'. Therefore, it is not suitable for memoization in a general context.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Activity getParent()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads and returns the value of the internal object field 'this.mParent'.",
+      "stateAccesses": [
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal field 'mParent', not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the internal state of the Activity ('this.mParent'). While it has no side effects, this dependency on mutable object state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "WindowManager getWindowManager()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads and returns the value of the internal object field 'this.mWindowManager'.",
+      "stateAccesses": [
+        {
+          "name": "this.mWindowManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal field 'mWindowManager', not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the internal state of the Activity ('this.mWindowManager'). This field holds a reference to a system service, which is inherently stateful. Therefore, the method is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Window getWindow()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads and returns the value of the internal object field 'this.mWindow'.",
+      "stateAccesses": [
+        {
+          "name": "this.mWindow",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal field 'mWindow', not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the internal state of the Activity ('this.mWindow'). The Window object is a central part of the UI state, which is mutable. Therefore, the method is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "LoaderManager getLoaderManager()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "This method accesses the internal object field 'this.mFragments' to delegate the call.",
+      "stateAccesses": [
+        {
+          "name": "this.mFragments",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method delegates to 'mFragments.getLoaderManager()'. This call may have the side effect of creating a LoaderManager instance if one does not already exist, thus modifying the state of the FragmentController.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The returned LoaderManager is a stateful object whose behavior is non-deterministic from the perspective of this call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the 'mFragments' object, not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It can have the side effect of creating and initializing a LoaderManager, and its return value is a stateful object that depends on the internal state of the FragmentController. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View getCurrentFocus()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal object field 'this.mWindow'.",
+      "stateAccesses": [
+        {
+          "name": "this.mWindow",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no direct side effects, but it queries the UI state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's return value depends on the current state of the user interface (which view has focus). This state is external and changes based on user interaction, making the call non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends entirely on the current UI focus state, which is external to the method's inputs.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. Its result is non-deterministic as it depends on the current focus state of the UI, which is highly volatile and external. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getContentCaptureTypeAsString(int type)",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a pure function that maps an integer to a string using a switch statement. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls. Its output is solely determined by its input.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is determined purely by its integer input 'type' and hardcoded string constants.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Its output depends only on its input argument, it has no side effects, and it does not access any mutable state. It is an excellent candidate for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onUserInteraction()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The base implementation of this method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is an empty callback hook intended for subclasses to override. The base implementation has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method and a callback, its purpose is not to return a value based on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure by design, as it is a callback hook for subclasses to implement side effects in response to user interaction. Although the base implementation is empty and technically pure, its purpose is to enable impure behavior, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean onKeyLongPress(int keyCode, KeyEvent event)",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method simply returns a constant value 'false' and has no side effects. It is a callback hook.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant 'false' and does not depend on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method always returns 'false'. While it's deterministic and has no side effects, memoizing a method that returns a constant is of little value. Given it's a callback intended for overriding with stateful logic, it's semantically impure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event)",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method simply returns a constant value 'false' and has no side effects. It is a callback hook.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant 'false' and does not depend on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method always returns 'false'. While it's deterministic and has no side effects, memoizing a method that returns a constant is of little value. Given it's a callback intended for overriding with stateful logic, it's semantically impure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onBackPressed()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal fields 'mActionBar' and 'mFragments' to interact with the action bar and fragment manager.",
+      "stateAccesses": [
+        {
+          "name": "this.mActionBar",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFragments",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It may collapse the action view, pop the fragment back stack, or call 'onBackInvoked()', which in turn interacts with the system's ActivityClient to handle the back press. These actions modify UI and system state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The behavior of 'popBackStackImmediate()' and 'onBackInvoked()' depends on the current state of the fragment manager and the activity task, which is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments, whose behavior is dependent on the application's and system's state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a callback that handles back navigation, which involves manipulating the fragment stack and making system calls. These are significant side effects, and the behavior is dependent on the current navigation state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean onTrackballEvent(MotionEvent event)",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method returns a constant 'false' and has no side effects. It's a callback meant for overriding.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on the 'event' argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The base implementation always returns false and is technically pure. However, as a framework callback, it is designed to be overridden with impure, stateful logic to handle user input. Therefore, it is semantically impure and not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean onGenericMotionEvent(MotionEvent event)",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method returns a constant 'false' and has no side effects. It's a callback meant for overriding.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on the 'event' argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The base implementation always returns false and is technically pure. However, as a framework callback, it is designed to be overridden with impure, stateful logic to handle user input. Therefore, it is semantically impure and not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onContentChanged()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The base implementation of this method is empty and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is an empty callback hook intended for subclasses. The base implementation has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void callback method, not a function that computes a return value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure by design. It's a callback hook for subclasses to react to content changes, which implies performing side effects like updating the UI. The base implementation is empty, but its purpose makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean hasWindowFocus()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "This method reads the internal 'mWindow' field to access the decor view and check its window focus state.",
+      "stateAccesses": [
+        {
+          "name": "this.mWindow",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method queries the UI system for focus state but does not modify any state itself. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The return value depends on the current window focus state, which is managed by the system and changes based on user interaction. This makes the method's result non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value is entirely dependent on the external, non-deterministic state of window focus, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because its result is non-deterministic, depending on the current window focus state which can change at any time due to user interaction or system events. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getLocalClassName()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the 'mComponent' internal object field to get the class name. It also calls 'getPackageName()', which reads context information.",
+      "stateAccesses": [
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method performs string manipulations based on internal state and returns a new string. It does not have any observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls. The component name and package name are fixed for the lifetime of the activity.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the activity ('mComponent' and the package name), not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the internal state field 'mComponent'. Although this field is typically constant throughout the activity's life, the function still relies on object state rather than only its arguments. From a strict purity definition, it is impure and not suitable for general memoization, though its result is stable for a given activity instance.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ComponentName getComponentName()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads and returns the internal object field 'this.mComponent'.",
+      "stateAccesses": [
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method with no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls. 'mComponent' is set during initialization and is stable.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object ('this.mComponent'), not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it relies on the internal state field 'this.mComponent'. While the value is stable for the activity's lifetime and the method has no side effects, its dependency on object state makes it technically impure and unsuitable for memoization in a general sense.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isImmersive()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mToken' to pass to a system service.",
+      "stateAccesses": [
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method queries a system service ('ActivityClient') to get the immersive state. This interaction with an external system component is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The immersive state is managed by the system and can change based on various factors, making the result of this call non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the external system state, not on any arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It queries an external system service to get its result, which is non-deterministic and constitutes a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isTopOfTask()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads internal fields 'mToken' and 'mWindow'.",
+      "stateAccesses": [
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mWindow",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method queries the 'ActivityClient' system service to determine if the activity is at the top of its task. Interacting with a system service is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The position of an activity in a task is part of the global system state and can change at any time, making the result of this call non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the system's task stack, not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It makes a call to a system service to query the task state, which is a non-deterministic operation with side effects. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isFinishing()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal boolean field 'this.mFinished'.",
+      "stateAccesses": [
+        {
+          "name": "this.mFinished",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter for a primitive field and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state 'mFinished', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns the value of a mutable internal state field ('this.mFinished'). Its result changes over the activity lifecycle. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isDestroyed()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal boolean field 'this.mDestroyed'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDestroyed",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter for a primitive field and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state 'mDestroyed', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns the value of a mutable internal state field ('this.mDestroyed'). Its result changes over the activity lifecycle. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isChangingConfigurations()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal boolean field 'this.mChangingConfigurations'.",
+      "stateAccesses": [
+        {
+          "name": "this.mChangingConfigurations",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter for a primitive field and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state 'mChangingConfigurations', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns the value of a mutable internal state field ('this.mChangingConfigurations'). Its result changes over the activity lifecycle. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isResumed()",
+      "className": "android.app.Activity",
+      "reasonAboutStateAccesses": "The method reads the internal boolean field 'this.mResumed'.",
+      "stateAccesses": [
+        {
+          "name": "this.mResumed",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state 'mResumed', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns the value of a mutable internal state field ('this.mResumed'). Its result changes throughout the activity lifecycle, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

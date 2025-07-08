@@ -1,0 +1,645 @@
+{
+  "file_name": "android.util.Log",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/util/Log.java",
+  "source_code_file_path": "java_source_code_files/android/util/Log.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751828338,
+  "run_name": "gemini-2.5-pro-pass-2",
+  "llm_response_time_seconds": 147.69,
+  "llm_analysis": [
+    {
+      "methodSignature": "int v(@Nullable String tag, @NonNull String msg)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method does not access any class fields. It forwards its arguments to the native method `println_native` for processing.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to produce a side effect: writing a log message to the system log. This is achieved via a call to the native method `println_native`, which performs an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because the underlying logging system may or may not write the log based on the system's current log level configuration for the given tag. The return value is also dependent on the result of the native call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value are not solely dependent on its arguments. They also depend on the external system logging configuration, which can change at any time.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it performs I/O (logging) and its behavior depends on mutable external system state (log levels). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int v(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This method calls `printlns`, which reads the static final field `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD`. This field's value is determined by a native call when the class is loaded, reflecting global system state.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: writing a log message and a stack trace to the system log via the `printlns` method. This is a form of I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The underlying logging mechanism depends on the system's log level configuration. The content of the stack trace can also vary depending on the execution environment, and the native logging calls interact with the OS.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It also depends on the system's log configuration and the globally determined `LOGGER_ENTRY_MAX_PAYLOAD` value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has I/O side effects (logging) and depends on external system state (log levels, native constants). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int d(@Nullable String tag, @NonNull String msg)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method does not access any class fields. It forwards its arguments to the native method `println_native` for processing.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to produce a side effect: writing a log message to the system log. This is achieved via a call to the native method `println_native`, which performs an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because the underlying logging system may or may not write the log based on the system's current log level configuration for the given tag. The return value is also dependent on the result of the native call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value are not solely dependent on its arguments. They also depend on the external system logging configuration, which can change at any time.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it performs I/O (logging) and its behavior depends on mutable external system state (log levels). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int d(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This method calls `printlns`, which reads the static final field `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD`. This field's value is determined by a native call when the class is loaded, reflecting global system state.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: writing a log message and a stack trace to the system log via the `printlns` method. This is a form of I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The underlying logging mechanism depends on the system's log level configuration. The content of the stack trace can also vary depending on the execution environment, and the native logging calls interact with the OS.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It also depends on the system's log configuration and the globally determined `LOGGER_ENTRY_MAX_PAYLOAD` value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has I/O side effects (logging) and depends on external system state (log levels, native constants). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int i(@Nullable String tag, @NonNull String msg)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method does not access any class fields. It forwards its arguments to the native method `println_native` for processing.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to produce a side effect: writing a log message to the system log. This is achieved via a call to the native method `println_native`, which performs an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because the underlying logging system may or may not write the log based on the system's current log level configuration for the given tag. The return value is also dependent on the result of the native call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value are not solely dependent on its arguments. They also depend on the external system logging configuration, which can change at any time.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it performs I/O (logging) and its behavior depends on mutable external system state (log levels). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int i(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This method calls `printlns`, which reads the static final field `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD`. This field's value is determined by a native call when the class is loaded, reflecting global system state.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: writing a log message and a stack trace to the system log via the `printlns` method. This is a form of I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The underlying logging mechanism depends on the system's log level configuration. The content of the stack trace can also vary depending on the execution environment, and the native logging calls interact with the OS.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It also depends on the system's log configuration and the globally determined `LOGGER_ENTRY_MAX_PAYLOAD` value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has I/O side effects (logging) and depends on external system state (log levels, native constants). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int w(@Nullable String tag, @NonNull String msg)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method does not access any class fields. It forwards its arguments to the native method `println_native` for processing.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to produce a side effect: writing a log message to the system log. This is achieved via a call to the native method `println_native`, which performs an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because the underlying logging system may or may not write the log based on the system's current log level configuration for the given tag. The return value is also dependent on the result of the native call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value are not solely dependent on its arguments. They also depend on the external system logging configuration, which can change at any time.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it performs I/O (logging) and its behavior depends on mutable external system state (log levels). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int w(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This method calls `printlns`, which reads the static final field `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD`. This field's value is determined by a native call when the class is loaded, reflecting global system state.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: writing a log message and a stack trace to the system log via the `printlns` method. This is a form of I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The underlying logging mechanism depends on the system's log level configuration. The content of the stack trace can also vary depending on the execution environment, and the native logging calls interact with the OS.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It also depends on the system's log configuration and the globally determined `LOGGER_ENTRY_MAX_PAYLOAD` value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has I/O side effects (logging) and depends on external system state (log levels, native constants). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isLoggable(@Nullable String tag, @Level int level)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This is a native method and does not access any state at the Java level. Its implementation reads system properties, which is external state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects; it is a read-only query of the system's logging configuration. It does not modify any state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. Its return value depends entirely on the system's log level configuration for the given tag, which is external state that can be changed at any time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value does not depend on its arguments only. It is critically dependent on external, mutable system properties.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because its result is non-deterministic, depending on mutable external system state. A pure function must always return the same output for the same input, which is not the case here. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int w(@Nullable String tag, @Nullable Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This method calls `printlns`, which reads the static final field `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD`. This field's value is determined by a native call when the class is loaded, reflecting global system state.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: writing a log message and a stack trace to the system log via the `printlns` method. This is a form of I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The underlying logging mechanism depends on the system's log level configuration. The content of the stack trace can also vary depending on the execution environment, and the native logging calls interact with the OS.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It also depends on the system's log configuration and the globally determined `LOGGER_ENTRY_MAX_PAYLOAD` value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has I/O side effects (logging) and depends on external system state (log levels, native constants). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int e(@Nullable String tag, @NonNull String msg)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method does not access any class fields. It forwards its arguments to the native method `println_native` for processing.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to produce a side effect: writing a log message to the system log. This is achieved via a call to the native method `println_native`, which performs an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because the underlying logging system may or may not write the log based on the system's current log level configuration for the given tag. The return value is also dependent on the result of the native call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value are not solely dependent on its arguments. They also depend on the external system logging configuration, which can change at any time.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it performs I/O (logging) and its behavior depends on mutable external system state (log levels). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int e(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This method calls `printlns`, which reads the static final field `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD`. This field's value is determined by a native call when the class is loaded, reflecting global system state.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: writing a log message and a stack trace to the system log via the `printlns` method. This is a form of I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The underlying logging mechanism depends on the system's log level configuration. The content of the stack trace can also vary depending on the execution environment, and the native logging calls interact with the OS.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It also depends on the system's log configuration and the globally determined `LOGGER_ENTRY_MAX_PAYLOAD` value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has I/O side effects (logging) and depends on external system state (log levels, native constants). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int wtf(@Nullable String tag, @Nullable String msg)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method delegates to another `wtf` overload which reads the global static `sWtfHandler` field to handle the failure, and also reads `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD` for logging.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has significant side effects, including logging an error and invoking a global `TerribleFailureHandler`. The default handler can terminate the application, making this a method with potentially severe side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The logging action depends on system log levels, and the action of the `TerribleFailureHandler` is dependent on its specific implementation, which can interact with the system in unpredictable ways.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not determined by its arguments only. It depends on the global `sWtfHandler` state and external system configurations for logging and error reporting.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It causes significant side effects (logging, potential process termination) and depends on global and external state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int wtfStack(@Nullable String tag, @Nullable String msg)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method delegates to another `wtf` overload which reads the global static `sWtfHandler` field to handle the failure, and also reads `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD` for logging.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has significant side effects, including logging an error and invoking a global `TerribleFailureHandler`. The default handler can terminate the application, making this a method with potentially severe side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The logging action depends on system log levels, and the action of the `TerribleFailureHandler` is dependent on its specific implementation, which can interact with the system in unpredictable ways.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not determined by its arguments only. It depends on the global `sWtfHandler` state and external system configurations for logging and error reporting.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It causes significant side effects (logging, potential process termination) and depends on global and external state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int wtf(@Nullable String tag, @NonNull Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method delegates to another `wtf` overload which reads the global static `sWtfHandler` field to handle the failure, and also reads `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD` for logging.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has significant side effects, including logging an error and invoking a global `TerribleFailureHandler`. The default handler can terminate the application, making this a method with potentially severe side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The logging action depends on system log levels, and the action of the `TerribleFailureHandler` is dependent on its specific implementation, which can interact with the system in unpredictable ways.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not determined by its arguments only. It depends on the global `sWtfHandler` state and external system configurations for logging and error reporting.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It causes significant side effects (logging, potential process termination) and depends on global and external state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int wtf(@Nullable String tag, @Nullable String msg, @Nullable Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method delegates to another `wtf` overload which reads the global static `sWtfHandler` field to handle the failure, and also reads `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD` for logging.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has significant side effects, including logging an error and invoking a global `TerribleFailureHandler`. The default handler can terminate the application, making this a method with potentially severe side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic. The logging action depends on system log levels, and the action of the `TerribleFailureHandler` is dependent on its specific implementation, which can interact with the system in unpredictable ways.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not determined by its arguments only. It depends on the global `sWtfHandler` state and external system configurations for logging and error reporting.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It causes significant side effects (logging, potential process termination) and depends on global and external state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int wtf(int logId, @Nullable String tag, @Nullable String msg, @Nullable Throwable tr, boolean localStack, boolean system)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method reads the static field `sWtfHandler` to invoke the failure handler. It also calls `printlns`, which reads the `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD` static field. Both are reads of global state.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.util.Log.sWtfHandler",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has severe side effects. It logs an error via `printlns` (I/O) and invokes `sWtfHandler.onTerribleFailure`. The default handler calls `RuntimeInit.wtf`, which can terminate the process or log to the DropBoxManager.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic due to its reliance on the system log level configuration and the specific implementation of the globally-set `sWtfHandler`, which can interact with the system in various ways.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It is critically dependent on the global `sWtfHandler` object and external system state related to logging and error handling.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It reads global state (`sWtfHandler`), has major side effects including logging and potential process termination, and depends on external system state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void wtfQuiet(int logId, @Nullable String tag, @Nullable String msg, boolean system)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method reads the static `sWtfHandler` field to invoke the configured failure handler.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.sWtfHandler",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a significant side effect by invoking `sWtfHandler.onTerribleFailure`. The default handler calls `RuntimeInit.wtf`, which can terminate the process or log to the DropBoxManager. Unlike other `wtf` methods, it does not directly log via `printlns`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because it depends on the specific implementation of the globally-set `sWtfHandler`, which can interact with the system in unpredictable ways.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It is critically dependent on the global `sWtfHandler` object and the system state it interacts with.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It reads global state and has major side effects via the failure handler, including potential process termination. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "TerribleFailureHandler setWtfHandler(@NonNull TerribleFailureHandler handler)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This method modifies global state. It reads the current value of the static field `sWtfHandler` to return it, and then writes a new value to this field.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.sWtfHandler",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.util.Log.sWtfHandler",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a clear side effect: it modifies the shared, global `sWtfHandler` field. This changes the behavior of all subsequent calls to `wtf` methods in the application.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic in its action (it sets the handler), but its return value depends on the pre-existing state of `sWtfHandler`, making it non-deterministic with respect to its inputs alone.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is not dependent only on its arguments. It returns the previous value of `sWtfHandler`, which is dependent on the prior state of the class.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates global state (`sWtfHandler`) and its return value depends on that same state. It is a classic setter method for a global configuration and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getStackTraceString(@Nullable Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state. It operates exclusively on its `tr` argument and local variables.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It uses a `StringWriter` to capture the output of `tr.printStackTrace()` in memory and returns it as a string. It does not perform any I/O, UI updates, or external state mutation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not invoke any non-deterministic functions. The output of `printStackTrace` is deterministic for a given `Throwable` object. The check for `UnknownHostException` is also deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends solely on its input argument `tr`. For the same `Throwable` instance, it will consistently produce the same string output.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, does not depend on any state other than its arguments, and is deterministic. It is an excellent candidate for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int println(@Level int priority, @Nullable String tag, @NonNull String msg)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method does not access any class fields. It forwards its arguments to the native method `println_native` for processing.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to produce a side effect: writing a log message to the system log. This is achieved via a call to the native method `println_native`, which performs an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because the underlying logging system may or may not write the log based on the system's current log level configuration for the given tag. The return value is also dependent on the result of the native call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value are not solely dependent on its arguments. They also depend on the external system logging configuration, which can change at any time.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it performs I/O (logging) and its behavior depends on mutable external system state (log levels). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int println_native(int bufID, int priority, String tag, String msg)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This is a native method. It does not access any Java-level state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "As a native logging function, its fundamental purpose is to perform a side effect: writing data to the system's log buffers, which is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic. Its success, behavior, and return value depend on the state of the underlying native logging system (e.g., buffer availability, permissions, system log configuration).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It relies on the external state of the operating system's logging daemon.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a native method designed specifically for I/O side effects (logging) and interaction with non-deterministic system components. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int logToRadioBuffer(@Level int priority, @Nullable String tag, @Nullable String message)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "The method does not access any class fields. It forwards its arguments to the native method `println_native` for processing.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to produce a side effect: writing a log message to a specific system log buffer ('radio'). This is achieved via a call to the native method `println_native`, which performs an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because the underlying logging system may or may not write the log based on the system's current log level configuration. The return value is also dependent on the result of the native call.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value are not solely dependent on its arguments. They also depend on the external system logging configuration for the radio buffer.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it performs I/O (logging) and its behavior depends on mutable external system state. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int logger_entry_max_payload_native()",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This is a native method. It does not access any Java-level state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This native method is a query function and is not expected to have side effects. It reads a configuration value from the system.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the value it returns (LOGGER_ENTRY_MAX_PAYLOAD) can vary between different Android releases and device configurations. It depends on the state of the external system.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments, and its return value is not constant; it depends on the external system environment. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. Although it has no side effects, its return value is non-deterministic as it depends on the external system environment. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int printlns(int bufID, int priority, @Nullable String tag, @NonNull String msg, @Nullable Throwable tr)",
+      "className": "android.util.Log",
+      "reasonAboutStateAccesses": "This method reads the static final field `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD`, which holds a system-dependent value. This is a read of global state.",
+      "stateAccesses": [
+        {
+          "name": "android.util.Log.PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a clear side effect: it writes the provided message and stack trace to the system log. It does this by using an `ImmediateLogWriter` which in turn calls the native `println_native` method, performing I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logging behavior is non-deterministic as it depends on the system log level configuration. The native calls it makes also interact with the non-deterministic OS logging system.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not solely dependent on its arguments. It also depends on the system's log configuration and the value of the global `PreloadHolder.LOGGER_ENTRY_MAX_PAYLOAD` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It performs I/O side effects (logging), reads global state, and depends on the external system configuration. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getWritten()",
+      "className": "android.util.Log.ImmediateLogWriter",
+      "reasonAboutStateAccesses": "The method reads the instance field `written` to return its value.",
+      "stateAccesses": [
+        {
+          "name": "this.written",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects; it is a simple getter that returns the value of an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the `written` field, not on arguments (it has none). Therefore, it is not dependent only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because its return value depends on the mutable internal state of the object (`this.written`), which is modified by other methods like `write`. A pure function's output must depend only on its inputs.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void write(char[] cbuf, int off, int len)",
+      "className": "android.util.Log.ImmediateLogWriter",
+      "reasonAboutStateAccesses": "The method writes to the instance field `written`. It adds the return value of `println_native` to the current value of `written`.",
+      "stateAccesses": [
+        {
+          "name": "this.written",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has two side effects. It modifies its internal state by updating the `written` field. More significantly, it performs I/O by calling `println_native` to write to the system log.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to `println_native` is non-deterministic, as its behavior and return value depend on the external system logging state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (both state change and side effect) depends on the non-deterministic `println_native` call, not just its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It modifies internal state (`written`), performs I/O side effects (logging), and relies on a non-deterministic native call. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void flush()",
+      "className": "android.util.Log.ImmediateLogWriter",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. Its body is empty and it is explicitly commented as 'Ignored.'",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and has no return value. Its behavior (doing nothing) is constant and thus trivially depends only on its (non-existent) arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, accesses no state, is deterministic, and its behavior is dependent only on its arguments (of which there are none). It is suitable for memoization, though memoizing a void method with no side effects has little practical value.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void close()",
+      "className": "android.util.Log.ImmediateLogWriter",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. Its body is empty and it is explicitly commented as 'Ignored.'",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and has no return value. Its behavior (doing nothing) is constant and thus trivially depends only on its (non-existent) arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, accesses no state, is deterministic, and its behavior is dependent only on its arguments (of which there are none). It is suitable for memoization, though memoizing a void method with no side effects has little practical value.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,1783 @@
+{
+  "file_name": "android.widget.ImageView",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/ImageView.java",
+  "source_code_file_path": "java_source_code_files/android/widget/ImageView.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751900481,
+  "run_name": "gemini-2.5-pro-pass-2",
+  "llm_response_time_seconds": 236.423,
+  "llm_analysis": [
+    {
+      "methodSignature": "boolean verifyDrawable(@NonNull Drawable dr)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal field 'mDrawable' to compare it with the provided 'dr' argument. It doesn't write to any state.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It calls 'super.verifyDrawable(dr)', which is assumed to also be free of side effects beyond its return value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions. Its behavior is determined by the state of 'mDrawable' and the 'dr' argument.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mDrawable' in addition to its argument 'dr'. Therefore, it does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state 'this.mDrawable'. A pure function's output must depend solely on its input arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void jumpDrawablesToCurrentState()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal field 'mDrawable' to check if it's non-null.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It calls 'super.jumpDrawablesToCurrentState()' and, if 'mDrawable' is not null, it calls 'mDrawable.jumpToCurrentState()', which modifies the state of the external Drawable object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a void method with side effects and depends on the internal state of 'mDrawable'. It does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the state of the internal 'mDrawable' object, which is a side effect. It also depends on the internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void invalidateDrawable(@NonNull Drawable dr)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads internal fields 'mDrawable', 'mDrawableWidth', and 'mDrawableHeight'. It writes to 'mDrawableWidth' and 'mDrawableHeight' if the drawable's intrinsic dimensions have changed.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mDrawableHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It calls 'invalidate()', which triggers a UI redraw. It also calls 'configureBounds()', which performs complex state calculations and modifications. 'super.invalidateDrawable(dr)' is also called.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void, has side effects, and its behavior depends on internal state fields like 'mDrawable', 'mDrawableWidth', and 'mDrawableHeight'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects, including modifying internal state and triggering a UI redraw via 'invalidate()'.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean hasOverlappingRendering()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not directly access any fields of the ImageView class. It accesses the state of the view's background drawable via 'getBackground()'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It only reads the state of the background drawable to determine its return value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the view's background drawable, which is an external dependency, not an argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the state of the view's background, which is external to the method's arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onPopulateAccessibilityEventInternal(AccessibilityEvent event)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not directly access fields but calls 'getContentDescription()', which reads internal state from the parent View class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has a side effect of modifying the 'event' argument by calling 'event.getText().add()'. It also calls 'super.onPopulateAccessibilityEventInternal()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a void method that modifies its argument and depends on the view's content description state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying its 'event' parameter and its behavior depends on the view's internal state (content description).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean getAdjustViewBounds()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field 'mAdjustViewBounds'.",
+      "stateAccesses": [
+        {
+          "name": "this.mAdjustViewBounds",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter for a private field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mAdjustViewBounds', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal primitive field and has no side effects. While its output depends on object state rather than arguments, it is idempotent and safe to memoize in the context of an unchanged object state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setAdjustViewBounds(boolean adjustViewBounds)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method writes to the internal primitive field 'mAdjustViewBounds'.",
+      "stateAccesses": [
+        {
+          "name": "this.mAdjustViewBounds",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'setScaleType()', which in turn calls 'requestLayout()' and 'invalidate()', triggering a UI update.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void method with side effects and does not return a value. Its purpose is to modify state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state ('mAdjustViewBounds') and causes side effects by calling 'setScaleType', which triggers a re-layout and redraw.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getMaxWidth()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field 'mMaxWidth'.",
+      "stateAccesses": [
+        {
+          "name": "this.mMaxWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter for a private field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mMaxWidth', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal primitive field and has no side effects. While its output depends on object state rather than arguments, it is idempotent and safe to memoize in the context of an unchanged object state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setMaxWidth(int maxWidth)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method writes to the internal primitive field 'mMaxWidth'.",
+      "stateAccesses": [
+        {
+          "name": "this.mMaxWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no observable side effects beyond modifying the internal state. It does not trigger a redraw or relayout.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void method whose purpose is to modify state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies the internal state ('mMaxWidth').",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getMaxHeight()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field 'mMaxHeight'.",
+      "stateAccesses": [
+        {
+          "name": "this.mMaxHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter for a private field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mMaxHeight', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal primitive field and has no side effects. While its output depends on object state rather than arguments, it is idempotent and safe to memoize in the context of an unchanged object state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setMaxHeight(int maxHeight)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method writes to the internal primitive field 'mMaxHeight'.",
+      "stateAccesses": [
+        {
+          "name": "this.mMaxHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no observable side effects beyond modifying the internal state. It does not trigger a redraw or relayout.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void method whose purpose is to modify state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies the internal state ('mMaxHeight').",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Drawable getDrawable()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal object fields 'mDrawable' and 'mRecycleableBitmapDrawable'. It also conditionally writes null to 'mRecycleableBitmapDrawable'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mRecycleableBitmapDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mRecycleableBitmapDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect: it modifies the internal state by setting 'mRecycleableBitmapDrawable' to null under certain conditions. This is done to manage a cached drawable.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of 'mDrawable' and 'mRecycleableBitmapDrawable'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a side effect of modifying the 'mRecycleableBitmapDrawable' field. Furthermore, its return value is dependent on internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setImageResource(@DrawableRes int resId)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method writes to internal state fields 'mResource' and 'mUri'. It reads 'mDrawableWidth' and 'mDrawableHeight'. It also calls helper methods that perform further state modifications.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawableWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mResource",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mUri",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It calls 'updateDrawable()' and 'resolveUri()' which can involve resource loading (I/O) and modify many internal fields. It also calls 'requestLayout()' and 'invalidate()', which trigger UI updates.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to 'resolveUri()' (and its subsequent call to `mContext.getDrawable()`) is non-deterministic as the underlying resource may change or be unavailable between calls.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. Its behavior depends on the argument and internal state, and it modifies the view's state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It modifies internal state, triggers UI redraws and relayouts, and involves potentially non-deterministic resource loading from the file system.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Runnable setImageResourceAsync(@DrawableRes int resId)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not access any state of the ImageView instance itself. It accesses context to load a drawable.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects. It interacts with the Android framework to get a drawable from a resource ID, which is a form of I/O. It can also log a warning message to Logcat, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call `getContext().getDrawable(resId)` is non-deterministic, as the resource might not be found, leading to an exception and a different execution path.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a new Runnable object whose content depends on whether the drawable was successfully loaded. The loading process itself depends on external system state (resources).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs resource loading which is an I/O operation and is non-deterministic. It also has a logging side effect. The method's purpose is to create a Runnable that will perform further side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setImageURI(@Nullable Uri uri)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads and writes multiple internal state fields: it reads 'mResource' and 'mUri' for comparison, and 'mDrawableWidth'/'mDrawableHeight'. It writes to 'mResource' and 'mUri'. Further state changes happen in called helpers.",
+      "stateAccesses": [
+        {
+          "name": "this.mResource",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mUri",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mResource",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mUri",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It calls 'resolveUri()' which can perform I/O by reading from a content provider or file. It also calls 'requestLayout()' and 'invalidate()' to update the UI.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "Loading data from a Uri is non-deterministic. The content at the Uri could change, be deleted, or be inaccessible, causing the operation to fail.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with side effects. Its behavior depends on the argument and internal state, and it modifies the view's state and appearance.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It modifies internal state, triggers UI updates, and performs non-deterministic I/O operations to load image data from a Uri.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Runnable setImageURIAsync(@Nullable Uri uri)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads internal state fields 'mResource' and 'mUri' for comparison.",
+      "stateAccesses": [
+        {
+          "name": "this.mResource",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mUri",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects as it calls 'getDrawableFromUri(uri)', which performs I/O operations to decode an image from a Uri.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to 'getDrawableFromUri' is non-deterministic, as the content at the Uri may not exist or may have changed, affecting the result.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state ('mResource', 'mUri') and the result of the non-deterministic 'getDrawableFromUri' call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs I/O by attempting to load a drawable from a Uri, which is a non-deterministic operation with potential side effects like logging. It also depends on internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setImageDrawable(@Nullable Drawable drawable)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads 'mDrawable', 'mDrawableWidth', and 'mDrawableHeight'. It writes to 'mResource' and 'mUri'. The helper method 'updateDrawable' modifies 'mDrawable' and other fields.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mResource",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mUri",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'updateDrawable()', which sets callbacks and modifies the drawable's state. It also calls 'requestLayout()' and 'invalidate()' to trigger UI updates.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any direct non-deterministic calls, but the state of the passed Drawable can be considered a non-deterministic input.",
+      "hasNonDeterministicCalls": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a complex setter that modifies multiple internal state fields and produces side effects like updating the UI ('requestLayout', 'invalidate') and altering the state of the provided Drawable object.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setImageIcon(@Nullable Icon icon)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not directly access any fields. It calls 'setImageDrawable' which accesses and modifies state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects because it calls 'icon.loadDrawable()', which can involve I/O to load the icon's data, and then passes the result to 'setImageDrawable()', which has numerous side effects including UI updates.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to 'icon.loadDrawable()' can be non-deterministic if the icon resource is not available.",
+      "hasNonDeterministicCalls": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It involves resource loading (I/O) via 'icon.loadDrawable()' and then calls 'setImageDrawable()', which modifies internal state and triggers UI updates.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Runnable setImageIconAsync(@Nullable Icon icon)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not access any state from the ImageView instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects as 'icon.loadDrawable(mContext)' performs resource loading, which is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to 'icon.loadDrawable()' is non-deterministic as the resource may not be available.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned Runnable depends on the result of loading the icon, which is an external operation, not just the 'icon' argument itself.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a non-deterministic I/O operation ('icon.loadDrawable') and its purpose is to create a Runnable that will perform further side effects on the ImageView.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setImageTintList(@Nullable ColorStateList tint)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method writes to the internal fields 'mDrawableTintList' and 'mHasDrawableTint'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawableTintList",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mHasDrawableTint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'applyImageTint()', which can mutate the current drawable object ('mDrawable').",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void method that modifies state. It does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and has a side effect of potentially mutating the 'mDrawable' object.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ColorStateList getImageTintList()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal object field 'mDrawableTintList'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawableTintList",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mDrawableTintList', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal object field and has no side effects. It is idempotent and safe to memoize as long as the object state is unchanged.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setImageTintMode(@Nullable PorterDuff.Mode tintMode)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not directly access state, but it calls 'setImageTintBlendMode' which writes to 'mDrawableBlendMode' and 'mHasDrawableBlendMode'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it calls 'setImageTintBlendMode', which in turn calls 'applyImageTint()'. 'applyImageTint()' can mutate the current drawable object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state via a helper method.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a setter that modifies internal state and causes side effects on the 'mDrawable' object through its call to 'setImageTintBlendMode'.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setImageTintBlendMode(@Nullable BlendMode blendMode)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method writes to the internal fields 'mDrawableBlendMode' and 'mHasDrawableBlendMode'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawableBlendMode",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mHasDrawableBlendMode",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'applyImageTint()', which can mutate the current drawable object ('mDrawable').",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and has a side effect of potentially mutating the 'mDrawable' object.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "PorterDuff.Mode getImageTintMode()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mDrawableBlendMode'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawableBlendMode",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It reads an internal field and performs a simple conversion.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mDrawableBlendMode', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal field and performs a deterministic conversion. It is idempotent and safe to memoize in the context of an unchanged object state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "BlendMode getImageTintBlendMode()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal object field 'mDrawableBlendMode'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawableBlendMode",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mDrawableBlendMode', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal object field and has no side effects. It is idempotent and safe to memoize as long as the object state is unchanged.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setImageBitmap(Bitmap bm)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method writes null to 'mDrawable'. It reads 'mRecycleableBitmapDrawable' and may write to it by calling 'setBitmap' on it or creating a new instance. It also reads 'mContext'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mRecycleableBitmapDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mRecycleableBitmapDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It manages a 'mRecycleableBitmapDrawable' object and then calls 'setImageDrawable()', which has many side effects including modifying internal state and triggering UI updates.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method involves creating a new `BitmapDrawable`, which could be considered a non-deterministic operation in terms of memory allocation, but is otherwise deterministic.",
+      "hasNonDeterministicCalls": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state, including managing a cached drawable object, and calls 'setImageDrawable', which triggers major side effects like UI relayout and redraw.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setImageState(int[] state, boolean merge)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method writes to the internal fields 'mState' and 'mMergeState'. It also reads 'mDrawable'.",
+      "stateAccesses": [
+        {
+          "name": "this.mState",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mMergeState",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'refreshDrawableState()', which updates the drawable's state, and 'resizeFromDrawable()', which can call 'requestLayout()' and trigger a UI update.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and causes side effects by refreshing the drawable's state and potentially triggering a UI relayout.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setSelected(boolean selected)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not directly access fields, but relies on the superclass implementation and helper methods.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'super.setSelected()', which modifies the view's state, and 'resizeFromDrawable()', which can call 'requestLayout()' and trigger a UI update.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the view's selection state via its superclass and can trigger a UI relayout via 'resizeFromDrawable'.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setImageLevel(int level)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method writes to the internal primitive fields 'mLevel' and 'mHasLevelSet'. It reads the 'mDrawable' field.",
+      "stateAccesses": [
+        {
+          "name": "this.mLevel",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mHasLevelSet",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'mDrawable.setLevel(level)', modifying the state of the drawable object. It also calls 'resizeFromDrawable()', which can trigger a UI relayout.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state, modifies the state of the external 'mDrawable' object, and can trigger a UI relayout.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setScaleType(ScaleType scaleType)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads and writes the internal field 'mScaleType'.",
+      "stateAccesses": [
+        {
+          "name": "this.mScaleType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mScaleType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'requestLayout()' and 'invalidate()', which schedule a re-measure, re-layout, and redraw of the view.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and causes significant side effects by triggering a UI update.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ScaleType getScaleType()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal object field 'mScaleType'.",
+      "stateAccesses": [
+        {
+          "name": "this.mScaleType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mScaleType', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal object field and has no side effects. It is idempotent and safe to memoize in the context of an unchanged object state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Matrix getImageMatrix()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mDrawMatrix'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawMatrix",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no direct side effects. However, it can return a reference to the internal mutable 'mDrawMatrix' object, allowing external code to modify the internal state, which is an indirect side effect. It also creates a new Matrix object if the internal one is null.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic with respect to object identity because it creates a 'new Matrix()' if 'mDrawMatrix' is null. Successive calls might return different objects.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mDrawMatrix', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is non-deterministic as it can create a new Matrix object on-the-fly. It also returns a mutable internal object reference in some cases, which breaks encapsulation and can lead to side effects by the caller.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setImageMatrix(Matrix matrix)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads and writes to the internal object field 'mMatrix'.",
+      "stateAccesses": [
+        {
+          "name": "this.mMatrix",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMatrix",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'configureBounds()' which modifies other state, and 'invalidate()' which triggers a UI redraw.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state ('mMatrix') and causes side effects by re-configuring bounds and invalidating the view.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean getCropToPadding()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field 'mCropToPadding'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCropToPadding",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mCropToPadding', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal primitive field and has no side effects. It is idempotent and safe to memoize in the context of an unchanged object state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setCropToPadding(boolean cropToPadding)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads and writes the internal primitive field 'mCropToPadding'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCropToPadding",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCropToPadding",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'requestLayout()' and 'invalidate()', which schedule a re-measure, re-layout, and redraw of the view.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and causes side effects by triggering a UI update.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int[] onCreateDrawableState(int extraSpace)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal fields 'mState' (object array) and 'mMergeState' (primitive boolean).",
+      "stateAccesses": [
+        {
+          "name": "this.mState",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMergeState",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It calls 'super.onCreateDrawableState' and 'mergeDrawableStates', which are expected to be pure utility functions for creating a new state array.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is not non-deterministic. Its output is determined by the internal state and the superclass's state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state ('mState', 'mMergeState') and the state from its superclass, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result is dependent on the internal state of the view ('mState', 'mMergeState') and its parent, not solely on its input arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onRtlPropertiesChanged(int layoutDirection)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal field 'mDrawable'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It calls 'super.onRtlPropertiesChanged()' and also modifies the state of the 'mDrawable' object by calling 'mDrawable.setLayoutDirection()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a lifecycle callback that produces side effects by modifying the state of the internal drawable object and calling its superclass method.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int resolveAdjustedSize(int desiredSize, int maxSize, int measureSpec)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It performs calculations and returns an integer.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not call any non-deterministic functions. Its logic is based on arithmetic and comparisons.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a pure function of its input arguments 'desiredSize', 'maxSize', and 'measureSpec'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, does not access any state, and its return value is determined solely by its input arguments. It is an excellent candidate for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void drawableStateChanged()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal field 'mDrawable'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'super.drawableStateChanged()', can modify the state of the 'mDrawable' object by calling 'setState()', and can trigger a redraw by calling 'invalidateDrawable()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state based on the view's internal drawable state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a callback that reacts to state changes and produces side effects, such as modifying the drawable's state and invalidating the view.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void drawableHotspotChanged(float x, float y)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal field 'mDrawable'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'super.drawableHotspotChanged()' and modifies the state of the 'mDrawable' object by calling 'mDrawable.setHotspot()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a callback that produces side effects by modifying the state of the internal drawable object and calling its superclass method.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void animateTransform(@Nullable Matrix matrix)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads internal state fields 'mDrawable', 'mDrawableWidth', and 'mDrawableHeight'. It reads and writes to 'mDrawMatrix'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableWidth",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawableHeight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawMatrix",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDrawMatrix",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It modifies the bounds of 'mDrawable' by calling 'setBounds()', and it triggers a UI redraw by calling 'invalidate()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic regarding object allocation, as it may create a 'new Matrix()' if 'mDrawMatrix' is null.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state, modifies the drawable's bounds, triggers a redraw, and may allocate a new Matrix object.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getBaseline()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal primitive fields 'mBaselineAlignBottom' and 'mBaseline'.",
+      "stateAccesses": [
+        {
+          "name": "this.mBaselineAlignBottom",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mBaseline",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects, but its result depends on the result of 'getMeasuredHeight()', which relies on the view's layout state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state ('mBaselineAlignBottom', 'mBaseline') and the view's measured height, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the measured state of the view ('getMeasuredHeight()'), which is external to the method's direct logic and can change.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setBaseline(int baseline)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads and writes the internal primitive field 'mBaseline'.",
+      "stateAccesses": [
+        {
+          "name": "this.mBaseline",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mBaseline",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of calling 'requestLayout()' if the baseline value changes, which schedules a re-measure and re-layout of the view.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and causes a side effect by requesting a new layout pass.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setBaselineAlignBottom(boolean aligned)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads and writes the internal primitive field 'mBaselineAlignBottom'.",
+      "stateAccesses": [
+        {
+          "name": "this.mBaselineAlignBottom",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mBaselineAlignBottom",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of calling 'requestLayout()' if the alignment value changes, which schedules a re-measure and re-layout of the view.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and causes a side effect by requesting a new layout pass.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean getBaselineAlignBottom()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field 'mBaselineAlignBottom'.",
+      "stateAccesses": [
+        {
+          "name": "this.mBaselineAlignBottom",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mBaselineAlignBottom', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal primitive field and has no side effects. It is idempotent and safe to memoize in the context of an unchanged object state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setColorFilter(int color, PorterDuff.Mode mode)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not access state directly, but calls 'setColorFilter(ColorFilter)', which does.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It creates a new 'PorterDuffColorFilter' and passes it to 'setColorFilter(ColorFilter)', which modifies internal state and calls 'invalidate()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic as it involves creating a 'new PorterDuffColorFilter' object. Each call produces a new instance.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It allocates a new object and calls another method that modifies state and triggers a UI redraw.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setColorFilter(int color)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not access state directly, but calls 'setColorFilter(int, PorterDuff.Mode)', which eventually modifies state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects by calling 'setColorFilter(int, PorterDuff.Mode)', which modifies internal state and triggers a UI redraw.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method has non-deterministic behavior because it delegates to a method that creates a new object instance.",
+      "hasNonDeterministicCalls": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a convenience wrapper around another impure method that modifies state and invalidates the view.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearColorFilter()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not access state directly, but calls 'setColorFilter(null)', which modifies state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects by calling 'setColorFilter(null)', which modifies internal state and triggers a UI redraw.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It calls a setter with null, which modifies state and invalidates the view.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setXfermode(Xfermode mode)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads and writes the internal object fields 'mXfermode' and 'mHasXfermode'.",
+      "stateAccesses": [
+        {
+          "name": "this.mXfermode",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mXfermode",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mHasXfermode",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'applyXfermode()', which can mutate the drawable, and 'invalidate()', which triggers a UI redraw.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state, can mutate the internal drawable, and triggers a view redraw.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ColorFilter getColorFilter()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal object field 'mColorFilter'.",
+      "stateAccesses": [
+        {
+          "name": "this.mColorFilter",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mColorFilter', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal object field and has no side effects. It is idempotent and safe to memoize in the context of an unchanged object state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setColorFilter(ColorFilter cf)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads and writes the internal object fields 'mColorFilter' and 'mHasColorFilter'.",
+      "stateAccesses": [
+        {
+          "name": "this.mColorFilter",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mColorFilter",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mHasColorFilter",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'applyColorFilter()', which can mutate the drawable, and 'invalidate()', which triggers a UI redraw.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state, can mutate the internal drawable, and triggers a view redraw.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getImageAlpha()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the value of the internal primitive field 'mAlpha'.",
+      "stateAccesses": [
+        {
+          "name": "this.mAlpha",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field 'mAlpha', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a simple getter that reads an internal primitive field and has no side effects. It is idempotent and safe to memoize in the context of an unchanged object state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setImageAlpha(int alpha)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not directly access state, but calls 'setAlpha(int)', which modifies internal state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it calls 'setAlpha(int)', which modifies state and triggers a UI redraw by calling 'invalidate()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a wrapper for another impure method that modifies state and invalidates the view.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setAlpha(int alpha)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads and writes the internal primitive fields 'mAlpha' and 'mHasAlpha'.",
+      "stateAccesses": [
+        {
+          "name": "this.mAlpha",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAlpha",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mHasAlpha",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'applyAlpha()', which can mutate the drawable, and 'invalidate()', which triggers a UI redraw.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state, can mutate the internal drawable, and triggers a view redraw.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isOpaque()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads several internal state fields: 'mDrawable' (object), 'mXfermode' (object), 'mAlpha' (primitive), and 'mViewAlphaScale' (primitive).",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mXfermode",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAlpha",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mViewAlphaScale",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It calls 'super.isOpaque()', 'isFilledByImage()', and 'mDrawable.getOpacity()', which are all state-querying methods.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on a complex combination of internal state and the state of the drawable object, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on a wide range of internal and external (drawable) state properties.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onVisibilityAggregated(boolean isVisible)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal field 'mDrawable' and the global static field 'sCompatDrawableVisibilityDispatch'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.widget.ImageView.sCompatDrawableVisibilityDispatch",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'super.onVisibilityAggregated()' and may modify the state of the 'mDrawable' object by calling 'mDrawable.setVisible()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a lifecycle callback that produces side effects on its superclass and the internal drawable object.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setVisibility(int visibility)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal field 'mDrawable' and the global static field 'sCompatDrawableVisibilityDispatch'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.widget.ImageView.sCompatDrawableVisibilityDispatch",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'super.setVisibility()' and may modify the state of the 'mDrawable' object by calling 'mDrawable.setVisible()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the view's visibility state via its superclass and can also modify the state of the internal drawable.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "CharSequence getAccessibilityClassName()",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method does not access any state. It returns a class name literal.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It returns a constant value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a constant string, has no side effects, and does not depend on any mutable state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isDefaultFocusHighlightNeeded(Drawable background, Drawable foreground)",
+      "className": "android.widget.ImageView",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mDrawable'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It calls other methods ('super.isDefaultFocusHighlightNeeded', 'mDrawable.isStateful', 'mDrawable.hasFocusStateSpecified') which are expected to be simple state queries.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its arguments and also on the internal state of 'mDrawable'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state of the 'mDrawable' object, which is not an input argument.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

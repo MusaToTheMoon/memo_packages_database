@@ -1,0 +1,1053 @@
+{
+  "file_name": "com.bumptech.glide.Glide",
+  "source_type": "github",
+  "url": "https://github.com/bumptech/glide/blob/master/library/src/main/java/com/bumptech/glide/Glide.java",
+  "source_code_file_path": "java_source_code_files/com/bumptech/glide/Glide.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751923708,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 256.075,
+  "llm_analysis": [
+    {
+      "methodSignature": "File getPhotoCacheDir(@NonNull Context context)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method is static and accesses the static final field `DEFAULT_DISK_CACHE_DIR` to pass it to another method. This is a read of a global constant.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.DEFAULT_DISK_CACHE_DIR",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method delegates to `getPhotoCacheDir(context, cacheName)`, which has significant side effects. It interacts with the file system by calling `context.getCacheDir()` and `result.mkdirs()`. The `mkdirs()` call is a write operation (I/O) that modifies the file system state. It also may log errors, which is another I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic as its success and return value depend on the state of the external file system, which can change between calls. For example, `context.getCacheDir()` might return null or `result.mkdirs()` could fail due to permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the file system, not solely on the input `context` argument. Therefore, it does not depend on its arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It causes side effects by creating a directory on the file system and its outcome is non-deterministic, depending on file system state and permissions. Therefore, it is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "File getPhotoCacheDir(@NonNull Context context, @NonNull String cacheName)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This static method reads the static field `TAG` for logging purposes.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.TAG",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has I/O side effects. It calls `context.getCacheDir()` to interact with the Android system and `result.mkdirs()` to create a directory on the file system, which is a write operation. It also performs logging via `Log.e`, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's return value is non-deterministic because it depends on the state of the file system. `context.getCacheDir()` can return different paths or null, and `result.mkdirs()` can succeed or fail based on external factors like storage space and permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the external file system state, not only on the `context` and `cacheName` arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has side effects through file system manipulation (`mkdirs`) and logging. Its result is non-deterministic as it's contingent on the external file system's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Glide get(@NonNull Context context)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method uses double-checked locking to manage the static volatile field `glide`. It involves reading `glide` twice and potentially writing to it once to initialize the singleton. This is a read/write access to a global, mutable state.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "If the `glide` singleton is not initialized, this method triggers `checkAndInitializeGlide`, a process with massive side effects. This includes reflection, manifest parsing, creating thread pools, initializing caches, and registering Android component callbacks, fundamentally altering the application's global state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The initialization path of this method, via `getAnnotationGeneratedGlideModules`, uses reflection (`Class.forName`), which is non-deterministic as it depends on the application's classpath at runtime. The entire initialization is dependent on external application configuration.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is the `glide` singleton instance, which is stored in a global static field. It does not depend solely on the input `context`, but on this shared global state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It's a factory for a singleton that manages a global, mutable static field. Its first invocation triggers a complex, side-effect-heavy, and non-deterministic initialization process. It is a cornerstone of the library's state management and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void checkAndInitializeGlide(@NonNull Context context, @Nullable GeneratedAppGlideModule generatedAppGlideModule)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads and writes the static volatile boolean flag `isInitializing` to prevent recursive initialization. This is a read/write access to a global state variable.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.isInitializing",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "com.bumptech.glide.Glide.isInitializing",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method's primary purpose is to orchestrate side effects. It calls `initializeGlide`, which creates and configures the global `Glide` singleton, a process with extensive side effects. It also throws an `IllegalStateException` if called recursively, which alters control flow.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the value of the `isInitializing` flag, which can be modified by other threads. The delegated call to `initializeGlide` is also non-deterministic, relying on application configuration and reflection.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed for side effects, not for returning a value. It does not produce an output based on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It manages a global re-entrancy lock (`isInitializing`) and triggers the main `initializeGlide` method, which is laden with side effects like global state creation and system callback registration. It is a stateful initialization helper.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void init(Glide glide)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method directly manipulates the global static state by reading and writing to `Glide.glide`. It first calls `tearDown()`, which reads and nullifies `Glide.glide`, and then assigns a new value to it.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method is designed purely for its side effects. It calls `tearDown()` which unregisters component callbacks and shuts down the engine (potentially stopping threads), and then it replaces the global `Glide` singleton instance. This is a major modification of the application's global state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the current state of the global `Glide.glide` field. The actions performed during `tearDown()` depend on the state of the existing singleton.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that performs side effects and does not return a value based on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is highly impure. Its only purpose is to tear down and replace the global `Glide` singleton instance, which involves significant side effects like unregistering system callbacks, shutting down threads, and modifying global static state. It's intended for testing and is fundamentally stateful.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void init(@NonNull Context context, @NonNull GlideBuilder builder)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method orchestrates the modification of the global `Glide.glide` static field by first calling `tearDown()` (which nullifies it) and then `initializeGlide()` (which assigns a new instance to it).",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has profound side effects. It tears down any existing `Glide` instance and then builds and initializes a new one. This involves reflection, manifest parsing, component registration with the Android framework, and creation of caches and thread pools.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The process is non-deterministic. It relies on `getAnnotationGeneratedGlideModules` (reflection) and `initializeGlide` (manifest parsing, etc.), which depend on the application's runtime environment and configuration.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed for side effects, not for returning a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It is designed to completely re-initialize the global `Glide` singleton, a process that is fundamentally stateful and involves numerous side effects such as reflection, system callback registration, and global state mutation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isInitialized()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method performs a single read of the static volatile field `glide` to check if it is null.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects; it only reads a static field and returns a boolean.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the value of the global `glide` field can be changed at any time by other threads calling `get()`, `init()`, or `tearDown()`. Therefore, successive calls can yield different results.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends entirely on mutable global state (`Glide.glide`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it lacks side effects, its result is non-deterministic as it depends on mutable global state. It cannot be memoized because its value can change unpredictably due to actions in other parts of the application.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void enableHardwareBitmaps()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "The method interacts with the `HardwareConfigState` singleton. While it does not access a field in the `Glide` class directly, it modifies the state of an external, globally accessible singleton object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's sole purpose is to cause a side effect: it calls `HardwareConfigState.getInstance().unblockHardwareBitmaps()`, which modifies a global configuration flag affecting bitmap decoding behavior across the entire application.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not involve calls to time, random, or other non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that performs a side effect and does not return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It is designed explicitly to cause a global side effect by modifying the state of the `HardwareConfigState` singleton. This kind of global state mutation is the antithesis of purity.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void tearDown()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the global static `glide` field to check for null and to access its members (`engine`, `context`), and then writes `null` to `glide`, destroying the singleton instance.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major side effects. It unregisters component callbacks from the Android framework (`unregisterComponentCallbacks`), shuts down the Glide engine (`engine.shutdown()`), which can terminate threads and release resources, and nullifies the global singleton reference.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the state of the `glide` singleton and its components at the time of the call, which is mutable and external state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments, designed purely for its side effects on global state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is highly impure. It is designed to dismantle the global Glide singleton, a process involving significant side effects like unregistering system callbacks, shutting down background threads, and mutating global state. It is fundamentally stateful.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void initializeGlide(@NonNull Context context, @Nullable GeneratedAppGlideModule generatedAppGlideModule)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method does not directly access state itself, but it creates a new `GlideBuilder` and delegates to the more detailed `initializeGlide` overload, which performs extensive state modification.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a wrapper that triggers significant side effects by calling the main `initializeGlide` method. These side effects include creating the global singleton, registering system callbacks, parsing manifests, and setting up caches and thread pools.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The delegated call to `initializeGlide` is non-deterministic, as it depends on application configuration, manifest parsing, and reflection.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to cause side effects, not to return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It is a convenience overload that orchestrates the complex, stateful, and side-effect-heavy process of initializing the global Glide instance. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void initializeGlide(@NonNull Context context, @NonNull GlideBuilder builder, @Nullable GeneratedAppGlideModule annotationGeneratedModule)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method's primary role is to set the global state. It writes the newly created `Glide` instance to the static `Glide.glide` field. It also reads the static `TAG` field for logging.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.glide",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "com.bumptech.glide.Glide.TAG",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is the core initialization method and is filled with side effects. It parses the application manifest (`ManifestParser`), applies options to a builder, builds the Glide instance, registers component callbacks with the Android system, and performs logging.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. It uses `ManifestParser`, which reads an external configuration file (the manifest). The discovery and application of `GlideModule`s depend on this external configuration, making the outcome dependent on the build and runtime environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to cause side effects, not to return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is fundamentally impure. It is the heart of the stateful initialization process, involving manifest parsing, module discovery, system callback registration, and the mutation of global static state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "GeneratedAppGlideModule getAnnotationGeneratedGlideModules(Context context)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the static `TAG` field for logging purposes.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.TAG",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method uses reflection (`Class.forName`, `getDeclaredConstructor`, `newInstance`) which can throw several types of exceptions, altering the program's control flow. It also has the side effect of logging warnings.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its success and return value depend on the result of `Class.forName`, which depends on the application's classpath at runtime. This is an external factor that cannot be determined from the code alone.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the runtime classpath, not just the input `context`. The context is only used if the class is found and needs to be instantiated.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It uses reflection to find and instantiate a class, making its behavior non-deterministic and dependent on the external runtime environment. It also has logging as a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void throwIncorrectGlideModule(Exception e)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method does not access any class or instance state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's only purpose is to cause a side effect by throwing an `IllegalStateException`. Throwing an exception is a side effect that abruptly alters the program's control flow.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose only behavior is to throw an exception. This behavior is deterministic but it does not return a value based on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its sole purpose is to produce a side effect by throwing an exception and halting the normal execution flow.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "BitmapPool getBitmapPool()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the final instance field `bitmapPool` and returns it.",
+      "stateAccesses": [
+        {
+          "name": "this.bitmapPool",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the internal state of the object (`this.bitmapPool`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure in the strictest sense because its result depends on the object's internal state, not on input arguments. However, it is a simple, deterministic getter with no side effects. It's too trivial to be a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ArrayPool getArrayPool()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the final instance field `arrayPool` and returns it.",
+      "stateAccesses": [
+        {
+          "name": "this.arrayPool",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the internal state of the object (`this.arrayPool`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the object's internal state rather than arguments. It is a simple, deterministic getter with no side effects, and is too trivial to memoize.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Context getContext()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the final instance field `glideContext` to call a method on it.",
+      "stateAccesses": [
+        {
+          "name": "this.glideContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It simply delegates to another getter, `glideContext.getBaseContext()`.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the internal state of the `glideContext` object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on internal object state, not arguments. It is a simple, deterministic getter with no side effects and is too trivial for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ConnectivityMonitorFactory getConnectivityMonitorFactory()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the final instance field `connectivityMonitorFactory` and returns it.",
+      "stateAccesses": [
+        {
+          "name": "this.connectivityMonitorFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the internal state of the object (`this.connectivityMonitorFactory`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it depends on internal state, not arguments. It is a simple, deterministic getter with no side effects and is not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "GlideContext getGlideContext()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the final instance field `glideContext` and returns it.",
+      "stateAccesses": [
+        {
+          "name": "this.glideContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the internal state of the object (`this.glideContext`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it depends on internal state, not arguments. It is a simple, deterministic getter with no side effects and is not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void preFillBitmapPool(@NonNull PreFillType.Builder... bitmapAttributeBuilders)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the `bitmapPreFiller` field and may write to it if it's null (lazy initialization). It also reads `defaultRequestOptionsFactory`, `memoryCache`, and `bitmapPool` to configure and use the pre-filler.",
+      "stateAccesses": [
+        {
+          "name": "this.bitmapPreFiller",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.defaultRequestOptionsFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.memoryCache",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.bitmapPool",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.bitmapPreFiller",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to create a side effect: populating the bitmap pool with Bitmaps. This is a significant state change to shared resources (`bitmapPool`, `memoryCache`). The pre-filling itself is asynchronous via an `IdleHandler`, another side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any non-deterministic calls like time or random number generation.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that performs side effects and does not return a value based on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is designed to cause side effects by allocating bitmaps and populating shared caches. It also performs lazy initialization of an internal field. It is fundamentally stateful.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearMemory()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "The method reads the instance fields `memoryCache`, `bitmapPool`, and `arrayPool` in order to call `clearMemory()` on each of them.",
+      "stateAccesses": [
+        {
+          "name": "this.memoryCache",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.bitmapPool",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.arrayPool",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is designed purely for its side effects: it clears all memory held by Glide's caches and pools. This involves releasing potentially large amounts of memory and modifying the state of these shared objects. It also calls `Util.assertMainThread()`, which can throw an exception.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to `Util.assertMainThread()` makes the method's behavior dependent on the execution context (i.e., which thread it is called on), which is a form of non-determinism.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments, designed for side effects.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. Its sole purpose is to cause the side effect of clearing internal memory caches. Its behavior also depends on the non-deterministic calling thread.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void trimMemory(int level)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "The method reads and iterates over the `managers` list, and also reads the `memoryCache`, `bitmapPool`, and `arrayPool` fields to call methods on them.",
+      "stateAccesses": [
+        {
+          "name": "this.managers",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.memoryCache",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.bitmapPool",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.arrayPool",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has widespread side effects. It propagates the `trimMemory` call to all registered `RequestManager`s and to all internal caches and pools, causing them to release resources and modify their internal state. It also calls `Util.assertMainThread()`, which can throw an exception.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to `Util.assertMainThread()` makes the method's behavior dependent on the calling thread, which is non-deterministic. The state of the managers and caches also affects the outcome.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to cause side effects, not to return a value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It is designed to trigger side effects across many components (managers, caches, pools) by asking them to trim their memory usage. Its execution is also dependent on the non-deterministic calling thread.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearDiskCache()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "The method reads the instance field `engine` to call a method on it.",
+      "stateAccesses": [
+        {
+          "name": "this.engine",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a significant I/O side effect: it calls `engine.clearDiskCache()`, which is a blocking operation that deletes files from the device's storage. It also calls `Util.assertBackgroundThread()`, which can throw an exception.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to `Util.assertBackgroundThread()` makes the method's behavior dependent on the calling thread. The file system operations are also non-deterministic in nature.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments, designed for I/O side effects.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It is explicitly designed to perform a blocking I/O side effect (deleting the disk cache). Its successful execution also depends on the non-deterministic context of the calling thread.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "RequestManagerRetriever getRequestManagerRetriever()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the final instance field `requestManagerRetriever` and returns it.",
+      "stateAccesses": [
+        {
+          "name": "this.requestManagerRetriever",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the internal state of the object (`this.requestManagerRetriever`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it depends on internal state, not arguments. It is a simple, deterministic getter with no side effects and is not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "MemoryCategory setMemoryCategory(@NonNull MemoryCategory memoryCategory)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "The method reads the `memoryCache` and `bitmapPool` fields to call setters on them. It also reads the current `this.memoryCategory` field to return its old value, and then writes a new value to `this.memoryCategory`.",
+      "stateAccesses": [
+        {
+          "name": "this.memoryCache",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.bitmapPool",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.memoryCategory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.memoryCategory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It changes the configuration of the `memoryCache` and `bitmapPool` by calling `setSizeMultiplier` on them. It modifies its own internal state by updating `this.memoryCategory`. It also calls `Util.assertMainThread()` which can throw an exception.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to `Util.assertMainThread()` makes the method's behavior dependent on the calling thread, which is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is the *previous* value of an internal field, so it depends on internal state. The method's primary purpose is side effects, not returning a computed value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a setter that modifies the configuration of internal components (caches and pools) and its own state. Its successful execution also depends on the non-deterministic calling thread.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "RequestManagerRetriever getRetriever(@Nullable Context context)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This static method reads the static final string `DESTROYED_ACTIVITY_WARNING`. It also calls `Glide.get(context)`, which reads and potentially writes to the global `Glide.glide` static field.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.DESTROYED_ACTIVITY_WARNING",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has potential side effects. It calls `Preconditions.checkNotNull`, which throws an exception if the context is null. More importantly, it calls `Glide.get(context)`, which can trigger the entire Glide initialization process, a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to `Glide.get(context)` is non-deterministic because it depends on the global state of the `Glide.glide` singleton. It may or may not trigger initialization.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value is derived from the global `Glide` singleton instance, so it does not depend solely on the input `context`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a helper for accessing the `RequestManagerRetriever` from the global singleton, and the process of getting that singleton (`Glide.get()`) is non-deterministic and can cause major side effects. It also performs a precondition check that can throw an exception.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "RequestManager with(@NonNull Context context)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method doesn't directly access state, but it calls `getRetriever(context)` which accesses the global `Glide.glide` singleton.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. The call to `getRetriever(context)` can trigger the initialization of Glide. The subsequent call to `retriever.get(context)` creates or retrieves a `RequestManager`, which is a stateful object and its creation/retrieval modifies the state of the retriever.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call chain initiated by this method is non-deterministic, as it depends on the global state of the Glide singleton.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `RequestManager` is a stateful object whose identity and state depend on the global Glide instance and the context's lifecycle, not just the argument values.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a factory for `RequestManager` objects. The process can trigger the initialization of global state and involves creating or retrieving stateful objects, which modifies the internal state of the `RequestManagerRetriever`. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "RequestManager with(@NonNull Activity activity)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method delegates its call and does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it delegates to `with(activity.getApplicationContext())`, which is a factory method that can trigger Glide initialization and creates a stateful `RequestManager` object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it delegates to `with(Context)`, which depends on the global state of the Glide singleton.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `RequestManager` depends on global state, not just the input `activity`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a factory method for `RequestManager` objects that delegates to another impure method. The process can involve global state initialization and stateful object creation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "RequestManager with(@NonNull FragmentActivity activity)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method doesn't directly access state, but it calls `getRetriever(activity)` which accesses the global `Glide.glide` singleton.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. The call to `getRetriever(activity)` can trigger Glide initialization. The subsequent call to `retriever.get(activity)` creates or retrieves a `RequestManager` tied to the activity's lifecycle, modifying the retriever's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call chain is non-deterministic as it depends on the global state of the Glide singleton and the activity's lifecycle state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `RequestManager` is a stateful object whose identity and state depend on global state, not just the input `activity`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a factory for `RequestManager` objects that can trigger global state initialization and involves creating/retrieving stateful objects tied to a lifecycle, which modifies the state of the `RequestManagerRetriever`.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "RequestManager with(@NonNull Fragment fragment)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method doesn't directly access state, but it calls `getRetriever` which accesses the global `Glide.glide` singleton.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. The call to `getRetriever` can trigger Glide initialization. The subsequent call to `retriever.get(fragment)` creates or retrieves a `RequestManager` tied to the fragment's lifecycle, modifying the retriever's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call chain is non-deterministic as it depends on the global state of the Glide singleton and the fragment's lifecycle state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `RequestManager` is a stateful object whose identity and state depend on global state, not just the input `fragment`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a factory for `RequestManager` objects that can trigger global state initialization and involves creating/retrieving stateful objects tied to a lifecycle, which modifies the state of the `RequestManagerRetriever`.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "RequestManager with(@NonNull android.app.Fragment fragment)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the static final string `DESTROYED_ACTIVITY_WARNING` for its precondition check.",
+      "stateAccesses": [
+        {
+          "name": "com.bumptech.glide.Glide.DESTROYED_ACTIVITY_WARNING",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls `Preconditions.checkNotNull`, which can throw an exception. It then delegates to `with(activity.getApplicationContext())`, which has further side effects related to `RequestManager` creation and potential Glide initialization.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as it delegates to `with(Context)`, which depends on the global state of the Glide singleton.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `RequestManager` depends on global state, not just the input `fragment`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It performs a precondition check that can alter control flow and then delegates to another impure factory method that can initialize global state and creates stateful objects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "RequestManager with(@NonNull View view)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method doesn't directly access state, but it calls `getRetriever` which accesses the global `Glide.glide` singleton.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. The call to `getRetriever` can trigger Glide initialization. The subsequent call to `retriever.get(view)` creates or retrieves a `RequestManager` tied to a lifecycle discovered from the view, modifying the retriever's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call chain is non-deterministic as it depends on the global state of the Glide singleton and the view's context and lifecycle.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `RequestManager` is a stateful object whose identity and state depend on global state, not just the input `view`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It is a factory for `RequestManager` objects that can trigger global state initialization and involves creating/retrieving stateful objects tied to a lifecycle, which modifies the state of the `RequestManagerRetriever`.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Registry getRegistry()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the final instance field `glideContext` to call a method on it.",
+      "stateAccesses": [
+        {
+          "name": "this.glideContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It simply delegates to another getter, `glideContext.getRegistry()`.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the internal state of the `glideContext` object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on internal object state, not arguments. It is a simple, deterministic getter with no side effects and is too trivial for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean removeFromManagers(@NonNull Target<?> target)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads and iterates over the internal `managers` list. The list itself is synchronized during access.",
+      "stateAccesses": [
+        {
+          "name": "this.managers",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It iterates through its list of `RequestManager`s and calls `untrack(target)` on them. The `untrack` method modifies the internal state of the `RequestManager` on which it is called.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because it depends on the contents of the `managers` list and the internal state of each `RequestManager`, which are mutable and can be changed by other threads.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior depend on the mutable internal state of the `managers` list and the objects it contains, not solely on the `target` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It iterates through a list of managers and calls a method on them that causes a side effect (modifying the manager's state). Its behavior is dependent on the mutable, internal `managers` list, making it stateful and non-deterministic.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void registerRequestManager(RequestManager requestManager)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the `managers` list to check for containment and then writes to the `managers` list by adding a new element. This is a modification of internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.managers",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.managers",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's sole purpose is to cause a side effect: modifying the internal `managers` list. It also has the side effect of throwing an `IllegalStateException` if the manager is already registered.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior (whether it throws an exception or not) depends on the current contents of the `managers` list, which is mutable state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to cause side effects on internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. Its only function is to mutate the internal state of the `Glide` instance by adding an element to its `managers` list. Its behavior is conditional on this mutable state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void unregisterRequestManager(RequestManager requestManager)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method reads the `managers` list to check for containment and then writes to the `managers` list by removing an element. This is a modification of internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.managers",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.managers",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's sole purpose is to cause a side effect: modifying the internal `managers` list. It also has the side effect of throwing an `IllegalStateException` if the manager is not registered.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior (whether it throws an exception or not) depends on the current contents of the `managers` list, which is mutable state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to cause side effects on internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. Its only function is to mutate the internal state of the `Glide` instance by removing an element from its `managers` list. Its behavior is conditional on this mutable state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onTrimMemory(int level)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method does not directly access state, but it calls `trimMemory(level)`, which reads multiple internal state fields (`managers`, `memoryCache`, etc.).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it's a callback that directly delegates to `trimMemory(level)`. The `trimMemory` method is designed to cause side effects by modifying the state of numerous internal caches, pools, and managers.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it delegates to `trimMemory(level)`, which performs a thread check, making its behavior dependent on the calling thread.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to cause side effects.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. As an implementation of a `ComponentCallbacks2` lifecycle method, its purpose is to react to system events by causing side effects, in this case, by trimming memory from internal data structures.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onConfigurationChanged(Configuration newConfig)",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method has an empty body and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty body, so it performs no actions and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has an empty body and makes no calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "As a void method with an empty body, its behavior (doing nothing) is trivially dependent on its arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has an empty implementation, meaning it has no side effects, accesses no state, is deterministic, and is therefore suitable for memoization (though it would be pointless).",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onLowMemory()",
+      "className": "com.bumptech.glide.Glide",
+      "reasonAboutStateAccesses": "This method does not directly access state, but it calls `clearMemory()`, which reads multiple internal fields (`memoryCache`, `bitmapPool`, etc.).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it is a callback that delegates to `clearMemory()`. The `clearMemory` method is designed to cause a significant side effect by clearing all of Glide's internal memory caches and pools.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it delegates to `clearMemory()`, which performs a thread check, making its behavior dependent on the calling thread.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method designed to cause side effects.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. As an implementation of a `ComponentCallbacks2` lifecycle method, its purpose is to react to system events by causing side effects, in this case, by clearing all internal memory caches.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,1888 @@
+{
+  "file_name": "android.content.Context",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/content/Context.java",
+  "source_code_file_path": "java_source_code_files/android/content/Context.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751917470,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 319.703,
+  "llm_analysis": [
+    {
+      "methodSignature": "long getValue()",
+      "className": "android.content.Context.BindServiceFlags",
+      "reasonAboutStateAccesses": "The method reads the final instance field 'mValue', which is a primitive type representing the flags. This is an internal read-only access.",
+      "stateAccesses": [
+        {
+          "name": "this.mValue",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects. It only returns the value of an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's return value is solely dependent on the 'mValue' field, which is set at object creation. It does not involve any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments, and its return value depends on the object's internal state ('mValue'), not solely on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method reads an internal field but does not modify any state or have side effects. While not strictly pure in that its output depends on object state, it is idempotent and safe. However, since its output is not determined solely by its inputs (it has no inputs), it is not considered pure for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "static BindServiceFlags of(long value)",
+      "className": "android.content.Context.BindServiceFlags",
+      "reasonAboutStateAccesses": "This is a static factory method and does not access any class or instance state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method can throw an IllegalArgumentException if the input value contains a deprecated flag. Throwing an exception is a side effect. It also creates a new BindServiceFlags object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic, depending only on its input argument 'value'.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output (a new object or an exception) depends solely on its input argument 'value'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This static factory method is not pure because it can throw an exception, which is a side effect. It also allocates a new object, which can be considered a side effect in some contexts. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Executor getMainExecutor()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method does not directly access any fields. However, it calls the abstract method getMainLooper(), which in its concrete implementation will access system-level state to retrieve the main thread's Looper.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method creates new objects (HandlerExecutor, Handler). The returned Executor is designed to execute tasks on the main UI thread, which is a significant side effect related to system scheduling and concurrency.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method depends on getMainLooper(), which returns a system-wide component. Its behavior is tied to the state of the Android runtime, making it non-deterministic from the perspective of a simple input-output function.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its result depends on the system's main Looper, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It creates new objects and interacts with a core system component (the main Looper). Its purpose is to provide an entry point for causing side effects on the main thread. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getNextAutofillId()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method reads and then writes to the static field 'sLastAutofillId'. This field represents a global state within the application process for generating unique IDs.",
+      "stateAccesses": [
+        {
+          "name": "android.content.Context.sLastAutofillId",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.content.Context.sLastAutofillId",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect of modifying the static global variable 'sLastAutofillId'. Each call alters this shared state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because its return value depends on the number of times it has been previously called, which alters the state of 'sLastAutofillId'.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on a mutable static field, not on its arguments (it has none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies global state ('sLastAutofillId') and its return value is non-deterministic, depending on the history of calls. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void registerComponentCallbacks(ComponentCallbacks callback)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not directly access state but delegates to `getApplicationContext().registerComponentCallbacks()`. The underlying implementation will modify a list of callbacks, which is a form of state write.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The primary purpose of this method is to cause a side effect: registering a callback with the Android system. This modifies the application's behavior in response to system events like configuration changes.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the system state and the application context, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (registering a callback) is not determined by its arguments alone, but by interaction with the Android framework.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its sole purpose is to produce a side effect by registering a system callback. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void unregisterComponentCallbacks(ComponentCallbacks callback)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not directly access state but delegates to `getApplicationContext().unregisterComponentCallbacks()`. The underlying implementation will modify a list of callbacks, which is a form of state write.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The primary purpose of this method is to cause a side effect: unregistering a callback from the Android system. This modifies the application's list of active callbacks.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the system state and whether the callback was previously registered, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not determined by its arguments alone, but by interaction with the Android framework and its internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its sole purpose is to produce a side effect by unregistering a system callback. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "CharSequence getText(int resId)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method accesses application resources by calling `getResources().getText()`. Resources are a form of external state that can change based on device configuration (e.g., locale).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects beyond returning a CharSequence. It is a read-only operation on the application's resources.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the returned string depends on the user's current locale and other device configuration settings, which are external to the application's code.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the `resId` argument and the device's current configuration (external state), not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the device's configuration (like locale), which is an external and mutable state. Memoizing it would be incorrect across configuration changes.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getString(int resId)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method accesses application resources by calling `getResources().getString()`. Resources are a form of external state that can change based on device configuration (e.g., locale).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects beyond returning a String. It is a read-only operation on the application's resources.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the returned string depends on the user's current locale and other device configuration settings.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the `resId` argument and the device's current configuration (external state), not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value is dependent on external system state, specifically the device's configuration such as locale. Memoizing the result would be unsafe across configuration changes.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getString(int resId, Object... formatArgs)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method accesses application resources by calling `getResources().getString()`. Resources are a form of external state that can change based on device configuration (e.g., locale).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects beyond returning a String. It is a read-only operation on the application's resources.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the base string it formats depends on the user's current locale and other device configuration settings.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the arguments and the device's current configuration (external state), not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because the underlying resource string it retrieves is dependent on external system state (device configuration like locale). Memoizing the result would be incorrect if the configuration changes.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getColor(int id)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method accesses application resources and the current theme by calling `getResources().getColor(id, getTheme())`. Both resources and themes are external state that depend on device configuration.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects beyond returning an integer color value. It is a read-only operation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the returned color can vary based on the current theme and other resource qualifiers (e.g., night mode).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the `id` argument and the device's current theme and configuration, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the active theme and resource configuration of the application, which are external and mutable state. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Drawable getDrawable(int id)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method accesses application resources and the current theme by calling `getResources().getDrawable(id, getTheme())`. These are external state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects beyond returning a Drawable object. It is a read-only operation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The returned Drawable can vary based on the current theme, screen density, and other resource qualifiers.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the `id` argument and the device's current theme and configuration, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It retrieves a resource that depends on external state like the device's theme and screen density. Memoization would be unsafe across configuration changes.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ColorStateList getColorStateList(int id)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method accesses application resources and the current theme by calling `getResources().getColorStateList(id, getTheme())`. These are external state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects beyond returning a ColorStateList object. It is a read-only operation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The returned ColorStateList can vary based on the current theme and other resource qualifiers.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the `id` argument and the device's current theme and configuration, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as its result depends on the application's current theme and resource configuration, which are mutable external state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getThemeResId()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state. It returns a hardcoded constant value.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects; it simply returns the integer constant 0.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, always returning 0.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is a constant, so it trivially depends only on its arguments (of which there are none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a constant value, has no side effects, and does not depend on any external or internal state. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "TypedArray obtainStyledAttributes(int[] attrs)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method accesses the current theme by calling `getTheme().obtainStyledAttributes()`. The theme is considered external state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method allocates a `TypedArray` object which holds a reference to shared resources and must be explicitly recycled by the caller. This interaction with a resource management system is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as the returned attributes depend on the currently active theme, which is external state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the arguments and the current theme, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on the external state of the current theme and has side effects related to resource allocation (the returned TypedArray must be recycled). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "TypedArray obtainStyledAttributes(int resid, int[] attrs)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method accesses the current theme by calling `getTheme().obtainStyledAttributes()`. The theme is considered external state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method allocates a `TypedArray` object which holds a reference to shared resources and must be explicitly recycled by the caller. This interaction with a resource management system is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as the returned attributes depend on the currently active theme, which is external state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the arguments and the current theme, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on the external state of the current theme and has side effects related to resource allocation (the returned TypedArray must be recycled). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "TypedArray obtainStyledAttributes(AttributeSet set, int[] attrs)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method accesses the current theme by calling `getTheme().obtainStyledAttributes()`. The theme is considered external state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method allocates a `TypedArray` object which holds a reference to shared resources and must be explicitly recycled by the caller. This interaction with a resource management system is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as the returned attributes depend on the currently active theme, which is external state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the arguments and the current theme, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on the external state of the current theme and has side effects related to resource allocation (the returned TypedArray must be recycled). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "TypedArray obtainStyledAttributes(AttributeSet set, int[] attrs, int defStyleAttr, int defStyleRes)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method accesses the current theme by calling `getTheme().obtainStyledAttributes()`. The theme is considered external state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method allocates a `TypedArray` object which holds a reference to shared resources and must be explicitly recycled by the caller. This interaction with a resource management system is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as the returned attributes depend on the currently active theme, which is external state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the arguments and the current theme, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on the external state of the current theme and has side effects related to resource allocation (the returned TypedArray must be recycled). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getOpPackageName()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException, which is an observable side effect. It is intended to be overridden by subclasses.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior (throwing an exception) is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of throwing a RuntimeException. It is designed to be overridden in concrete implementations.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getAttributionTag()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state; it returns a constant `null` value.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, always returning `null`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is a constant `null` and does not depend on arguments (it has none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a constant value, has no side effects, and does not access any state. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "AttributionSource getAttributionSource()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state; it returns a constant `null` value.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, always returning `null`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is a constant `null` and does not depend on arguments (it has none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a constant value, has no side effects, and does not access any state. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String getFeatureId()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method calls `getAttributionTag()`, which in this class returns null and does not access state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic, as it calls a deterministic method (`getAttributionTag`).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the result of `getAttributionTag()`, which is a constant. Thus, it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It calls another pure method (`getAttributionTag`) and has no side effects or state access itself. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ContextParams getParams()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state; it returns a constant `null` value.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, always returning `null`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is a constant `null` and does not depend on arguments (it has none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a constant value, has no side effects, and does not access any state. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "File getSharedPrefsFile(String name)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method delegates to the abstract method `getSharedPreferencesPath(name)`. The concrete implementation of this will access file system state, which is external.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "While this base implementation just delegates, the intended purpose involves interacting with the file system, which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "File system paths can depend on external factors like whether the app is on an SD card, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the file system and application installation details, not just the input `name`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It delegates to an abstract method designed for file system interaction. File system access depends on external state and has side effects, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "File getCrateDir(String crateId)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException, which is an observable side effect. It is intended to be overridden by subclasses.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior (throwing an exception) is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception depends only on it being called, not on the value of its arguments in this base implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of throwing a RuntimeException. It is designed to be overridden in concrete implementations.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startActivityAsUser(Intent intent, UserHandle user)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (starting an activity) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android activity manager.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (starting an activity). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startActivityAsUser(Intent intent, Bundle options, UserHandle userId)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (starting an activity) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android activity manager.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (starting an activity). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startActivityForResult(String who, Intent intent, int requestCode, Bundle options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (starting an activity for a result) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android activity manager.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (starting an activity). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean canStartActivityForResult()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state; it simply returns the constant value 'false'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It only returns a boolean value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic as it always returns 'false'.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on arguments (it has none). This makes it trivially dependent on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, does not access any state, and always returns the same constant value. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int startActivitiesAsUser(Intent[] intents, Bundle options, UserHandle userHandle)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (starting activities) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android activity manager.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (starting multiple activities). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendBroadcastMultiplePermissions(Intent intent, String[] receiverPermissions)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending a broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending a broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendBroadcastMultiplePermissions(Intent intent, String[] receiverPermissions, String[] excludedPermissions)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method delegates to another overload which unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending a broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException via delegation. In a concrete implementation, it would cause a major system side effect (sending a broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendBroadcastMultiplePermissions(Intent intent, String[] receiverPermissions, String[] excludedPermissions, String[] excludedPackages)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method delegates to another overload which unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending a broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException via delegation. In a concrete implementation, it would cause a major system side effect (sending a broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendBroadcastMultiplePermissions(Intent intent, String[] receiverPermissions, String[] excludedPermissions, String[] excludedPackages, BroadcastOptions options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending a broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending a broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendBroadcastMultiplePermissions(Intent intent, String[] receiverPermissions, Bundle options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending a broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending a broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendBroadcastMultiplePermissions(Intent intent, String[] receiverPermissions, BroadcastOptions options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method delegates to another overload which unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending a broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException via delegation. In a concrete implementation, it would cause a major system side effect (sending a broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendBroadcastWithMultiplePermissions(Intent intent, String[] receiverPermissions)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method delegates to `sendBroadcastMultiplePermissions`, which in this abstract class throws a `RuntimeException`. This constitutes a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic in this class as it will always result in an exception.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It delegates to another method that throws an exception. Its intended purpose is to send a system broadcast, which is a major side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendBroadcast(Intent intent, String receiverPermission, Bundle options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending a broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending a broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendOrderedBroadcast(Intent intent, String receiverPermission, Bundle options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending an ordered broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending an ordered broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendOrderedBroadcast(Intent intent, String receiverPermission, Bundle options, BroadcastReceiver resultReceiver, Handler scheduler, int initialCode, String initialData, Bundle initialExtras)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending an ordered broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending an ordered broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendOrderedBroadcast(Intent intent, String receiverPermission, String receiverAppOp, BroadcastReceiver resultReceiver, Handler scheduler, int initialCode, String initialData, Bundle initialExtras)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending an ordered broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending an ordered broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendOrderedBroadcast(Intent intent, int initialCode, String receiverPermission, String receiverAppOp, BroadcastReceiver resultReceiver, Handler scheduler, String initialData, Bundle initialExtras, Bundle options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending an ordered broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending an ordered broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendOrderedBroadcastMultiplePermissions(Intent intent, String[] receiverPermissions, String receiverAppOp, BroadcastReceiver resultReceiver, Handler scheduler, int initialCode, String initialData, Bundle initialExtras, Bundle options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending an ordered broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending an ordered broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void sendStickyBroadcast(Intent intent, Bundle options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a RuntimeException. This is an observable side effect. The intended purpose of this method (sending a sticky broadcast) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws a RuntimeException. In a concrete implementation, it would cause a major system side effect (sending a sticky broadcast). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> T getSystemService(Class<T> serviceClass)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access state directly but calls `getSystemServiceName` and `getSystemService`, which are abstract methods designed to query and retrieve system-level services, a form of external global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to retrieve a handle to a system service, which facilitates side effects. The method itself is a read operation on the system's service registry.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because the availability of system services can change, and the returned service object is a handle to a stateful system component.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned service depends on the `serviceClass` argument and the state of the Android system, not just the argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It is a factory for system services, which are stateful and external. The method's outcome depends on the system environment. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isRestricted()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state; it simply returns the constant value 'false'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It only returns a boolean value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic as it always returns 'false'.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on arguments (it has none). This makes it trivially dependent on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, does not access any state, and always returns the same constant value. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void revokeSelfPermissionOnKill(String permName)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method delegates to `revokeSelfPermissionsOnKill(Collection)`, which throws an `AbstractMethodError`. This is an observable side effect. The intended purpose is to interact with the package manager to revoke permissions, a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system and be non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception and is intended to cause a major side effect on the system's permission state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void revokeSelfPermissionsOnKill(Collection<String> permissions)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any class or global state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws an AbstractMethodError. This is an observable side effect. The intended purpose of this method (revoking permissions) is also a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would be non-deterministic as it interacts with the Android permission system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is constant (throwing an exception) and does not depend on arguments, so it is trivially dependent on arguments only.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this abstract class, it throws an error. In a concrete implementation, it would cause a major system side effect (revoking permissions and killing the app). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createPackageContextAsUser(String packageName, int flags, UserHandle user)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method does not access any class or global state in its base implementation. It returns `this`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method can throw an `IllegalStateException` on ENG builds. The intended purpose of this method is to create a new Context object, which interacts with the system package manager.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "A concrete implementation would be non-deterministic as it depends on whether the specified package and user exist on the system.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on external system state (installed packages, users), not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to interact with the system to create a new Context for another package, which is a side effect and depends on external state. The base implementation can also throw an exception.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createContextAsUser(UserHandle user, int flags)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method does not access any class or global state in its base implementation. It returns `this`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method can throw an `IllegalStateException` on ENG builds. The intended purpose of this method is to create a new Context object, which interacts with system services.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "A concrete implementation would be non-deterministic as it depends on whether the specified user exists on the system.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on external system state (users), not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to interact with the system to create a new Context for another user, which is a side effect and depends on external state. The base implementation can also throw an exception.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createContextForSdkInSandbox(ApplicationInfo sdkInfo, int flags)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. The intended purpose is to create a new Context, a complex operation with side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic (always throws) in the base class.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on the arguments in this base implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception in the base class. Its intended purpose is to create a specialized Context object, which is a significant side effect involving system interaction.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "UserHandle getUser()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method accesses global process state by calling `android.os.Process.myUserHandle()`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects beyond returning a value, but it queries the operating system for the current user, which is an interaction with the environment.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic, as the user handle depends on the process in which the code is currently executing.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the current process's user, which is external state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the current execution environment (the user of the process), which is a form of non-local state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getUserId()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method accesses global process state by calling `android.os.UserHandle.myUserId()`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects beyond returning a value, but it queries the operating system for the current user ID, which is an interaction with the environment.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic, as the user ID depends on the process in which the code is currently executing.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the current process's user, which is external state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the current execution environment (the user ID of the process), which is a form of non-local state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createDeviceContext(int deviceId)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on the arguments in this base implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its intended purpose is to create a new Context object, which is a complex side effect that depends on system state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createWindowContext(int type, Bundle options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on the arguments in this base implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its intended purpose is to create a new UI Context object, which is a complex side effect that depends on system state (e.g., displays).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createWindowContext(Display display, int type, Bundle options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on the arguments in this base implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its intended purpose is to create a new UI Context object, which is a complex side effect that depends on system state (e.g., displays).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createContext(ContextParams contextParams)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on the arguments in this base implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its intended purpose is to create a new Context object with specific parameters, which is a complex side effect that depends on system state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createAttributionContext(String attributionTag)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on the arguments in this base implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its intended purpose is to create a new Context object with a specific attribution tag, which is a complex side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createFeatureContext(String attributionTag)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method accesses `getParams()` to construct a `ContextParams` object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method calls `createContext()`, which throws a `RuntimeException` in the base class. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on the arguments in this base implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it calls another method that throws an exception. It is a factory method for creating a new Context, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createTokenContext(IBinder token, Display display)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on the arguments in this base implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its intended purpose is to create a new UI Context object, which is a complex side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Display getDisplay()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws). A concrete implementation would return the display associated with the context, which is non-deterministic external state.",
+      "hasNonDeterministicCalls": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. The base implementation throws an exception. A concrete implementation would access external system state (the display), making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Display getDisplayNoVerify()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception and is intended to be overridden to access system display information, which is an external dependency.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getAssociatedDisplayId()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to query system display state, which is non-deterministic and external.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void updateDeviceId(int deviceId)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to modify the internal state of the context, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getDeviceId()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to query system device state, which is external and non-deterministic.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void registerDeviceIdChangeListener(Executor executor, IntConsumer listener)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to register a callback for system events, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void unregisterDeviceIdChangeListener(IntConsumer listener)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to unregister a callback for system events, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "IBinder getActivityToken()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to return a system token, which is external state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "IBinder getWindowContextToken()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to return a system token, which is external state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "static IBinder getToken(Context context)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This static method does not access any static state. It calls instance methods on the provided `context` object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method calls `getActivityToken()` and `getWindowContextToken()` which both throw a `RuntimeException` in the base abstract class. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the sense that it will always throw an exception when called with a base Context instance. A concrete implementation's result would depend on the state of the context object.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state and type of the `context` argument, not just its value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on the internal state of the passed `context` object and in the base implementation, it throws an exception. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "IServiceConnection getServiceDispatcher(ServiceConnection conn, Handler handler, long flags)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to create a system-level service connection object, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "IApplicationThread getIApplicationThread()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to get a handle to the application's main thread in the system server, which is external state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "IBinder getProcessToken()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to get a handle to the current process, which is external state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Handler getMainThreadHandler()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it throws an exception. Its purpose is to get a handler for the main thread, which is an interaction with the system's looper.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AutofillClient getAutofillClient()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state; it returns a constant `null` value.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, always returning `null`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is a constant `null` and does not depend on arguments (it has none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this abstract class as it returns a constant value with no side effects. A concrete implementation would likely return a stateful object, making it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setAutofillClient(AutofillClient client)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access or modify any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty body and thus has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (doing nothing) does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this abstract class as it has an empty implementation. A concrete implementation would modify the internal state of the Context, making it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ContentCaptureClient getContentCaptureClient()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state; it returns a constant `null` value.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, always returning `null`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is a constant `null` and does not depend on arguments (it has none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this abstract class as it returns a constant value with no side effects. A concrete implementation would likely return a stateful object, making it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isAutofillCompatibilityEnabled()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method calls `getAutofillOptions()`. In a concrete implementation, this would read external application-level or device-level settings.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "In this abstract class, `getAutofillOptions()` returns `null`, so this method will throw a `NullPointerException`, which is a side effect. In a concrete implementation, it reads settings and has no other side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's outcome would depend on user-configurable settings for autofill, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on autofill options, which are external state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. In this base class, it throws a NullPointerException. In a real implementation, its result would depend on external, user-configurable settings, making it non-deterministic and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AutofillOptions getAutofillOptions()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state; it returns a constant `null` value.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, always returning `null`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is a constant `null` and does not depend on arguments (it has none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this abstract class as it returns a constant value with no side effects. A concrete implementation would likely read external settings, making it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setAutofillOptions(AutofillOptions options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access or modify any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty body and thus has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (doing nothing) does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this abstract class as it has an empty implementation. A concrete implementation would modify the internal state of the Context, making it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ContentCaptureOptions getContentCaptureOptions()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state; it returns a constant `null` value.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, always returning `null`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is a constant `null` and does not depend on arguments (it has none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this abstract class as it returns a constant value with no side effects. A concrete implementation would likely read external settings, making it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setContentCaptureOptions(ContentCaptureOptions options)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access or modify any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty body and thus has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (doing nothing) does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this abstract class as it has an empty implementation. A concrete implementation would modify the internal state of the Context, making it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void assertRuntimeOverlayThemable()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "The method accesses system resources by calling `getResources()` and `Resources.getSystem()`. This is a read of external state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method can throw an `IllegalArgumentException` if the context's resources are the same as the system's, which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the type of context it is called on, which is external state, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the context's resources, not on any arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads external system state (resources) and can throw an exception. It is designed for runtime checks and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isUiContext()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception and is intended to be overridden to check the context type, which depends on how the context was created (external information).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void destroy()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access or modify any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty body and thus has no side effects in this base class.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (doing nothing) does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this abstract class as it has an empty implementation. A concrete implementation would perform cleanup and have side effects, making it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isConfigurationContext()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception and is intended to be overridden to check the context type, which depends on external information.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void closeSystemDialogs()",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in the base class (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception and its intended purpose is to send a system broadcast to close dialogs, which is a major side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Intent registerReceiverForAllUsers(BroadcastReceiver receiver, IntentFilter filter, String broadcastPermission, Handler scheduler)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to register a system-wide broadcast receiver, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception and its intended purpose is to modify system state by registering a broadcast receiver.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Intent registerReceiverForAllUsers(BroadcastReceiver receiver, IntentFilter filter, String broadcastPermission, Handler scheduler, int flags)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to register a system-wide broadcast receiver, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior of throwing an exception does not depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception and its intended purpose is to modify system state by registering a broadcast receiver.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "List<IntentFilter> getRegisteredIntentFilters(BroadcastReceiver receiver)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would read the system's registry of broadcast receivers, which is external state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on external system state, not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception and its intended purpose is to query system state about registered broadcast receivers.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int checkContentUriPermissionFull(Uri uri, int pid, int uid, int modeFlags)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to check permissions with the system's package manager, which is a system interaction.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would query system state, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (permission grants), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to check system permissions, which is an interaction with external, mutable state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int[] checkUriPermissions(List<Uri> uris, int pid, int uid, int modeFlags)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to check permissions with the system's package manager, which is a system interaction.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would query system state, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (permission grants), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to check system permissions, which is an interaction with external, mutable state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int[] checkCallingUriPermissions(List<Uri> uris, int modeFlags)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to check permissions with the system's package manager, which is a system interaction.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would query system state based on the calling process, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (permission grants and calling pid/uid), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to check system permissions based on the IPC caller, which is an interaction with external, mutable state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int[] checkCallingOrSelfUriPermissions(List<Uri> uris, int modeFlags)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to check permissions with the system's package manager, which is a system interaction.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would query system state based on the calling process, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (permission grants and calling pid/uid), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to check system permissions based on the IPC caller or self, which is an interaction with external, mutable state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean bindService(Intent service, ServiceConnection conn, BindServiceFlags flags)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to bind to a system service, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (availability of services), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to establish a connection to a service, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean bindService(Intent service, int flags, Executor executor, ServiceConnection conn)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to bind to a system service, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (availability of services), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to establish a connection to a service, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean bindService(Intent service, BindServiceFlags flags, Executor executor, ServiceConnection conn)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to bind to a system service, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (availability of services), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to establish a connection to a service, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean bindIsolatedService(Intent service, int flags, String instanceName, Executor executor, ServiceConnection conn)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to bind to an isolated system service, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (availability of services), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to establish a connection to an isolated service, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean bindIsolatedService(Intent service, BindServiceFlags flags, String instanceName, Executor executor, ServiceConnection conn)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to bind to an isolated system service, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (availability of services), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to establish a connection to an isolated service, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean bindServiceAsUser(Intent service, ServiceConnection conn, int flags, UserHandle user)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to bind to a system service as a specific user, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (availability of services), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to establish a connection to a service as another user, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean bindServiceAsUser(Intent service, ServiceConnection conn, BindServiceFlags flags, UserHandle user)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to bind to a system service as a specific user, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (availability of services), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to establish a connection to a service as another user, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean bindServiceAsUser(Intent service, ServiceConnection conn, int flags, Handler handler, UserHandle user)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to bind to a system service as a specific user, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (availability of services), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to establish a connection to a service as another user, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean bindServiceAsUser(Intent service, ServiceConnection conn, BindServiceFlags flags, Handler handler, UserHandle user)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to bind to a system service as a specific user, which is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's return value would depend on external system state (availability of services), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to establish a connection to a service as another user, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void updateServiceGroup(ServiceConnection conn, int group, int importance)",
+      "className": "android.content.Context",
+      "reasonAboutStateAccesses": "This method does not access any state in its base implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method unconditionally throws a `RuntimeException`. This is a side effect. Its intended purpose is to modify how the system manages a service's process, which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The base implementation is deterministic (always throws). A concrete implementation would interact with the system service manager, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "A concrete implementation's behavior would depend on external system state, not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It throws an exception. Its intended purpose is to modify system service management parameters, a significant system-level side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

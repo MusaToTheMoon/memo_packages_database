@@ -1,0 +1,1112 @@
+{
+  "file_name": "android.os.Handler",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/os/Handler.java",
+  "source_code_file_path": "java_source_code_files/android/os/Handler.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751828715,
+  "run_name": "gemini-2.5-pro-pass-2",
+  "llm_response_time_seconds": 185.048,
+  "llm_analysis": [
+    {
+      "methodSignature": "void handleMessage(@NonNull Message msg)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "This method is empty in the base class and does not access any state. It is intended to be overridden by subclasses.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The base implementation of this method is empty and thus has no side effects. It is designed to be overridden by subclasses to handle messages, which typically involves side effects like UI updates or state changes.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has no calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a no-op, so its behavior (doing nothing) does not depend on anything. Its purpose, when overridden, is to act upon the 'msg' argument, but in its current form, it's trivially dependent on nothing.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "In its base implementation, the method is a no-op and is therefore pure. However, its fundamental design purpose is to be overridden to perform side effects. Memoizing this empty method is pointless, and memoizing its subclass implementations would be incorrect as they are inherently side-effectful. Therefore, it is not considered suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void dispatchMessage(@NonNull Message msg)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal instance field 'mCallback' to determine how to dispatch the message.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallback",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It executes code based on the message content by calling `handleCallback(msg)` (which runs a Runnable), `mCallback.handleMessage(msg)`, or `this.handleMessage(msg)`. The entire purpose of this method is to trigger other actions, which are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any direct calls to non-deterministic functions like random number generators or system clocks.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state `mCallback` in addition to the `msg` argument. Therefore, its output (the triggered action) does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It reads internal state (`mCallback`) and its primary purpose is to cause side effects by dispatching a message for execution. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@NonNull Handler createAsync(@NonNull Looper looper)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state of a Handler instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of creating a new `Handler` object. Object creation is considered a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output (a new Handler) is determined by its input argument `looper` and some constant values. However, object instantiation is a side effect, making the concept of functional purity not applicable in a strict sense.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of creating a new object. It is not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@NonNull Handler createAsync(@NonNull Looper looper, @NonNull Callback callback)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state of a Handler instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of creating a new `Handler` object. Object creation is considered a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output (a new Handler) is determined by its input arguments `looper` and `callback` and some constant values. However, object instantiation is a side effect, making the concept of functional purity not applicable in a strict sense.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of creating a new object. It is not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@NonNull Handler getMain()",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "This static method reads and potentially writes to the static field `MAIN_THREAD_HANDLER`. This is an access to shared, global state.",
+      "stateAccesses": [
+        {
+          "name": "android.os.Handler.MAIN_THREAD_HANDLER",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "android.os.Handler.MAIN_THREAD_HANDLER",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect because it modifies the global static state (`MAIN_THREAD_HANDLER`) through lazy initialization. This mutation is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic depends on `Looper.getMainLooper()`, which provides access to a globally managed thread-specific looper. This can be considered a dependency on external system state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the mutable static state of `MAIN_THREAD_HANDLER`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It reads and writes to a global static field (`MAIN_THREAD_HANDLER`), making its result dependent on and affecting global state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@NonNull Handler mainIfNull(@Nullable Handler handler)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "This static method does not directly access any state, but it calls `getMain()`, which reads and writes the static `MAIN_THREAD_HANDLER` field.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method can have side effects because it calls `getMain()`, which may modify the global static field `MAIN_THREAD_HANDLER` upon first invocation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method's result can be non-deterministic as it relies on `getMain()`, which depends on external system state (the main looper).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the state of the static field `MAIN_THREAD_HANDLER` (via the call to `getMain()`) in addition to its `handler` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it can cause side effects and depends on global state via its call to `getMain()`. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@NonNull String getTraceName(@NonNull Message message)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "This method does not access any internal or global state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method does not have any observable side effects. It creates a `StringBuilder` and returns a `String`, which are local operations.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's output depends on `getClass().getName()`, which is deterministic for a given class instance. It does not involve randomness or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the `message` argument and the runtime class of the `Handler` instance (`this`). Since the output is not solely dependent on explicit arguments, it does not strictly depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is largely pure as it has no side effects and its output is deterministic based on its input message and the handler's class type. However, because it depends on `this.getClass()`, it is not purely a function of its arguments. Memoization could be viable but would need to account for the handler's specific subclass.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "@NonNull String getMessageName(@NonNull Message message)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no observable side effects. It reads from the `message` argument and returns a new string.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is determined solely by the properties of the `message` argument (`callback` and `what`).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, is deterministic, and its output depends only on its input arguments. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "@NonNull Message obtainMessage()",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method does not access any fields of the Handler instance directly.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a side effect: it calls `Message.obtain(this)`, which retrieves a message from a global, shared message pool. Modifying this global pool is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments, and its return value (a recycled Message object) depends on the state of a global message pool.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it interacts with and modifies a global, shared resource (the message pool). This is a side effect, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@NonNull Message obtainMessage(int what)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method does not access any fields of the Handler instance directly.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a side effect: it calls `Message.obtain(this, what)`, which retrieves a message from a global, shared message pool. Modifying this global pool is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value (a recycled Message object) depends on the state of a global message pool, not just its input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it interacts with and modifies a global, shared resource (the message pool). This is a side effect, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@NonNull Message obtainMessage(int what, @Nullable Object obj)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method does not access any fields of the Handler instance directly.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a side effect: it calls `Message.obtain(this, what, obj)`, which retrieves a message from a global, shared message pool. Modifying this global pool is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value (a recycled Message object) depends on the state of a global message pool, not just its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it interacts with and modifies a global, shared resource (the message pool). This is a side effect, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@NonNull Message obtainMessage(int what, int arg1, int arg2)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method does not access any fields of the Handler instance directly.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a side effect: it calls `Message.obtain(this, what, arg1, arg2)`, which retrieves a message from a global, shared message pool. Modifying this global pool is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value (a recycled Message object) depends on the state of a global message pool, not just its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it interacts with and modifies a global, shared resource (the message pool). This is a side effect, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "@NonNull Message obtainMessage(int what, int arg1, int arg2, @Nullable Object obj)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method does not access any fields of the Handler instance directly.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a side effect: it calls `Message.obtain(this, what, arg1, arg2, obj)`, which retrieves a message from a global, shared message pool. Modifying this global pool is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value (a recycled Message object) depends on the state of a global message pool, not just its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it interacts with and modifies a global, shared resource (the message pool). This is a side effect, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean post(@NonNull Runnable r)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageDelayed`, `sendMessageAtTime`, and `enqueueMessage`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to cause a side effect: enqueuing a `Runnable` to be executed on the handler's thread. This modifies the state of the associated `MessageQueue`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method indirectly calls `SystemClock.uptimeMillis()` through its delegation to `sendMessageDelayed`. This makes its behavior dependent on the system clock.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome (both the return value and the side effect) depends on the internal state of `mQueue` and the non-deterministic system clock, not just the `r` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It causes side effects by modifying the message queue and relies on non-deterministic system clock calls. It is a canonical example of an impure method and is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean postAtTime(@NonNull Runnable r, long uptimeMillis)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageAtTime` and `enqueueMessage`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to cause a side effect: enqueuing a `Runnable` to be executed at a specific time. This modifies the state of the associated `MessageQueue`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself doesn't call a non-deterministic function, but its operation is fundamentally tied to the progression of system time (`uptimeMillis`). The underlying queue processing is time-dependent.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue`, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It causes side effects by modifying the message queue and its successful execution depends on the state of the Looper. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean postAtTime(@NonNull Runnable r, @Nullable Object token, long uptimeMillis)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageAtTime` and `enqueueMessage`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to cause a side effect: enqueuing a `Runnable` to be executed at a specific time. This modifies the state of the associated `MessageQueue`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's operation is fundamentally tied to the progression of system time (`uptimeMillis`). The underlying queue processing is time-dependent.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue`, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It causes side effects by modifying the message queue and its successful execution depends on the state of the Looper. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean postDelayed(@NonNull Runnable r, long delayMillis)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageDelayed`, `sendMessageAtTime`, and `enqueueMessage`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to cause a side effect: enqueuing a `Runnable` to be executed after a delay. This modifies the state of the associated `MessageQueue`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method indirectly calls `SystemClock.uptimeMillis()` through its delegation to `sendMessageDelayed`. This makes its behavior dependent on the system clock.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue` and the non-deterministic system clock, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It causes side effects by modifying the message queue and relies on non-deterministic system clock calls. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean postDelayed(Runnable r, int what, long delayMillis)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageDelayed`, `sendMessageAtTime`, and `enqueueMessage`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to cause a side effect: enqueuing a `Runnable` to be executed after a delay. This modifies the state of the associated `MessageQueue`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method indirectly calls `SystemClock.uptimeMillis()` through its delegation to `sendMessageDelayed`, which makes its behavior dependent on the system clock.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue` and the non-deterministic system clock, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It causes side effects by modifying the message queue and relies on non-deterministic system clock calls. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean postDelayed(@NonNull Runnable r, @Nullable Object token, long delayMillis)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageDelayed`, `sendMessageAtTime`, and `enqueueMessage`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to cause a side effect: enqueuing a `Runnable` to be executed after a delay. This modifies the state of the associated `MessageQueue`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method indirectly calls `SystemClock.uptimeMillis()` through its delegation to `sendMessageDelayed`. This makes its behavior dependent on the system clock.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue` and the non-deterministic system clock, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It causes side effects by modifying the message queue and relies on non-deterministic system clock calls. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean postAtFrontOfQueue(@NonNull Runnable r)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` via its call to `sendMessageAtFrontOfQueue`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to cause a side effect: enqueuing a `Runnable` at the front of the message queue. This modifies the state of the `MessageQueue`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome (return value and side effect) depends on the internal state of `mQueue`, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It causes a significant side effect by modifying the message queue. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean runWithScissors(@NonNull Runnable r, long timeout)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mLooper` to compare it with the current thread's looper.",
+      "stateAccesses": [
+        {
+          "name": "this.mLooper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has extensive side effects. It can execute a `Runnable` directly, post it to the handler's queue, block the calling thread using `wait()`, and interact with thread synchronization primitives (`synchronized`, `notifyAll`).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. It depends on the current thread via `Looper.myLooper()`, thread scheduling, and uses `SystemClock.uptimeMillis()` for timeouts.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is heavily dependent on the current thread state (`Looper.myLooper()`), the handler's internal `mLooper` state, and thread scheduling, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is fundamentally impure. It involves complex side effects like direct code execution and thread blocking, and it relies on non-deterministic factors like thread state and system time. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void removeCallbacks(@NonNull Runnable r)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the removal operation.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the associated `MessageQueue` by removing any pending posts of the specified `Runnable`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's action depends on the internal state of `mQueue`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of an external object (`mQueue`). This is a clear side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void removeCallbacks(@NonNull Runnable r, @Nullable Object token)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the removal operation.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the associated `MessageQueue` by removing any pending posts of the specified `Runnable` with a matching token.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's action depends on the internal state of `mQueue`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of an external object (`mQueue`). This is a clear side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean sendMessage(@NonNull Message msg)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageDelayed`, `sendMessageAtTime`, and `enqueueMessage`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: enqueuing a `Message` in the `MessageQueue`. This modifies the queue's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method indirectly calls `SystemClock.uptimeMillis()` through `sendMessageDelayed`, making it dependent on the system clock.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue` and the non-deterministic system clock, not just the `msg` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It causes side effects by modifying the message queue and relies on the system clock. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean sendEmptyMessage(int what)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendEmptyMessageDelayed` and subsequent methods.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of creating a new `Message` (from a pool) and enqueuing it in the `MessageQueue`, thus modifying the queue's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method indirectly calls `SystemClock.uptimeMillis()` through `sendEmptyMessageDelayed`, making it dependent on the system clock.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue` and the non-deterministic system clock, not just its `what` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It modifies a global resource (message pool), causes side effects by modifying the message queue, and relies on the system clock. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean sendEmptyMessageDelayed(int what, long delayMillis)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageDelayed`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of creating a new `Message` (from a pool) and enqueuing it in the `MessageQueue` for future delivery, thus modifying the queue's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method indirectly calls `SystemClock.uptimeMillis()` through `sendMessageDelayed`, making its behavior dependent on the system clock.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue` and the non-deterministic system clock, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It modifies a global resource (message pool), causes side effects by modifying the message queue, and relies on the system clock. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean sendEmptyMessageAtTime(int what, long uptimeMillis)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageAtTime`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of creating a new `Message` (from a pool) and enqueuing it in the `MessageQueue` for delivery at a specific time, thus modifying the queue's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's operation is fundamentally tied to the progression of system time (`uptimeMillis`). The underlying queue processing is time-dependent.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue`, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It modifies a global resource (message pool) and causes side effects by modifying the message queue. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean sendMessageDelayed(@NonNull Message msg, long delayMillis)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method indirectly accesses `this.mQueue` and `this.mAsynchronous` via its call to `sendMessageAtTime`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: enqueuing a `Message` in the `MessageQueue` for future delivery. This modifies the queue's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `SystemClock.uptimeMillis()` to calculate the target execution time, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the non-deterministic `SystemClock.uptimeMillis()` call and the state of `mQueue`, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It causes side effects by modifying the message queue and is non-deterministic due to its use of `SystemClock.uptimeMillis()`. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean sendMessageAtTime(@NonNull Message msg, long uptimeMillis)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to enqueue the message.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: enqueuing a `Message` in the `MessageQueue`. This modifies the queue's state. It also performs logging (`Log.w`) in case of an error, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's operation is tied to system time (`uptimeMillis`), and the underlying `enqueueMessage` call may depend on `ThreadLocalWorkSource.getUid()`, which is dependent on the calling thread's state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue`, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It has side effects (modifying the message queue, logging) and depends on internal state (`mQueue`) and potentially non-deterministic thread-local values. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean sendMessageAtFrontOfQueue(@NonNull Message msg)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to enqueue the message.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: enqueuing a `Message` at the front of the `MessageQueue`. This modifies the queue's state. It also performs logging (`Log.w`) on error, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The underlying `enqueueMessage` call may depend on `ThreadLocalWorkSource.getUid()`, which is dependent on the calling thread's state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the internal state of `mQueue`, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It has side effects (modifying the message queue, logging) and depends on internal state (`mQueue`) and potentially non-deterministic thread-local values. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean executeOrSendMessage(@NonNull Message msg)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal instance field `mLooper` to decide whether to execute the message immediately or send it.",
+      "stateAccesses": [
+        {
+          "name": "this.mLooper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. Depending on the calling thread, it either dispatches the message directly (executing its code) or enqueues it in the message queue. Both are significant side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `Looper.myLooper()`, which returns a value dependent on the current thread's state. This makes the method's behavior non-deterministic based on its execution context.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on `mLooper` and the non-deterministic result of `Looper.myLooper()`, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It produces side effects (executing or enqueuing a message) and its control flow is non-deterministic, depending on the calling thread. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void removeMessages(int what)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the removal operation.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the associated `MessageQueue` by removing any pending messages with the specified `what` code.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's action depends on the internal state of `mQueue`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of an external object (`mQueue`). This is a clear side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void removeMessages(int what, @Nullable Object object)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the removal operation. It also reads `mIsShared` via the `disallowNullArgumentIfShared` helper.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mIsShared",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the associated `MessageQueue` by removing any pending messages with the specified properties. It can also throw an exception, which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's action depends on the internal state of `mQueue` and `mIsShared`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of an external object (`mQueue`) and reads internal state. This is a clear side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void removeEqualMessages(int what, @Nullable Object object)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the removal operation. It also reads `mIsShared` via the `disallowNullArgumentIfShared` helper.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mIsShared",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the associated `MessageQueue` by removing any pending messages with the specified properties, using `equals()` for comparison. It can also throw an exception.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's action depends on the internal state of `mQueue` and `mIsShared`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of an external object (`mQueue`) and reads internal state. This is a clear side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void removeCallbacksAndMessages(@Nullable Object token)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the removal operation. It also reads `mIsShared` via the `disallowNullArgumentIfShared` helper.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mIsShared",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the associated `MessageQueue` by removing all pending callbacks and messages with a matching token. It can also throw an exception.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's action depends on the internal state of `mQueue` and `mIsShared`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of an external object (`mQueue`) and reads internal state. This is a clear side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void removeCallbacksAndEqualMessages(@Nullable Object token)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the removal operation. It also reads `mIsShared` via the `disallowNullArgumentIfShared` helper.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mIsShared",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the associated `MessageQueue` by removing all pending callbacks and messages with a matching token, using `equals()` for comparison. It can also throw an exception.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's action depends on the internal state of `mQueue` and `mIsShared`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of an external object (`mQueue`) and reads internal state. This is a clear side effect, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean hasMessages(int what)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the query.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have side effects; it is a read-only query on the message queue.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the current state of the `mQueue` object, which is not an argument. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on mutable state (`mQueue`) that is not passed as an argument. Although it has no side effects, its dependency on hidden state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean hasMessagesOrCallbacks()",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the query.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have side effects; it is a read-only query on the message queue.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the current state of the `mQueue` object, which is not an argument. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on mutable state (`mQueue`) that is not passed as an argument. Although it has no side effects, this dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean hasMessages(int what, @Nullable Object object)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the query.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have side effects; it is a read-only query on the message queue.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the current state of the `mQueue` object, which is not an argument. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on mutable state (`mQueue`) that is not passed as an argument. Although it has no side effects, this dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean hasEqualMessages(int what, @Nullable Object object)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the query.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have side effects; it is a read-only query on the message queue.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the current state of the `mQueue` object, which is not an argument. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on mutable state (`mQueue`) that is not passed as an argument. Although it has no side effects, this dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean hasCallbacks(@NonNull Runnable r)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal field `mQueue` to delegate the query.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have side effects; it is a read-only query on the message queue.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the current state of the `mQueue` object, which is not an argument. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on mutable state (`mQueue`) that is not passed as an argument. Although it has no side effects, this dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "@NonNull Looper getLooper()",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal instance field `mLooper`.",
+      "stateAccesses": [
+        {
+          "name": "this.mLooper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the internal state (`mLooper`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state of the object (`mLooper`), which is not passed as an argument. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void dump(@NonNull Printer pw, @NonNull String prefix)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal instance field `mLooper`.",
+      "stateAccesses": [
+        {
+          "name": "this.mLooper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has I/O side effects as it writes debugging information to the provided `Printer` object (`pw`).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `SystemClock.uptimeMillis()`, which returns the current system time, making the output non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on internal state (`mLooper`) and non-deterministic system time.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It performs I/O side effects and relies on non-deterministic system time. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void dumpMine(@NonNull Printer pw, @NonNull String prefix)",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads the internal instance field `mLooper`.",
+      "stateAccesses": [
+        {
+          "name": "this.mLooper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has I/O side effects as it writes debugging information to the provided `Printer` object (`pw`).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `SystemClock.uptimeMillis()`, which returns the current system time, making the output non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on internal state (`mLooper`) and non-deterministic system time.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It performs I/O side effects and relies on non-deterministic system time. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String toString()",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method calls `System.identityHashCode(this)`, which provides a value that is not guaranteed to be consistent across different program executions, making the output non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method depends on the object's identity and class name, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output is non-deterministic due to the use of `System.identityHashCode()`. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "IMessenger getIMessenger()",
+      "className": "android.os.Handler",
+      "reasonAboutStateAccesses": "The method reads and writes the internal instance field `mMessenger` using lazy initialization within a synchronized block.",
+      "stateAccesses": [
+        {
+          "name": "this.mQueue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMessenger",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mMessenger",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect: on its first call for a given instance, it mutates the internal state by creating a new `MessengerImpl` object and assigning it to `mMessenger`. This is a state change.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the mutable internal state of `mMessenger`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the object's internal state (`mMessenger`) upon first invocation. This side effect makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void send(Message msg)",
+      "className": "android.os.Handler$MessengerImpl",
+      "reasonAboutStateAccesses": "This method accesses the state of its enclosing `Handler` instance by calling `Handler.this.sendMessage(msg)`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has significant side effects. It modifies the `msg` argument by setting `sendingUid` and then calls `Handler.this.sendMessage(msg)`, which enqueues the message, modifying the `MessageQueue` state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `Binder.getCallingUid()`, which is non-deterministic as it depends on the calling process, an external system state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the enclosing Handler's `MessageQueue` and the non-deterministic `Binder.getCallingUid()`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It has side effects (modifying the argument, enqueuing a message), depends on the state of its enclosing class, and calls a non-deterministic function (`Binder.getCallingUid`). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void run()",
+      "className": "android.os.Handler$BlockingRunnable",
+      "reasonAboutStateAccesses": "The method writes to its own internal field `mDone`.",
+      "stateAccesses": [
+        {
+          "name": "this.mTask",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mDone",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major side effects. It executes an arbitrary `Runnable` (`mTask.run()`) and performs thread synchronization by calling `notifyAll()`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The behavior of `mTask.run()` is unknown and could be non-deterministic. The `notifyAll()` call's effect depends on thread scheduling.",
+      "hasNonDeterministicCalls": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. Its entire purpose is to cause side effects by running another task and interacting with thread synchronization mechanisms. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean postAndWait(Handler handler, long timeout)",
+      "className": "android.os.Handler$BlockingRunnable",
+      "reasonAboutStateAccesses": "The method reads its internal field `mDone` in a loop.",
+      "stateAccesses": [
+        {
+          "name": "this.mDone",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major side effects. It posts a `Runnable` to a `Handler` (modifying a `MessageQueue`) and then blocks the current thread using `wait()`, which is a significant interaction with the thread scheduler.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is highly non-deterministic. It calls `SystemClock.uptimeMillis()` to manage timeouts and relies on thread synchronization primitives (`wait`) whose behavior depends on thread scheduling.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value are dependent on the state of the handler's message queue, the non-deterministic system clock, and thread scheduling, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is fundamentally impure. It orchestrates cross-thread communication, blocks threads, and relies on system time and thread scheduling. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

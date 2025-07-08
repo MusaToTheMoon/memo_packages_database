@@ -1,0 +1,1070 @@
+{
+  "file_name": "java.io.File",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/io/File.java",
+  "source_code_file_path": "java_source_code_files/java/io/File.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751922787,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 205.49,
+  "llm_analysis": [
+    {
+      "methodSignature": "boolean isInvalid()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method performs a lazy-read and a potential write on the transient internal field 'this.status'. It reads 'this.status' to check if the validity has been determined. If not, it computes the validity by calling 'FS.isInvalid(this)' and writes the result back to 'this.status'. This write operation is idempotent as subsequent calls will not change the state.",
+      "stateAccesses": [
+        {
+          "name": "this.status",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.status",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to check path validity. It calls 'FS.isInvalid(this)', which may perform filesystem queries or access system properties depending on the implementation and configuration. Accessing the file system constitutes an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's result depends on the state of the filesystem or system properties, which can change between invocations. The call to 'FS.isInvalid(this)' makes the method's outcome dependent on external, non-deterministic factors.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the internal state of the object (its path) and the external state of the file system, not just on method arguments (of which there are none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it caches its result in the 'status' field, the initial computation of this result involves a call to 'FS.isInvalid(this)', which can interact with the file system. This interaction is a side effect and makes the method's result dependent on external state, rendering it non-deterministic and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getPrefixLength()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method is a simple getter that reads the final internal field 'this.prefixLength'.",
+      "stateAccesses": [
+        {
+          "name": "this.prefixLength",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have any side effects. It only reads an internal, immutable field and returns its value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any non-deterministic calls. Its return value is solely based on the 'prefixLength' field, which is final and set during object construction.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends only on the internal, immutable state of the 'File' object, specifically the 'prefixLength' field. It does not take any arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple getter for a final field of an immutable object. It has no side effects, is deterministic, and its result depends only on the object's state, which does not change after construction. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String getName()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method reads the internal final field 'this.path' and 'this.prefixLength', as well as the static final field 'separatorChar', to compute the file name. It does not modify any state.",
+      "stateAccesses": [
+        {
+          "name": "this.path",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.prefixLength",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "java.io.File.separatorChar",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It performs string manipulation on the internal 'path' field and does not interact with the file system or any other external resource.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. Its logic is based entirely on string operations on immutable fields.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the immutable internal state of the object ('path' and 'prefixLength'), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It calculates its result based on the immutable state of the 'File' object ('path', 'prefixLength'). It involves no side effects or non-deterministic operations. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String getParent()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method reads the internal final fields 'this.path' and 'this.prefixLength', and the static final field 'separatorChar' to determine the parent path. It does not modify any state.",
+      "stateAccesses": [
+        {
+          "name": "this.path",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.prefixLength",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "java.io.File.separatorChar",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It performs string manipulation based on the object's internal state and does not interact with the file system.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. The logic for finding the parent path is based on fixed string operations.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result is determined by the immutable internal state of the object, not by arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Its return value is derived solely from the immutable state of the 'File' object through deterministic string operations. It has no side effects and is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "File getParentFile()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method indirectly reads internal state ('this.path', 'this.prefixLength') by calling 'this.getParent()'. It does not write to any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It calls other pure methods ('getParent') and may call 'FS.normalize', which is a deterministic string normalization function. It creates a new 'File' object but does not alter any existing state or perform I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. Its behavior is based on the immutable state of the current object.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the immutable internal state of the 'File' object, not on any arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It computes a result based on the immutable state of the current object and creates a new object. It does not have side effects or non-deterministic behavior, making it suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String getPath()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method is a simple getter that reads the final internal field 'this.path'.",
+      "stateAccesses": [
+        {
+          "name": "this.path",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It simply returns the value of an internal, immutable field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic as it returns the value of a final field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the object's internal state ('path'), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It's a getter for a final field of an immutable object. It is deterministic, has no side effects, and is perfectly suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isAbsolute()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not directly access any fields. It passes 'this' to 'FS.isAbsolute(this)', which in turn reads the object's path. This constitutes an indirect read of 'this.path'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. The 'FS.isAbsolute' method performs a check on the path string format according to system-dependent rules, without performing any I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. The definition of an absolute path is fixed for a given operating system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the object's internal state (its path), not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic check on the object's immutable path string. It has no side effects and is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String getAbsolutePath()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not directly access any fields but passes 'this' to 'FS.resolve(this)', which accesses 'this.path' and may access global state like the 'user.dir' system property.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method does not have direct side effects like I/O. However, its behavior depends on the environment, specifically the current user directory (system property 'user.dir'), which is a form of external interaction.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because its result for a relative path depends on the current working directory ('user.dir') where the JVM is executed. This directory can be different for each execution.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the object's path and the external current working directory, not solely on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. For relative paths, its result depends on the current user directory, which is external, mutable state. This makes the method non-deterministic and unsuitable for general memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "File getAbsoluteFile()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method does not directly access any state. It relies on `getAbsolutePath()`, which reads external system properties.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no direct side effects like I/O, but its behavior is dependent on the execution environment (current user directory) via its call to `getAbsolutePath()`.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic for the same reasons as `getAbsolutePath()`. Its result for a relative path depends on the current working directory, which can change between invocations.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output is not determined solely by arguments, but by the object's path and the current working directory.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It wraps the result of `getAbsolutePath()`, which is non-deterministic for relative paths because it depends on the current working directory. Therefore, this method is also non-deterministic and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getCanonicalPath() throws IOException",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method indirectly accesses 'this.path' and potentially the file system's state to resolve the canonical path. This includes reading file system metadata for symbolic links and directory structures.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects as it performs file system queries to resolve '..', '.', and symbolic links. This constitutes I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its result depends on the current state of the file system, including the existence of files/directories and the targets of symbolic links, all of which can change.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the object's path and the state of the file system, not just on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It requires file system access to compute the canonical path, which is a significant side effect. The result is non-deterministic as it depends on the live state of the file system. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "File getCanonicalFile() throws IOException",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method does not directly access state, but it calls `getCanonicalPath()`, which interacts extensively with the file system.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it calls `getCanonicalPath()`, which performs file system I/O to resolve the path.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic. Its result depends on the file system's state (file existence, symbolic links), which can change at any time. This is inherited from `getCanonicalPath()`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the object's path and the live state of the file system, not just on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It wraps the result of `getCanonicalPath()`, which performs I/O and is dependent on the non-deterministic state of the file system. Therefore, this method is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "URL toURL() throws MalformedURLException",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not directly access state. It calls `getAbsolutePath()` (which reads system properties) and `isDirectory()` (which performs I/O).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It calls `isDirectory()` which queries the file system to determine if the path denotes a directory. This is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its result depends on the current user directory (via `getAbsolutePath`) and whether the path currently exists as a directory on the file system.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the object's path, the current working directory, and the live state of the file system.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is deprecated and relies on both `getAbsolutePath` (non-deterministic for relative paths) and `isDirectory` (file system I/O). This combination of non-determinism and side effects makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "URI toURI()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not directly access state. It calls other methods like `getAbsoluteFile()` and `isDirectory()` which access external system state and the file system.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects because it calls `f.isDirectory()`, which performs a file system query to check if the path is a directory. This is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. It depends on the current working directory (via `getAbsoluteFile()`) and the live state of the file system (via `isDirectory()`). The resulting URI can differ based on these external factors.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the object's path, the current working directory, and the file system state, not solely on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It queries the file system via `isDirectory()` to determine if a slash should be appended to the URI. This I/O makes it have side effects and its result is non-deterministic, depending on the live file system. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean canRead()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access any fields directly but passes 'this' to `FS.checkAccess`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it queries the underlying file system to check for read permissions. This is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the ability to read a file depends on the file's existence and its permissions at the moment of the call, which can change externally.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It directly queries the file system to check for read permissions. This is an I/O operation and its result is non-deterministic, depending on the volatile state of file system permissions. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean canWrite()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access any fields directly but passes 'this' to `FS.checkAccess`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it queries the underlying file system to check for write permissions. This is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The ability to write to a file depends on its current permissions and state (e.g., read-only status), which can change externally.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a file system query to check for write permissions, which is an I/O side effect. The result is non-deterministic, as permissions can change at any time. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean exists()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access any fields directly but passes 'this' to `FS.hasBooleanAttributes`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it queries the file system to check for the existence of a file or directory. This is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The existence of a file is a volatile state that can be changed by external processes at any time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its entire purpose is to query the external, mutable state of the file system. This is an I/O side effect and the result is non-deterministic. It is a classic example of an impure function unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isDirectory()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access any fields directly but passes 'this' to `FS.hasBooleanAttributes`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it queries the file system to determine if the path corresponds to an existing directory. This is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Whether a path points to a directory depends on the live state of the file system, which can change.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a file system query to check if the path is a directory. This I/O operation makes it have side effects and its result is non-deterministic. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isFile()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access any fields directly but passes 'this' to `FS.hasBooleanAttributes`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it queries the file system to determine if the path corresponds to an existing regular file. This is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Whether a path points to a file depends on the live state of the file system, which can be modified externally.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a file system query to check if the path is a regular file. This constitutes a side effect and makes the result dependent on the non-deterministic state of the file system. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isHidden()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access any fields directly but passes 'this' to `FS.hasBooleanAttributes`, which may perform I/O based on the object's path to check file attributes.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method can have side effects. On some systems (like Windows), checking if a file is hidden requires reading its attributes from the file system, which is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. A file's hidden status is a mutable attribute on the file system.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on file system attributes, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Determining if a file is hidden may require reading file system attributes, which is an I/O side effect. The result depends on the volatile state of the file, making it non-deterministic and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "long lastModified()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access any fields directly but passes 'this' to `FS.getLastModifiedTime`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it queries the file system to get the last modified timestamp of a file.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The last modified time of a file is a value that can change at any moment due to external operations.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends entirely on the state of a file on the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It queries the file system for a file's metadata (last modified time). This is a side effect, and the returned value is non-deterministic as it depends on the mutable state of the file system. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "long length()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access any fields directly but passes 'this' to `FS.getLength`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it queries the file system to get the length of a file.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The length of a file can change at any time due to external write operations.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the state of a file on the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads the file system to determine the file's size. This I/O is a side effect, and the result is non-deterministic because the file size can change. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean createNewFile() throws IOException",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access internal state fields but uses the object's path to perform a file system operation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a major side effect: it attempts to create a new, empty file on the file system. This is a mutating I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's success and return value are non-deterministic, depending on whether a file with the same name already exists and on file system permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends entirely on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is to cause a side effect: creating a file on the disk. This modifies the external file system state and is inherently non-deterministic. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean delete()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access internal state fields but uses the object's path to perform a file system operation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a major side effect: it attempts to delete a file or empty directory from the file system. This is a mutating I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's success and return value are non-deterministic, depending on whether the file exists, is a directory, is empty, and on file system permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to perform a destructive side effect: deleting a file from the disk. This modifies the external file system state and is non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void deleteOnExit()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method adds the file's path to a static, global list within the 'DeleteOnExitHook' class. This is a write to a shared, global state.",
+      "stateAccesses": [
+        {
+          "name": "DeleteOnExitHook.path",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect of modifying a global collection of paths to be deleted when the JVM terminates. This alters the application's global state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic; it always adds the path to the hook. However, it affects a future non-deterministic operation (deletion at exit).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's action depends on the object's internal path, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies a shared global state (the `DeleteOnExitHook`'s list). This is a side effect that makes the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String[] list()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not directly access state but calls `normalizedList`, which in turn calls `FS.list(this)`. This reads from the file system based on `this.path`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it reads the contents of a directory from the file system, which is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the contents of a directory can change at any time due to external processes.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is determined by the live contents of a directory on the file system, not by method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a file system I/O operation to list directory contents. The result is non-deterministic as it depends on the mutable state of the directory. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String[] list(FilenameFilter filter)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not directly access state. It calls `list()` which performs I/O.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects, inherited from its call to `list()`, which reads directory contents from the file system. Additionally, the provided `filter` can have its own side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The directory contents can change, and the behavior of the `filter.accept` callback is unknown and potentially non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the file system state and the behavior of the `filter` argument, not just the argument itself.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads from the file system (a side effect) and its result depends on the non-deterministic contents of a directory. It also invokes a user-provided filter, which could be impure. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "File[] listFiles()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not directly access state but calls `normalizedList` which performs a file system read based on `this.path`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It reads the contents of a directory from the file system (an I/O operation) to create an array of `File` objects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic, as the list of files and directories within a given path can change at any time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output is determined by the contents of a directory on the file system, not by method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs an I/O operation to read directory contents from the file system. The result is non-deterministic, depending on the live state of the directory. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "File[] listFiles(FilenameFilter filter)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not directly access state. It calls `normalizedList` which performs I/O.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects, primarily from reading the file system via `normalizedList`. The user-provided `filter` could also introduce its own side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The underlying file list can change, and the behavior of the `filter` is unknown.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the file system state and the behavior of the `filter` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads from the file system, which is a side effect, and its result depends on the non-deterministic state of the directory. It also uses a callback (`filter`) which may be impure. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "File[] listFiles(FileFilter filter)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not directly access state. It calls `normalizedList` which performs I/O.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects from reading the file system via `normalizedList`. The provided `filter` callback could also have its own side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The list of files can change, and the `filter.accept` method could have non-deterministic behavior.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the file system state and the behavior of the `filter` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads from the file system, and its result depends on the non-deterministic contents of a directory. It also invokes a user-provided callback (`filter`) which could be impure itself. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean mkdir()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access internal state fields but uses the object's path to perform a file system operation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a major side effect: it attempts to create a new directory on the file system. This is a mutating I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's success and return value are non-deterministic, depending on whether the path already exists, if the parent directory exists, and on file system permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends entirely on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to cause a side effect: creating a directory on the disk. This modifies the external file system state and its success is non-deterministic. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean mkdirs()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access internal state fields but calls other methods that use the object's path to perform file system operations.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a major side effect: it attempts to create a directory and any necessary parent directories on the file system. This involves multiple mutating I/O operations.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is highly non-deterministic, as it depends on the existence and permissions of multiple directories in the path hierarchy. It involves recursive calls and multiple file system checks and creations.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to cause side effects by creating multiple directories on the disk. This modifies external state and is highly non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean renameTo(File dest)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method uses the paths from both 'this' object and the 'dest' argument to perform a file system operation. It does not access other fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a major side effect: it attempts to rename or move a file on the file system. This is a mutating I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's success is non-deterministic. It depends on the existence of the source file, the non-existence of the destination file, permissions, and platform-specific limitations (e.g., moving across filesystems).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its entire purpose is to cause a side effect by renaming a file, which modifies the file system. Its outcome is non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean setLastModified(long time)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access internal state fields but uses the object's path to perform a file system operation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of modifying a file's metadata on the file system, specifically its last-modified timestamp. This is a mutating I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's success is non-deterministic, depending on the file's existence and write permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to cause a side effect by changing a file's metadata on the disk. This modifies external state and its success is non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean setReadOnly()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access internal state fields but uses the object's path to perform a file system operation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of modifying a file's read-only attribute on the file system. This is a mutating I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's success is non-deterministic, depending on the file's existence and user permissions to change file attributes.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to cause a side effect by modifying a file's permissions on the disk. This is a non-deterministic operation that changes external state, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean setWritable(boolean writable, boolean ownerOnly)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access internal state fields but uses the object's path to perform a file system operation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of modifying a file's write permission attribute on the file system. This is a mutating I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's success is non-deterministic, depending on the file's existence, the underlying file system's capabilities, and user permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to cause a side effect by modifying file permissions. This action on external state is non-deterministic and makes the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean setWritable(boolean writable)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method is a convenience wrapper and does not directly access state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects, as it calls `setWritable(writable, true)`, which modifies a file's write permission attribute on the file system.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic for the same reasons as the method it calls: its success depends on file existence, system capabilities, and permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a convenience method that calls another impure method to modify file permissions. It causes side effects and is non-deterministic, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean setReadable(boolean readable, boolean ownerOnly)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access internal state fields but uses the object's path to perform a file system operation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of modifying a file's read permission attribute on the file system. This is a mutating I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's success is non-deterministic, depending on the file's existence, the underlying file system's capabilities, and user permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to cause a side effect by modifying file permissions on the disk. This action on external state is non-deterministic and makes the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean setReadable(boolean readable)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method is a convenience wrapper and does not directly access state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects, as it calls `setReadable(readable, true)`, which modifies a file's read permission attribute on the file system.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic for the same reasons as the method it calls: its success depends on file existence, system capabilities, and permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a convenience method that calls another impure method to modify file permissions. It causes side effects and is non-deterministic, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean setExecutable(boolean executable, boolean ownerOnly)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access internal state fields but uses the object's path to perform a file system operation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of modifying a file's execute permission attribute on the file system. This is a mutating I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's success is non-deterministic, depending on the file's existence, the underlying file system's capabilities, and user permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to cause a side effect by modifying file permissions on the disk. This action on external state is non-deterministic and makes the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean setExecutable(boolean executable)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method is a convenience wrapper and does not directly access state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects, as it calls `setExecutable(executable, true)`, which modifies a file's execute permission attribute on the file system.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic for the same reasons as the method it calls: its success depends on file existence, system capabilities, and permissions.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the file system, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a convenience method that calls another impure method to modify file permissions. It causes side effects and is non-deterministic, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean canExecute()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access any fields directly but passes 'this' to `FS.checkAccess`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it queries the underlying file system to check for execute permissions. This is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the ability to execute a file depends on its current permissions and existence, which can change externally.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the state of the file system, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a file system query to check for execute permissions, which is an I/O side effect. The result is non-deterministic, as permissions can change at any time. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "static File[] listRoots()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method is static and accesses no state from a 'File' instance. It calls 'FS.listRoots()' which interacts with the operating system.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects as it queries the operating system to determine the available file system roots (e.g., drives on Windows, '/' on Unix).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The set of available file system roots can change during program execution (e.g., by mounting or unmounting drives).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments, and its result is dependent on the state of the operating system.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It queries the operating system for a list of root directories, which is an I/O operation with a non-deterministic result. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "long getTotalSpace()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access fields directly but passes 'this' to `FS.getSpace`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it queries the file system to determine the total size of the partition containing the file.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic, although the total space of a partition changes infrequently. However, it is still an external state that could theoretically change (e.g., partition resizing).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the state of the physical storage device, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It queries the file system for partition information, which is an I/O operation. The result depends on external hardware/OS state, making it non-deterministic and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "long getFreeSpace()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access fields directly but passes 'this' to `FS.getSpace`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it queries the file system to determine the number of unallocated bytes on the partition.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. The amount of free space on a disk changes constantly due to operations by any process on the system.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the highly volatile state of the disk partition, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It queries the file system for the amount of free space, a value that is constantly changing. This I/O operation and high degree of non-determinism make it completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "long getUsableSpace()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access fields directly but passes 'this' to `FS.getSpace`, which performs I/O based on the object's path.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it queries the file system to determine the number of bytes available to the current user on the partition.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. The amount of usable space depends on disk usage and user quotas, both of which can change at any time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the highly volatile state of the disk partition and user permissions, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It queries the file system for usable space, a value that is constantly changing. This I/O operation and high degree of non-determinism make it completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "static File createTempFile(String prefix, String suffix, File directory) throws IOException",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method accesses the static field `TempDirectory.RANDOM` to generate a random number. It also reads the `java.io.tmpdir` system property if the directory is null.",
+      "stateAccesses": [
+        {
+          "name": "java.io.File.TempDirectory.RANDOM",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a major side effect: it creates a new file on the file system. It also reads from the file system to ensure the generated name is unique before creation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. It uses `SecureRandom` to generate part of the filename and its behavior depends on the current state of the file system (which files exist).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on random number generation and the state of the file system, not just on the arguments provided.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It uses a random number generator, performs file system I/O, and modifies the file system by creating a new file. It is non-deterministic and has significant side effects, making it completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "static File createTempFile(String prefix, String suffix) throws IOException",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method calls `createTempFile(prefix, suffix, null)`, which accesses the `SecureRandom` instance and system properties.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a major side effect of creating a file on the file system, inherited from the three-argument version it calls.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it relies on the three-argument `createTempFile` method, which uses random numbers and file system state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on random numbers, system properties, and file system state, not just on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a convenience wrapper for another impure method that creates a file. It is non-deterministic and has side effects, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int compareTo(File pathname)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access fields directly. It passes 'this' and the 'pathname' argument to 'FS.compare', which in turn reads the 'path' field from both objects.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. The comparison is based on system-dependent string comparison rules and does not involve any I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. For a given pair of File objects and a given OS, the result of the comparison will always be the same.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the internal state (the path) of both the current object and the 'pathname' argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic comparison of the path strings of two immutable objects. It has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean equals(Object obj)",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access state directly. It calls `compareTo`, which reads the 'path' field of both this object and the argument object.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It relies on the `compareTo` method, which is a pure string comparison.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. Its result is based on the deterministic `compareTo` method.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the internal state (path) of this object and the argument object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a type check and then delegates to the pure `compareTo` method. It is a deterministic operation on immutable state with no side effects and is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int hashCode()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method does not access fields directly. It passes 'this' to 'FS.hashCode', which reads the 'path' field to compute the hash.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It computes a hash code based on the internal path string and system-dependent rules (e.g., case-sensitivity) without any I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. The hash code calculation for a given path string on a given OS will always be the same.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the object's internal state (its path), not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It computes a deterministic hash code based on the immutable internal state of the object. It has no side effects and is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String toString()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "The method calls 'getPath()', which reads the internal final field 'this.path'.",
+      "stateAccesses": [
+        {
+          "name": "this.path",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It simply returns the internal path string.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the object's internal state, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a string representation based on the object's immutable internal state. It has no side effects and is deterministic, making it suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Path toPath()",
+      "className": "java.io.File",
+      "reasonAboutStateAccesses": "This method implements a lazy initialization pattern (double-checked locking) for the transient field 'this.filePath'. It reads 'this.filePath' and may write to it once. It also reads 'this.path' to create the Path object.",
+      "stateAccesses": [
+        {
+          "name": "this.filePath",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.path",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.filePath",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no observable side effects. The write to the 'filePath' field is a benign caching mechanism and does not affect external state. The creation of the 'Path' object via 'FileSystems.getDefault().getPath(path)' is a local operation and does not perform I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. For a given 'File' object, it will always return a 'Path' object representing the same path.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the immutable internal state ('path') of the 'File' object, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. Although it has an internal write side effect for caching, this is a benign, idempotent optimization. The externally observable behavior is that of a pure function: for a given File object, it always returns the same logical Path. It is deterministic and does not interact with external state, making it suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

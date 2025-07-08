@@ -1,0 +1,383 @@
+{
+  "file_name": "java.util.HashSet",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/HashSet.java",
+  "source_code_file_path": "java_source_code_files/java/util/HashSet.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751922581,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 96.396,
+  "llm_analysis": [
+    {
+      "methodSignature": "Iterator<E> iterator()",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method reads the internal 'map' field to create an iterator over its key set. It does not modify any state.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new Iterator object. It does not modify the state of the HashSet itself or have other observable side effects like I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic. However, the returned iterator will traverse elements in a non-guaranteed, potentially non-deterministic order, as per the HashSet contract. The method call itself does not involve randomness or time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value (an iterator) depends on the internal state of the 'map' field, not just on method arguments (of which there are none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output, the iterator, is dependent on the internal state of the HashSet (`this.map`). A pure function's output must depend solely on its input arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int size()",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method reads the internal 'map' field to delegate the size calculation to it. It does not modify any state.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query operation that returns a value. It does not modify the state of the HashSet or have any other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions. The size of the set is a deterministic property.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the 'map' field (its size), not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value is dependent on the internal state of the `map` field, which can change over time. Pure functions must return the same output for the same inputs, and this method's output changes as the set is modified.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isEmpty()",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method reads the internal 'map' field to delegate the emptiness check to it. It does not modify any state.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query operation. It does not modify the state of the HashSet or have any other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions. The emptiness of the set is a deterministic property.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the 'map' field, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the internal state of the `map` field. For a given HashSet object, the return value can change if elements are added or removed.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean contains(Object o)",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method reads the internal 'map' field to check if it contains the given object as a key. It does not modify any state.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a query operation. It does not modify the state of the HashSet or have any other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not involve any inherently non-deterministic operations like random number generation or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the contents of the internal 'map' field, in addition to the input argument 'o'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it takes an argument, its result also depends on the current state of the HashSet's internal `map`. Therefore, for the same input `o`, it can return different results depending on the set's contents.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean add(E e)",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method writes to the internal 'map' field by calling 'put'. It also reads the global static 'PRESENT' object to use as the value in the map.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "java.util.HashSet.PRESENT",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to modify the internal state of the `HashSet` by adding an element to the backing `map`. This state modification is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions like random or time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and side effect depend on the internal state of the 'map' (whether the element already exists) and the input argument 'e'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying the object's internal state (`this.map`). Pure functions cannot have any observable side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean remove(Object o)",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method writes to the internal 'map' field by calling 'remove'. It also reads the global static 'PRESENT' object to compare with the result of the remove operation.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "java.util.HashSet.PRESENT",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to modify the internal state of the `HashSet` by removing an element from the backing `map`. This state modification is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and side effect depend on the internal state of the 'map' (whether the element exists) and the input argument 'o'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the internal state of the object (`this.map`).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clear()",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method writes to the internal 'map' field by calling its 'clear' method, which removes all entries.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies the internal state of the `HashSet` by clearing the backing `map`. This state modification is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (clearing the set) does not depend on arguments, but its effect is to modify the internal state, not produce a return value based on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a void method whose sole purpose is to cause a side effect: modifying the internal state of the object by clearing the underlying map.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Object clone()",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method reads the internal 'map' field to clone it for the new HashSet instance. It also writes this cloned map to the 'map' field of the newly created 'newSet' object.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new `HashSet` instance. It does not modify any existing state (neither its own state nor any global state). Therefore, it has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value (the cloned object) is entirely dependent on the state of the object being cloned (`this`), specifically its 'map' field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output is a new object whose state depends on the internal state of the current object (`this.map`), not on input arguments. Therefore, it is not referentially transparent.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void writeObject(java.io.ObjectOutputStream s)",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method reads the internal 'map' field to access its capacity, load factor, size, and all of its elements for serialization.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method performs an I/O operation by writing the state of the `HashSet` to the provided `ObjectOutputStream`. This is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's output to the stream is non-deterministic because the iteration order of a HashSet is not guaranteed. Writing the elements via 'map.keySet()' will result in a non-deterministic sequence in the output stream.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state of 'map' and it modifies the state of the argument 's' (the output stream).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has I/O side effects (writing to a stream) and its behavior depends on the internal state of the object. Furthermore, its output is non-deterministic.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void readObject(java.io.ObjectInputStream s)",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method writes to the internal 'map' field. It first instantiates a new HashMap and then populates it with data read from the input stream.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method performs an I/O operation by reading from the provided `ObjectInputStream`. It also has the side effect of modifying the internal state (`this.map`) of the object being deserialized.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is dependent on the content of the external input stream 's', which is non-deterministic from the method's perspective. It also calls `SharedSecrets.getJavaObjectInputStreamAccess().checkArray` which may depend on system security state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's primary purpose is to read from the input stream 's' and modify the internal state of 'this', so it depends on external input and has side effects.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has significant side effects, including I/O (reading from a stream) and mutation of the object's internal state (`this.map`). Its behavior is entirely dependent on external data from the stream.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Spliterator<E> spliterator()",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method reads the internal 'map' field to create a spliterator for it.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new Spliterator object. It does not modify the state of the HashSet or have any other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method call itself is deterministic. The returned spliterator, like the iterator, will traverse elements in a non-guaranteed order, but the creation of the spliterator object does not involve non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned spliterator depends on the internal state of the 'map' field, not on method arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value, a new Spliterator, is constructed based on the internal state (`this.map`) of the HashSet instance. A pure function must depend only on its explicit arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Object[] toArray()",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method reads the internal 'map' field to get its size and to convert its keys to an array.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new array. It does not modify the internal state of the set or have other side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The documentation for `HashSet` states it makes no guarantees about iteration order. The `toArray` method relies on this iteration, so the order of elements in the resulting array is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the `map` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the internal state of the object (`this.map`). Furthermore, the ordering of elements in the returned array is non-deterministic, which violates the principles of purity and memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> T[] toArray(T[] a)",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This method reads the internal 'map' field to get its elements and place them into the provided or a newly allocated array.",
+      "stateAccesses": [
+        {
+          "name": "this.map",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the contents of the passed-in array 'a' if it is large enough to hold the set's elements. Modifying an argument is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The documentation for `HashSet` states it makes no guarantees about iteration order. The `toArray` method relies on this iteration, so the order of elements placed into the array is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and side effect on array 'a' depend on the internal state of `this.map` as well as the argument 'a'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of modifying its argument 'a'. Its behavior depends on the internal state of the set. Additionally, the ordering of elements it produces is non-deterministic.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "static <T> HashSet<T> newHashSet(int numElements)",
+      "className": "java.util.HashSet",
+      "reasonAboutStateAccesses": "This is a static method and does not access any instance or static state of the HashSet class. It only uses its arguments to create a new instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a static factory method. It creates and returns a new object but does not modify any existing state or perform I/O. Therefore, it has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic, including the call to `HashMap.calculateHashMapCapacity`, is deterministic and does not rely on time, randomness, or other non-deterministic sources.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "As a static method, its behavior is not dependent on any instance state. The characteristics of the returned HashSet are determined solely by the `numElements` argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a static factory. It has no side effects and its output (a new object instance) is determined solely by its input argument. Therefore, it is a pure function and suitable for memoization, although memoizing a factory method is uncommon.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

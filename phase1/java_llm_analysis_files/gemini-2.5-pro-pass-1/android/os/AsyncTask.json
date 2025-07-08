@@ -1,0 +1,633 @@
+{
+  "file_name": "android.os.AsyncTask",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-10.0.0_r47/core/java/android/os/AsyncTask.java",
+  "source_code_file_path": "java_source_code_files/android/os/AsyncTask.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751826430,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 146.01,
+  "llm_analysis": [
+    {
+      "methodSignature": "void execute(final Runnable r)",
+      "className": "android.os.AsyncTask.SerialExecutor",
+      "reasonAboutStateAccesses": "The method is synchronized and modifies the internal state of the SerialExecutor instance. It writes a new Runnable to the `mTasks` queue and reads the `mActive` field to determine if a task is currently running before scheduling the next one.",
+      "stateAccesses": [
+        {
+          "name": "this.mTasks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mActive",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects as it modifies the internal `mTasks` queue and calls `scheduleNext()`, which ultimately schedules the provided Runnable for execution on a thread pool. This queuing and execution of a task is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself does not call any non-deterministic functions like random or time. However, the execution timing of the enqueued Runnable is non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (whether it immediately calls `scheduleNext()` or just enqueues the task) depends on the internal state of the `mActive` field, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It modifies the internal state of the executor (`mTasks`, `mActive`) and has the side effect of scheduling a task for execution.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void scheduleNext()",
+      "className": "android.os.AsyncTask.SerialExecutor",
+      "reasonAboutStateAccesses": "The method is synchronized and modifies the internal state. It reads and removes an element from the `mTasks` queue (a write operation) and assigns it to the `mActive` field (a write operation). It also reads the static `THREAD_POOL_EXECUTOR` field to execute the active task.",
+      "stateAccesses": [
+        {
+          "name": "this.mTasks",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mActive",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "android.os.AsyncTask.THREAD_POOL_EXECUTOR",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a significant side effect: it takes a Runnable from its internal queue and submits it to the `THREAD_POOL_EXECUTOR` for execution. This initiates background work.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not directly call non-deterministic functions. The execution of the task it schedules is, however, non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its behavior is entirely dependent on the internal state of the `mTasks` queue.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it modifies its internal state (`mTasks`, `mActive`) and has the major side effect of executing a task on a shared thread pool.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Handler getMainHandler()",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "The method implements a lazy initialization pattern for the static `sHandler` field. It first reads `sHandler` to check if it's null. If it is, it creates a new `InternalHandler` and writes it to `sHandler`.",
+      "stateAccesses": [
+        {
+          "name": "android.os.AsyncTask.sHandler",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.os.AsyncTask.sHandler",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect on its first invocation: it instantiates a new `InternalHandler` and assigns it to the static `sHandler` field. This modifies global state. Subsequent calls do not have this side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `Looper.getMainLooper()` to get the main application looper. This depends on the runtime environment and the state of the Android framework, which is a form of non-determinism.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its return value depends on the value of the static field `sHandler`, which it may also modify.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It uses lazy initialization to modify a static field (`sHandler`), which is a side effect. It also depends on external system state via `Looper.getMainLooper()`.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Handler getHandler()",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This method is a simple getter that reads the value of the internal instance field `mHandler`.",
+      "stateAccesses": [
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments, and its return value is determined by the internal instance state (`this.mHandler`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the instance field `mHandler`, which is mutable state. However, it is free of side effects. It is not suitable for memoization as it's a simple field access.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setDefaultExecutor(Executor exec)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This method writes the provided `Executor` to the static field `sDefaultExecutor`.",
+      "stateAccesses": [
+        {
+          "name": "android.os.AsyncTask.sDefaultExecutor",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a clear side effect: it modifies the global `sDefaultExecutor`. This changes how subsequent `AsyncTask.execute()` calls behave for the entire application.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value. Its purpose is to modify global state based on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it modifies a global static field, `sDefaultExecutor`, which is a significant side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void postResultIfNotInvoked(Result result)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "The method reads the value of the instance field `mTaskInvoked`, which is an `AtomicBoolean`.",
+      "stateAccesses": [
+        {
+          "name": "this.mTaskInvoked",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method conditionally has side effects. If `mTaskInvoked` is false, it calls `postResult(result)`, which sends a message to a handler, a clear side effect. This is used as a fallback mechanism to ensure a result is always posted.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value. Its behavior depends on the internal state of `mTaskInvoked`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because its behavior depends on internal state (`mTaskInvoked`) and it conditionally performs a side effect by calling `postResult`.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Result postResult(Result result)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "The method reads the instance field `mHandler` by calling `getHandler()` in order to obtain and send a message.",
+      "stateAccesses": [
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The primary purpose of this method is its side effect: it obtains a `Message` from a `Handler`, populates it with the task's result, and sends it. This schedules work (the `finish` method) to be executed on the handler's thread, typically the main UI thread.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is its input argument. However, its main purpose is to perform a side effect that depends on the internal `mHandler` state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. Its main function is to produce a side effect by sending a message to a Handler to bridge communication between threads.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Status getStatus()",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This method is a simple getter that reads the value of the internal instance field `mStatus`.",
+      "stateAccesses": [
+        {
+          "name": "this.mStatus",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments, and its return value is determined by the internal instance state (`this.mStatus`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the instance field `mStatus`, which is mutable state reflecting the task's lifecycle. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onPreExecute()",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This base implementation does not access any class or instance fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a no-op in the base class. It is intended to be overridden by subclasses to perform setup work, which often involves side effects like UI manipulation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and no return value, and it performs no actions. Its behavior is constant.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this base implementation. It is an empty method with no side effects and no dependencies on external state. Subclasses are expected to make it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onPostExecute(Result result)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This base implementation does not access any class or instance fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a no-op in the base class. It is intended to be overridden by subclasses to handle the result of the background computation, which often involves side effects like updating the UI.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value and performs no actions. Its behavior is constant and does not depend on the input argument in this implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this base implementation. It is an empty method with no side effects and no dependencies on external state. Subclasses are expected to make it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onProgressUpdate(Progress... values)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This base implementation does not access any class or instance fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a no-op in the base class. It is intended to be overridden by subclasses to display progress updates, which is a side effect (typically UI manipulation).",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value and performs no actions. Its behavior is constant and does not depend on the input arguments in this implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this base implementation. It is an empty method with no side effects and no dependencies on external state. Subclasses are expected to make it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onCancelled(Result result)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This base implementation does not access any class or instance fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method's only action is to call `onCancelled()`. Since the base implementation of `onCancelled()` is empty, this method has no side effects in the base class.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value and its only action is to call another method. Its behavior does not depend on the argument in this implementation.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this base implementation. It simply calls another empty method (`onCancelled()`) and has no side effects or dependencies. Subclasses are expected to make it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onCancelled()",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This base implementation does not access any class or instance fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a no-op in the base class. It is intended to be overridden for cancellation logic, which would typically involve side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and no return value, and it performs no actions. Its behavior is constant.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this base implementation. It is an empty method with no side effects and no dependencies on external state. Subclasses are expected to make it impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isCancelled()",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This method is a simple getter that reads the value of the internal instance field `mCancelled`.",
+      "stateAccesses": [
+        {
+          "name": "this.mCancelled",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments, and its return value is determined by the internal instance state (`this.mCancelled`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the instance field `mCancelled`, which is mutable state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean cancel(boolean mayInterruptIfRunning)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This method writes `true` to the `mCancelled` AtomicBoolean field. It also reads the `mFuture` field to call its `cancel` method.",
+      "stateAccesses": [
+        {
+          "name": "this.mCancelled",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mFuture",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It sets the cancellation flag and calls `mFuture.cancel()`, which attempts to interrupt the background thread and alters the task's execution flow, causing `onCancelled` to be called instead of `onPostExecute`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the underlying `FutureTask` (i.e., whether it could be cancelled), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It modifies instance state (`mCancelled`) and has major side effects by attempting to cancel a `FutureTask`, which alters thread execution and program flow.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Result get()",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `mFuture` to delegate the `get()` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mFuture",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of blocking the calling thread until the background computation, represented by the `FutureTask`, is complete.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's execution time is non-deterministic, as it depends on the completion of the background task. The result itself is also the product of a non-deterministic computation.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value is dependent on the result of the background computation managed by `mFuture`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It has the side effect of blocking the current thread and its return value is dependent on an external, non-deterministic process (the background task).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Result get(long timeout, TimeUnit unit)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `mFuture` to delegate the `get(timeout, unit)` call.",
+      "stateAccesses": [
+        {
+          "name": "this.mFuture",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of blocking the calling thread until the background computation is complete or the timeout expires.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the system clock for managing the timeout, which is a non-deterministic input. Its execution time and potential to throw a `TimeoutException` are non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is dependent on the result of the background computation, not just its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It blocks the current thread (a side effect), relies on the system clock for timeouts (non-deterministic), and its result depends on an external background process.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AsyncTask<Params, Progress, Result> execute(Params... params)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "The method reads the static `sDefaultExecutor` field to determine which executor to use for the task.",
+      "stateAccesses": [
+        {
+          "name": "android.os.AsyncTask.sDefaultExecutor",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method initiates the entire asynchronous task execution by calling `executeOnExecutor`. This is a major side effect, involving state changes, task scheduling, and background thread execution.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method leads to the execution of a task on a separate thread, which is an inherently non-deterministic process in terms of timing and scheduling.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is `this`, but its primary function is to trigger side effects that depend on internal state (`mStatus`) and global state (`sDefaultExecutor`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It is the main entry point for starting the asynchronous operation, which involves state mutation, task scheduling, and reliance on global state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec, Params... params)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "The method reads the `mStatus` field to check if the task can be executed, then writes to `mStatus` to update it to `RUNNING`. It also writes the `params` to the `mParams` field of the internal `mWorker` object and reads `mFuture` to pass it to the executor.",
+      "stateAccesses": [
+        {
+          "name": "this.mStatus",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mStatus",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mWorker.mParams",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFuture",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has multiple, significant side effects. It changes the task's status, calls `onPreExecute()` (a user-defined callback for side effects), and submits the core `FutureTask` to an `Executor`, which begins the background processing. It may also throw an `IllegalStateException`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The execution of tasks on an `Executor` is non-deterministic with respect to timing and thread management.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is `this`. Its behavior is critically dependent on the current `mStatus` of the task, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It orchestrates the beginning of the task's lifecycle, which involves mutating internal state, calling user callbacks, and scheduling background work.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void execute(Runnable runnable)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "This method reads the static field `sDefaultExecutor` to execute the provided runnable.",
+      "stateAccesses": [
+        {
+          "name": "android.os.AsyncTask.sDefaultExecutor",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to cause a side effect: executing an arbitrary `Runnable` on a shared, background executor.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "Executing a runnable on a thread pool is a non-deterministic operation in terms of when it starts and completes.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value. Its behavior depends on the global `sDefaultExecutor` state as well as the provided `Runnable`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It relies on a global executor and its entire purpose is to schedule the execution of arbitrary code, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void publishProgress(Progress... values)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "The method reads the `mCancelled` state via `isCancelled()` and the `mHandler` state via `getHandler()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mCancelled",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mHandler",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "If the task is not cancelled, this method's side effect is to send a message to a `Handler`. This action queues the execution of `onProgressUpdate` on the handler's thread (usually the UI thread).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value. Its behavior (whether it sends a message or not) depends on the internal state `mCancelled`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It depends on the task's cancellation status and its primary purpose is to produce a side effect by posting a message to a handler for inter-thread communication.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void finish(Result result)",
+      "className": "android.os.AsyncTask",
+      "reasonAboutStateAccesses": "The method reads the `mCancelled` field via `isCancelled()` to decide which callback to invoke. It then writes to the `mStatus` field, setting it to `FINISHED`.",
+      "stateAccesses": [
+        {
+          "name": "this.mCancelled",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mStatus",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls either `onCancelled(result)` or `onPostExecute(result)`, which are user-overridable callbacks designed for side effects (like UI updates). It also mutates the internal state of the task by setting `mStatus` to `FINISHED`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value. Its behavior depends on the internal `mCancelled` state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It modifies the task's internal state (`mStatus`) and invokes callbacks (`onCancelled` or `onPostExecute`) that are intended to produce side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void handleMessage(Message msg)",
+      "className": "android.os.AsyncTask.InternalHandler",
+      "reasonAboutStateAccesses": "The method accesses the `obj`, `what` fields of its `msg` parameter. The `msg.obj` is an `AsyncTaskResult`, from which it accesses `mTask` and `mData`. It then calls methods on the `mTask` object (`finish` or `onProgressUpdate`), which in turn read and write the state of that `AsyncTask` instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is the heart of the side-effect mechanism. It runs on the main thread and, based on the message type, calls either `result.mTask.finish()` or `result.mTask.onProgressUpdate()`. These calls trigger the final UI-thread callbacks (`onPostExecute`, `onCancelled`, `onProgressUpdate`), which are designed for side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself contains no non-deterministic calls. However, its own invocation time by the Android Looper is non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value. Its behavior is entirely dependent on the contents of the `Message` object passed as an argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. Although its logic depends only on its argument, its entire purpose is to execute other methods (`finish`, `onProgressUpdate`) that have significant side effects and modify state. It is a key part of the class's impure, side-effect-driven design.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

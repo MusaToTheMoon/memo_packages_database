@@ -1,0 +1,999 @@
+{
+  "file_name": "android.app.Service",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/app/Service.java",
+  "source_code_file_path": "java_source_code_files/android/app/Service.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751916700,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 227.456,
+  "llm_analysis": [
+    {
+      "methodSignature": "Application getApplication()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "This method reads the internal instance field 'mApplication' to return the application object associated with this service.",
+      "stateAccesses": [
+        {
+          "name": "this.mApplication",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter that returns a reference to an internal field. It does not perform any I/O, logging, or modification of state external to the object, hence it has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not call any functions that rely on random numbers, system time, or other non-deterministic sources. Its return value is determined by the state set during the service's initialization.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the 'mApplication' field, not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the internal state field 'mApplication', which is set externally during the service lifecycle. A pure function's output must depend only on its input arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onCreate()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method body is empty and does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty implementation and thus performs no actions with observable side effects. It is a lifecycle callback intended to be overridden by subclasses.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no function calls, so it cannot have any non-deterministic behavior.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no return value, so the concept of its output depending on arguments is vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "While the base implementation is technically pure (no side effects, no state access), this method is a lifecycle callback designed to be overridden to perform initialization, which typically involves side effects. It returns void and is not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onStart(Intent intent, int startId)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method body is empty and does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is a deprecated lifecycle callback with an empty implementation. It has no side effects but is intended to be overridden by subclasses to perform actions.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no function calls, so it cannot have any non-deterministic behavior.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, so the concept of its output depending on arguments is vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The base implementation is pure as it's empty. However, it's a deprecated lifecycle callback intended to be overridden for performing actions with side effects. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int onStartCommand(Intent intent, int flags, int startId)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads the internal boolean field 'mStartCompatibility' to determine its return value.",
+      "stateAccesses": [
+        {
+          "name": "this.mStartCompatibility",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method calls `onStart(intent, startId)`, which is an overridable lifecycle callback. Subclasses are expected to implement `onStart` with side effects, making this call a potential source of side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any calls to non-deterministic functions like random number generators or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state of the 'mStartCompatibility' field, not solely on the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. Its return value is dependent on internal state ('mStartCompatibility'), and it invokes an overridable method ('onStart') which is expected to have side effects. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onDestroy()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method has an empty implementation and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty implementation and thus has no side effects. It's a lifecycle callback intended for subclasses to override for resource cleanup.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method body is empty and makes no calls, thus it has no non-deterministic behavior.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The base implementation is pure because it is empty. However, as a core lifecycle method for cleanup, its intended purpose is inherently stateful and side-effect-driven. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onConfigurationChanged(Configuration newConfig)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method has an empty implementation and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method body is empty, so it produces no side effects. It is a callback for subclasses to handle configuration changes.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method body is empty, so there are no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This lifecycle callback is empty and thus pure in its base implementation. Its purpose is to allow subclasses to react to external events, which is an impure pattern. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onLowMemory()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method has an empty implementation and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method body is empty and has no side effects. It's a callback for handling low memory conditions.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method body is empty, so there are no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This lifecycle callback is empty and thus pure in its base implementation. Its purpose is to allow subclasses to react to external system events, an impure pattern. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onTrimMemory(int level)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method has an empty implementation and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method body is empty and has no side effects. It's a callback for handling memory trimming requests.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method body is empty, so there are no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This lifecycle callback is empty and thus pure in its base implementation. Its purpose is to allow subclasses to react to external system events, an impure pattern. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean onUnbind(Intent intent)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method does not access any state; it returns a constant value.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method simply returns 'false' and has no other operations, so it has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls and returns a constant, so it is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a constant value `false` and does not use its arguments or any internal state. This makes its output dependent only on constants, which fits the definition.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is pure in its base implementation. It takes an argument, ignores it, accesses no state, has no side effects, and returns a constant value. While it is a lifecycle callback, its implementation here is pure. However, memoizing it offers no benefit.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onRebind(Intent intent)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method has an empty implementation and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method body is empty and has no side effects. It's a callback for when new clients bind to the service.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method body is empty, so there are no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This lifecycle callback is empty and thus pure in its base implementation. Its purpose is to allow subclasses to react to external events, an impure pattern. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onTaskRemoved(Intent rootIntent)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method has an empty implementation and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method body is empty and has no side effects. It's a callback for when a task associated with the service is removed.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method body is empty, so there are no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This lifecycle callback is empty and thus pure in its base implementation. Its purpose is to allow subclasses to react to external events, an impure pattern. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void stopSelf()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "This method does not directly access state but calls `stopSelf(int)`, which does.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method delegates to `stopSelf(int)`, which makes a remote procedure call (RPC) to the ActivityManager to stop the service. This interaction with the Android system is a major side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself does not make non-deterministic calls, but the underlying system call's success is dependent on the external state of the ActivityManager.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it causes a significant side effect: stopping the service via a system call. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void stopSelf(int startId)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads the internal fields 'mActivityManager', 'mClassName', and 'mToken' to identify the service to the system.",
+      "stateAccesses": [
+        {
+          "name": "this.mActivityManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method performs a remote procedure call (RPC) via 'mActivityManager.stopServiceToken' to the Android system's ActivityManager. This call modifies system state by stopping the service, which is a significant side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "While the call itself is deterministic, the outcome depends on the external state of the ActivityManager service, which is non-deterministic from this method's perspective.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It reads internal state and triggers a major side effect by making a remote call to the system to stop the service. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean stopSelfResult(int startId)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads the internal fields 'mActivityManager', 'mClassName', and 'mToken' to make a system call.",
+      "stateAccesses": [
+        {
+          "name": "this.mActivityManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method issues a remote procedure call (RPC) to the ActivityManager to stop the service. Modifying the service's lifecycle state in the system is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The return value of this method depends on the result of the remote call to 'mActivityManager.stopServiceToken', which in turn depends on the current state of the system's service management. This external state is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the non-deterministic result of a remote procedure call to the system, not just on the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It reads internal state, has a side effect of stopping the service, and its return value is non-deterministic as it depends on external system state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setForeground(boolean isForeground)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method does not access any state. It is a deprecated no-op.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's only action is to call `Log.w`, which performs a logging operation. Logging is considered an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure because it performs logging, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startForeground(int id, Notification notification)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads internal fields 'mClassName', 'mActivityManager', and 'mToken' to identify the service to the system. It also calls helper methods that access and modify other state.",
+      "stateAccesses": [
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mActivityManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has multiple side effects: it makes an RPC to the ActivityManager to change the service's state, it calls `clearStartForegroundServiceStackTrace` which modifies a global static map, and it calls `logForegroundServiceStart` which performs system tracing.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself doesn't make non-deterministic calls, but its helper methods (`logForegroundServiceStart`) may use non-deterministic values like `System.identityHashCode`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It initiates a system-level state change (RPC), modifies global static state, and performs tracing. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startForeground(int id, Notification notification, int foregroundServiceType)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads internal fields 'mClassName', 'mActivityManager', and 'mToken' to perform its function. It also calls helper methods that access and modify other state.",
+      "stateAccesses": [
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mActivityManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has multiple side effects: it performs an RPC to the ActivityManager to put the service in the foreground, it modifies a global static map via `clearStartForegroundServiceStackTrace`, and it initiates system tracing via `logForegroundServiceStart`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not directly make non-deterministic calls, although helper methods it uses may rely on non-deterministic values for tracing.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is highly impure. It causes a major system state change via RPC, modifies global static state, and performs I/O-like tracing operations. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void stopForeground(boolean removeNotification)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "This method is a simple wrapper and does not directly access state. It calls another `stopForeground` method that does.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method delegates to `stopForeground(int)`, which performs a remote procedure call (RPC) to the ActivityManager to take the service out of the foreground state. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure because it results in a system call that changes the service's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void stopForeground(int notificationBehavior)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads internal fields 'mActivityManager', 'mClassName', and 'mToken' to identify the service for a system call.",
+      "stateAccesses": [
+        {
+          "name": "this.mActivityManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method performs a remote procedure call (RPC) to the ActivityManager to change the service's foreground state. It also calls `logForegroundServiceStopIfNecessary`, which performs system tracing. Both are side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls, but the helper `logForegroundServiceStopIfNecessary` might use non-deterministic values.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It reads internal state and triggers side effects through a remote system call and system tracing. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getForegroundServiceType()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads internal fields 'mActivityManager', 'mClassName', and 'mToken' to query the system.",
+      "stateAccesses": [
+        {
+          "name": "this.mActivityManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method queries the system for information via an RPC. It does not modify state and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's return value is the result of a remote call to the ActivityManager. This value depends on the current state of the service in the system, which is external and can change, making the result non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends entirely on the state of an external system service (ActivityManager), not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the non-deterministic state of an external system service. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void dump(FileDescriptor fd, PrintWriter writer, String[] args)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to write state information to the provided 'writer'. This I/O operation is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is inherently impure as its sole purpose is to produce output for debugging via a PrintWriter, which is an I/O side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void attachBaseContext(Context newBase)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "This method modifies the internal state of the object by calling `super.attachBaseContext(newBase)`, which sets the `mBase` field inherited from `ContextWrapper`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method calls `newBase.setContentCaptureOptions(getContentCaptureOptions())`, which modifies the state of the `newBase` object passed as an argument. Modifying an argument's state is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it modifies its own internal state (the base context) and the state of an object passed as an argument. It is part of the object's initialization sequence and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void attach(Context context, ActivityThread thread, String className, IBinder token, Application application, Object activityManager)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "This method is the primary initializer for the service object. It performs writes to numerous internal fields: 'mThread', 'mClassName', 'mToken', 'mApplication', 'mActivityManager', and 'mStartCompatibility'.",
+      "stateAccesses": [
+        {
+          "name": "this.mThread",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mApplication",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mActivityManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mStartCompatibility",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies the internal state of the Service object extensively by setting its core components. It calls `attachBaseContext` and `setContentCaptureOptions`, which also modify state. These are considered internal state changes rather than external side effects like I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic does not depend on non-deterministic sources like time or random numbers.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is highly impure as its entire purpose is to mutate the internal state of the Service object, preparing it for use. It is a core part of the object's lifecycle and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context createServiceBaseContext(ActivityThread mainThread, LoadedApk packageInfo)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "This method does not access any state of the `Service` instance (`this`). It acts as a factory.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method calls `ContextImpl.createAppContext`, which creates a new complex object (`Context`). Object creation, especially of a system context, involves significant setup and can be considered a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The creation of an application context via `ContextImpl.createAppContext` may depend on the state of the Android system, application resources, and other factors that are not determined solely by the inputs, making the resulting object's state potentially non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The returned Context object's state depends not only on the arguments but also on the broader application and system environment, which is accessed during its creation.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It is a factory method that creates a complex system object, the state of which is dependent on the non-deterministic environment. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void detachAndCleanUp()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method writes `null` to the internal field 'mToken' as part of its cleanup process.",
+      "stateAccesses": [
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method calls `logForegroundServiceStopIfNecessary()`, which performs system tracing. Tracing is an I/O-like operation and thus a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It mutates the internal state of the service (`mToken`) and performs a side effect (tracing). Its purpose is cleanup, which is inherently stateful.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getClassName()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads and returns the value of the internal field 'mClassName'.",
+      "stateAccesses": [
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple getter method that does not perform any operations with side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value is dependent on the internal state of the 'mClassName' field, not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state field `mClassName`, which is set during the service lifecycle, not on its inputs.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ContentCaptureManager.ContentCaptureClient getContentCaptureClient()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method does not access any state fields; it simply returns a reference to the current object (`this`).",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects; it only returns a reference.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns `this`, which is an implicit input, not an explicit argument. Therefore, its result does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not strictly pure because its return value is a mutable object (`this`). A pure function should not return references to mutable state. Memoizing this is pointless.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ComponentName contentCaptureClientGetComponentName()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mClassName' to construct the ComponentName.",
+      "stateAccesses": [
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates a new `ComponentName` object. While object creation is an action, it does not have observable external side effects like I/O or modifying shared state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the internal state field 'mClassName', not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the internal state (`mClassName`). Additionally, it creates a new `ComponentName` object on each call, so it does not return the same reference.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void logForegroundServiceStart(ComponentName comp, int foregroundServiceType)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads and conditionally writes to the internal field 'mForegroundServiceTraceTitle' within a synchronized block to manage tracing state.",
+      "stateAccesses": [
+        {
+          "name": "this.mForegroundServiceTraceTitle",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mForegroundServiceTraceTitle",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to log and trace service start events by calling `Trace.asyncTraceForTrackBegin` or `Trace.instantForTrack`. These are system-level I/O operations and are thus side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method uses `System.identityHashCode(this)`, which provides a value that is consistent for an object but is non-deterministic across different object instances and program runs.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is highly impure. It modifies internal state, performs side effects (system tracing), and relies on a non-deterministic value (identity hash code). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void logForegroundServiceStopIfNecessary()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads the internal field 'mForegroundServiceTraceTitle' and writes `null` to it if it's not already null, all within a synchronized block.",
+      "stateAccesses": [
+        {
+          "name": "this.mForegroundServiceTraceTitle",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mForegroundServiceTraceTitle",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method calls `Trace.asyncTraceForTrackEnd` to log the end of a trace event. This system-level tracing is an I/O-like side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method uses `System.identityHashCode(this)`, which is non-deterministic across different object instances.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It reads and writes internal state, has tracing side effects, and uses a non-deterministic value (identity hash code). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setStartForegroundServiceStackTrace(String className, StackTrace stacktrace)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "This static method writes to the global static field 'sStartForegroundServiceStackTraces', modifying shared state.",
+      "stateAccesses": [
+        {
+          "name": "android.app.Service.sStartForegroundServiceStackTraces",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "Modifying a global static field ('sStartForegroundServiceStackTraces') is a significant side effect, as it affects the behavior of other parts of the application that might read this state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure because it modifies global static state, which is a major side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearStartForegroundServiceStackTrace()",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads its own class name via `getClassName()` and then performs a write operation on the global static map 'sStartForegroundServiceStackTraces' by removing an entry.",
+      "stateAccesses": [
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.app.Service.sStartForegroundServiceStackTraces",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method modifies the global static state by removing an entry from the 'sStartForegroundServiceStackTraces' map. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it reads internal state and modifies global static state, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StackTrace getStartForegroundServiceStackTrace(String className)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "This static method reads from the global static field 'sStartForegroundServiceStackTraces'.",
+      "stateAccesses": [
+        {
+          "name": "android.app.Service.sStartForegroundServiceStackTraces",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method only reads from a static map and returns a value. It does not have any observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the global static map 'sStartForegroundServiceStackTraces', not just on the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. Its output depends on the contents of a mutable, global static field, which can be changed by other parts of the code. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void callOnTimeout(int startId)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads internal fields 'mToken', 'mActivityManager', and 'mClassName' to interact with the system.",
+      "stateAccesses": [
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mActivityManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has multiple side effects: it performs logging via `Log.w`, makes a remote call to `mActivityManager.shouldServiceTimeOut`, and calls the overridable `onTimeout` method, which is expected to have side effects in subclasses.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's control flow depends on the result of a remote call (`mActivityManager.shouldServiceTimeOut`) and a feature flag (`Flags.introduceNewServiceOntimeoutCallback()`), both of which are non-deterministic from the caller's perspective.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is impure. It reads internal state, has side effects (logging, RPC, calling overridable methods), and its behavior is conditioned by non-deterministic external state and feature flags. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onTimeout(int startId)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method has an empty body and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This is an empty callback method and has no side effects in its base implementation. It is designed to be overridden by developers to implement timeout logic.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is empty and makes no calls, so it has no non-deterministic behavior.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The base implementation of this callback is pure because it is empty. However, its intended use is for developers to add side effects or state-mutating logic, making it an impure pattern. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void callOnTimeLimitExceeded(int startId, int fgsType)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method reads internal instance fields `mToken`, `mActivityManager`, and `mClassName` to interact with the Android system.",
+      "stateAccesses": [
+        {
+          "name": "this.mToken",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mActivityManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mClassName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method produces several side effects: it logs messages using `Log.w`, performs a remote procedure call to `mActivityManager.hasServiceTimeLimitExceeded`, and invokes the overridable `onTimeout` callback.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's execution path depends on the return value of the remote call to `hasServiceTimeLimitExceeded` and the state of the `Flags.introduceNewServiceOntimeoutCallback()` feature flag. Both are non-deterministic from the caller's perspective.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure. It reads internal state, its control flow depends on non-deterministic external state (RPC result, feature flag), and it performs side effects such as logging and calling overridable methods. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onTimeout(int startId, int fgsType)",
+      "className": "android.app.Service",
+      "reasonAboutStateAccesses": "The method has an empty implementation and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method body is empty and thus has no side effects. It is a callback intended to be overridden by subclasses to handle FGS timeouts.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is empty and contains no calls, so it has no non-deterministic behavior.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method, making the dependency on arguments vacuously true.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "While the base implementation is pure (empty), this method is a callback designed to be overridden by developers to implement custom logic, which typically involves side effects. As such, it is not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

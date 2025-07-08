@@ -1,0 +1,510 @@
+{
+  "file_name": "android.database.sqlite.SQLiteOpenHelper",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/database/sqlite/SQLiteOpenHelper.java",
+  "source_code_file_path": "java_source_code_files/android/database/sqlite/SQLiteOpenHelper.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751889468,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 110.926,
+  "llm_analysis": [
+    {
+      "methodSignature": "String getDatabaseName()",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "This method reads the final instance field 'mName' to return the database name provided during object construction.",
+      "stateAccesses": [
+        {
+          "name": "this.mName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and does not perform any I/O, logging, or modification of any state. It only returns a value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not use any non-deterministic functions like random number generators or system time. Its return value is constant for a given object instance.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the internal state ('mName' field) of the object instance.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not strictly pure because its return value is dependent on the internal state field 'mName'. However, since 'mName' is a final field set at construction, the method is referentially transparent for a given instance of the class. It is not suitable for memoization across different instances.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setWriteAheadLoggingEnabled(boolean enabled)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "The method synchronizes on the instance, reads the state of the 'mDatabase' and 'mOpenParamsBuilder' fields, and modifies the 'mOpenParamsBuilder' to reflect the new write-ahead logging setting.",
+      "stateAccesses": [
+        {
+          "name": "this.mOpenParamsBuilder",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOpenParamsBuilder",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It modifies the internal state of 'mOpenParamsBuilder'. More significantly, if the database is already open, it calls 'mDatabase.enableWriteAheadLogging()' or 'mDatabase.disableWriteAheadLogging()', which directly changes the database file's operational mode, an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior does not depend on non-deterministic functions. Its outcome is determined by its argument and the current state of the object and database.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is stateful and its behavior depends on internal fields like 'mDatabase' and 'mOpenParamsBuilder', not just its input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state ('mOpenParamsBuilder') and can cause significant external side effects by changing the database's write-ahead logging mode, which is a form of I/O. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setLookasideConfig(int slotSize, int slotCount)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "This method synchronizes on the instance, reads the 'mDatabase' field to check if it's open, and writes to the 'mOpenParamsBuilder' field to set the lookaside configuration.",
+      "stateAccesses": [
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOpenParamsBuilder",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It modifies the internal 'mOpenParamsBuilder' state. It also throws an 'IllegalStateException' if the database is already open, which is a control-flow side effect based on the object's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not invoke any non-deterministic functions. Its behavior is determined by its arguments and the state of the 'mDatabase' field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on internal state ('mDatabase') and is not solely determined by its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of 'mOpenParamsBuilder' and has state-dependent behavior (throwing an exception). This makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setOpenParams(SQLiteDatabase.OpenParams openParams)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "The method synchronizes on the instance, reads the 'mDatabase' field to check if it's already open, and writes a new 'mOpenParamsBuilder' instance based on the provided parameters.",
+      "stateAccesses": [
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOpenParamsBuilder",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It modifies the internal 'mOpenParamsBuilder' state. It also throws an 'IllegalStateException' if the database is already open, which is a side effect dependent on the object's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions. Its behavior depends on its argument and the state of the 'mDatabase' field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state of 'mDatabase' in addition to its input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the internal state ('mOpenParamsBuilder') and its behavior (throwing an exception) is dependent on other internal state ('mDatabase'). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setOpenParamsBuilder(SQLiteDatabase.OpenParams.Builder openParamsBuilder)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "This method directly modifies the internal state by assigning a new value to the 'mOpenParamsBuilder' field and then modifying that builder object.",
+      "stateAccesses": [
+        {
+          "name": "this.mOpenParamsBuilder",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal state field 'mOpenParamsBuilder'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's purpose is to modify internal state based on the argument, so it does not depend on arguments only in the context of purity.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure as its sole purpose is to mutate the internal state of the object by changing the 'mOpenParamsBuilder' field. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setIdleConnectionTimeout(long idleConnectionTimeoutMs)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "This method synchronizes on the instance, reads the 'mDatabase' field to check if the database is open, and then writes to the 'mOpenParamsBuilder' to set the idle connection timeout.",
+      "stateAccesses": [
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOpenParamsBuilder",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It modifies the internal 'mOpenParamsBuilder' state. It also throws an 'IllegalStateException' if the database is already open, a control-flow side effect based on state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not invoke any non-deterministic functions. Its behavior is determined by its argument and the state of the 'mDatabase' field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on internal state ('mDatabase') in addition to its input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of 'mOpenParamsBuilder' and has state-dependent behavior (throwing an exception). This makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "SQLiteDatabase getWritableDatabase()",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "The method is a synchronized wrapper for 'getDatabaseLocked'. This means it participates in the complex state management performed by the helper method, which reads numerous internal fields ('mDatabase', 'mIsInitializing', 'mName', 'mNewVersion', etc.) and writes to 'mDatabase' and 'mIsInitializing'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mIsInitializing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mIsInitializing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has extensive side effects via its call to 'getDatabaseLocked'. It can perform file I/O to create, open, upgrade, or downgrade a database file on disk. It can log errors, modify internal state, and trigger overridable callback methods ('onCreate', 'onUpgrade', etc.) which can have arbitrary side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's outcome is highly non-deterministic. It depends on the state of the filesystem (e.g., if the database file exists, its permissions, whether the disk is full) and the content of the database (e.g., its schema version).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments. Its return value and behavior are entirely dependent on the internal state of the helper and the external state of the filesystem and database file.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is fundamentally impure. It is designed to manage and interact with an external resource (a database file), which involves I/O, state modification, and non-deterministic behavior. It is one of the least suitable methods for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "SQLiteDatabase getReadableDatabase()",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "This method is a synchronized wrapper for 'getDatabaseLocked'. It reads and writes internal state fields like 'mDatabase' and 'mIsInitializing' via the helper method to manage the database connection.",
+      "stateAccesses": [
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mIsInitializing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mIsInitializing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has extensive side effects via 'getDatabaseLocked'. It can create or open a database file (I/O), potentially in read-only mode. It can also trigger database creation or upgrade logic, which involves significant state changes and I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic as it depends on external factors like the existence and state of the database file on the filesystem. A call might return a cached object, or it might initiate a long-running I/O operation.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments. Its outcome is determined by the internal state of the object and the state of the external database file.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It interacts with the filesystem, manages a stateful external resource (the database), and has non-deterministic outcomes. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "SQLiteDatabase getDatabaseLocked(boolean writable)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "This is the core state management method. It reads and writes 'mDatabase' and 'mIsInitializing' to control recursion and caching. It also reads configuration state from 'mName', 'mContext', 'mOpenParamsBuilder', 'mNewVersion', and 'mMinimumSupportedVersion'.",
+      "stateAccesses": [
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mIsInitializing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mIsInitializing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mName",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOpenParamsBuilder",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mNewVersion",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMinimumSupportedVersion",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is the source of major side effects. It performs file I/O to open, create, and delete database files. It logs errors using 'Log.e'. It calls potentially long-running, user-defined callbacks like 'onCreate', 'onUpgrade', 'onConfigure', 'onOpen', and 'onDowngrade'. It also manages database transactions and can throw exceptions.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. Its execution path depends on the state of the filesystem (file existence, permissions, disk space) and the contents of the database file (specifically its version number).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is heavily influenced by its internal state and the state of the external environment (filesystem), not just its 'writable' argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is the archetype of an impure function. It is deeply integrated with external system state (filesystem, database), modifies internal object state, and produces significant side effects like I/O and logging. It is entirely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setFilePermissionsForDb(String dbPath)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "This is a static method and does not access any instance or class state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has a significant side effect: it modifies the permissions of a file on the filesystem by calling 'FileUtils.setPermissions'. This is an I/O operation that changes external state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "Filesystem operations are non-deterministic as they can fail for reasons external to the program, such as the file not existing or the process lacking sufficient privileges.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void. Its action (modifying file permissions) depends entirely on the provided 'dbPath' argument, but it is not pure due to side effects.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its entire purpose is to cause a side effect on the filesystem. Such operations are non-deterministic and stateful, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void close()",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "This method synchronizes on the instance, reads 'mIsInitializing' to prevent closing during initialization, reads 'mDatabase' to get the connection to close, and writes 'mDatabase' to null to mark it as closed.",
+      "stateAccesses": [
+        {
+          "name": "this.mIsInitializing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDatabase",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has significant side effects. It calls 'mDatabase.close()', which releases the database connection and associated system resources (an I/O-related operation). It modifies the internal state by setting 'mDatabase' to null. It also throws an 'IllegalStateException' under certain conditions.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic based on the object's state, but the underlying 'mDatabase.close()' might interact with the system in ways that could be considered non-deterministic (e.g., waiting for locks).",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its behavior is entirely dependent on internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state ('mDatabase') and produces an important side effect by closing a database connection, which releases an external resource. This makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onConfigure(SQLiteDatabase db)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "The base implementation of this method does not access any internal state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The base implementation of this method is empty and has no side effects. It is intended to be overridden by subclasses to configure the database, which would introduce side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The base implementation of this method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void and its base implementation does nothing, so this is trivially true. However, its purpose in subclasses is to be stateful.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method, as implemented in this abstract class, is pure. It has no body, accesses no state, and produces no side effects. However, it is a callback designed to be overridden to perform side effects, so memoizing it would be counter-productive in any concrete implementation.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onBeforeDelete(SQLiteDatabase db)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "The base implementation of this method does not access any internal state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The base implementation is empty and has no side effects. It's a hook for subclasses.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The base implementation contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void and its base implementation is empty. Its behavior does not depend on anything other than its (unused) argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method in this base class is pure as it has an empty implementation. It accesses no state and has no side effects. In practice, subclasses would override it to perform side effects, making those implementations impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "The method does not access any internal state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method's only purpose in the base class is to unconditionally throw an 'SQLiteException'. Throwing an exception is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls. It always throws an exception.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void, but its behavior (throwing an exception) is not dependent on its arguments in a functional sense, as it always happens. It is not pure.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its sole behavior is to throw an exception, which is a side effect that alters the normal control flow of the program. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onOpen(SQLiteDatabase db)",
+      "className": "android.database.sqlite.SQLiteOpenHelper",
+      "reasonAboutStateAccesses": "The base implementation of this method does not access any internal state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The base implementation of this method is empty and produces no side effects. It is a callback intended for subclasses to override.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The base implementation of this method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void and its base implementation is empty. Its behavior does not depend on anything other than its (unused) argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "In its base implementation, this method is pure. It is empty, accesses no state, and has no side effects. Subclasses are expected to override it to introduce side effects, making their implementations impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

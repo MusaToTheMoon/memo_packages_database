@@ -1,0 +1,974 @@
+{
+  "file_name": "android.content.Intent",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/content/Intent.java",
+  "source_code_file_path": "java_source_code_files/android/content/Intent.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751827830,
+  "run_name": "gemini-2.5-pro-pass-2",
+  "llm_response_time_seconds": 261.423,
+  "llm_analysis": [
+    {
+      "methodSignature": "void maybeMarkAsMissingCreatorToken(Object object)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This is a static method that does not access any fields of the `Intent` class itself. It operates on the passed `object`, and if it's an `Intent` or contains `Intent` objects, it modifies their internal state by reading `mLocalFlags` and potentially writing to `mExtendedFlags`. It also calls `preventIntentRedirect()`, which reads a global system flag.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects as it modifies the state of the `Intent` object(s) passed as an argument by calling `addExtendedFlags` on them. This constitutes a mutation of shared state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method's behavior is non-deterministic because it calls `preventIntentRedirect()`, which reads a system-level flag. The value of this flag can change, altering the method's outcome for the same input.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's logic depends on the type and state of the `object` argument, as well as an external, non-deterministic system flag via `preventIntentRedirect()`. It does not have a return value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It mutates the state of its argument `object` and its behavior is non-deterministic due to its reliance on a global system flag checked by `preventIntentRedirect()`. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Intent createChooser(Intent target, CharSequence title, IntentSender sender)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This is a static factory method and does not access any static fields of the `Intent` class. It reads several fields from the `target` argument (an `Intent` object) such as flags, clip data, and data URI to configure the new chooser Intent it creates.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no observable side effects. It creates a new `Intent` object, populates it based on the arguments, and returns it. It does not perform I/O, logging, or modify any global or pre-existing state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. It does not call any functions related to time, randomness, or external system state that would cause its output to vary for the same set of inputs.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `Intent` object is constructed entirely from the provided `target`, `title`, and `sender` arguments. The method's output is a direct and repeatable function of its inputs.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a pure factory. It is free of side effects and non-determinism, and its output depends only on its arguments. It creates and returns a new object without modifying any existing state, making it a good candidate for memoization if the arguments are treated as values.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Object clone()",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method reads all of the instance fields of the current `Intent` object (`this`) in order to create a deep copy. It accesses fields like `mAction`, `mData`, `mType`, `mFlags`, `mExtras`, etc., to populate the new `Intent` instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. Its sole purpose is to create and return a new `Intent` object that is a copy of the current one, without modifying any external or internal state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. For a given state of the `Intent` object, it will always produce an identical clone.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments, but its return value depends entirely on the state of the `this` object upon which it is called. Therefore, it does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is pure. It creates and returns a new object based on the state of the current instance without any side effects. While its output depends on the object's state rather than arguments, it is a deterministic and stateless operation, making it suitable for memoization in a per-instance context.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Intent cloneFilter()",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method reads a subset of the instance fields relevant for filter matching (`mAction`, `mData`, `mType`, `mComponent`, `mCategories`) to create a new, lightweight clone of the Intent.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It creates and returns a new `Intent` object without modifying any other state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic. It will always produce the same filtered clone for an Intent in a given state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments; its output depends on the state of the `this` object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is pure. It is a factory for a new, filtered `Intent` object, and its operation is deterministic and free of side effects. It is a good candidate for memoization on a per-instance basis.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String getAction()",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method is a simple getter that reads the value of the internal instance field `this.mAction`.",
+      "stateAccesses": [
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It only reads and returns the value of an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. It directly returns the value of a field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method has no arguments. Its return value depends on the internal state of the `Intent` instance.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple, side-effect-free getter. Its output depends on the object's state, but the operation itself is deterministic and does not alter any state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Uri getData()",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method is a simple getter that reads the value of the internal instance field `this.mData`.",
+      "stateAccesses": [
+        {
+          "name": "this.mData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It only reads and returns the value of an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic, as it directly returns a field's value.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method has no arguments. Its return value depends on the internal state of the `Intent` instance.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple, side-effect-free getter. The operation is deterministic and does not alter any state.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String resolveType(ContentResolver resolver)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method reads the internal instance fields `this.mType` and `this.mData`. It does not write to any state.",
+      "stateAccesses": [
+        {
+          "name": "this.mType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a significant side effect. If the intent's type is not explicitly set, it calls `resolver.getType(mData)`, which triggers an IPC call to a ContentProvider to determine the MIME type of the URI. This is an external system interaction.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because its return value depends on the state of an external ContentProvider, which can change at any time. The same intent might resolve to different types if the provider's data changes.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the object's internal state (`mType`, `mData`) and the state of an external system component (the `ContentResolver` and its backing `ContentProvider`), not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It is non-deterministic and has the side effect of making an IPC call to the Android system. Its result can vary depending on external state, making it a poor candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean hasCategory(String category)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `this.mCategories`, which is a Set of strings, to check for the existence of the given category.",
+      "stateAccesses": [
+        {
+          "name": "this.mCategories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It performs a read-only check on an internal collection.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. For a given object state and category, it will always return the same result.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the `this` object (`mCategories`) as well as the `category` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple, side-effect-free check on the object's internal state. The operation is deterministic and does not alter any state. It is suitable for memoization on a per-instance basis.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean hasExtra(String name)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `this.mExtras`, which is a `Bundle`, to check if it contains a key with the given name.",
+      "stateAccesses": [
+        {
+          "name": "this.mExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a read-only operation on the internal extras bundle.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. Its result depends only on the contents of the extras bundle.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of `this` (`mExtras`) and the `name` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is pure. It performs a deterministic check on the object's internal state without any side effects, making it suitable for instance-level memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ComponentName resolveActivity(PackageManager pm)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "The method reads the internal instance field `this.mComponent`. It does not access any other internal state directly, but passes `this` to the PackageManager.",
+      "stateAccesses": [
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of performing an Inter-Process Communication (IPC) call to the system's `PackageManager` to resolve the intent to an activity. This is an interaction with an external system service.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic. Its result depends on the state of the Android system, specifically which application packages are installed and enabled at the time of the call. The same intent can resolve to different components or no component at all if the set of installed apps changes.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on the state of `this` object and the state of the external `PackageManager` service, not only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It is non-deterministic and has side effects (IPC). Its result is dependent on the global state of the device's installed applications, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Intent setAction(String action)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method is a setter that writes to the internal instance field `this.mAction`. The input string is also interned.",
+      "stateAccesses": [
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The primary side effect of this method is the mutation of the `Intent` object's internal state (`mAction`). It is designed to modify the object it is called on.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. The state change depends only on the input argument.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's purpose is to mutate state. It returns `this`, which is not a value derived solely from its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure because it modifies the internal state of the object (`this.mAction`), which is a side effect. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int fillIn(Intent other, int flags)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method extensively reads from the `other` Intent and writes to the internal state of `this` object. Fields like `mAction`, `mData`, `mType`, `mCategories`, `mPackage`, `mExtras`, etc., are conditionally updated based on the `flags` argument and whether they are already set in `this`.",
+      "stateAccesses": [
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mIdentifier",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mCategories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mPackage",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mSelector",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mClipData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mExtendedFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mSourceBounds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mCreatorTokenInfo",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mContentUserHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The primary side effect is the mutation of the `this` object's state. It also performs logging to Logcat (`Log.w`) if it encounters a runtime exception while merging extras, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The core logic of the method is deterministic based on its inputs. It does not rely on time, randomness, or external system state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value depend on the initial state of `this` object and the state of the `other` argument, not just on the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It is designed to mutate the state of the object it is called on. It also has a logging side effect. Therefore, it is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean filterEquals(Intent other)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "The method reads multiple internal fields from both `this` instance and the `other` Intent instance to perform a comparison: `mAction`, `mData`, `mType`, `mIdentifier`, `mPackage`, `mComponent`, and `mCategories`. It does not write to any state.",
+      "stateAccesses": [
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mIdentifier",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPackage",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCategories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a pure comparison function that only reads state and returns a boolean.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. For the same two `Intent` objects (with the same relevant state), it will always return the same boolean result.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the `this` object and the `other` argument, not just the argument alone.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic, side-effect-free comparison based on the state of `this` and the `other` argument. It is a good candidate for memoization, especially if the Intent objects are treated as immutable values.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int filterHashCode()",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "The method reads multiple internal fields (`mAction`, `mData`, `mType`, `mIdentifier`, `mPackage`, `mComponent`, `mCategories`) to compute a hash code. It does not write to any state.",
+      "stateAccesses": [
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mIdentifier",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPackage",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCategories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a pure computational function.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. It will always return the same hash code for an object with the same state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its return value is dependent on the internal state of the `this` object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It calculates a hash code based on the object's internal state in a deterministic and side-effect-free manner. It is a good candidate for memoization, with the result being cached within the instance.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String toString()",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "The method reads multiple internal fields of the object to construct a string representation, including `mAction`, `mCategories`, `mData`, `mType`, etc., by calling `toShortString`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It is a read-only operation that produces a string.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. For a given Intent state, it will always produce the same string representation.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments. Its output depends on the state of the `this` object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It creates a string representation of the object's state without any side effects. It is a good candidate for instance-level memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void writeToParcel(Parcel out, int flags)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method reads nearly all internal fields of the `Intent` object (`mAction`, `mData`, `mType`, `mIdentifier`, `mFlags`, `mPackage`, `mComponent`, `mSourceBounds`, `mCategories`, `mSelector`, `mClipData`, `mContentUserHint`, `mExtras`, `mOriginalIntent`, `mCreatorTokenInfo`) in order to serialize them into the parcel.",
+      "stateAccesses": [
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mIdentifier",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mExtendedFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPackage",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mSourceBounds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCategories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mSelector",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mClipData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mContentUserHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOriginalIntent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCreatorTokenInfo",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method's purpose is to perform serialization by writing data to the provided `Parcel` object. This is an I/O-like side effect as it mutates the `out` argument, which is a data stream.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is mostly deterministic, but it calls `preventIntentRedirect()`, which reads a global system flag, making its behavior dependent on external configuration.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of `this` object and mutates the `out` parcel. It does not produce a return value based on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It has the clear side effect of writing to a Parcel, which is fundamental to the `Parcelable` interface but is not a pure operation. It is not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void readFromParcel(Parcel in)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method writes to almost all internal fields of the `this` object by deserializing them from the `in` Parcel. This includes `mAction`, `mData`, `mType`, `mFlags`, `mExtras`, etc. It is a mass-mutation method.",
+      "stateAccesses": [
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mIdentifier",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mExtendedFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mPackage",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mSourceBounds",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mCategories",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mSelector",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mClipData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mContentUserHint",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mOriginalIntent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mCreatorTokenInfo",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to deserialize data from a `Parcel` and populate the current object's fields. This involves reading from the `in` parcel stream and mutating the state of `this`, which are both side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as its behavior depends on the contents of the `in` Parcel, which is an external input. It also calls `preventIntentRedirect()` which reads from global system state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no return value. Its state-mutating behavior depends on the `in` Parcel argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It reads from an external data stream (the Parcel) and heavily mutates the object's internal state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isDocument()",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `this.mFlags` to check if a specific flag bit is set.",
+      "stateAccesses": [
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It performs a bitwise check on an internal field and returns a boolean.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. The result is a direct computation on the `mFlags` field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its return value depends on the internal state of the `this` object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic, side-effect-free check on the object's internal state. It is a good candidate for instance-level memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isWebIntent()",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "The method reads the internal instance fields `this.mAction` and `this.mData` to determine if the intent represents a web URI to be viewed.",
+      "stateAccesses": [
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a pure computation based on the object's state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic. Its logic is based on string comparisons and checking the scheme of a URI.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its return value depends on the internal state of the `this` object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a check on the object's state without causing any side effects. It is a good candidate for instance-level memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void prepareToLeaveProcess(Context context)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "This method reads internal fields like `mComponent`, `mPackage`, `mAction`, and `mData`. It may modify `mData` by calling `fixUris`. It also sets internal state on nested objects like `mSelector` and `mClipData`.",
+      "stateAccesses": [
+        {
+          "name": "this.mComponent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPackage",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has multiple side effects. It calls `setAllowFds(false)`, mutates the state of this and nested intents, and can trigger StrictMode violations, which results in logging. It interacts with the system to get the `StorageManager` service and may translate file paths, which depends on system state. It may also log messages to Logcat.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its behavior depends on StrictMode being enabled, the application's package name, and the state of the system's `StorageManager`. The call to `AppGlobals.getInitialApplication()` also retrieves global application state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state of `this` object, the provided `Context`, and various global system states. It does not have a return value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is highly impure. It mutates its own state, interacts with the system (PackageManager, StorageManager, StrictMode), and its behavior is non-deterministic. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean migrateExtraStreamToClipData(Context context)",
+      "className": "android.content.Intent",
+      "reasonAboutStateAccesses": "The method reads internal state including `mExtras`, `mClipData`, `mAction`, and `mType`. It writes to `mClipData` by calling `setClipData` and to `mFlags` by calling `addFlags`.",
+      "stateAccesses": [
+        {
+          "name": "this.mExtras",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mClipData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mAction",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mType",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It mutates the Intent's state (`mClipData`, `mFlags`). It can log metrics via `Counter.logIncrement`. For image capture intents, it may convert a file URI to a content URI, which can involve creating a file on disk (`file.createNewFile()`) and interacting with the `MediaStore`, which are I/O and system side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its behavior depends on the application's target SDK version and can depend on the state of the filesystem and `MediaStore` when converting URIs. The metric logging also depends on external system state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value depend on the internal state of `this`, the provided `Context`, and the state of the filesystem and system services.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is highly impure. It mutates the object's state, logs metrics, and can perform filesystem I/O and interact with system services. It is not at all suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

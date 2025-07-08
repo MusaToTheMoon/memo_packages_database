@@ -1,0 +1,1962 @@
+{
+  "file_name": "android.content.ContentProvider",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/content/ContentProvider.java",
+  "source_code_file_path": "java_source_code_files/android/content/ContentProvider.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751824420,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 302.646,
+  "llm_analysis": [
+    {
+      "methodSignature": "boolean isAuthorityRedirectedForCloneProfile(String authority)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "The method reads the static final field 'MediaStore.AUTHORITY' for comparison. This is a read of a global, constant value.",
+      "stateAccesses": [
+        {
+          "name": "android.provider.MediaStore.AUTHORITY",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It performs a simple string comparison.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic as it compares the input argument with a compile-time constant.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends solely on its input argument 'authority' and the global constant 'MediaStore.AUTHORITY'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a static method that performs a deterministic comparison between its argument and a global constant, without causing any side effects.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ContentProvider coerceToLocalContentProvider(IContentProvider abstractInterface)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any class or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It only performs a type check and a cast.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. Its behavior is solely determined by the runtime type of the 'abstractInterface' argument.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends only on the type of its input argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a static method that performs a type check and cast on its argument, with no side effects or reliance on mutable state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean checkUser(int pid, int uid, Context context)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads internal primitive boolean fields 'mSystemUserOnly' and 'mSingleUser'. It also accesses the 'context' object to call its methods, which involves reading system state.",
+      "stateAccesses": [
+        {
+          "name": "this.mSystemUserOnly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mSingleUser",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects because it interacts with the Android system to check permissions by calling 'context.checkPermission()'. It also calls 'isContentRedirectionAllowedForUser' which interacts with the UserManager service. These are external system interactions.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its result depends on the current user's permissions and system settings, which are external states that can change at any time. Calls to 'context.checkPermission()' and 'isContentRedirectionAllowedForUser()' are non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method does not depend on arguments only. It depends on internal instance fields ('mSystemUserOnly', 'mSingleUser') and external system state (user permissions and properties).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on internal state and makes non-deterministic calls to the system to check permissions and user properties, which are considered side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isContentRedirectionAllowedForUser(int incomingUserId)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "The method reads the internal string field 'mAuthority' and reads from and writes to the internal object field 'mUsersRedirectedToOwnerForMedia', which acts as a cache. It also reads the 'mContext' field to get system services.",
+      "stateAccesses": [
+        {
+          "name": "this.mAuthority",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mUsersRedirectedToOwnerForMedia",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mUsersRedirectedToOwnerForMedia",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects as it modifies the internal state ('mUsersRedirectedToOwnerForMedia'). It also interacts with the Android system by getting the 'UserManager' service and querying user properties, which involves IPC.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its result depends on system-level user properties fetched via 'UserManager' and the current process's user handle from 'myUserHandle()'. These can change depending on the device's state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output does not depend only on its arguments. It relies on internal state ('mAuthority', 'mUsersRedirectedToOwnerForMedia') and external system state (user properties).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies its own state (the cache 'mUsersRedirectedToOwnerForMedia'), interacts with system services ('UserManager'), and its behavior is non-deterministic based on the system's user configuration.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int checkPermission(String permission, AttributionSource attributionSource)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "The method reads the internal 'mContext' field to interact with the system.",
+      "stateAccesses": [
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects as it performs a permission check by calling 'PermissionChecker.checkPermissionForDataDeliveryFromDataSource', which is a system-level operation that depends on the calling process's identity.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic. It calls 'Binder.getCallingPid()' and 'Process.myPid()', and the result of the permission check depends on the identity of the calling process and the system's current permission grants, which are external and can change.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is not solely dependent on its arguments. It critically depends on the calling context (PID) and the system's permission state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a system permission check, which is a side effect and is non-deterministic as it depends on the calling process's identity and the system's permission state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int enforceReadPermissionInner(Uri uri, AttributionSource attributionSource)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads several internal state fields: 'mContext', 'mMyUid', 'mExported', 'mReadPermission', 'mPathPermissions', 'mSingleUser', and 'mSystemUserOnly' to perform permission enforcement logic.",
+      "stateAccesses": [
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMyUid",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mExported",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mReadPermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPathPermissions",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mSingleUser",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mSystemUserOnly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the significant side effect of throwing a 'SecurityException' if the permission check fails. It also interacts with the system to check permissions via 'checkUser' and 'context.checkUriPermission'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its behavior depends on the calling process's PID and UID ('Binder.getCallingPid', 'Binder.getCallingUid') and the current state of system permissions, which are external and variable.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not dependent on arguments only. It relies heavily on the provider's configuration (internal state) and the caller's system-level permissions (external state).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to enforce security rules, which involves reading instance state, making non-deterministic calls to the system, and having the side effect of throwing an exception to deny access.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int enforceWritePermissionInner(Uri uri, AttributionSource attributionSource)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads several internal state fields: 'mContext', 'mMyUid', 'mExported', 'mWritePermission', and 'mPathPermissions' to perform its permission enforcement logic.",
+      "stateAccesses": [
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMyUid",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mExported",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mWritePermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPathPermissions",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the significant side effect of throwing a 'SecurityException' if the permission check fails. It also interacts with the system to check permissions via 'checkUser' and 'context.checkUriPermission'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Its behavior depends on the calling process's PID and UID ('Binder.getCallingPid', 'Binder.getCallingUid') and the current state of system permissions, which are external and variable.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is not dependent on arguments only. It relies heavily on the provider's configuration (internal state) and the caller's system-level permissions (external state).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It enforces security policies by reading instance state, making non-deterministic system calls, and can throw an exception, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context getContext()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method performs a read access on the internal object field 'mContext'.",
+      "stateAccesses": [
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no direct side effects; it's a simple getter. However, the returned Context object can be used to produce side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic, always returning the current value of 'mContext'.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object ('mContext'), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it's a simple getter with no side effects, its return value depends on the mutable internal state of the ContentProvider instance. Pure functions cannot depend on instance state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Context requireContext()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mContext' via a call to 'getContext()'.",
+      "stateAccesses": [
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method can have the side effect of throwing an 'IllegalStateException' if the context has not been initialized.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic based on the state of 'mContext'.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state ('mContext'), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on the internal state of the instance and can throw an exception, which is a side effect. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AttributionSource setCallingAttributionSource(AttributionSource attributionSource)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the current value from and writes a new value to the 'mCallingAttributionSource' ThreadLocal field.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects as it modifies the state of a 'ThreadLocal' variable. It also calls 'onCallingPackageChanged()', which is designed to be overridden and may have side effects in subclasses.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as it interacts with a 'ThreadLocal', whose state is specific to the current thread of execution.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its argument but also on the previous state of the 'ThreadLocal' which it returns.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies thread-local state, which is a side effect, and its behavior is tied to the execution context of the current thread.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getCallingPackage()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the 'mCallingAttributionSource' ThreadLocal and the 'mTransport.mAppOpsManager' field via its call to 'getCallingAttributionSource()'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTransport.mAppOpsManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects because it calls 'getCallingAttributionSource()', which in turn calls 'mAppOpsManager.checkPackage()'. This is a system call that performs a permission check.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic as its outcome depends on the calling application's identity, which is retrieved via thread-local state and system calls ('Binder.getCallingUid()').",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method does not depend on arguments, but on the implicit calling context stored in a thread-local variable and system state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on non-deterministic, thread-specific state and involves a system call for package verification, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AttributionSource getCallingAttributionSource()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads from the 'mCallingAttributionSource' ThreadLocal field and reads the 'mTransport.mAppOpsManager' field to perform a system call.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTransport.mAppOpsManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of interacting with the system's AppOpsManager to verify the calling package via 'checkPackage()', which involves an IPC call.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic. It relies on 'Binder.getCallingUid()' to get the caller's identity and reads from a ThreadLocal, both of which depend on the specific execution context.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its result depends entirely on the implicit calling context and system state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is non-deterministic as it depends on the caller's identity and has side effects in the form of system calls for verification.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getCallingAttributionTag()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the 'mCallingAttributionSource' ThreadLocal and the 'mTransport.mAppOpsManager' field via its call to 'getCallingAttributionSource()'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTransport.mAppOpsManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects because its call to 'getCallingAttributionSource()' results in a system call to 'mAppOpsManager.checkPackage()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic as it depends on the calling context retrieved from a ThreadLocal and verified via a system service.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method does not depend on arguments; it depends on the implicit calling context.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a wrapper around 'getCallingAttributionSource', which is non-deterministic and has side effects (system calls).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getCallingFeatureId()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the 'mCallingAttributionSource' ThreadLocal via its call to 'getCallingAttributionTag()'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to 'getCallingAttributionTag()', which ultimately results in a system call to 'mAppOpsManager.checkPackage()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic as its result depends on the calling context retrieved from a ThreadLocal.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method does not depend on arguments; its outcome is determined by the implicit calling context.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a deprecated wrapper that delegates to other impure methods that depend on non-deterministic state and have side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getCallingPackageUnchecked()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the internal 'mCallingAttributionSource' ThreadLocal field.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method does not have side effects. It directly accesses the ThreadLocal without performing any system verification calls.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because it reads from a 'ThreadLocal' variable. The value of this variable is dependent on the current thread and when 'setCallingAttributionSource' was called.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method does not depend on arguments but on the non-deterministic state of a ThreadLocal.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it lacks side effects, its result is non-deterministic as it depends on the state of a thread-local variable, making it unsuitable for memoization across different contexts.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onCallingPackageChanged()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state in its default implementation.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects as implemented in the base class; its body is empty. However, it is designed to be overridden by subclasses which may introduce side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method makes no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a void method with no arguments and an empty body, so this question is not strictly applicable. It does not compute a return value.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The base implementation of this method is pure as it does nothing. However, its purpose is to be overridden to handle state changes, so in practice, any useful implementation will be impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "CallingIdentity clearCallingIdentity()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method writes a null value to the 'mCallingAttributionSource' ThreadLocal via 'setCallingAttributionSource(null)'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects: it calls 'Binder.clearCallingIdentity()' which modifies a thread-local state within the Android Binder framework, and it modifies the provider's own 'mCallingAttributionSource' ThreadLocal.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because 'Binder.clearCallingIdentity()' interacts with and returns a value based on the current thread's IPC state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its behavior and return value are entirely dependent on the current thread's context.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is explicitly designed to manipulate the non-deterministic, thread-local state of the Binder system, which is a major side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void restoreCallingIdentity(CallingIdentity identity)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method writes a value to the 'mCallingAttributionSource' ThreadLocal.",
+      "stateAccesses": [
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It calls 'Binder.restoreCallingIdentity()' to restore a previous IPC identity, which modifies a thread-local state in the Binder framework. It also restores the 'mCallingAttributionSource' ThreadLocal.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method's action is to manipulate the thread's non-deterministic calling identity state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's side effects are determined by the 'identity' argument, but it operates on global thread state, not just local data.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is the counterpart to 'clearCallingIdentity' and is designed to produce side effects by manipulating the global, thread-local state of the Binder system.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setAuthorities(String authorities)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method writes to the internal state fields 'mAuthority' and 'mAuthorities'.",
+      "stateAccesses": [
+        {
+          "name": "this.mAuthority",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mAuthorities",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method's side effect is modifying the internal state of the ContentProvider instance.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is entirely determined by its 'authorities' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the internal state of the object ('mAuthority', 'mAuthorities'). This is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean matchesOurAuthorities(String authority)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the internal state fields 'mAuthority' and 'mAuthorities' to check for a match.",
+      "stateAccesses": [
+        {
+          "name": "this.mAuthority",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAuthorities",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic for a given state of the provider.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its argument and the internal state of the object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its result depends on the mutable internal state of the instance ('mAuthority', 'mAuthorities'), not just its arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setReadPermission(String permission)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method writes to the internal state field 'mReadPermission'.",
+      "stateAccesses": [
+        {
+          "name": "this.mReadPermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method's side effect is modifying the 'mReadPermission' field of the instance.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is determined by its 'permission' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the internal state of the object, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getReadPermission()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the internal state field 'mReadPermission'.",
+      "stateAccesses": [
+        {
+          "name": "this.mReadPermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects; it's a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic for a given state of the provider.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it's a simple getter, its result depends on the mutable internal state ('mReadPermission') of the instance.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setWritePermission(String permission)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method writes to the internal state field 'mWritePermission'.",
+      "stateAccesses": [
+        {
+          "name": "this.mWritePermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method's side effect is modifying the 'mWritePermission' field of the instance.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is determined by its 'permission' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the internal state of the object, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getWritePermission()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the internal state field 'mWritePermission'.",
+      "stateAccesses": [
+        {
+          "name": "this.mWritePermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects; it's a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic for a given state of the provider.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it's a simple getter, its result depends on the mutable internal state ('mWritePermission') of the instance.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setPathPermissions(PathPermission[] permissions)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method writes to the internal state field 'mPathPermissions'.",
+      "stateAccesses": [
+        {
+          "name": "this.mPathPermissions",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method's side effect is modifying the 'mPathPermissions' field of the instance.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is determined by its 'permissions' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the internal state of the object, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "PathPermission[] getPathPermissions()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the internal state field 'mPathPermissions'.",
+      "stateAccesses": [
+        {
+          "name": "this.mPathPermissions",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects; it's a simple getter.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic for a given state of the provider.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it's a simple getter, its result depends on the mutable internal state ('mPathPermissions') of the instance. It also returns a mutable array.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setAppOps(int readOp, int writeOp)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the internal boolean field 'mNoPerms' and, if false, writes to the 'mReadOp' and 'mWriteOp' fields within the nested 'mTransport' object.",
+      "stateAccesses": [
+        {
+          "name": "this.mNoPerms",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTransport.mReadOp",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mTransport.mWriteOp",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method's side effect is modifying the state of the 'mTransport' object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments and the internal state field 'mNoPerms'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the 'mTransport' object based on its arguments and the 'mNoPerms' flag.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AppOpsManager getAppOpsManager()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the 'mAppOpsManager' field from the internal 'mTransport' object.",
+      "stateAccesses": [
+        {
+          "name": "this.mTransport.mAppOpsManager",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a getter and has no direct side effects. The returned object is used to perform system interactions.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic, returning a reference to an existing object.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and depends on the internal state of the 'mTransport' object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It returns an object reference stored as internal state. Pure functions cannot depend on instance state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setTransportLoggingEnabled(boolean enabled)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "The method reads the 'mTransport' field and writes to the 'mTransport.mInterface' field, changing the object reference.",
+      "stateAccesses": [
+        {
+          "name": "this.mTransport",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTransport.mInterface",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's side effect is changing the internal state of the provider's transport layer by wrapping the interface with a logging decorator.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the input argument 'enabled' and the current state of the 'mTransport' field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the 'mTransport' object, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onConfigurationChanged(Configuration newConfig)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has an empty body and thus has no side effects. It is a lifecycle callback intended to be overridden.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method makes no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method does nothing, so its behavior doesn't depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This base implementation of the method is pure because it has an empty body. Subclass implementations are expected to be impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onLowMemory()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has an empty body and thus has no side effects. It is a lifecycle callback intended to be overridden.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method makes no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method does nothing and has no arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This base implementation of the method is pure because it has an empty body. Subclass implementations are expected to be impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onTrimMemory(int level)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has an empty body and thus has no side effects. It is a lifecycle callback intended to be overridden.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method makes no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method does nothing, so its behavior doesn't depend on its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This base implementation of the method is pure because it has an empty body. Subclass implementations are expected to be impure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder, CancellationSignal cancellationSignal)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to the abstract 'query' method, which is intended to perform database or file system I/O to retrieve data.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call is non-deterministic because the underlying data source that the abstract 'query' method will access can change between calls.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on its arguments and the state of the external data source accessed by the subclass's implementation.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a wrapper that calls an abstract method designed for data retrieval, which implies non-deterministic behavior and I/O side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Cursor query(Uri uri, String[] projection, Bundle queryArgs, CancellationSignal cancellationSignal)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it ultimately calls the abstract 'query' method, which is designed to perform I/O operations on a data source.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call is non-deterministic as it depends on the state of an external data source, which can change.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on its arguments and the state of the external data source accessed by the concrete implementation.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It processes bundle arguments and then delegates to another query method which is abstract and intended for I/O, making it stateful and non-deterministic.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getTypeAnonymous(Uri uri)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it delegates to the abstract 'getType' method. A subclass implementation of 'getType' might need to query a database or access other resources to determine the MIME type.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because the type of a URI can depend on the underlying data, which may change over time.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on its 'uri' argument and the state of the underlying data source.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It delegates to the abstract 'getType' method, which is expected to be non-deterministic and potentially have side effects as it may need to inspect the underlying data source.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Uri canonicalize(Uri url)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects; it simply returns null. It's a stub for subclasses to implement.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic as it always returns null.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This base implementation of the method is pure as it always returns a constant value (null) and has no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Uri uncanonicalize(Uri url)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects; it returns its input argument unmodified. It's a stub for subclasses to implement.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends only on its input argument 'url'.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This base implementation of the method is pure as it is a deterministic identity function with no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean refresh(Uri uri, Bundle extras, CancellationSignal cancellationSignal)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects; it simply returns false. It is intended to be overridden by subclasses.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, always returning false.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is constant and does not depend on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This base implementation of the method is pure as it returns a constant value and has no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int checkUriPermission(Uri uri, int uid, int modeFlags)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects; it returns a constant value. It's a stub for subclasses to implement.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic as it always returns 'PackageManager.PERMISSION_DENIED'.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is constant and does not depend on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This base implementation of the method is pure as it returns a constant value and has no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Uri rejectInsert(Uri uri, ContentValues values)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It creates and returns a new Uri object.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is derived solely from its 'uri' argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It performs a deterministic transformation on its input URI without any side effects or reliance on external state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Uri insert(Uri uri, ContentValues values, Bundle extras)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to the abstract 'insert(uri, values)' method, which is intended to modify a data source (e.g., insert a row into a database).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as the result of an insertion (e.g., the generated URI for the new item) can vary and depends on the state of the data source.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on its arguments and the state of the underlying data store.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a wrapper that calls an abstract method designed to mutate state (data insertion), which is a side effect and is non-deterministic.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int bulkInsert(Uri uri, ContentValues[] values)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It iterates through the input array and calls the 'insert' method for each element. The 'insert' method is abstract and is intended to mutate the provider's data.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because the success and outcome of each 'insert' call depend on the state of the underlying data source.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments and the state of the underlying data source.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It repeatedly calls the state-mutating 'insert' method, thus producing side effects and having non-deterministic behavior.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int delete(Uri uri, Bundle extras)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it delegates to the abstract 'delete' method, which is designed to remove data from a persistent store.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic as the number of rows deleted depends on the current state of the data source.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on its arguments and the state of the underlying data source.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a wrapper for the abstract 'delete' operation, which is a state-mutating, non-deterministic action with side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int update(Uri uri, ContentValues values, Bundle extras)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to the abstract 'update' method, which is designed to modify data in a persistent store.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic as the number of rows updated depends on the current state of the data source.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on its arguments and the state of the underlying data source.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a wrapper for the abstract 'update' operation, which is a state-mutating, non-deterministic action with side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ParcelFileDescriptor openFile(Uri uri, String mode)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of unconditionally throwing a 'FileNotFoundException'. Subclasses are expected to override this to perform file I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic in that it always throws an exception.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (throwing an exception) does not depend on the arguments, although the exception message does.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its sole purpose in the base class is to produce the side effect of throwing an exception.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ParcelFileDescriptor openFile(Uri uri, String mode, CancellationSignal signal)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to 'openFile(uri, mode)', which in the base class throws a 'FileNotFoundException'. In subclasses, it would perform file I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The underlying 'openFile' operation is non-deterministic as it depends on the existence and permissions of a file.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on its arguments and the state of the file system.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It delegates to another method ('openFile') that is designed for file I/O, which is a side effect and is dependent on the external file system state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AssetFileDescriptor openAssetFile(Uri uri, String mode)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it calls 'openFile(uri, mode)', which is intended to perform file system I/O and may throw exceptions.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the result of 'openFile' depends on the state of the filesystem.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments and the state of the underlying file or data source.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It calls 'openFile' which is designed for file I/O, an inherently non-deterministic operation with side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AssetFileDescriptor openAssetFile(Uri uri, String mode, CancellationSignal signal)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to 'openAssetFile(uri, mode)', which is designed to perform file I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as the result of opening a file depends on the external state of the file system.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments and the state of the underlying data source.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a wrapper around another method intended for file I/O, which involves side effects and non-determinism.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ParcelFileDescriptor openFileHelper(Uri uri, String mode)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access internal state fields directly, but it calls 'query' which is an abstract method expected to read from the provider's data source.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has significant side effects. It calls the 'query' method (implying database I/O), and then performs file system I/O by calling 'ParcelFileDescriptor.open()'. It can also throw a 'FileNotFoundException'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The result of the 'query' depends on the provider's data, and opening the file depends on the file system's state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on its arguments as well as the state of both the content provider's data and the external file system.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a helper function that orchestrates multiple I/O operations (database query and file opening), making it stateful, non-deterministic, and full of side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String[] getStreamTypes(Uri uri, String mimeTypeFilter)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects in its base implementation as it just returns null.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic, always returning null.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The base implementation of this method is pure because it simply returns null. Subclass implementations are expected to be impure as they would need to inspect the data source.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "AssetFileDescriptor openTypedAssetFile(Uri uri, String mimeTypeFilter, Bundle opts)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'getType(uri)' and 'openAssetFile(uri, \"r\")', both of which are expected to interact with the underlying data source (I/O). It may also throw a 'FileNotFoundException'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic, as both 'getType' and 'openAssetFile' depend on the state of the provider's data, which can change.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on its arguments and the state of the underlying data source.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It combines data lookup ('getType') and file access ('openAssetFile'), both of which are non-deterministic I/O operations with side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "AssetFileDescriptor openTypedAssetFile(Uri uri, String mimeTypeFilter, Bundle opts, CancellationSignal signal)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to 'openTypedAssetFile(uri, mimeTypeFilter, opts)', which performs I/O and can throw exceptions.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as its delegate depends on the state of the provider's data source.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on its arguments and the state of the provider's data source.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a simple delegate to another impure method that performs I/O.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ParcelFileDescriptor openPipeHelper(Uri uri, String mimeType, Bundle opts, T args, PipeDataWriter<T> func)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any class state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has major side effects. It creates a pipe for inter-thread communication ('ParcelFileDescriptor.createPipe()') and spawns a new background thread via 'AsyncTask' to execute the data writing logic. This involves threading and I/O.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic due to its use of background threading ('AsyncTask.THREAD_POOL_EXECUTOR'). The timing and execution of the background task are not predictable.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the 'func' argument, but it initiates complex, non-deterministic, and side-effect-heavy operations (threading, piping).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a utility for creating data pipes and background threads, which are fundamentally side-effecting and non-deterministic operations.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isTemporary()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic, as it always returns false.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant (false).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This base implementation of the method is pure because it returns a constant value and has no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "IContentProvider getIContentProvider()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method reads the internal 'mTransport' object field.",
+      "stateAccesses": [
+        {
+          "name": "this.mTransport",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a getter and has no direct side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic for a given object state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and depends on the internal state of the instance.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a getter that returns a reference to an internal object, thus depending on the instance's state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void attachInfoForTesting(Context context, ProviderInfo info)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method writes to numerous internal state fields by calling 'attachInfo'. The fields include mNoPerms, mCallingAttributionSource, mContext, mMyUid, mReadPermission, mWritePermission, mPathPermissions, mExported, mSingleUser, and mAuthorities.",
+      "stateAccesses": [
+        {
+          "name": "this.mNoPerms",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mMyUid",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mReadPermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mWritePermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mPathPermissions",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mExported",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mSingleUser",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mSystemUserOnly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mAuthority",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mAuthorities",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to 'attachInfo', which initializes the provider's state and calls the abstract 'onCreate' method, a major lifecycle event.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as its delegate 'attachInfo' calls 'Process.myUid()'.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is dependent on its arguments, but it heavily modifies the instance's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a state-mutating initialization method that calls other non-deterministic and side-effecting methods, including the 'onCreate' lifecycle callback.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void attachInfo(Context context, ProviderInfo info)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method writes to numerous internal state fields by calling the private 'attachInfo' method. See 'attachInfoForTesting' for a detailed list of state accesses.",
+      "stateAccesses": [
+        {
+          "name": "this.mNoPerms",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mCallingAttributionSource",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mMyUid",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mReadPermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mWritePermission",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mPathPermissions",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mExported",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mSingleUser",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mSystemUserOnly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mAuthority",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mAuthorities",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has extensive side effects as it is a key part of the provider's lifecycle. It initializes the provider's state and calls the abstract 'onCreate' method.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as its delegate calls 'Process.myUid()'.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is dependent on its arguments, but it heavily modifies the instance's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a core lifecycle method responsible for state initialization and triggering the 'onCreate' callback, making it inherently stateful and side-effecting.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ContentProviderResult[] applyBatch(String authority, ArrayList<ContentProviderOperation> operations)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access state, but its delegate 'applyBatch(operations)' does through callbacks.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it delegates to 'applyBatch(operations)', which executes a series of data-mutating operations (insert, update, delete) on the provider.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as the outcome of the batch operations depends on the state of the underlying data source.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the 'operations' argument and the state of the provider's data.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a wrapper for a batch execution of state-mutating, non-deterministic operations.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ContentProviderResult[] applyBatch(ArrayList<ContentProviderOperation> operations)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not directly access state, but it calls 'ContentProviderOperation.apply', which in turn calls the provider's own 'insert', 'update', 'delete' methods, which are designed to access and mutate state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It iterates over a list of operations and applies each one, which typically involves data mutation (insert, update, delete). It can also throw 'OperationApplicationException'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. The success and result of each operation depend on the state of the data source at the time of execution.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the list of operations and the state of the underlying data source.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It orchestrates a series of state mutations on the content provider's data, making it inherently side-effecting and non-deterministic.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Bundle call(String authority, String method, String arg, Bundle extras)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method's side effects depend on the implementation of 'call(method, arg, extras)', which it delegates to. The base implementation has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method's determinism depends on its delegate. The base implementation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method simply passes its arguments to a delegate.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure, as it is designed to be a generic entry point for custom, potentially side-effecting operations defined by subclasses. While the base implementation is pure, its purpose is to enable impurity.",
+        "isPureLLM": false,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Bundle call(String method, String arg, Bundle extras)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects; it returns null. It's a stub for subclasses to implement custom RPC-like calls.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic, always returning null.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is constant and does not depend on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This base implementation is pure as it does nothing and returns null. However, it is an extension point for arbitrary, likely impure, logic in subclasses.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void shutdown()",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of writing a warning message to the log using 'Log.w'. It is intended to be overridden to perform cleanup, such as closing database connections.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its behavior is constant.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure due to the logging side effect. Its intended purpose in subclasses (releasing resources) is also a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void dump(FileDescriptor fd, PrintWriter writer, String[] args)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of performing I/O by writing a string to the provided 'PrintWriter'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's side effect (the content written) does not depend on arguments in this base implementation.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is to produce the side effect of writing state information to an output stream (I/O).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Uri validateIncomingUri(Uri uri)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "The method reads internal state fields 'mSingleUser', 'mSystemUserOnly', and 'mContext'. It also reads 'mAuthority' and 'mAuthorities' via its call to 'validateIncomingAuthority'.",
+      "stateAccesses": [
+        {
+          "name": "this.mSingleUser",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mSystemUserOnly",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAuthority",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAuthorities",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects, including logging a warning ('Log.w') and potentially throwing a 'SecurityException'. It also calls other methods like 'isContentRedirectionAllowedForUser' which interact with system services.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as its validation logic depends on the current user context ('mContext.getUserId()') and system user properties.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its argument 'uri', internal provider state, and external system user state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs complex validation that involves reading internal state, making non-deterministic calls to check user status, and has side effects like logging and throwing exceptions.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getUserIdFromAuthority(String auth, int defaultUserId)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method and does not access any instance or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of logging a warning ('Log.w') if it fails to parse a user ID from the authority string.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. Its output is based solely on parsing the input string.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends only on its input arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has a logging side effect. If logging were disregarded, it would be considered pure as it performs a deterministic string parsing operation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getUserIdFromAuthority(String auth)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to 'getUserIdFromAuthority(auth, defaultUserId)', which may log a warning.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends only on its input argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it delegates to another method with a logging side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getUserIdFromUri(Uri uri, int defaultUserId)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has potential side effects as it calls 'getUserIdFromAuthority', which may log a warning message.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends only on its input arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it delegates to another method that has a logging side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getUserIdFromUri(Uri uri)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has potential side effects as it delegates to 'getUserIdFromUri(uri, defaultUserId)', which may log a warning.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends only on its input argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it delegates to another method that has a logging side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "UserHandle getUserHandleFromUri(Uri uri)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method that does not access state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method can have a logging side effect via its call to 'getUserIdFromUri'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it calls 'Process.myUserHandle()', which returns the user handle for the current process, a value dependent on the execution environment.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on its 'uri' argument and the non-deterministic result of 'Process.myUserHandle()'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is non-deterministic due to its reliance on 'Process.myUserHandle()' and has a potential logging side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getAuthorityWithoutUserId(String auth)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It performs string manipulation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends only on its input argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a static method that performs deterministic string manipulation on its argument with no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Uri getUriWithoutUserId(Uri uri)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It constructs a new Uri object based on the input.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends only on its input argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a static method that deterministically transforms a URI with no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean uriHasUserId(Uri uri)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It inspects the input Uri.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends only on its input argument.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a static, deterministic check on a URI with no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Uri createContentUriForUser(Uri contentUri, UserHandle userHandle)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of throwing an 'IllegalArgumentException' if the input URI is invalid.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is fully determined by its arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it can throw an exception based on its input values, which is considered a side effect. Otherwise, it performs a deterministic URI transformation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Uri maybeAddUserId(Uri uri, int userId)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "This is a static method and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It creates and returns a new Uri object or the original one.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends only on its input arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a static, deterministic URI transformation function with no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean deniedAccessSystemUserOnlyProvider(int callingUserId, boolean systemUserOnly)",
+      "className": "android.content.ContentProvider",
+      "reasonAboutStateAccesses": "The method reads the static boolean field 'Flags.enableSystemUserOnlyForServicesAndProviders'. This is a global configuration flag.",
+      "stateAccesses": [
+        {
+          "name": "android.multiuser.Flags.enableSystemUserOnlyForServicesAndProviders()",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It's a simple boolean check.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. The feature flag it reads is generally constant for the duration of the process.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on its arguments and a global feature flag.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method can be considered pure in the context of a single application run, as the feature flag it depends on is effectively a constant. It's deterministic and has no side effects.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

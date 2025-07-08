@@ -1,0 +1,1312 @@
+{
+  "file_name": "java.lang.StringBuilder",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/lang/StringBuilder.java",
+  "source_code_file_path": "java_source_code_files/java/lang/StringBuilder.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751894686,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 401.657,
+  "llm_analysis": [
+    {
+      "methodSignature": "int compareTo(StringBuilder another)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.compareTo(another)`, which reads the internal state (the character array `value` and integer `count` inherited from AbstractStringBuilder) of both the current `StringBuilder` instance (`this`) and the `another` instance to perform a lexicographical comparison. No state is modified.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method performs a read-only comparison and returns an integer result. It does not alter the state of `this` or `another` StringBuilder, nor does it perform any I/O or other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method performs a deterministic lexicographical comparison based on the character data. It does not involve any sources of non-determinism like random number generators or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the internal state of the current object (`this`) in addition to the `another` argument. Therefore, it does not depend solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result is dependent on the mutable state of the `this` object, which is an implicit input. Although it lacks side effects, this dependency on mutable instance state makes it unsuitable for memoization, as the result would change if the object is modified.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(Object obj)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method internally calls another `append` method after converting the object to a String, which in turn calls `super.append()`. This superclass method mutates the internal state of the `StringBuilder` by modifying its internal character buffer (`this.value`) and character count (`this.count`).",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to mutate the internal state of the `StringBuilder` object by appending a string representation of the given object. This state modification is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `String.valueOf(obj)`, which may call `obj.toString()`. If `obj.toString()` has non-deterministic behavior, this method's result could be non-deterministic. However, the method itself does not directly introduce sources of non-determinism like time or randomness.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is `this`, and its final state depends on its previous state and the string representation of the argument. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of the `this` object. State mutation is a side effect that violates the principles of purity. Therefore, the method is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(String str)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.append(str)`, which mutates the internal state of the `StringBuilder` object. This involves modifying the internal character buffer (`this.value`) and updating the character count (`this.count`).",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The primary purpose of this method is to cause a side effect: modifying the internal state of the `StringBuilder` object by appending characters to it. It returns `this` to allow for method chaining.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic, depending only on the current state of the `StringBuilder` and the input string. It does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is `this`, and the object's final state depends on its prior state and the argument string. Therefore, the result does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a significant side effect of mutating the object's internal state. Methods that mutate their host object are inherently impure and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(StringBuffer sb)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.append(sb)`, which reads the content of the `StringBuffer` argument and uses it to mutate the internal state of the `StringBuilder` object, modifying `this.value` and `this.count`.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary function is to mutate the internal state of the `StringBuilder` instance by appending characters from the given `StringBuffer`. This is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic. It does not use any random or time-based functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result (`this`) and its final state depend on its previous state and the content of the `StringBuffer` argument. It does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of the `this` object. Methods that cause side effects like state mutation are not pure and are unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(CharSequence s)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method calls `super.append(s)`, which mutates the internal state (`this.value` and `this.count`) of the `StringBuilder` by appending the characters from the given `CharSequence`.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to modify the `StringBuilder` instance by appending a character sequence, which is a side effect on the object's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, assuming the `CharSequence` argument does not change during the operation. It does not involve time or randomness.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The final state of the object and the return value (`this`) depend on the object's state before the call, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of `this`. This side effect makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(CharSequence s, int start, int end)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method calls `super.append(s, start, end)`, which mutates the internal state (`this.value` and `this.count`) of the `StringBuilder` by appending a subsequence of characters.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to modify the `StringBuilder` instance by appending characters, which is a side effect on the object's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic, assuming the `CharSequence` argument does not change during the operation. It does not involve time or randomness.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The final state of the object and the return value (`this`) depend on the object's state before the call, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of `this`. This side effect makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(char[] str)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method calls `super.append(str)`, which mutates the internal state (`this.value` and `this.count`) by appending the contents of the character array.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to mutate the state of the `StringBuilder` object, which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic and does not depend on time or random sources.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The final state of the object depends on its prior state and the input array. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure due to its side effect of mutating the object's state, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(char[] str, int offset, int len)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.append(str, offset, len)`, which mutates the internal state (`this.value` and `this.count`) by appending a sub-array of characters.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic and does not use any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The final state of the object depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of `this`. State mutation is a side effect that makes a method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(boolean b)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.append(b)`, which mutates the internal state (`this.value` and `this.count`) by appending either 'true' or 'false'.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the boolean argument. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(char c)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.append(c)`, which mutates the internal state (`this.value` and `this.count`) by appending a single character.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the char argument. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(int i)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.append(i)`, which mutates the internal state (`this.value` and `this.count`) by appending the string representation of the integer.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the integer argument. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(long lng)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.append(lng)`, which mutates the internal state (`this.value` and `this.count`) by appending the string representation of the long.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the long argument. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(float f)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.append(f)`, which mutates the internal state (`this.value` and `this.count`) by appending the string representation of the float.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the float argument. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder append(double d)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.append(d)`, which mutates the internal state (`this.value` and `this.count`) by appending the string representation of the double.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the double argument. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder appendCodePoint(int codePoint)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.appendCodePoint(codePoint)`, which mutates the internal state (`this.value` and `this.count`) by appending the character(s) representing the given Unicode code point.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the code point argument. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder delete(int start, int end)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.delete(start, end)`, which mutates the internal state (`this.value` and `this.count`) by removing a range of characters.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state by deleting characters.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the range arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder deleteCharAt(int index)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.deleteCharAt(index)`, which mutates the internal state (`this.value` and `this.count`) by removing a single character.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state by deleting a character.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the index argument. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder replace(int start, int end, String str)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.replace(start, end, str)`, which mutates the internal state (`this.value` and `this.count`) by replacing a range of characters with a given string.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int index, char[] str, int offset, int len)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting characters from a character array at a specified position.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int offset, Object obj)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting the string representation of an object.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior could be non-deterministic if `obj.toString()` has non-deterministic behavior. It does not directly call non-deterministic functions like time or random.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int offset, String str)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting a string at a specified position.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int offset, char[] str)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting a character array at a specified position.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int dstOffset, CharSequence s)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting a `CharSequence` at a specified position.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int dstOffset, CharSequence s, int start, int end)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting a subsequence of a `CharSequence`.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int offset, boolean b)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting 'true' or 'false'.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int offset, char c)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting a single character.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int offset, int i)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting the string representation of an integer.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int offset, long l)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting the string representation of a long.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int offset, float f)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting the string representation of a float.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder insert(int offset, double d)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.insert(...)`, which mutates the internal state (`this.value` and `this.count`) by inserting the string representation of a double.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The object's final state depends on its prior state and the arguments. The return value is `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it has the side effect of modifying the object's state. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int indexOf(String str)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.indexOf(str)`, which is a read-only operation. It accesses the internal state (`this.value` and `this.count`) to search for the specified substring.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This is a query method that does not alter the `StringBuilder`'s state. It has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The string search algorithm is deterministic. The method does not use any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the current state of the `StringBuilder` object (`this`) as well as the `str` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the mutable state of the `this` object. While free of side effects, this reliance on implicit mutable state means its result can change if the object is modified, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int indexOf(String str, int fromIndex)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.indexOf(str, fromIndex)`, a read-only operation. It accesses the internal state (`this.value` and `this.count`) to search for the specified substring starting from an index.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This is a query method that does not alter the `StringBuilder`'s state. It has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The string search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the current state of the `StringBuilder` object (`this`) as well as the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the mutable state of the `this` object. While free of side effects, this reliance on implicit mutable state means its result can change if the object is modified, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int lastIndexOf(String str)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.lastIndexOf(str)`, which is a read-only operation. It accesses the internal state (`this.value` and `this.count`) to search for the specified substring.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This is a query method that does not alter the `StringBuilder`'s state. It has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The string search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the current state of the `StringBuilder` object (`this`) as well as the `str` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the mutable state of the `this` object. While free of side effects, this reliance on implicit mutable state means its result can change if the object is modified, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int lastIndexOf(String str, int fromIndex)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.lastIndexOf(str, fromIndex)`, a read-only operation. It accesses the internal state (`this.value` and `this.count`) to search for the specified substring starting from an index.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This is a query method that does not alter the `StringBuilder`'s state. It has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The string search algorithm is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The result depends on the current state of the `StringBuilder` object (`this`) as well as the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the mutable state of the `this` object. While free of side effects, this reliance on implicit mutable state means its result can change if the object is modified, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "StringBuilder reverse()",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.reverse()`, which mutates the internal character array (`this.value`) by reversing its contents in-place. It does not change the `count`.",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of mutating the `StringBuilder` object's internal state by reversing its character sequence.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The reversal operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its result (`this`) depends entirely on the previous state of the object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of `this`. This side effect makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder repeat(int codePoint, int count)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.repeat(codePoint, count)`, which mutates the internal state of the `StringBuilder` object. This involves modifying the internal character buffer (`this.value`) and updating the character count (`this.count`).",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to mutate the internal state of the `StringBuilder` object by appending a character representation of the given code point multiple times. This state modification is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is `this`, and its final state depends on its previous state and the arguments. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of the `this` object. State mutation is a side effect that makes a method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "StringBuilder repeat(CharSequence cs, int count)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method delegates to `super.repeat(cs, count)`, which mutates the internal state of the `StringBuilder` object. This involves modifying the internal character buffer (`this.value`) and updating the character count (`this.count`).",
+      "stateAccesses": [
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to mutate the internal state of the `StringBuilder` object by appending a given CharSequence multiple times. This state modification is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is `this`, and its final state depends on its previous state and the arguments. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is impure because it mutates the state of the `this` object. State mutation is a side effect that makes a method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String toString()",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method reads the internal state of the `StringBuilder`, specifically the character count (`this.count`) and the character array (`this.value`), to create and return a new `String` object. It does not modify any state.",
+      "stateAccesses": [
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates a new `String` object but does not modify the state of the `StringBuilder` instance itself. Creating a new object is not considered a side effect in this context. It has no other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The conversion to a String is a deterministic process based on the current content of the builder. No non-deterministic functions are called.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments; its return value is entirely determined by the internal state of the `this` object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the mutable state of the `this` object. Although it lacks side effects, its reliance on implicit, mutable state prevents it from being memoized reliably; the result of `sb.toString()` will change if `sb` is modified.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void writeObject(ObjectOutputStream s)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "The method reads the internal state, including the `count` and the `value` array, in order to serialize the object's data to the output stream. It does not modify the object's state.",
+      "stateAccesses": [
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a clear side effect of performing I/O by writing the object's state to the provided `ObjectOutputStream`. This is an interaction with an external system.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's serialization logic is deterministic. It does not call any random or time-based functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is `void`, and its behavior (writing to the stream) depends on the state of `this` and the stream argument `s`, not solely on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs an I/O operation, which is a major side effect. Methods with I/O side effects are fundamentally impure and cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void readObject(ObjectInputStream s)",
+      "className": "java.lang.StringBuilder",
+      "reasonAboutStateAccesses": "This method reads data from an `ObjectInputStream` and uses it to overwrite the internal state of the `StringBuilder` object, specifically setting its `count` and initializing its internal buffer `value`.",
+      "stateAccesses": [
+        {
+          "name": "this.count",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.value",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has two significant side effects: it reads from an external I/O stream and it mutates the state of the `this` object based on the data read.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is determined by the content of the input stream, which is an external dependency. It does not use internal non-deterministic functions like random or time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is `void`, and its primary purpose is to mutate the state of `this` based on the data from the input stream `s`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is highly impure. It performs I/O operations and mutates the object's state. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

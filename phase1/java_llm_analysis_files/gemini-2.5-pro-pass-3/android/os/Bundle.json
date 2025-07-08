@@ -1,0 +1,2761 @@
+{
+  "file_name": "android.os.Bundle",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/os/Bundle.java",
+  "source_code_file_path": "java_source_code_files/android/os/Bundle.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751918481,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 385.128,
+  "llm_analysis": [
+    {
+      "methodSignature": "void maybePrefillHasFds()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method reads the internal state field `mParcelledData`. If it is not null, it checks for file descriptors and then performs a write operation on the internal `mFlags` field to cache the result. This involves both reading and writing internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect of modifying the internal `mFlags` field to cache whether the parcelled data contains file descriptors. This is a form of lazy state initialization.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no calls to non-deterministic functions like random number generators or system clock.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void and takes no arguments; its purpose is to modify the object's internal state based on another part of its state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has a side effect of modifying the object's internal state (`mFlags`). Its behavior also depends on the internal state (`mParcelledData`).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "static Bundle forPair(String key, String value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This is a static method and does not access any static fields of the class. It creates a new `Bundle` object and modifies its state, but does not access or modify any pre-existing state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's only observable result is the returned `Bundle` object. It does not perform I/O, logging, or modify any existing state, so it is considered free of side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's execution is deterministic and does not involve any random or time-based functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The content and state of the returned `Bundle` object are determined exclusively by the `key` and `value` arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is static, has no side effects, and its returned object is entirely determined by its input arguments. Therefore, it is a pure function.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setClassLoader(ClassLoader loader)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method calls `super.setClassLoader()`, which performs a write operation on the `mClassLoader` field inherited from the superclass `BaseBundle`. This is a modification of internal object state.",
+      "stateAccesses": [
+        {
+          "name": "this.mClassLoader",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the `mClassLoader` field of the object, which affects how the bundle subsequently instantiates objects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic and does not depend on any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's internal state based on the provided argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the internal state of the object (`mClassLoader`).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ClassLoader getClassLoader()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method calls `super.getClassLoader()`, which reads the `mClassLoader` field from the superclass `BaseBundle`. This is a read of internal object state.",
+      "stateAccesses": [
+        {
+          "name": "this.mClassLoader",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter. It reads and returns an internal field but does not modify any state or perform other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`mClassLoader`), not on any input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value is dependent on the object's internal state (`mClassLoader`), which can change. It is not referentially transparent.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean setAllowFds(boolean allowFds)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method reads the internal `mFlags` field to determine the original value to return. It then performs a write operation on `mFlags` to set or clear a bit based on the `allowFds` argument.",
+      "stateAccesses": [
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal `mFlags` field of the object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the state of the `mFlags` field before the method was called, not solely on the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a side effect (modifying `mFlags`) and its return value depends on pre-existing internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void enableTokenVerification()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method performs a write operation on the internal `mFlags` field by setting the `FLAG_VERIFY_TOKENS_PRESENT` bit.",
+      "stateAccesses": [
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal `mFlags` field of the object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void and takes no arguments. Its purpose is to modify the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state (`mFlags`).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setDefusable(boolean defusable)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method performs a write operation on the `mFlags` field (inherited from `BaseBundle`) to set or clear the `FLAG_DEFUSABLE` bit.",
+      "stateAccesses": [
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal `mFlags` field of the object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's internal state based on the provided argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state (`mFlags`).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "static Bundle setDefusable(Bundle bundle, boolean defusable)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This static method does not access any static fields. It calls an instance method on the `bundle` object passed as a parameter, which modifies that object's state. This is an indirect state access on a parameter, not on the class's or an instance's state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has a side effect because it modifies the state of the `Bundle` object that is passed as an argument (if it is not null).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns the `bundle` argument directly, so the return value is one of its inputs.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has a side effect of modifying one of its arguments, the `bundle` object.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Object clone()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method creates a new `Bundle` object by passing `this` to a constructor. This constructor reads the internal state of the current object (`mMap`, `mFlags`) to perform a shallow copy.",
+      "stateAccesses": [
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new object. It does not modify the current object's state or have other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The cloning process is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its return value depends entirely on the internal state of the object on which it is called.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state of the object, not on explicit arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Bundle deepCopy()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method creates a new `Bundle` object by passing `this` to a constructor that performs a deep copy. This involves recursively reading the entire internal state of the object, including `mMap`, `mParcelledData`, and `mFlags`.",
+      "stateAccesses": [
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method creates and returns a new object. It does not modify the current object's state or have other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The deep copy process is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments. Its return value depends entirely on the internal state of the object on which it is called.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state of the object, not on explicit arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void clear()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method modifies the internal state by calling `super.clear()`, which clears `mMap` and nullifies `mParcelledData`. It then performs a write operation to reset the `mFlags` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of clearing all data from the bundle, modifying `mMap`, `mParcelledData`, and `mFlags`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void remove(String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method calls `super.remove(key)`, which writes to the internal `mMap`. It also reads `mFlags` and may perform a subsequent write to `mFlags` to update cached information.",
+      "stateAccesses": [
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by removing a key-value pair and potentially updating `mFlags`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's internal state based on the provided argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state (`mMap` and `mFlags`).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putAll(Bundle bundle)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method extensively modifies state. It calls `unparcel()` on `this` and the argument `bundle`. It writes to `this.mMap`, `this.mOwnsLazyValues`, and `this.mFlags`. It also writes to `bundle.mOwnsLazyValues`, modifying the state of the argument object. It reads state from `bundle.mMap` and `bundle.mFlags`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mOwnsLazyValues",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "bundle.mOwnsLazyValues",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has multiple side effects: it modifies the internal state of `this` object (`mMap`, `mFlags`, etc.) and also modifies the state of the `bundle` argument (`mOwnsLazyValues`).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify internal state based on an argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it modifies the state of both `this` object and its `bundle` argument.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getSize()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method reads the internal `mParcelledData` field to check if it's null and, if not, returns its size.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a getter that reads internal state but does not modify it or have other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments; its return value depends on the internal state of the object (`mParcelledData`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the object's internal state (`mParcelledData`), which can be changed by other methods.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean hasFileDescriptors()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method implements a lazy-loading pattern. It first reads `mFlags` to check for a cached result. If not cached, it reads `mParcelledData` or `mMap` to compute the value, and then writes the result back to `mFlags`.",
+      "stateAccesses": [
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method can have a side effect of modifying the internal `mFlags` field on its first invocation for a given state, which constitutes a lazy state update.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments; its return value depends on the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on internal state and has a potential side effect of modifying `mFlags` to cache its result.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int hasBinders()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method implements a lazy-loading pattern. It first reads `mFlags` to check for a cached result. If not cached, it reads `mParcelledData` to compute the value, and then writes the result back to `mFlags`.",
+      "stateAccesses": [
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method can have a side effect of modifying the internal `mFlags` field on its first invocation (if data is parcelled), which constitutes a lazy state update.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments; its return value depends on the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on internal state and has a potential side effect of modifying `mFlags` to cache its result.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean hasIntent()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method reads the internal `mFlags` field to check if the `FLAG_HAS_INTENT` bit is set. This is a read of internal object state.",
+      "stateAccesses": [
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter that reads a bit from an internal field and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments; its return value depends on the object's internal state (`mFlags`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the object's internal state (`mFlags`), which can be changed by other methods.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void putObject(@Nullable String key, @Nullable Object value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method is a dispatcher that calls other specific `put` methods based on the type of the `value` argument. These delegated methods all perform write operations on the internal state, primarily `mMap` and sometimes `mFlags`.",
+      "stateAccesses": [
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair, which involves changing `mMap` and potentially `mFlags`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putByte(@Nullable String key, byte value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to `super.putByte()`, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putChar(@Nullable String key, char value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to `super.putChar()`, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putShort(@Nullable String key, short value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to `super.putShort()`, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putFloat(@Nullable String key, float value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to `super.putFloat()`, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putCharSequence(@Nullable String key, @Nullable CharSequence value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to `super.putCharSequence()`, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putParcelable(@Nullable String key, @Nullable Parcelable value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method modifies internal state by writing to `mMap`. It also reads the global static field `intentClass` and writes to `mFlags` to update cached information about binders, file descriptors, and intents.",
+      "stateAccesses": [
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "android.os.Bundle.intentClass",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair and updating its metadata flags.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying internal state (`mMap`, `mFlags`) and depends on a global static field (`intentClass`).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putSize(@Nullable String key, @Nullable Size value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putSizeF(@Nullable String key, @Nullable SizeF value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putParcelableArray(@Nullable String key, @Nullable Parcelable[] value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method writes to `mMap` and `mFlags`. It calls `unparcel()` first, which may read `mParcelledData` and write to `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair and updating its metadata flags.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putParcelableArrayList(@Nullable String key, @Nullable ArrayList<? extends Parcelable> value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method writes to `mMap` and `mFlags`. It calls `unparcel()` first, which may read `mParcelledData` and write to `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair and updating its metadata flags.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putParcelableList(String key, List<? extends Parcelable> value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method writes to `mMap` and `mFlags`. It calls `unparcel()` first, which may read `mParcelledData` and write to `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair and updating its metadata flags.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putSparseParcelableArray(@Nullable String key, @Nullable SparseArray<? extends Parcelable> value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method writes to `mMap` and `mFlags`. It calls `unparcel()` first, which may read `mParcelledData` and write to `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair and updating its metadata flags.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putIntegerArrayList(@Nullable String key, @Nullable ArrayList<Integer> value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putStringArrayList(@Nullable String key, @Nullable ArrayList<String> value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putCharSequenceArrayList(@Nullable String key, @Nullable ArrayList<CharSequence> value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putSerializable(@Nullable String key, @Nullable Serializable value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putByteArray(@Nullable String key, @Nullable byte[] value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putShortArray(@Nullable String key, @Nullable short[] value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putCharArray(@Nullable String key, @Nullable char[] value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putFloatArray(@Nullable String key, @Nullable float[] value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putCharSequenceArray(@Nullable String key, @Nullable CharSequence[] value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putBundle(@Nullable String key, @Nullable Bundle value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method calls `unparcel()` (potentially reading `mParcelledData` and writing to `mMap`) and then writes the key-value pair to the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding or replacing a key-value pair. It may also change the bundle's internal representation from parcelled to map-based.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putBinder(@Nullable String key, @Nullable IBinder value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method writes to `mMap` and `mFlags`. It calls `unparcel()` first, which may read `mParcelledData` and write to `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding a binder and updating its metadata flags.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putIBinder(@Nullable String key, @Nullable IBinder value)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method writes to `mMap` and `mFlags`. It calls `unparcel()` first, which may read `mParcelledData` and write to `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the bundle's contents by adding a binder and updating its metadata flags.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to modify the object's state based on the provided arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it has the side effect of modifying the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "byte getByte(String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Byte getByte(String key, byte defaultValue)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "char getChar(String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "char getChar(String key, char defaultValue)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "short getShort(String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "short getShort(String key, short defaultValue)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "float getFloat(String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "float getFloat(String key, float defaultValue)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "CharSequence getCharSequence(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "CharSequence getCharSequence(@Nullable String key, CharSequence defaultValue)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Size getSize(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "SizeF getSizeF(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Bundle getBundle(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T extends Parcelable> T getParcelable(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap` via `getValue()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> T getParcelable(@Nullable String key, @NonNull Class<T> clazz)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to `get(key, clazz)` which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Parcelable[] getParcelableArray(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap` via `getValue()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> T[] getParcelableArray(@Nullable String key, @NonNull Class<T> clazz)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap` via `getValue()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T extends Parcelable> ArrayList<T> getParcelableArrayList(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap` via `getValue()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> ArrayList<T> getParcelableArrayList(@Nullable String key, @NonNull Class<? extends T> clazz)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to `getArrayList(key, clazz)` which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T extends Parcelable> SparseArray<T> getSparseParcelableArray(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap` via `getValue()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> SparseArray<T> getSparseParcelableArray(@Nullable String key, @NonNull Class<? extends T> clazz)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap` via `getValue()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Serializable getSerializable(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T extends Serializable> T getSerializable(@Nullable String key, @NonNull Class<T> clazz)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ArrayList<Integer> getIntegerArrayList(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ArrayList<String> getStringArrayList(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ArrayList<CharSequence> getCharSequenceArrayList(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "byte[] getByteArray(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "short[] getShortArray(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "char[] getCharArray(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "float[] getFloatArray(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "CharSequence[] getCharSequenceArray(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method delegates to its superclass, which may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation from parcelled to map-based. It also may log a warning on type mismatch.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "IBinder getBinder(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "IBinder getIBinder(@Nullable String key)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method may call `unparcel()` (reading `mParcelledData` and writing to `mMap`) before reading a value from the internal `mMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may have the side effect of calling `unparcel()`, which changes the bundle's internal representation. It also performs logging via `typeWarning` on type mismatch, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the object's internal state (`mMap`), not just the input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it can have side effects (unparceling, logging).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int describeContents()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method calls `hasFileDescriptors()`, which reads internal state (`mFlags`, `mParcelledData`, `mMap`). `hasFileDescriptors` may also perform a write to `mFlags` to cache its result.",
+      "stateAccesses": [
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method can have a side effect via its call to `hasFileDescriptors()`, which may modify the `mFlags` field to cache its result.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments; its return value depends on the bundle's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on internal state and it may have a side effect of modifying `mFlags` via the call to `hasFileDescriptors()`.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void writeToParcel(Parcel parcel, int flags)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method reads the `mFlags` field to configure the parcel. It then delegates to `writeToParcelInner`, which reads the entire state of the bundle (`mParcelledData` or `mMap`) in order to write it into the parcel.",
+      "stateAccesses": [
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The primary purpose of this method is to cause a side effect: writing the bundle's data into the `Parcel` object provided as an argument.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to serialize the object's state into the `parcel` argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a major side effect of writing to its `parcel` argument. Its behavior also depends on the internal state of the `Bundle` object.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void readFromParcel(Parcel parcel)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "This method's purpose is to overwrite the internal state of the bundle by reading from a `Parcel`. It calls `readFromParcelInner` which modifies `mParcelledData` and `mMap`, then writes to `mFlags` and calls `maybePrefillHasFds` which can also write to `mFlags`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the major side effect of completely replacing the internal state of the `Bundle` object with data read from the provided `Parcel`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to deserialize data from the `parcel` argument into the object's state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a major side effect of re-initializing the object from a parcel.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "synchronized String toString()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method reads the `mParcelledData` field to check if the bundle is in a parcelled state, and if not, it reads the `mMap` field to generate a string representation. This involves reading internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method reads internal state to produce a string but does not modify any state or have other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic for a given object state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the object's internal state (`mParcelledData`, `mMap`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state of the object.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "String toShortString()",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method reads the `mParcelledData` field to check if the bundle is in a parcelled state, and if not, it reads the `mMap` field to generate a string representation. This involves reading internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method reads internal state to produce a string but does not modify any state or have other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic for a given object state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends on the object's internal state (`mParcelledData`, `mMap`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state of the object.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void dumpDebug(ProtoOutputStream proto, long fieldId)",
+      "className": "android.os.Bundle",
+      "reasonAboutStateAccesses": "The method reads internal state fields `mParcelledData` or `mMap` to get the data that needs to be written to the `ProtoOutputStream`.",
+      "stateAccesses": [
+        {
+          "name": "this.mParcelledData",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of writing data to the `ProtoOutputStream` object passed as an argument. This is an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is void; its purpose is to write the object's state to an external stream.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of writing to an external stream (`proto`) and its behavior depends on the object's internal state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

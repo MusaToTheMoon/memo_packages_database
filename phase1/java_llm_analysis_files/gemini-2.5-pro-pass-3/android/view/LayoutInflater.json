@@ -1,0 +1,877 @@
+{
+  "file_name": "android.view.LayoutInflater",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/view/LayoutInflater.java",
+  "source_code_file_path": "java_source_code_files/android/view/LayoutInflater.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751920004,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 218.171,
+  "llm_analysis": [
+    {
+      "methodSignature": "LayoutInflater from(Context context)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This is a static method and does not access any fields of the LayoutInflater class. It interacts with the Android system by calling context.getSystemService.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method retrieves a system service via `context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)`. This is an interaction with the underlying Android operating system, which is an observable side effect. It can also throw an AssertionError, which alters the program's control flow.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The result of `context.getSystemService` depends on the state of the Android system's service registry at the time of the call, making the method's return value non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is not solely dependent on its arguments, as it relies on the global state of the Android system services.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It interacts with the Android system to retrieve a service, which is a side effect. This dependency on external system state also makes it non-deterministic. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Context getContext()",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `this.mContext`, which is an object.",
+      "stateAccesses": [
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and does not have any observable side effects. It only returns a reference to an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`this.mContext`), not solely on its input arguments (of which there are none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its return value depends on the internal state of the `LayoutInflater` instance (`mContext`). A pure function's output must depend only on its inputs.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Factory getFactory()",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `this.mFactory`, which is an object.",
+      "stateAccesses": [
+        {
+          "name": "this.mFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter with no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`this.mFactory`), not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value is dependent on the object's internal state (`mFactory`) rather than its input arguments. It lacks side effects, but this dependency on state prevents it from being pure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Factory2 getFactory2()",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method reads the internal instance field `this.mFactory2`, which is an object.",
+      "stateAccesses": [
+        {
+          "name": "this.mFactory2",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter with no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`this.mFactory2`), not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value is dependent on the object's internal state (`mFactory2`) rather than its input arguments. It lacks side effects, but this dependency on state prevents it from being pure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setFactory(Factory factory)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "The method reads multiple internal fields (`this.mFactorySet`, `this.mFactory`, `this.mFactory2`) to determine how to set the new factory. It then writes to the internal fields `this.mFactorySet` and `this.mFactory`.",
+      "stateAccesses": [
+        {
+          "name": "this.mFactorySet",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFactory2",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFactorySet",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal state of the `LayoutInflater` instance by updating the `mFactorySet` and `mFactory` fields. It can also throw an `IllegalStateException` or `NullPointerException`, which alters control flow.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls. The creation of a `FactoryMerger` is deterministic based on the current state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and its primary purpose is to mutate the object's internal state, so it does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter method that modifies the internal state of the object (`mFactory`, `mFactorySet`), which is a clear side effect. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setFactory2(Factory2 factory)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "The method reads `this.mFactorySet`, `this.mFactory`, and `this.mFactory2` to check the current state and then writes to `this.mFactorySet`, `this.mFactory`, and `this.mFactory2` to update the object's configuration.",
+      "stateAccesses": [
+        {
+          "name": "this.mFactorySet",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFactory2",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFactorySet",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFactory2",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal state of the `LayoutInflater` instance by updating `mFactorySet`, `mFactory`, and `mFactory2`. It can also throw an `IllegalStateException` or `NullPointerException`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls. The creation of a `FactoryMerger` is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and its purpose is to mutate state based on arguments and existing state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies multiple internal fields of the object. This state mutation is a side effect, making the method unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setPrivateFactory(Factory2 factory)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "The method reads and writes to the internal instance field `this.mPrivateFactory`.",
+      "stateAccesses": [
+        {
+          "name": "this.mPrivateFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPrivateFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's side effect is the modification of the internal `mPrivateFactory` field of the `LayoutInflater` instance.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and its purpose is to mutate the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state (`mPrivateFactory`) of the object, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Filter getFilter()",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "The method reads the internal instance field `this.mFilter`.",
+      "stateAccesses": [
+        {
+          "name": "this.mFilter",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (`this.mFilter`), not on input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although it has no side effects, its result depends on the internal field `mFilter`, not solely on its inputs. Therefore, it is not referentially transparent.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setFilter(Filter filter)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "The method writes to two internal instance fields: `this.mFilter` and `this.mFilterMap`.",
+      "stateAccesses": [
+        {
+          "name": "this.mFilter",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mFilterMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the internal state of the object by assigning a new filter to `mFilter` and potentially initializing `mFilterMap`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls. Instantiating a `HashMap` is a deterministic action.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and its purpose is to mutate the object's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies the internal state of the object (`mFilter` and `mFilterMap`), which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View inflate(int resource, ViewGroup root)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method does not directly access any state but delegates its work to another `inflate` overload, which is highly stateful.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has significant side effects as it calls another `inflate` method which performs I/O (reading a resource), creates View objects, and potentially modifies the `root` ViewGroup by adding children to it.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it delegates to another `inflate` method whose outcome depends on external resources and system state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the content of an external resource file identified by the `resource` ID and the state of the `root` object, not just the arguments themselves.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a wrapper for the core inflation logic, which involves side effects like resource I/O, object creation, and modification of the view hierarchy. It is also non-deterministic due to its reliance on external files.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View inflate(XmlPullParser parser, ViewGroup root)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method does not directly access any state but delegates its work to another `inflate` overload, which is highly stateful.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has significant side effects because it delegates to the main `inflate` method. This process involves creating View objects and potentially adding them to the `root` ViewGroup, thereby modifying it.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic as its behavior is entirely dependent on the state and content of the `XmlPullParser` passed as an argument, which represents external data.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the data stream from the `XmlPullParser`, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It wraps the main inflation logic, which produces side effects by instantiating views and modifying the `root` ViewGroup. It is also non-deterministic because its behavior depends on the content of the `XmlPullParser`.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View inflate(int resource, ViewGroup root, boolean attachToRoot)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "The method accesses the internal `mContext` field via the `getContext()` call to retrieve resources.",
+      "stateAccesses": [
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major side effects. It performs I/O by getting a layout resource from `Resources` (`res.getLayout(resource)`), and then closing the parser (`parser.close()`). It also performs logging and delegates to another `inflate` method which creates and modifies UI objects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. `getContext().getResources().getLayout(resource)` depends on the application's resources present on the device, which is external state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output depends on an external XML resource file, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs I/O by reading an XML resource file, has side effects by instantiating views, and is non-deterministic as its result depends on external application resources. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void advanceToRootNode(XmlPullParser parser)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This private helper method does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the state of the `parser` object passed as an argument by calling its `next()` method. It can also throw an `InflateException`, altering control flow.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is dependent on the state of the `XmlPullParser`, which is external and non-deterministic from the method's point of view.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and its purpose is to mutate its argument, `parser`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the state of its `parser` argument, which is a side effect. Its execution path is also dependent on the non-deterministic state of the parser.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View inflate(XmlPullParser parser, ViewGroup root, boolean attachToRoot)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method reads and writes to the internal field `this.mConstructorArgs`. It also reads `this.mContext`. It orchestrates calls to other methods that access many other fields (e.g., factories, filter maps).",
+      "stateAccesses": [
+        {
+          "name": "this.mConstructorArgs",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mConstructorArgs",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is the core inflation method and it is laden with side effects. It modifies the `parser` argument, instantiates `View` objects, modifies the `root` `ViewGroup` by calling `addView()`, modifies internal state (`mConstructorArgs`), and interacts with system tracing (`Trace`).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's execution is entirely driven by the content of the `XmlPullParser`, which is external and non-deterministic. Calls to `parser.getName()` and other parser methods yield unpredictable results.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output and behavior depend on the state of the `parser`, the `root` object, and various internal fields (like factories, accessed via helpers), not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is highly impure. Its main purpose is to cause side effects: reading from a parser, creating a tree of `View` objects, and attaching it to a parent `ViewGroup`. It modifies its own state, its arguments' state, and its behavior is non-deterministic. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "String getParserStateDescription(Context context, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This is a static helper method that does not access any state of the `LayoutInflater` class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method interacts with the Android resource system by calling `context.getResources().getResourceName()`. This is an I/O-like operation and thus a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The call to `context.getResources().getResourceName()` is non-deterministic, as its result depends on the application's compiled resources, which are external to the code's logic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is not determined solely by its arguments, but also by the application's external resource data.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It accesses external application resources to build its return string, which is a non-deterministic operation and a form of side effect (I/O).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean verifyClassLoader(Constructor<? extends View> constructor)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "The method reads the internal instance field `this.mContext` to get a class loader. It also reads the global static field `BOOT_CLASS_LOADER`.",
+      "stateAccesses": [
+        {
+          "name": "android.view.LayoutInflater.BOOT_CLASS_LOADER",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method does not have any observable side effects; it only performs reads and comparisons.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because it relies on the Java ClassLoader hierarchy (`mContext.getClassLoader()`, `cl.getParent()`), which is part of the runtime environment's state and can vary.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on internal state (`this.mContext`) and the non-deterministic state of the runtime's class loader hierarchy, not just its input argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it has no side effects, its result is non-deterministic as it depends on the runtime ClassLoader hierarchy, which is external state. Its result also depends on the internal `mContext` field.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View createView(String name, String prefix, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method reads the internal fields `this.mConstructorArgs` and `this.mContext`. It then delegates to another `createView` overload which accesses and modifies more state.",
+      "stateAccesses": [
+        {
+          "name": "this.mConstructorArgs",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects because it calls another `createView` method which uses reflection to instantiate objects, modifies caches, and interacts with system tracing.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The delegated call to `createView` is non-deterministic due to its reliance on class loading and reflection.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on internal state and the result of a non-deterministic, stateful helper method, not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It is a wrapper for a more complex `createView` method that has significant side effects (object creation via reflection, cache modification) and is non-deterministic (depends on class path).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View createView(Context viewContext, String name, String prefix, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method performs extensive state access. It reads and writes to the global static cache `sConstructorMap`. It reads `this.mContext`, `this.mFilter`, and the global `mConstructorSignature`. It reads and writes to the internal cache `this.mFilterMap`. It reads and writes to the internal temporary state `this.mConstructorArgs`.",
+      "stateAccesses": [
+        {
+          "name": "android.view.LayoutInflater.sConstructorMap",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.view.LayoutInflater.sConstructorMap",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFilter",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFilterMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFilterMap",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mConstructorArgs",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mConstructorArgs",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "android.view.LayoutInflater.mConstructorSignature",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major side effects. It modifies a global static cache (`sConstructorMap`) and an internal instance cache (`mFilterMap`). It uses reflection (`Class.forName`, `getConstructor`, `newInstance`) to create new `View` objects. It interacts with system tracing. It modifies `ViewStub` objects passed to it.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. It relies on `Class.forName` which depends on the classpath. It calls `mFilter.onLoadClass`, an external callback with unknown behavior. Its logic depends on the contents of two caches (`sConstructorMap`, `mFilterMap`).",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "No. The method's behavior and return value depend on the classpath, global and internal caches, an external filter implementation, and internal state, not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is profoundly impure. It modifies global and internal state (caches), uses non-deterministic reflection and class loading to produce its primary side effect (object creation), and calls external code. It is entirely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void failNotAllowed(String name, String prefix, Context context, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This private helper method does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The sole purpose of this method is to throw an `InflateException`. Throwing an exception is a side effect that alters the normal control flow of the program.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method calls `getParserStateDescription`, which is non-deterministic because its output depends on external application resources.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and its behavior (throwing an exception) is not a function of its arguments only, due to the call to the non-deterministic `getParserStateDescription`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its only function is to produce a side effect by throwing an exception. The exception message itself is generated by a non-deterministic helper method.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View onCreateView(String name, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method does not directly access state, but it calls `createView`, which performs extensive access and modification of both internal and global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects because it delegates to `createView`, which uses reflection to instantiate objects and modifies caches.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because its delegated call to `createView` depends on the classpath and runtime state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the complex, stateful, and non-deterministic behavior of `createView`, not just on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a convenience wrapper that calls `createView`, a method with significant side effects (object instantiation via reflection) and non-deterministic behavior.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View onCreateView(View parent, String name, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method does not directly access state but delegates to `onCreateView(name, attrs)`, which in turn calls the stateful `createView` method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects as it is part of a call chain that leads to the `createView` method, which instantiates objects via reflection.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic as it is part of a call chain that leads to the non-deterministic `createView` method.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is not determined solely by its arguments, but by the stateful and non-deterministic `createView` method it eventually calls.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It simply delegates to another `onCreateView` method which is itself impure. The entire chain ultimately relies on the `createView` method's side effects and non-determinism.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View onCreateView(Context viewContext, View parent, String name, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method does not directly access state but delegates to `onCreateView(parent, name, attrs)`, which is part of a stateful call chain.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it delegates to other methods that are responsible for view creation, an inherently stateful process with side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it delegates to other methods that rely on non-deterministic processes like class loading and reflection.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is dependent on the entire non-deterministic inflation process, not just its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a link in a chain of delegation that ends at the `createView` method, which is impure due to its side effects (object creation) and non-deterministic behavior.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View createViewFromTag(View parent, String name, Context context, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method is a simple wrapper and does not directly access state, but it calls another `createViewFromTag` overload which is stateful.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects by delegating to the five-argument `createViewFromTag`, which is responsible for view creation and interacts with the theme system.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because it delegates to a method that depends on system themes and the results of other non-deterministic view creation methods.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The result is not dependent on arguments only, but on the complex logic of the method it calls.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a convenience wrapper that delegates to a more complex, stateful, and non-deterministic method which has side effects related to view creation and theming.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View createViewFromTag(View parent, String name, Context context, AttributeSet attrs, boolean ignoreThemeAttr)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method reads and writes the internal array `this.mConstructorArgs`. It also reads the global static array `ATTRS_THEME`. It calls helper methods (`tryCreateView`, `onCreateView`, `createView`) which access extensive additional state.",
+      "stateAccesses": [
+        {
+          "name": "this.mConstructorArgs",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mConstructorArgs",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "android.view.LayoutInflater.ATTRS_THEME",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has numerous side effects. It interacts with the Android resource system to apply themes (`context.obtainStyledAttributes`), creates new `View` objects, and modifies internal state (`mConstructorArgs`).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic. Applying a theme depends on the external state of application resources. The subsequent calls to `tryCreateView`, `onCreateView`, or `createView` are all non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on Android themes, application resources, and the behavior of various factory/creation methods, not just the input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a central part of the inflation process, involving non-deterministic theme/resource lookups, modification of internal state, and side effects like View object instantiation. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "View tryCreateView(View parent, String name, Context context, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "The method reads the internal instance fields `this.mFactory2`, `this.mFactory`, and `this.mPrivateFactory` to delegate view creation.",
+      "stateAccesses": [
+        {
+          "name": "this.mFactory2",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPrivateFactory",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The primary side effect is the creation of a new `View` object, either by instantiating `BlinkLayout` or by calling the `onCreateView` method on one of the configured factories. These external factories can have any side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because it calls out to external `Factory` implementations (`mFactory.onCreateView(...)`), whose behavior is unknown and can vary.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The output depends on the internal state (which factories are set) and the behavior of those external factories, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on internal state (the configured factories) and calls external, user-provided code (the factories' `onCreateView` methods), which can be non-deterministic and have arbitrary side effects. The instantiation of views is itself a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void rInflateChildren(XmlPullParser parser, View parent, AttributeSet attrs, boolean finishInflate)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method does not directly access state, but it calls `rInflate` which orchestrates many stateful operations.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it delegates to `rInflate`, which modifies the `parser`, creates child `View` objects, and adds them to the `parent` view.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it delegates to `rInflate`, whose execution path is determined by the non-deterministic state of the `XmlPullParser`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and mutates its `parent` and `parser` arguments (via `rInflate`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a wrapper for the recursive `rInflate` method, which is responsible for the stateful, non-deterministic, and side-effect-heavy process of inflating a view hierarchy.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void rInflate(XmlPullParser parser, View parent, Context context, AttributeSet attrs, boolean finishInflate)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method does not directly access fields of `LayoutInflater`, but it orchestrates calls to other methods like `createViewFromTag`, `parseViewTag`, and `parseInclude` which are highly stateful.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is full of side effects. It advances the `parser`, creates `View` objects, modifies the `parent` `ViewGroup` by calling `addView`, calls lifecycle methods like `onFinishInflate`, and can throw exceptions.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's entire control flow is non-deterministic, as it is driven by the sequence of tokens from the `XmlPullParser`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and its behavior is to mutate the `parent` and `parser` objects based on the non-deterministic data from the parser.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It performs the recursive inflation of a view hierarchy, which involves modifying the `parent` view (side effect), creating new views (side effect), and processing a non-deterministic XML stream. It is inherently stateful and impure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void parseViewTag(XmlPullParser parser, View view, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This private helper method does not access any state from the `LayoutInflater` instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It modifies the `view` object by calling `view.setTag()`. It interacts with the Android resource system (`context.obtainStyledAttributes`). It also modifies the `parser` object by calling `consumeChildElements`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because `context.obtainStyledAttributes` depends on external theme and style resources. The `consumeChildElements` call also depends on the non-deterministic state of the parser.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and its purpose is to mutate its arguments based on non-deterministic resource lookups.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the state of its `view` and `parser` arguments (side effects) and its behavior depends on the non-deterministic Android resource system.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void parseInclude(XmlPullParser parser, Context context, View parent, AttributeSet attrs)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This method reads and writes to the internal instance field `this.mTempValue` as a temporary holder for a resolved resource ID.",
+      "stateAccesses": [
+        {
+          "name": "this.mTempValue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTempValue",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has extensive side effects. It performs I/O by reading and parsing a new layout file (`context.getResources().getLayout(layout)`). It creates new `View` objects and adds them to the `parent` `ViewGroup`. It interacts heavily with the resource and theme systems.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is highly non-deterministic. Its behavior depends on resolving attributes, themes, and layout identifiers from the external resource system. It then recursively parses another XML file.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and mutates internal state, argument state, and performs I/O based on attributes and resources, not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It handles the `<include>` tag, which involves I/O to parse another layout file, has numerous side effects like creating and adding views, and is highly non-deterministic due to its reliance on the Android resource and theme system.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void consumeChildElements(XmlPullParser parser)",
+      "className": "android.view.LayoutInflater",
+      "reasonAboutStateAccesses": "This is a static helper method and does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's only purpose is to modify its argument, `parser`, by calling `next()` until it advances past the current XML element's children. This mutation of an argument is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior (how many times it loops) is entirely dependent on the state of the `XmlPullParser`, which represents external, non-deterministic data.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has a `void` return type and mutates its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It has the side effect of modifying its `parser` argument. Its behavior is also non-deterministic as it depends on the structure of the XML being parsed.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

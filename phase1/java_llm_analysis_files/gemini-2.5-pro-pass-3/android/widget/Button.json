@@ -1,0 +1,177 @@
+{
+  "file_name": "android.widget.Button",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/Button.java",
+  "source_code_file_path": "java_source_code_files/android/widget/Button.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751920725,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 60.633,
+  "llm_analysis": [
+    {
+      "methodSignature": "CharSequence getAccessibilityClassName()",
+      "className": "android.widget.Button",
+      "reasonAboutStateAccesses": "This method does not access any fields. It returns a constant value derived from the class literal `Button.class`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It simply returns a constant string representing the class name.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method calls `Button.class.getName()`, which is a deterministic operation that returns a constant value. It does not involve time, randomness, or changing system state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value is constant. Therefore, it is considered to depend only on its arguments (of which there are none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, does not access any mutable state, and returns a constant value. It is an excellent candidate for memoization, although its performance impact is negligible.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "PointerIcon onResolvePointerIcon(MotionEvent event, int pointerIndex)",
+      "className": "android.widget.Button",
+      "reasonAboutStateAccesses": "The method reads the internal state of the View by calling `getPointerIcon()`, `isClickable()`, and `isEnabled()`. It also reads a global feature flag via `enableArrowIconOnHoverWhenClickable()`. Finally, it accesses the context via `getContext()` to retrieve a system icon.",
+      "stateAccesses": [
+        {
+          "name": "android.view.flags.Flags.FLAG_ENABLE_ARROW_ICON_ON_HOVER_WHEN_CLICKABLE",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mPointerIcon",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mViewFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method does not have direct side effects. It returns a `PointerIcon` object based on its internal state and arguments. The caller is responsible for using this return value to update the UI. It does not modify any fields or perform I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic as it depends on a global feature flag (`enableArrowIconOnHoverWhenClickable()`) which can change based on system configuration. It also depends on the content of the `MotionEvent` argument, which represents unpredictable user input.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the `event` argument, the internal state of the Button (`isClickable()`, `isEnabled()`), and a global feature flag. Therefore, it does not depend solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. Its output depends on the mutable internal state of the `Button` object (e.g., clickable, enabled), a global feature flag, and the `MotionEvent` argument. This dependency on internal and global state makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getButtonDefaultStyleAttr(Context context)",
+      "className": "android.widget.Button",
+      "reasonAboutStateAccesses": "This method writes to and then reads from the global static field `sUseWearMaterial3Style`. The value written is determined by a call to `useWearMaterial3Style(context)`, which itself reads various global and system states.",
+      "stateAccesses": [
+        {
+          "name": "android.widget.Button.sUseWearMaterial3Style",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "android.widget.Button.sUseWearMaterial3Style",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect: it modifies the global static field `sUseWearMaterial3Style`. This mutation affects the behavior of subsequent calls to this method and to `getButtonDefaultStyleRes()`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is non-deterministic because its underlying logic in `useWearMaterial3Style` depends on system feature flags, compatibility change settings, installed system features, and the current theme, all of which are external to the application's code and can vary.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the `context` argument but also on multiple external system states (feature flags, system features) and has the side effect of modifying a static field. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It has a significant side effect of writing to a global static field. Furthermore, its logic is non-deterministic, relying on system configurations and features. It is entirely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getButtonDefaultStyleRes()",
+      "className": "android.widget.Button",
+      "reasonAboutStateAccesses": "This method reads the value of the global static field `sUseWearMaterial3Style`.",
+      "stateAccesses": [
+        {
+          "name": "android.widget.Button.sUseWearMaterial3Style",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method does not have any direct side effects. It reads a static field and returns an integer value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because its return value depends on the state of the static field `sUseWearMaterial3Style`, which is set by the non-deterministic method `getButtonDefaultStyleAttr`. The state of this field is not guaranteed to be the same across different executions or application states.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its return value depends entirely on the state of a mutable global static field. Therefore, it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. While it lacks direct side effects, its result is dependent on a mutable global static field (`sUseWearMaterial3Style`). This reliance on shared, mutable state that is set non-deterministically makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean useWearMaterial3Style(Context context)",
+      "className": "android.widget.Button",
+      "reasonAboutStateAccesses": "This method reads various forms of global and external state. It reads system properties via `Flags.useWearMaterial3Ui()` and `CompatChanges.isChangeEnabled()`. It also inspects the system environment via `context.getPackageManager().hasSystemFeature()` and the application's state via `context.getThemeResId()`.",
+      "stateAccesses": [
+        {
+          "name": "android.widget.flags.Flags.WEAR_MATERIAL3_UI",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.compat.CompatChanges.WEAR_MATERIAL3_BUTTON",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "context.getPackageManager()",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "context.mThemeResource",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It only reads system and context state to return a boolean value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method is highly non-deterministic. Its return value is a composite of several non-deterministic checks: a feature flag, a compatibility setting, a system hardware feature, and the current theme of the context. These values can vary widely across different devices, Android versions, and application configurations.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the `context` argument but also critically on global system state (feature flags, installed features) that is not encapsulated within the argument. Therefore, it does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. Although it has no side effects, its result is highly non-deterministic as it depends on multiple sources of external and global system state (feature flags, installed features, current theme). This makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

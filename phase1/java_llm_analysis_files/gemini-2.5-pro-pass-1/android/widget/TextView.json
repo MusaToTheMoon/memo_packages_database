@@ -1,0 +1,990 @@
+{
+  "file_name": "android.widget.TextView",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/TextView.java",
+  "source_code_file_path": "java_source_code_files/android/widget/TextView.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751888682,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 237.091,
+  "llm_analysis": [
+    {
+      "methodSignature": "void preloadFontCache()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This is a static method and does not access any instance or static fields of the TextView class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has a side effect of interacting with the system's font caching mechanism. It creates a Paint object and calls `p.measureText(\"H\")` which triggers the loading of the default typeface into the font cache. This is a form of I/O and modifies global system state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has no arguments and its behavior is constant, although it produces a side-effect.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Although its direct logic is deterministic and does not depend on instance state, it has a significant side effect of modifying the global font cache, which is a form of I/O.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "The method reads the internal object field 'mSpannable' to set the selection. It may also read 'mEditor' to refresh the text action mode. It writes to the text content via 'performReceiveContent' or 'Selection.setSelection'.",
+      "stateAccesses": [
+        {
+          "name": "this.mEditor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mSpannable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE"
+        }
+      ],
+      "reasonAboutSideEffects": "This method can have side effects. If the result is OK, it may modify the TextView's text by calling 'performReceiveContent' or display a Toast message, which is a UI side effect. It can also modify the selection state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the 'data' Intent received from an external Activity, which is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is entirely dependent on its arguments (requestCode, resultCode, data), but these arguments represent external, non-deterministic results.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on external non-deterministic input from the 'data' Intent and produces side effects such as modifying the view's text, showing a Toast, or changing the selection.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setTypeface(@Nullable Typeface tf, @Typeface.Style int style)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method modifies the internal object field 'mTextPaint' by calling 'setFakeBoldText' and 'setTextSkewX', and then calls 'setTypeface(tf)' which also modifies 'mTextPaint'.",
+      "stateAccesses": [
+        {
+          "name": "this.mTextPaint",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects as it changes the appearance of the text. It calls 'setTypeface(tf)', which can lead to UI updates by invalidating the layout and redrawing the view.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior might be considered non-deterministic if 'Typeface.defaultFromStyle(style)' or 'Typeface.create(tf, style)' rely on system state, but primarily its effect is deterministic based on the provided typeface and style.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments, but it modifies the internal state of the view, so its effect is not limited to its return value (which is void).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies the internal state of the 'mTextPaint' object and causes side effects, such as redrawing the view, to reflect the new typeface.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean getDefaultEditable()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It simply returns a constant value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not involve any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends only on constants, not on arguments (it has none) or instance state.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a constant boolean value (false) and has no side effects or dependencies on external state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "MovementMethod getDefaultMovementMethod()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method does not access any internal or global state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It simply returns a constant value (null).",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not involve any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends only on constants, not on arguments (it has none) or instance state.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a constant null value and has no side effects or dependencies on external state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "CharSequence getText()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal object fields 'mText' and 'mTransformed'. It also calls 'getViewTranslationCallback()' which depends on the view's translation state, potentially accessing more internal state related to UI translation.",
+      "stateAccesses": [
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mTransformed",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is primarily a getter and does not have direct observable side effects like I/O or UI modifications.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls like random number generators or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object, specifically the 'mText', 'mTransformed', and translation-related fields, not solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure because its output is dependent on the internal state of the TextView object (e.g., 'mText', translation state). However, it is a getter that is free of side effects and is idempotent.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int length()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mText' to get its length.",
+      "stateAccesses": [
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple accessor and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of the 'mText' field, not on its arguments (it has none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state ('mText'). However, it is a side-effect-free and idempotent getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Editable getEditableText()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mText' to check its type and return it if it is an instance of Editable.",
+      "stateAccesses": [
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple accessor and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state and type of the 'mText' field, not on its arguments (it has none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as its outcome depends on the internal state of the 'mText' field. It is a side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getLineHeight()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mTextPaint' and primitive fields 'mSpacingMult' and 'mSpacingAdd' to calculate the line height.",
+      "stateAccesses": [
+        {
+          "name": "this.mTextPaint",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mSpacingMult",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mSpacingAdd",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method performs a calculation and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of several internal fields ('mTextPaint', 'mSpacingMult', 'mSpacingAdd'), not solely on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it depends on internal object state. It is a calculation based on state fields and is free of side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Layout getLayout()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mLayout'.",
+      "stateAccesses": [
+        {
+          "name": "this.mLayout",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the 'mLayout' field, not on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns an internal state object ('mLayout'). It is a side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "UndoManager getUndoManager()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of throwing an UnsupportedOperationException.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (throwing an exception) is constant and does not depend on arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it unconditionally throws an exception, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setUndoManager(UndoManager undoManager, String tag)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of throwing an UnsupportedOperationException.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (throwing an exception) is constant and does not depend on arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it unconditionally throws an exception, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "KeyListener getKeyListener()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the 'mKeyListener' field from the internal 'mEditor' object.",
+      "stateAccesses": [
+        {
+          "name": "this.mEditor.mKeyListener",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the 'mEditor' field, not on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns an internal state object. It is a side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "MovementMethod getMovementMethod()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mMovement'.",
+      "stateAccesses": [
+        {
+          "name": "this.mMovement",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal 'mMovement' field, not on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns an internal state object. It is a side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "TransformationMethod getTransformationMethod()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal object field 'mTransformation'.",
+      "stateAccesses": [
+        {
+          "name": "this.mTransformation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal 'mTransformation' field, not on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns an internal state object. It is a side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getCompoundPaddingTop()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal state, including the primitive 'mPaddingTop' and fields from the 'mDrawables' object ('mShowing', 'mDrawablePadding', 'mDrawableSizeTop').",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawables",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mPaddingTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a calculation based on internal state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is dependent on the view's padding and drawable state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it depends on internal state fields like padding and drawables. It's a side-effect-free calculation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getCompoundPaddingBottom()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal state, including the primitive 'mPaddingBottom' and fields from the 'mDrawables' object ('mShowing', 'mDrawablePadding', 'mDrawableSizeBottom').",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawables",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mPaddingBottom",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a calculation based on internal state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is dependent on the view's padding and drawable state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it depends on internal state fields like padding and drawables. It's a side-effect-free calculation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getCompoundPaddingLeft()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal state, including the primitive 'mPaddingLeft' and fields from the 'mDrawables' object ('mShowing', 'mDrawablePadding', 'mDrawableSizeLeft').",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawables",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mPaddingLeft",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a calculation based on internal state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is dependent on the view's padding and drawable state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it depends on internal state fields like padding and drawables. It's a side-effect-free calculation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getCompoundPaddingRight()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal state, including the primitive 'mPaddingRight' and fields from the 'mDrawables' object ('mShowing', 'mDrawablePadding', 'mDrawableSizeRight').",
+      "stateAccesses": [
+        {
+          "name": "this.mDrawables",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mPaddingRight",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a calculation based on internal state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is dependent on the view's padding and drawable state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it depends on internal state fields like padding and drawables. It's a side-effect-free calculation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getTotalPaddingLeft()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal state by calling 'getCompoundPaddingLeft()', which accesses padding and drawable fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a simple wrapper and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state accessed via 'getCompoundPaddingLeft()', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it depends on internal state. It's a side-effect-free calculation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getTotalPaddingRight()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal state by calling 'getCompoundPaddingRight()', which accesses padding and drawable fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a simple wrapper and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state accessed via 'getCompoundPaddingRight()', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it depends on internal state. It's a side-effect-free calculation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getTotalPaddingTop()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal state by calling 'getExtendedPaddingTop()' and 'getVerticalOffset(true)', which access various layout, gravity, and padding fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a calculation based on internal state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it depends on internal state. It's a side-effect-free calculation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getTotalPaddingBottom()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal state by calling 'getExtendedPaddingBottom()' and 'getBottomVerticalOffset(true)', which access various layout, gravity, and padding fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method is a calculation based on internal state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it depends on internal state. It's a side-effect-free calculation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getAutoLinkMask()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal, primitive instance field 'mAutoLinkMask'.",
+      "stateAccesses": [
+        {
+          "name": "this.mAutoLinkMask",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal 'mAutoLinkMask' field, not on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on an internal state field. However, it is a simple, side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getGravity()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal, primitive instance field 'mGravity' to return the current gravity setting.",
+      "stateAccesses": [
+        {
+          "name": "this.mGravity",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects such as I/O, logging, or UI modifications.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions like random number generators or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the object (the 'mGravity' field), not solely on its arguments (of which there are none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state of the object ('mGravity') rather than only its arguments. However, it is idempotent and free of side effects, making it a simple state accessor.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean getFreezesText()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal, primitive boolean field 'mFreezesText'.",
+      "stateAccesses": [
+        {
+          "name": "this.mFreezesText",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal 'mFreezesText' field, not on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure because its result depends on an internal state field. However, it is a simple, side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "ColorStateList getTextColors(Context context, TypedArray attrs)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This is a static method and does not access any fields of the TextView class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method interacts with the Android resource system by calling 'context.obtainStyledAttributes', which involves I/O and can be considered a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The result of 'context.obtainStyledAttributes' depends on the current theme and resources of the context, which can vary. Thus, the method's output is not deterministic based on the input objects alone.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the provided Context and TypedArray, but more importantly on the system's resource and theme state, which is external and variable.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a static utility that interacts with the Android resource system, which is a form of I/O and depends on external system state (the theme).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getTextColor(Context context, TypedArray attrs, int def)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This is a static method and does not access any fields of the TextView class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method interacts with the Android resource system via the 'getTextColors' helper method, which involves I/O and is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The result of 'getTextColors' depends on the current theme and resources of the context, which can vary. Thus, the method's output is not deterministic based on the input objects alone.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the provided Context and TypedArray, but more importantly on the system's resource and theme state, which is external and variable.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a static utility that interacts with the Android resource system, which is a form of I/O and depends on external system state (the theme).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean onKeyShortcut(int keyCode, KeyEvent event)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads various internal state fields to check conditions, such as 'mEditor', 'mText', and selection state via 'getSelectionStart' and 'getSelectionEnd'. It calls helper methods like 'canCut', 'canCopy', 'canPaste' which also read internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mEditor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It handles keyboard shortcuts for actions like Cut, Copy, Paste, Undo, and Redo by calling 'onTextContextMenuItem', which modifies the text content, clipboard, and selection state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the state of the system clipboard when performing paste operations, which is non-deterministic from the method's perspective.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the input KeyEvent and the internal state of the TextView (e.g., text content, selection, editability), not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is an event handler that reads and modifies internal state, interacts with the system clipboard, and its behavior is dependent on the current state of the view, not just its arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "CharSequence getIterableTextForAccessibility()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "Reads the internal object field 'mText'.",
+      "stateAccesses": [
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state 'mText', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns an internal state object. It is a simple side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getAccessibilitySelectionStart()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the selection start from the internal 'mText' object by calling 'getSelectionStart()'.",
+      "stateAccesses": [
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the selection state within the 'mText' CharSequence, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal selection state of the text. It is a side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isAccessibilitySelectionExtendable()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "The method does not access any state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects; it returns a constant value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method returns a constant value (true) and does not depend on arguments or state.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a constant boolean value and has no side effects or dependencies on external or internal state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getAccessibilitySelectionEnd()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the selection end from the internal 'mText' object by calling 'getSelectionEnd()'.",
+      "stateAccesses": [
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the selection state within the 'mText' CharSequence, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal selection state of the text. It is a side-effect-free getter.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getOffsetForPosition(float x, float y)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal 'mLayout' object and various padding fields via helper methods to calculate the text offset for a given screen coordinate.",
+      "stateAccesses": [
+        {
+          "name": "this.mLayout",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a calculation based on the view's layout and coordinates and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its arguments (x, y) and the internal layout state of the view.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the internal state of the view, specifically the 'mLayout' and padding, in addition to its arguments. It is a side-effect-free calculation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean onDragEvent(DragEvent event)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the 'mEditor' and 'mText' fields. Depending on the drag event action, it modifies the selection state of 'mSpannable' or the text content via 'mEditor.onDrop'.",
+      "stateAccesses": [
+        {
+          "name": "this.mEditor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mSpannable",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method handles drag-and-drop operations, which are a major side effect. It can change focus ('requestFocus'), modify the selection, and handle the final drop, which typically alters the text content. It is a core UI event handler.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The DragEvent object contains non-deterministic information from user interaction.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is entirely dependent on the state of the DragEvent and the internal state of the TextView, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "This method is not pure. It is an event handler for drag-and-drop gestures, which inherently involves side effects (UI updates, focus changes, text modification) and non-deterministic user input.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isInBatchEditMode()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal 'mEditor' object and its nested state fields 'mInputMethodState.mBatchEditNesting' or 'mInBatchEditControllers' to determine if the view is in batch edit mode.",
+      "stateAccesses": [
+        {
+          "name": "this.mEditor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple state checker and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal batch edit state of the 'mEditor', not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it depends on the internal state of the 'mEditor'. It is a side-effect-free state-checking method.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "TextDirectionHeuristic getTextDirectionHeuristic()",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "The method reads various internal states to determine the correct heuristic: transformation method, input type from 'mEditor', text locales via 'getTextLocale()', and layout direction via 'getLayoutDirection()'.",
+      "stateAccesses": [
+        {
+          "name": "this.mTransformation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mEditor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a complex getter that performs calculations based on internal state. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's result can be influenced by the system's locale settings ('getTextLocale()', 'DecimalFormatSymbols.getInstance()'), which can be considered a form of non-determinism based on system state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a function of the view's internal state (input type, transformation method, text direction) and system state (locale), not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its logic depends heavily on the internal state of the TextView and its 'Editor', as well as the system's locale configuration. It is a side-effect-free calculation but depends on external factors.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "ContentInfo onReceiveContent(@NonNull ContentInfo payload)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads the internal 'mEditor' field. If it exists, it delegates to the editor's 'onReceiveContent' listener, which will then modify the text content of the view.",
+      "stateAccesses": [
+        {
+          "name": "this.mEditor",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of modifying the TextView's content by inserting the text or other data from the 'payload' argument. This is a primary function for handling content insertion from sources like paste or drag-and-drop.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The 'payload' argument contains data from an external source (e.g., clipboard, drag-and-drop), which is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the content of the 'payload' argument and the internal state of the 'mEditor'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to handle content insertion, which is a significant side effect that modifies the view's state. It also operates on non-deterministic external data provided in the 'payload'.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onCreateViewTranslationRequest(@NonNull int[] supportedFormats, @NonNull Consumer<ViewTranslationRequest> requestsCollector)",
+      "className": "android.widget.TextView",
+      "reasonAboutStateAccesses": "This method reads internal state fields 'mText' and 'mTransformation' to determine if the text is a password or editable. It also reads the text content to create the translation request.",
+      "stateAccesses": [
+        {
+          "name": "this.mText",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        },
+        {
+          "name": "this.mTransformation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary side effect is calling the 'accept' method on the 'requestsCollector' consumer, which passes data out of the method to the caller (the translation framework). It may also log a warning.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments and the internal state of the TextView (text content, editability, password status).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads internal state to construct a translation request and then uses a callback ('requestsCollector') to pass this request to an external system, which constitutes a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}

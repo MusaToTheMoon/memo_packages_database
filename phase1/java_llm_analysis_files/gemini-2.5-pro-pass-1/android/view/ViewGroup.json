@@ -1,0 +1,1493 @@
+{
+  "file_name": "android.view.ViewGroup",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/view/ViewGroup.java",
+  "source_code_file_path": "java_source_code_files/android/view/ViewGroup.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751888267,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 303.277,
+  "llm_analysis": [
+    {
+      "methodSignature": "private void initViewGroup()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method initializes the ViewGroup instance. It writes to several internal fields: `mGroupFlags`, `mViewFlags` (via `setFlags`), `mChildren`, `mChildrenCount`, and `mPersistentDrawingCache`. It also calls `setDescendantFocusability` which further modifies `mGroupFlags`. All accesses are writes to internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mViewFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mPersistentDrawingCache",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects as it modifies multiple internal fields of the ViewGroup object, effectively setting its initial state. This state mutation is the primary purpose and side effect of the method.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `isShowingLayoutBounds()`, which may depend on system properties or debugging flags, making its behavior non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its behavior depends on the result of `isShowingLayoutBounds()`. Therefore, it does not depend solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is an initializer method that modifies the internal state of the object. It has side effects and its behavior can be non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "private void initFromAttributes(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method configures the ViewGroup based on XML attributes. It calls various setter methods (`setClipChildren`, `setClipToPadding`, `setLayoutAnimation`, etc.) which write to internal fields like `mGroupFlags`, `mLayoutAnimationController`, and `mTransition`. These are all write accesses to the internal state of the object.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mPersistentDrawingCache",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mLayoutAnimationController",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mTransition",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects because it modifies the internal state of the ViewGroup object. It also interacts with the Android resource system through `context.obtainStyledAttributes` and `AnimationUtils.loadLayoutAnimation`, which involves external I/O and state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior is dependent on external application resources loaded via the `Context` and `AttributeSet`. The content of these resources can vary, making the method's outcome non-deterministic from the perspective of its code alone.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's logic is driven by its arguments and the external state of the application's resources. It modifies the object's state rather than producing a return value, so it does not depend only on its arguments in a functional sense.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is an initializer that modifies the object's state based on external resources. It has significant side effects and external dependencies, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public int getDescendantFocusability()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the internal primitive field `mGroupFlags` to determine the descendant focusability setting.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a read-only operation that returns a value based on an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not call any non-deterministic functions. Its output is solely determined by the value of `mGroupFlags`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state (`mGroupFlags`), not on arguments (it has none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the mutable internal state field `mGroupFlags`. While it has no side effects, its result can change over time as the object's state changes, making it unsuitable for global memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "public void setDescendantFocusability(int focusability)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method writes to the internal primitive field `mGroupFlags` to set the descendant focusability.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's only purpose is to modify the internal state of the object (`mGroupFlags`), which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a procedure with side effects (state modification) and does not produce a return value based on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state (`mGroupFlags`), which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void handleFocusGainInternal(int direction, Rect previouslyFocusedRect)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the `mFocused` field to check if a child has focus. If so, it calls a method on that child and then writes `null` to both `mFocused` and `mFocusedInCluster`, modifying the internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mFocusedInCluster",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It modifies the internal focus state by setting `mFocused` and `mFocusedInCluster` to null. It also calls `mFocused.unFocus()`, which triggers side effects in the child view, and `super.handleFocusGainInternal()`, which affects the state of the parent view.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the current focus state of the UI, but it does not call any inherently non-deterministic functions like random or time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's logic depends on the internal state (`mFocused`) and the behavior of its superclass, not just its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a state-management method for UI focus, which involves modifying its own state and causing side effects in child and parent views. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public void requestChildFocus(View child, View focused)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "The method reads `mFocused` and `mParent` and writes to `mFocused`. It also reads `mGroupFlags` via `getDescendantFocusability()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method orchestrates focus changes in the view hierarchy. It modifies its own focus state (`mFocused`), calls `unFocus()` on a previously focused child, and propagates the focus request to its parent (`mParent.requestChildFocus()`). These actions are all side effects that alter the UI state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no inherently non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior is dependent on its internal state (`mFocused`, `mParent`, `mGroupFlags`), not solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a key part of UI focus management, which is inherently stateful. It modifies its own state, causes side effects on other views (children and parent), and is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setDefaultFocus(View child)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads and potentially writes to the internal `mDefaultFocus` field. It also reads the `mParent` field to propagate the call up the view hierarchy.",
+      "stateAccesses": [
+        {
+          "name": "this.mDefaultFocus",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDefaultFocus",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the `mDefaultFocus` field. It can also recursively call `setDefaultFocus` on its parent, propagating the state change up the view tree, which is another side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its internal state (`mDefaultFocus`) and its parent in the view hierarchy, not only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state `mDefaultFocus` and propagates this change to its parent. It is a state-modifying procedure and is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearDefaultFocus(View child)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads and writes `mDefaultFocus`. It also reads `mChildren`, `mChildrenCount`, and `mParent` to find a new default focus candidate or to propagate the call.",
+      "stateAccesses": [
+        {
+          "name": "this.mDefaultFocus",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDefaultFocus",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects as it modifies the `mDefaultFocus` field. It may also iterate through its children to find a new default focus view and propagates the call to its parent, affecting the overall UI state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not have any inherently non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of its children and its parent, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a state-modifying procedure that updates the default focus state based on its children's state and propagates this change up the view hierarchy.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean hasDefaultFocus()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the internal field `mDefaultFocus` and also calls `super.hasDefaultFocus()`, which reads state from the parent View class.",
+      "stateAccesses": [
+        {
+          "name": "this.mDefaultFocus",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects; it is a read-only query of the current default focus state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state (`mDefaultFocus`) and the state of its superclass, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on mutable internal state (`mDefaultFocus`) and its superclass's state. It is not suitable for memoization across state changes.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void clearFocusedInCluster(View child)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the internal field `mFocusedInCluster` to check if the provided child is the one currently focused within the cluster.",
+      "stateAccesses": [
+        {
+          "name": "this.mFocusedInCluster",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "If the condition `mFocusedInCluster == child` is met, it calls `clearFocusedInCluster()`, which has the side effect of modifying `mFocusedInCluster` on this view and its parents.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state `mFocusedInCluster`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a state-modifying procedure that can trigger a chain of state updates up the view hierarchy to clear the cluster focus state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clearFocusedInCluster()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method writes `null` to the `mFocusedInCluster` field on the current ViewGroup instance and its parent ViewGroups, up to the containing keyboard navigation cluster.",
+      "stateAccesses": [
+        {
+          "name": "this.mFocusedInCluster",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of modifying the `mFocusedInCluster` field on itself and its ancestors within the same cluster, which alters the UI's focus state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the structure of the view hierarchy (its parents), which is external state, but it contains no inherently non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its behavior is determined by the view hierarchy structure, not arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It traverses the view hierarchy upwards and modifies state (`mFocusedInCluster`) on multiple objects. This is a stateful procedure with clear side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public void focusableViewAvailable(View v)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads several internal state fields: `mParent`, `mGroupFlags` (via `getDescendantFocusability`), and `mViewFlags`. It also calls methods like `isFocusableInTouchMode` and `isFocused` which read internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mViewFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The primary purpose of this method is to propagate a notification to its parent by calling `mParent.focusableViewAvailable(v)`. This notification is a side effect that informs other parts of the view system about a change in focusability.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no inherently non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's execution path depends on various internal state flags and its parent, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a notification method that propagates an event up the view hierarchy. Its purpose is to cause a side effect (notifying the parent), making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public boolean showContextMenuForChild(View originalView)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads `mParent` and `mGroupFlags` (via `isShowingContextMenuWithCoords`).",
+      "stateAccesses": [
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to trigger the display of a context menu, which is a significant UI side effect. It achieves this by delegating the action to its parent view.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its internal state (`mGroupFlags`) and its parent, not solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to initiate a UI side effect (displaying a context menu) by propagating the request up the view hierarchy. This is fundamentally a state-changing operation.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public final boolean isShowingContextMenuWithCoords()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the internal state field `mGroupFlags` to check for the `FLAG_SHOW_CONTEXT_MENU_WITH_COORDS` flag.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a read-only query of an internal flag.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "This method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state `mGroupFlags`, not on arguments (it has none).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the mutable internal state `mGroupFlags`. While it is a simple, side-effect-free getter, its output can vary over time.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "public boolean showContextMenuForChild(View originalView, float x, float y)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads and writes the `mGroupFlags` field. It also reads the `mParent` field to propagate the call.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It temporarily modifies `mGroupFlags`, calls other methods (`showContextMenuForChild`) which are intended to show a UI element, and propagates the call to its parent. Displaying a context menu is a major UI side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its parent view and the result of internal method calls, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies its own state temporarily and its main purpose is to trigger a significant UI side effect (showing a context menu) by delegating to other parts of the view system.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public ActionMode startActionModeForChild(View originalView, ActionMode.Callback callback)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads and writes the internal `mGroupFlags` field to manage compatibility between different versions of the API. It also reads the static `SENTINEL_ACTION_MODE` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "android.view.ViewGroup.SENTINEL_ACTION_MODE",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to start a UI Action Mode, which is a major side effect. It does this by calling another, typed version of the method. The modification of `mGroupFlags` is also a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on internal state flags and the results of other method calls, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a compatibility wrapper that modifies internal flags and calls another method whose purpose is to produce a major UI side effect (starting an Action Mode).",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public ActionMode startActionModeForChild(View originalView, ActionMode.Callback callback, int type)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads and writes the internal `mGroupFlags` to manage compatibility logic. It reads the `mParent` field to propagate the call, and reads the static `SENTINEL_ACTION_MODE` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "android.view.ViewGroup.SENTINEL_ACTION_MODE",
+          "scope": "GLOBAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The primary purpose of this method is to start a UI Action Mode, which is a significant side effect. It accomplishes this by propagating the call to its parent. The modification of internal flags is also a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its internal flags and its parent view, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its main function is to trigger a major UI side effect (starting an Action Mode) by delegating to its parent. It also manages internal state flags for compatibility.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public boolean dispatchActivityResult(String who, int requestCode, int resultCode, Intent data)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the `mChildren` array and `mChildrenCount` to iterate over its children.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method dispatches an activity result event down the view hierarchy to its children. The child views that receive this event can perform any number of side effects. The act of dispatching the event is itself a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value depend on the state and behavior of its children, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a dispatcher that propagates an event to its children. The handlers in the children can have arbitrary side effects, making this method's overall behavior impure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public View focusSearch(View focused, int direction)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the `mParent` field and calls `isRootNamespace()`, which reads an internal flag.",
+      "stateAccesses": [
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method itself is a query and does not directly modify state. It calls `FocusFinder.getInstance().findNextFocus()` or `mParent.focusSearch()`, which are also queries of the view hierarchy. While the caller will use the result to cause side effects (changing focus), this method is side-effect free.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The result of a focus search is highly dependent on the current state of the entire UI tree (layout, visibility, focusability of all views). This is a complex, external state, making the method's output non-deterministic with respect to its inputs.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends heavily on the global state of the view hierarchy, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output is a query of the complex and mutable global state of the view hierarchy. Therefore, it is non-deterministic and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public boolean requestChildRectangleOnScreen(View child, Rect rectangle, boolean immediate)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method does not access any state. It is a base implementation that simply returns false.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has no side effects. It is a no-op implementation intended to be overridden by subclasses.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "Yes, the method ignores its arguments and always returns the constant value `false`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, does not access any state, and always returns a constant value. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "public boolean requestSendAccessibilityEvent(View child, AccessibilityEvent event)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the `mParent` field to propagate the event.",
+      "stateAccesses": [
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It calls `onRequestSendAccessibilityEvent`, which can modify the `event` object. It then propagates the request to its parent, which ultimately results in sending an event to the system's accessibility service, an I/O operation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its parent and the result of `onRequestSendAccessibilityEvent`, not solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a dispatch method that propagates an accessibility event up the view hierarchy, which is a side effect. It can also cause modifications to the event object itself.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public boolean onRequestSendAccessibilityEvent(View child, AccessibilityEvent event)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the `mAccessibilityDelegate` field to decide which implementation to call.",
+      "stateAccesses": [
+        {
+          "name": "this.mAccessibilityDelegate",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects. It delegates to either `mAccessibilityDelegate.onRequestSendAccessibilityEvent` or `onRequestSendAccessibilityEventInternal`. The delegate is an external component that can modify the `event` object, which is a side effect on a mutable argument.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the externally provided `mAccessibilityDelegate`, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state `mAccessibilityDelegate`, not solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It delegates its operation to an external `AccessibilityDelegate`, which can have arbitrary behavior, including modifying the passed-in `event` object. This dependency on external code and potential for side effects makes it impure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public boolean onRequestSendAccessibilityEventInternal(View child, AccessibilityEvent event)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "The method does not access any state fields.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It simply returns `true`.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "Yes, the method ignores its arguments and returns a constant value (`true`).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, does not access any state, and always returns `true`. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "public void childHasTransientStateChanged(View child, boolean childHasTransientState)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "The method reads and writes the `mChildCountWithTransientState` field. It also reads `mParent` to propagate the notification.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildCountWithTransientState",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It modifies its internal counter `mChildCountWithTransientState`. If this results in a change to its own transient state, it notifies its parent by calling `mParent.childHasTransientStateChanged()`. It also logs an error, which is an I/O side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its internal state (`mChildCountWithTransientState`, `mParent`) and not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a state-modifying event handler that propagates a notification to its parent. This constitutes a side effect. It also performs logging.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public boolean hasTransientState()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the internal field `mChildCountWithTransientState` and calls `super.hasTransientState()` which reads state from the base View class.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildCountWithTransientState",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a read-only query.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state (`mChildCountWithTransientState`) and superclass state, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on mutable internal state (`mChildCountWithTransientState`) and state inherited from its superclass. Its value can change over time without change in arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "public boolean dispatchUnhandledMove(View focused, int direction)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the internal field `mFocused` to determine where to dispatch the event.",
+      "stateAccesses": [
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a dispatch method. It calls `dispatchUnhandledMove` on its focused child. The child's handler for this event can have arbitrary side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its internal state (`mFocused`), not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a dispatch method that delegates an event to a child view. The child's handling of the event is an unconstrained side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public void clearChildFocus(View child)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method writes `null` to the `mFocused` field and reads the `mParent` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mParent",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects: it modifies its internal focus state by setting `mFocused` to null, and it propagates this action to its parent by calling `mParent.clearChildFocus()`. This alters the UI's focus state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its parent view, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies its internal focus state and propagates this state change to its parent, which is a clear side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public void clearFocus()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads `mFocused` to decide its course of action, and writes `null` to it if a child was focused.",
+      "stateAccesses": [
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects as it changes the focus state of the UI. It either calls `clearFocus()` on its focused child or calls `super.clearFocus()` on itself.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state `mFocused`, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It directly modifies the focus state of the UI, either by clearing focus on a child or on itself. This is a state-changing procedure with side effects.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void unFocus(View focused)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads `mFocused` to determine its behavior and writes `null` to it if a child was focused.",
+      "stateAccesses": [
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It alters the UI focus state by either delegating the `unFocus` call to a child or by calling `super.unFocus()`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state `mFocused`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is part of the UI focus management system and modifies focus state, which is a side effect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public View getFocusedChild()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the internal object field `mFocused`.",
+      "stateAccesses": [
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It simply returns a reference to an internal field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state `mFocused`, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it returns a reference to a mutable internal state field. The value returned can change on subsequent calls without any change in arguments.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "View getDeepestFocusedChild()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the `mFocused` field via the `getFocusedChild()` method in a loop to traverse the focus hierarchy.",
+      "stateAccesses": [
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a read-only traversal of the view hierarchy.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's result depends on the focus state of the entire descendant tree, which is a complex external state. This makes its output non-deterministic from the caller's perspective.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the focus state of its descendants.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It traverses a hierarchy of views to find the one with focus. The result depends on the complex, mutable state of the entire view hierarchy, making it non-deterministic and unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public boolean hasFocus()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the internal fields `mPrivateFlags` and `mFocused` to determine if the view or any of its descendants has focus.",
+      "stateAccesses": [
+        {
+          "name": "this.mPrivateFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a read-only query of focus state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state (`mPrivateFlags`, `mFocused`), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as it depends on mutable internal state flags (`mPrivateFlags`, `mFocused`). Its output can change as the focus state of the UI changes.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "public View findFocus()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the `mFocused` field and the `PFLAG_FOCUSED` bit in `mPrivateFlags` (via `isFocused()`).",
+      "stateAccesses": [
+        {
+          "name": "this.mFocused",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It recursively searches for the currently focused view within its subtree.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls, but its result depends on the focus state of its descendants.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the focus state of itself and its children, not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It recursively searches for the focused view, so its result depends on the mutable state of the view hierarchy. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean hasFocusable(boolean allowAutoFocus, boolean dispatchExplicit)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads internal state flags like `mViewFlags` and `mGroupFlags` (via `getDescendantFocusability`). It also reads `mChildren` and `mChildrenCount` to check children.",
+      "stateAccesses": [
+        {
+          "name": "this.mViewFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a query that checks for the existence of focusable views in its subtree.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's result depends on the state of its children (visibility, focusability), which can change externally. This makes its output non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of its entire focusable subtree, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It queries the focusable state of itself and its descendants. The result depends on the complex and mutable state of the view hierarchy.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean hasFocusableChild(boolean dispatchExplicit)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "The method reads the `mChildrenCount` and the `mChildren` array to iterate over child views.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a read-only query.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's result depends on the state of its children (e.g., `child.hasExplicitFocusable()`, `child.hasFocusable()`), which can change. This makes the method's output dependent on external state and thus non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of its children, not just its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It iterates through its children and calls methods on them to determine if any are focusable. The result depends on the complex, mutable state of the child views.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public void addFocusables(ArrayList<View> views, int direction, int focusableMode)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads various internal state fields, including `mGroupFlags`, `mViewFlags`, `mChildrenCount`, and `mChildren`.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mViewFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The primary purpose and side effect of this method is to modify the `views` list passed as an argument by adding focusable views to it. It also calls `FocusFinder.sort`, which modifies a temporary array of children.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the state of its children (visibility, focusability) and the layout direction (`isLayoutRtl()`), which makes its outcome non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method does not depend only on its arguments; it modifies one of its arguments (`views`) and its behavior is dependent on the state of its children.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary function is to modify the input `ArrayList` `views`, which is a side effect. Its behavior is also dependent on the complex state of its child views.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public void addKeyboardNavigationClusters(Collection<View> views, int direction)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads `mGroupFlags`, `mChildrenCount`, and `mChildren`. It also calls `setTouchscreenBlocksFocusNoRefocus`, which writes to `mGroupFlags`.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary side effect is modifying the `views` collection passed as an argument. It also temporarily modifies the `mGroupFlags` state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the state of its children and the layout direction (`isLayoutRtl()`), making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method modifies an argument (`views`) and depends on the state of its children, so it does not depend only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the input `Collection` `views`, which is a side effect. It also temporarily modifies internal state and depends on the state of its children.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public void setTouchscreenBlocksFocus(boolean touchscreenBlocksFocus)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads and writes the `mGroupFlags` field. It also reads `mContext` and accesses descendant state via `getDeepestFocusedChild()` and `focusSearch()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It modifies the `mGroupFlags` state. It can also trigger a focus change by calling `newFocus.requestFocus()`, which is a significant UI side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on external system state (`mContext.getPackageManager().hasSystemFeature()`) and the current UI focus state, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's logic depends on the current focus state and system features, not just its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state and can trigger a focus change, which is a major side effect. Its behavior is also non-deterministic due to its dependency on system features and UI state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "private void setTouchscreenBlocksFocusNoRefocus(boolean touchscreenBlocksFocus)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method writes to the internal `mGroupFlags` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's only purpose is to modify the internal state (`mGroupFlags`), which is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a state-modifying procedure, not a function that depends only on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies internal state, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public boolean getTouchscreenBlocksFocus()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the internal `mGroupFlags` field.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects. It is a read-only query of a flag.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on internal state (`mGroupFlags`), not on arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the mutable internal state `mGroupFlags`. Its value can change over time.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean shouldBlockFocusForTouchscreen()",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads internal state via `getTouchscreenBlocksFocus()`, `isKeyboardNavigationCluster()`, `hasFocus()`, and `findKeyboardNavigationCluster()`. It also accesses the global `mContext` to interact with `PackageManager`.",
+      "stateAccesses": [
+        {
+          "name": "this.mGroupFlags",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mContext",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects; it's a complex query.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because its result depends on external system state (`PackageManager.hasSystemFeature(FEATURE_TOUCHSCREEN)`) and the current UI focus state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method depends on internal state, system state, and the UI focus state, not just arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a complex query whose result depends on multiple sources of mutable state, including internal flags, system features, and the global UI focus state. This makes it non-deterministic.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public void findViewsWithText(ArrayList<View> outViews, CharSequence text, int flags)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads the `mChildrenCount` and `mChildren` array to iterate through its children.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary side effect is modifying the `outViews` list by adding views that match the criteria. This modification of a passed-in collection is a side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's behavior depends on the state of its children (visibility, text content), which can be considered external, mutable state.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method modifies an argument (`outViews`) and its behavior depends on the state of its children, not solely on its inputs.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies its `outViews` argument, which is a side effect. It also traverses a hierarchy of views, making its behavior dependent on complex external state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public View findViewByAccessibilityIdTraversal(int accessibilityId)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads `mChildrenCount` and `mChildren` to traverse the view hierarchy.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a read-only search through the view hierarchy.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's result depends on the state of the entire view subtree (the accessibility IDs and structure), which is complex and mutable, making it non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of its descendant views, not just its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a search over a mutable and complex data structure (the view hierarchy). Its result is dependent on this external state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public View findViewByAutofillIdTraversal(int autofillId)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads `mChildrenCount` and `mChildren` to traverse the view hierarchy.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a read-only search through the view hierarchy.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The result of this method depends on the autofill IDs of all views in the subtree, which is complex and mutable state. Therefore, it is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the state of its descendant views, not just its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs a search over the view hierarchy, a mutable and complex data structure. Its result is dependent on this external state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public void findAutofillableViewsByTraversal(@NonNull List<View> autofillableViews)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This method reads `mChildrenCount` and `mChildren` to iterate over its children.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildrenCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mChildren",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary side effect is to modify the `autofillableViews` list by adding views from its subtree that are autofillable.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The behavior of this method depends on the state of its children (e.g., whether they are autofillable), which is external and mutable.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method modifies its argument list and its behavior depends on the state of its children, not just the input list.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its main purpose is to modify the input List, which is a side effect. It also traverses a complex and mutable view hierarchy.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "public static int getChildMeasureSpec(int spec, int padding, int childDimension)",
+      "className": "android.view.ViewGroup",
+      "reasonAboutStateAccesses": "This is a static method and does not access any instance or static fields of the class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method performs a calculation based on its inputs and has no side effects. It does not perform I/O, modify state, or interact with external systems.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method's logic is purely mathematical and depends only on its arguments. It does not call any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "Yes, as a static method, its return value is a pure function of its input arguments `spec`, `padding`, and `childDimension`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is a pure function. It is static, has no side effects, accesses no external or internal state, and its output is solely determined by its input arguments. It is perfectly suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,379 @@
+{
+  "file_name": "android.widget.EditText",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/EditText.java",
+  "source_code_file_path": "java_source_code_files/android/widget/EditText.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751888805,
+  "run_name": "gemini-2.5-pro-pass-1",
+  "llm_response_time_seconds": 123.886,
+  "llm_analysis": [
+    {
+      "methodSignature": "boolean getFreezesText()",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state; it returns the constant boolean value 'true'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects as it only returns a constant value and does not interact with any external systems or modify any state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions like those related to time or random number generation.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on arguments, making it trivially dependent on its inputs (of which there are none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure because it consistently returns a hardcoded value, has no side effects, and does not depend on any mutable state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean getDefaultEditable()",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state; it returns the constant boolean value 'true'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects as it only returns a constant value and does not interact with any external systems or modify any state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions like those related to time or random number generation.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on arguments, making it trivially dependent on its inputs (of which there are none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure because it consistently returns a hardcoded value, has no side effects, and does not depend on any mutable state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "MovementMethod getDefaultMovementMethod()",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state. It calls a static factory method `ArrowKeyMovementMethod.getInstance()` which typically returns a singleton instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. The call to `ArrowKeyMovementMethod.getInstance()` retrieves a shared object but does not modify the state of the EditText widget or have other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. The `getInstance()` method is designed to return the same singleton instance on every call.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value does not depend on arguments (as there are none) and is determined by the static `getInstance` method, which is deterministic. Therefore, it effectively depends only on its (non-existent) arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It deterministically returns a singleton instance via a static method call and has no side effects on the EditText object or the broader system.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Editable getText()",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method reads the text state from its superclass via `super.getText()`. If the retrieved text is not an instance of `Editable`, it modifies the internal state by calling `super.setText()` to convert it to an editable buffer. This constitutes both a read and a potential write of internal object state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method can have side effects. If the current text is not an `Editable` type, it calls `super.setText()`, which modifies the underlying text buffer. This can trigger UI updates and notify `TextWatcher` listeners, which are observable side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state of the widget (the current text), not solely on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value depends on the mutable internal state of the text view, and it can have side effects by modifying the text buffer's type, which in turn can trigger UI updates.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setText(CharSequence text, BufferType type)",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method writes to the internal state of its superclass by calling `super.setText()`. It effectively replaces the current text buffer with a new one of type `BufferType.EDITABLE`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has significant side effects. It calls `super.setText()`, which updates the text displayed on the screen, triggers layout changes, and notifies any registered `TextWatcher` listeners.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method and does not return a value. Its behavior is determined by its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a mutator method with the primary purpose of causing side effects, namely changing the text content of the UI widget.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setSelection(int start, int stop)",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method modifies the internal selection state of the text buffer. It first retrieves the text buffer via `getText()`, which is a state read, and then calls `Selection.setSelection()`, which modifies the selection state within that buffer, constituting a state write.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects. Modifying the text selection is an observable UI change, affecting the cursor position and text highlighting. This can also trigger selection change listeners.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method and does not return a value. Its behavior is determined by its arguments and the current text state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to cause a side effect by changing the text selection, which is an observable UI state change.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setSelection(int index)",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method modifies the internal selection state of the text buffer. It first retrieves the text buffer via `getText()`, which is a state read, and then calls `Selection.setSelection()`, which modifies the selection state within that buffer, constituting a state write.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects. Modifying the text selection is an observable UI change, affecting the cursor position. This can also trigger selection change listeners.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method and does not return a value. Its behavior is determined by its arguments and the current text state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to cause a side effect by changing the text selection, which is an observable UI state change.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void selectAll()",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method modifies the internal selection state of the text buffer. It first retrieves the text buffer via `getText()`, which is a state read, and then calls `Selection.selectAll()`, which modifies the selection state within that buffer, constituting a state write.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects. Modifying the text selection to encompass all text is an observable UI change. This can also trigger selection change listeners.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method and does not return a value. Its behavior is determined by the current text state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to cause a side effect by changing the text selection, which is an observable UI state change.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void extendSelection(int index)",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method modifies the internal selection state of the text buffer. It first retrieves the text buffer via `getText()`, which is a state read, and then calls `Selection.extendSelection()`, which modifies the selection state within that buffer, constituting a state write.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects. Modifying the text selection boundary is an observable UI change. This can also trigger selection change listeners.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method and does not return a value. Its behavior is determined by its arguments and the current text state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to cause a side effect by changing the text selection, which is an observable UI state change.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setEllipsize(TextUtils.TruncateAt ellipsis)",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method writes to the internal state of its superclass by calling `super.setEllipsize()`. This modifies how the TextView handles text that is too long to fit in the view.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has side effects. It alters the visual presentation of the text. Additionally, it can throw an `IllegalArgumentException`, which is a side effect that alters control flow.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method and does not return a value. Its behavior is determined by its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It causes side effects by changing the UI's appearance and can throw an exception, altering the program's control flow.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "CharSequence getAccessibilityClassName()",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method does not access any instance or static fields. It retrieves the class name programmatically, which is a constant value for this class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects; it simply returns a constant string representing the class name.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic; `EditText.class.getName()` will always return the same string.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on arguments, making it trivially dependent on its inputs (of which there are none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It returns a constant value with no side effects and does not rely on any mutable state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean supportsAutoSizeText()",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method does not access any internal or global state; it returns the constant boolean value 'false'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects as it only returns a constant value and does not interact with any external systems or modify any state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions like those related to time or random number generation.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a constant and does not depend on arguments, making it trivially dependent on its inputs (of which there are none).",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure because it consistently returns a hardcoded value, has no side effects, and does not depend on any mutable state.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean onKeyShortcut(int keyCode, KeyEvent event)",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method reads the internal primitive field `this.mStyleShortcutsEnabled`. It also indirectly reads the text selection state by calling `hasSelection()` and can indirectly write to the text state by calling `onTextContextMenuItem()`.",
+      "stateAccesses": [
+        {
+          "name": "this.mStyleShortcutsEnabled",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method can have side effects. If the shortcut conditions are met, it calls `onTextContextMenuItem()`, which modifies the text style (e.g., bolding it), a clear UI side effect. It also delegates to `super.onKeyShortcut()`, which may have its own side effects.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is not non-deterministic. Its logic is deterministic based on the provided `keyCode` and `event` arguments, along with the internal state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior depend on its arguments as well as internal state (`mStyleShortcutsEnabled`, the current text selection).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on internal, mutable state (`mStyleShortcutsEnabled`, selection) and can cause side effects by modifying the text's style.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean onTextContextMenuItem(int id)",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method reads the static final integer fields `ID_BOLD`, `ID_ITALIC`, and `ID_UNDERLINE` for comparison. Based on the `id`, it may call `performStylingAction()`, which reads and writes the text buffer's state (selection and style spans).",
+      "stateAccesses": [
+        {
+          "name": "android.widget.EditText.ID_BOLD",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "android.widget.EditText.ID_ITALIC",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "android.widget.EditText.ID_UNDERLINE",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. If the `id` matches a styling action, it calls `performStylingAction()`, which modifies the text's appearance. It also delegates to `super.onTextContextMenuItem()` for other IDs, which can have various side effects related to text manipulation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior depend on the `id` argument as well as the internal state of the text (current selection), which is accessed via helper methods.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on the internal state of the text and selection, and its primary purpose is to trigger side effects, such as applying text styles or delegating to other context menu actions.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean performStylingAction(int actionId)",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "This method directly reads and writes internal state. It reads the selection boundaries via `getSelectionStart()` and `getSelectionEnd()`. It retrieves the text buffer via `getText()` (a read) and then modifies that buffer's style spans via `SpanUtils` (a write). It also reads static final integer fields for comparison.",
+      "stateAccesses": [
+        {
+          "name": "android.widget.EditText.ID_BOLD",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "android.widget.EditText.ID_ITALIC",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        },
+        {
+          "name": "android.widget.EditText.ID_UNDERLINE",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary purpose is to cause a side effect: modifying the style of the selected text (e.g., making it bold, italic, or underlined). This is an observable change to the UI component's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and behavior depend on the `actionId` argument as well as the current text content and selection, which are part of the widget's internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It reads and writes the internal text state and its main goal is to produce a side effect by altering the text's appearance.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setStyleShortcutsEnabled(boolean enabled)",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method writes to the internal primitive field `this.mStyleShortcutsEnabled`.",
+      "stateAccesses": [
+        {
+          "name": "this.mStyleShortcutsEnabled",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method only modifies an internal boolean flag. It does not cause any immediate, observable side effect like a UI redraw or I/O operation. Its effect is latent, influencing the behavior of `onKeyShortcut`.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method and does not return a value. Its behavior is determined by its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the internal state of the object (`mStyleShortcutsEnabled`). Although it lacks immediate, observable side effects, state mutation violates the principles of purity.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isStyleShortcutEnabled()",
+      "className": "android.widget.EditText",
+      "reasonAboutStateAccesses": "The method reads and returns the value of the internal primitive field `this.mStyleShortcutsEnabled`.",
+      "stateAccesses": [
+        {
+          "name": "this.mStyleShortcutsEnabled",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ"
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects; it is a simple getter that reads and returns an internal field's value.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the internal state field `mStyleShortcutsEnabled`, not on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. While it has no side effects, its return value is dependent on a mutable internal state field (`mStyleShortcutsEnabled`), so it is not referentially transparent. Two calls could yield different results if the state was changed in between.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    }
+  ]
+}

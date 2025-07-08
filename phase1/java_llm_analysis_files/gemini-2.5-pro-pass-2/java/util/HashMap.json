@@ -1,0 +1,1906 @@
+{
+  "file_name": "java.util.HashMap",
+  "source_type": "github",
+  "url": "https://github.com/openjdk/jdk/blob/master/src/java.base/share/classes/java/util/HashMap.java",
+  "source_code_file_path": "java_source_code_files/java/util/HashMap.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1751902069,
+  "run_name": "gemini-2.5-pro-pass-2",
+  "llm_response_time_seconds": 269.584,
+  "llm_analysis": [
+    {
+      "methodSignature": "static final int hash(Object key)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This is a static utility method that does not access any instance or class fields. Its computation is self-contained.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method is a pure computational function that calculates a hash value based on the input key's hash code. It does not perform I/O, modify any state, or have other observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method uses only the key's `hashCode()` and deterministic bitwise operations (XOR and right shift). It does not involve any sources of non-determinism like random numbers or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is exclusively determined by its input argument `key` (specifically, its `hashCode()`). It does not rely on any internal or external state.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It has no side effects, accesses no state, is deterministic, and its output depends only on its input. It is an excellent candidate for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "static Class<?> comparableClassFor(Object x)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This is a static utility method that does not access any instance or class fields. It operates solely on its argument.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method uses reflection (`.getClass()`, `.getGenericInterfaces()`) to inspect the type of the argument `x`. This is a read-only operation and does not produce any side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The reflection APIs used are deterministic. For a given class structure, the results of these calls will always be the same. The method does not use any non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends entirely on the class and implemented interfaces of the input object `x`. It does not depend on any other state.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic function of its input argument, has no side effects, and does not access any external state. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "static int compareComparables(Class<?> kc, Object k, Object x)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This is a static utility method that does not access any instance or class fields. It operates solely on its arguments.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It performs a comparison by calling the `compareTo` method on the input object `k`, which is expected to be side-effect free as per the `Comparable` contract.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is deterministic. The outcome of `compareTo` is determined by the state of the objects being compared, not by random or time-based factors.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value is a direct result of the comparison between arguments `k` and `x`, dependent on their values and types. It does not access any other state.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic function of its inputs with no side effects. It is suitable for memoization, assuming the `compareTo` implementation is also pure.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "static final int tableSizeFor(int cap)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This static method reads the static final field `MAXIMUM_CAPACITY`. As this is a constant, it does not represent a dependency on mutable state.",
+      "stateAccesses": [
+        {
+          "name": "java.util.HashMap.MAXIMUM_CAPACITY",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method performs a mathematical calculation and has no side effects. It does not alter any state or perform I/O.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method uses only deterministic integer arithmetic and bitwise operations (`Integer.numberOfLeadingZeros`). It is fully deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is determined solely by its input argument `cap` and the compile-time constant `MAXIMUM_CAPACITY`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic calculation based on its input and a constant, and it has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void putMapEntries(Map<? extends K, ? extends V> m, boolean evict)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method modifies the map's state. It reads `this.table`, `this.loadFactor`, and `this.threshold`. It may write to `this.threshold` and can trigger `resize()`, which writes to `this.table`. It also calls `putVal`, which increments `this.size` and `this.modCount`.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.loadFactor",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's primary function is to modify the state of the HashMap by adding all entries from the provided map `m`. This structural modification is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method calls `putVal`, which in turn may call `treeifyBin` and `TreeNode.putTreeVal`. These can lead to `TreeNode.tieBreakOrder`, which uses `System.identityHashCode()` for non-comparable keys with hash collisions, making the internal structure non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends not only on the input map `m` but also heavily on the current state of `this` HashMap, such as its capacity, load factor, and existing entries.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has major side effects (modifying the map), depends on the map's current state, and can be non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int size()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method directly reads the internal instance field `this.size` to get the number of key-value mappings.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only accessor and does not have any side effects. It does not modify any state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any non-deterministic calls; it simply returns the value of an integer field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is nullary and its return value depends entirely on the internal state (`this.size`) of the object, not on any arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure in a strict sense because its output depends on the mutable state of the HashMap instance. While it's a simple, side-effect-free accessor, it's not a function of its arguments alone and is thus unsuitable for general memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean isEmpty()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the internal instance field `this.size` to check if the map is empty.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only check and has no side effects. It does not modify any state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not involve any non-deterministic calls; it performs a simple comparison on an integer field.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is nullary and its return value depends entirely on the internal state (`this.size`) of the object, not on any arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the mutable state of the object (`this.size`). Although it has no side effects, it is not a function of its arguments alone and is therefore unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "V get(Object key)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the internal state of the map by calling `getNode(key)`, which traverses the `this.table` array and the linked list or tree of nodes within it.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is read-only in HashMap. It calls `getNode`, which retrieves a value without modifying the map's structure. The `afterNodeAccess` hook exists for subclasses like LinkedHashMap but is empty here.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The process of finding a node is deterministic. It relies on hash codes and `equals` comparisons, which are expected to be deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the provided `key` and the current contents of the map's internal `table`. It is not solely dependent on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output is dependent on the mutable internal state of the HashMap. While it lacks side effects in this class, this dependency on state makes it unsuitable for memoization in a general context.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Node<K, V> getNode(Object key)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the `this.table` field to access the hash table. It then traverses the data structure (linked list or tree) at the appropriate index to find the node.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only operation. It searches the internal data structure without modifying it.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "Finding a node is a deterministic process. It uses `key.hashCode()` and `key.equals()`. While tree traversal might involve comparisons, it does not use non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the input `key` and the current state of the internal `table`. It is not a function of its arguments alone.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the mutable state of the HashMap (`this.table`). Even though it is side-effect free, this state dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean containsKey(Object key)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method calls `getNode(key)`, which reads the `this.table` field and traverses the internal data structure to check for the key's existence.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a read-only operation; it checks for the presence of a key without modifying the map's state.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The lookup process performed by `getNode` is deterministic, relying on `hashCode` and `equals`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on both the input `key` and the current state of the map's internal `table`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result is contingent on the mutable internal state of the HashMap instance. This dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "V put(K key, V value)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method delegates to `putVal`, which reads and writes multiple internal state fields. It accesses `this.table`, `this.size`, `this.modCount`, and `this.threshold` to perform the insertion, potentially triggering a resize.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The fundamental purpose of this method is to mutate the HashMap's state by adding or updating a mapping. This structural change is an observable side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The underlying `putVal` method may trigger `treeifyBin`, which can lead to `TreeNode.tieBreakOrder`. This utility uses `System.identityHashCode` for tie-breaking, introducing non-determinism into the map's internal structure across different JVM runs.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (e.g., whether it inserts or updates, if it resizes) and its return value (the previous value) depend heavily on the existing state of the map, not just the input key and value.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has significant side effects (modifying the map), depends on internal state, and can be non-deterministic. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This core method extensively reads and writes the map's state. It reads `this.table` and `this.threshold`. It writes to `this.table` (new nodes or resizing), `this.size` (increment), and `this.modCount` (increment).",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method is the primary engine for mutations in the HashMap. It adds new nodes, updates existing ones, and triggers resizing, all of which are major side effects that alter the map's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "If a bin becomes too large, this method calls `treeifyBin`. When inserting into a tree, `TreeNode.putTreeVal` may call `tieBreakOrder`, which uses `System.identityHashCode`, a source of non-determinism.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's logic and return value depend on the current state of the map, including its contents, size, and capacity, in addition to its input parameters.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is the primary mutator method, depends on internal state, and can have non-deterministic structural outcomes. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Node<K, V>[] resize()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method performs a major state transformation. It reads `this.table`, `this.threshold`, and `this.loadFactor`. It then writes a new array to `this.table` and a new value to `this.threshold`.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.loadFactor",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's sole purpose is to produce a side effect: rebuilding the internal hash table, usually to increase its capacity. This is a significant structural modification.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The resizing logic itself (calculating new capacity, rehashing elements) is deterministic. However, it can call `TreeNode.split`, which in turn might call `treeify`, which uses the non-deterministic `tieBreakOrder`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a nullary method whose behavior is entirely dictated by the internal state of the HashMap (`oldCap`, `oldThr`, `loadFactor`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a state-mutating procedure that depends entirely on the object's internal state and can have non-deterministic outcomes in edge cases involving tree bins. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void treeifyBin(Node<K, V>[] tab, int hash)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads the length of the `tab` argument (which is `this.table`). If the table is too small, it calls `resize()`, which modifies `this.table` and `this.threshold`. If large enough, it writes a new `TreeNode` structure back into the `tab` array.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method causes a significant side effect by changing the internal data structure of a map bucket from a linked list to a red-black tree. This is a structural modification.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The core of this method is the call `hd.treeify(tab)`. The `treeify` process in `TreeNode` uses `tieBreakOrder` to resolve ordering for keys with the same hash that are not comparable. `tieBreakOrder` uses `System.identityHashCode`, which is non-deterministic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the state of the passed-in `tab` array and the internal state of `this` HashMap if `resize()` is called.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It mutates the map's internal structure, depends on that state, and its resulting tree structure can be non-deterministic. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void putAll(Map<? extends K, ? extends V> m)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method delegates to `putMapEntries`, which reads and modifies the core state of the map, including `this.table`, `this.size`, `this.modCount`, and `this.threshold`.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.loadFactor",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to modify the HashMap by adding all mappings from another map, which is a clear and intended side effect.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method calls `putMapEntries` which calls `putVal`, which can lead to `treeifyBin` and the use of the non-deterministic `System.identityHashCode` for tie-breaking in tree nodes.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the input map `m` and the current state of `this` HashMap.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a mutator method that depends on internal state and can have non-deterministic structural outcomes. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "V remove(Object key)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method delegates to `removeNode`, which modifies the map's state. It reads `this.table` to locate the node and then writes to `this.table` (by unlinking the node), decrements `this.size`, and increments `this.modCount`.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The primary purpose of this method is to cause a side effect: structurally modifying the HashMap by removing a mapping. This changes the object's observable state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The `removeNode` operation, including removal from tree nodes, is deterministic. It does not involve any random or time-based calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value depend on the input `key` and whether that key exists in the map's current state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has significant side effects (mutating the map's state) and its outcome depends on that state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Node<K, V> removeNode(int hash, Object key, Object value, boolean matchValue, boolean movable)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads `this.table` to find the node. If a node is found and removed, it writes to `this.table` (by modifying `next` pointers), `this.modCount` (increment), and `this.size` (decrement).",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This is a core mutator method. Its purpose is to remove a node from the map's internal data structure, which is a side effect that alters the map's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The process of finding and removing a node, even from a tree bin, is deterministic. It does not rely on random or time-based functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the map's current contents (the state of `this.table`) in addition to its input arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a core mutator of the HashMap's state and depends on that state for its operation. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void clear()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method modifies several internal state fields. It reads `this.table` and `this.size`, and then writes to `this.modCount` (increment), `this.size` (sets to 0), and iterates through `this.table` to set all elements to null.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method's sole purpose is to produce a side effect: removing all mappings from the map. This is a major structural modification.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method performs deterministic operations: incrementing a counter, setting a field to zero, and nulling out array elements. It has no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a nullary method whose behavior (clearing the map) is entirely dependent on the object's current state (whether it has elements to clear).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a procedure with the explicit purpose of mutating the object's state. It is not a candidate for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean containsValue(Object value)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the internal state of the map. It accesses `this.table` and `this.size`, and then iterates through every node in the table to check its value.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method is a read-only search operation. It does not modify any state and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method performs a linear scan and uses `equals()` for comparison. These are deterministic operations.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's result depends on the input `value` and the complete set of values currently stored in the map's internal table.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the mutable state of the HashMap. Although it is side-effect free, this dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Set<K> keySet()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method performs lazy initialization. It reads the `this.keySet` field and, if it's null, writes a new `KeySet` object to it.",
+      "stateAccesses": [
+        {
+          "name": "this.keySet",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.keySet",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a minor side effect of writing to the `keySet` field on the first call. Subsequent calls are side-effect free. This pattern is often considered idempotent.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is nullary and its return value (or the state it modifies) depends on the internal `keySet` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a side effect (lazy initialization) and depends on internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> T[] prepareArray(T[] a)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the `this.size` field to determine the required array size.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method can have a side effect on its argument. If the passed-in array `a` is larger than the map's size, it writes `null` to `a[size]`. It can also create a new array, which involves memory allocation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method uses reflection (`java.lang.reflect.Array.newInstance`) but this is a deterministic operation based on the component type of the input array.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value depend on the input array `a` and the internal `this.size` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It can have a side effect by modifying its array argument, and its logic depends on the internal state (`this.size`). It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> T[] keysToArray(T[] a)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads `this.size` and `this.table`. It iterates through the entire `table` to access the keys of all nodes.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a primary side effect of populating the contents of the passed-in array `a`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The iteration order is not guaranteed to be consistent over time if the map is modified, but for a given state, the operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's side effect (modifying array `a`) depends on the internal state of the map (`this.table`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a side effect of modifying its array argument and depends on the map's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "<T> T[] valuesToArray(T[] a)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads `this.size` and `this.table`. It iterates through the entire `table` to access the values of all nodes.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a primary side effect of populating the contents of the passed-in array `a`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The iteration order is not guaranteed to be consistent over time if the map is modified, but for a given state, the operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's side effect (modifying array `a`) depends on the internal state of the map (`this.table`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a side effect of modifying its array argument and depends on the map's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Collection<V> values()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method performs lazy initialization. It reads the `this.values` field and, if it's null, writes a new `Values` object to it.",
+      "stateAccesses": [
+        {
+          "name": "this.values",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.values",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a minor side effect of writing to the `values` field on the first call. This is an idempotent mutation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is nullary and its behavior depends on the internal `values` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a side effect (lazy initialization) and depends on internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Set<Map.Entry<K, V>> entrySet()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method performs lazy initialization. It reads the `this.entrySet` field and, if it's null, writes a new `EntrySet` object to it.",
+      "stateAccesses": [
+        {
+          "name": "this.entrySet",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.entrySet",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a minor side effect of writing to the `entrySet` field on the first call. This is an idempotent mutation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is nullary and its behavior depends on the internal `entrySet` field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a side effect (lazy initialization) and depends on internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "V getOrDefault(Object key, V defaultValue)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the internal state by calling `getNode(key)`, which traverses the `this.table` array to find a matching entry.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a read-only operation and does not modify the map's state. It has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The lookup process via `getNode` is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The return value depends on the input `key` and `defaultValue`, as well as the current state of the map's internal `table`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the mutable state of the HashMap. This dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "V putIfAbsent(K key, V value)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method delegates to `putVal`, which reads and potentially writes to `this.table`, `this.size`, `this.modCount`, and `this.threshold` if the key is not already present.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method may cause a side effect by structurally modifying the map if the key is absent. This is an intended mutation of the object's state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "Like `put`, this method can trigger treeification, which uses the non-deterministic `System.identityHashCode` for tie-breaking.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value depend on the current state of the map (whether the key exists).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a conditional mutator that depends on internal state and can have non-deterministic structural outcomes. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean remove(Object key, Object value)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method delegates to `removeNode`, which reads `this.table` to find the entry and, if a match is found, writes to `this.table`, `this.size`, and `this.modCount`.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method can have the side effect of removing an entry from the map, which is a structural modification.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The underlying `removeNode` operation is deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the current contents of the map, specifically whether an entry with the given key and value exists.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a conditional mutator whose behavior depends on the object's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean replace(K key, V oldValue, V newValue)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads `this.table` via `getNode` to find the entry. If the entry is found and the old value matches, it writes to the `value` field of the existing `Node` object, which is a part of the `this.table` structure.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of changing the value associated with a key within the map. This modifies the map's state without changing its structure.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's operations (lookup, comparison, assignment) are deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome depends on the current state of the map (the existence and value of the entry for `key`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It conditionally mutates the map's internal state and depends on that state for its operation. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "V replace(K key, V value)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads `this.table` via `getNode` to find the entry. If the entry exists, it writes the new value to the `value` field of the `Node` object.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has the side effect of changing the value associated with a key if it exists. This is a state mutation.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's operations are deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior and return value depend on whether the key exists in the map's current state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a conditional mutator that depends on the map's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "V computeIfAbsent(K key, Function<? super K, ? extends V> mappingFunction)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This is a complex mutator. It reads `this.size`, `this.threshold`, and `this.table`. If a new value is computed and inserted, it writes to `this.table`, `this.modCount`, and `this.size`, and can trigger a `resize` which also writes to state.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects. It executes the provided `mappingFunction`, which can have arbitrary side effects. It also modifies the map's state if a new value is computed and inserted. It also explicitly throws `ConcurrentModificationException` if the function modifies the map.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "If a value is inserted, this method can trigger `treeifyBin`, which may use the non-deterministic `System.identityHashCode` for tie-breaking.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the map's current state (whether the key exists or has a null value) and the result of the `mappingFunction`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It executes arbitrary code (`mappingFunction`), mutates map state, depends on that state, and can be non-deterministic. It is completely unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "V computeIfPresent(K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads `this.table` (via `getNode`) and `this.modCount`. If the key is present and the remapping function returns a value, it writes to a node's value in `this.table`. If the function returns null, it triggers `removeNode`, which writes to `this.table`, `this.size`, and `this.modCount`.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects. It executes the provided `remappingFunction`, which can have arbitrary side effects. It also modifies the map's state by updating or removing an entry. It throws `ConcurrentModificationException` if the function modifies the map.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The operations within this method are deterministic. It does not create new nodes in a way that would trigger `tieBreakOrder`.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the map's current state (whether the key is present with a non-null value) and the result of the `remappingFunction`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It executes arbitrary code (`remappingFunction`), mutates map state, and depends on that state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "V compute(K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method is a combination of `computeIfAbsent` and `computeIfPresent`. It reads `this.size`, `this.threshold`, `this.table`, and `this.modCount`. It can write to all of these fields, either by inserting, updating, or removing an entry.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects by executing the `remappingFunction` and by modifying the map's state (inserting, updating, or removing an entry). It throws `ConcurrentModificationException` if the function modifies the map.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "If a value is inserted (the key was absent and the function returns non-null), this method can trigger `treeifyBin`, which may use the non-deterministic `System.identityHashCode`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the map's current state and the result of the `remappingFunction`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It executes arbitrary code, mutates state based on the current state, and can be non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "V merge(K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads `this.size`, `this.threshold`, `this.table`, and `this.modCount`. It can write to all these fields when inserting, updating, or removing an entry.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has potential side effects. It executes the `remappingFunction` which can have its own side effects. It also modifies the map's state by inserting, updating, or removing an entry. It throws `ConcurrentModificationException`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "If a value is inserted, this method can trigger `treeifyBin`, which may use the non-deterministic `System.identityHashCode`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the map's current state and the result of the `remappingFunction`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It executes arbitrary code, mutates state based on the current state, and can be non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void forEach(BiConsumer<? super K, ? super V> action)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads `this.size`, `this.table`, and `this.modCount`. It iterates through all entries in the table.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The primary purpose of this method is to cause side effects by executing the provided `action` for each entry in the map. The `action` itself can perform any operation. The method also throws `ConcurrentModificationException` as a side effect of detecting mutation during iteration.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic for a given map state, but the `action` it calls could be non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state of the map (`this.table`) and the provided `action`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is designed to execute arbitrary, side-effectful code (`action`) and depends on the map's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void replaceAll(BiFunction<? super K, ? super V, ? extends V> function)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads `this.size`, `this.table`, and `this.modCount`. It writes to the `value` field of each node within `this.table`.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It executes the provided `function`, which can have its own side effects. It also mutates the state of the map by replacing the value of every entry. It also throws `ConcurrentModificationException`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic for a given map state, but the `function` it calls could be non-deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the internal state of the map (`this.table`) and the provided `function`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It executes arbitrary code (`function`), mutates the value of every entry in the map, and depends on internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Object clone()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the entire state of the current map instance (via `putMapEntries`) to create a new one. This includes `this.table`, `this.size`, `this.loadFactor` etc.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method creates a new `HashMap` object, which is a side effect (memory allocation). It then populates this new map. It does not modify the state of the original (`this`) object, but it calls `super.clone()`, a native method.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The cloning process involves `putMapEntries`, which ultimately calls `putVal`. This can trigger treeification, which uses the non-deterministic `System.identityHashCode` for tie-breaking, making the internal structure of the clone potentially different from what a simple copy would produce.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a nullary method whose result (the cloned object) is entirely dependent on the state of `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its main purpose is to create a new object, which is a form of side effect. Its behavior depends on the complex internal state of the current object and can even be non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "float loadFactor()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the final instance field `this.loadFactor`.",
+      "stateAccesses": [
+        {
+          "name": "this.loadFactor",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a simple read-only accessor method and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method performs no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is nullary and its return value depends on the `loadFactor` field, which is part of the object's internal state (though final).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not strictly pure because its output depends on the state of the instance (`this.loadFactor`). While it's side-effect free, it's not a function of its arguments alone, making it unsuitable for general memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int capacity()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the internal instance fields `this.table` and `this.threshold` to determine the current capacity.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This is a read-only accessor method and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method performs no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is nullary and its return value is calculated from the internal state of the object (`this.table` and `this.threshold`).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its output is derived from the mutable internal state of the HashMap. This dependency makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void writeObject(java.io.ObjectOutputStream s)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method reads the map's state, including `this.size` and `this.table`, by calling `capacity()` and `internalWriteEntries(s)`.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a major side effect: it performs I/O by writing the object's state to the provided `ObjectOutputStream`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The serialization process itself is deterministic for a given map state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the `ObjectOutputStream` argument and the internal state of `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs I/O, which is a major side effect, and depends on the object's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void readObject(ObjectInputStream s)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method effectively constructs the object from a stream. It writes to almost all internal state fields: `loadFactor` (via Unsafe), `table`, `threshold`, `size`, and `modCount` (via `putVal`).",
+      "stateAccesses": [
+        {
+          "name": "this.loadFactor",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major side effects. It performs I/O by reading from the `ObjectInputStream`, and it completely overwrites the state of the `this` object.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls `putVal` repeatedly, which can trigger treeification and the use of the non-deterministic `System.identityHashCode`.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the `ObjectInputStream` argument and the data it contains.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs I/O and completely mutates the object's state based on an external resource (the stream), and can be non-deterministic. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Node<K, V> newNode(int hash, K key, V value, Node<K, V> next)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method is a factory for `Node` objects and does not access any state from the `HashMap` instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's only effect is creating a new `Node` object and returning it. This is not considered an observable side effect in the context of purity analysis.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `Node` object is constructed directly from the provided arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple factory that deterministically creates a new object based on its inputs and has no other side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "Node<K, V> replacementNode(Node<K, V> p, Node<K, V> next)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method is a factory for `Node` objects and does not access any state from the `HashMap` instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's only effect is creating a new `Node` object. This is not considered an observable side effect.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `Node` object is constructed directly from the provided arguments' fields.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple factory that deterministically creates a new object based on its inputs and has no other side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "TreeNode<K, V> newTreeNode(int hash, K key, V value, Node<K, V> next)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method is a factory for `TreeNode` objects and does not access any state from the `HashMap` instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's only effect is creating a new `TreeNode` object. This is not considered an observable side effect.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `TreeNode` object is constructed directly from the provided arguments.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple factory that deterministically creates a new object based on its inputs and has no other side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "TreeNode<K, V> replacementTreeNode(Node<K, V> p, Node<K, V> next)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method is a factory for `TreeNode` objects and does not access any state from the `HashMap` instance.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's only effect is creating a new `TreeNode` object. This is not considered an observable side effect.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The returned `TreeNode` object is constructed directly from the provided arguments' fields.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a simple factory that deterministically creates a new object based on its inputs and has no other side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void reinitialize()",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method writes to multiple internal state fields, resetting them to their initial default values. It writes null or 0 to `this.table`, `this.entrySet`, `this.keySet`, `this.values`, `this.modCount`, `this.threshold`, and `this.size`.",
+      "stateAccesses": [
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.entrySet",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.keySet",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.values",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.modCount",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.threshold",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method's purpose is to produce a side effect: completely resetting the internal state of the HashMap instance.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method contains no non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a nullary method that does not depend on arguments; its action is predefined.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a procedure that exists solely to mutate the object's state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void afterNodeAccess(Node<K, V> p)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method has an empty body and does not access any state. It is a hook for subclasses.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty body and therefore no side effects in this class.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has an empty body and makes no calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has an empty body, so its behavior does not depend on anything.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this implementation as it is empty. However, it is designed as a hook to be overridden with side-effectful code in subclasses (like LinkedHashMap), so its purity is not guaranteed in a polymorphic context.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void afterNodeInsertion(boolean evict)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method has an empty body and does not access any state. It is a hook for subclasses.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty body and therefore no side effects in this class.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has an empty body and makes no calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has an empty body, so its behavior does not depend on anything.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this implementation as it is empty. However, it is designed as a hook to be overridden with side-effectful code in subclasses (like LinkedHashMap), so its purity is not guaranteed in a polymorphic context.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void afterNodeRemoval(Node<K, V> p)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "The method has an empty body and does not access any state. It is a hook for subclasses.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has an empty body and therefore no side effects in this class.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method has an empty body and makes no calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method has an empty body, so its behavior does not depend on anything.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure in this implementation as it is empty. However, it is designed as a hook to be overridden with side-effectful code in subclasses (like LinkedHashMap), so its purity is not guaranteed in a polymorphic context.",
+        "isPureLLM": true,
+        "isPureStrict": true,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void internalWriteEntries(java.io.ObjectOutputStream s)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This method reads `this.size` and `this.table`, iterating through all entries to write them to the stream.",
+      "stateAccesses": [
+        {
+          "name": "this.size",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.table",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a major side effect of performing I/O by writing each key and value to the provided `ObjectOutputStream`.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic for a given map state.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the `ObjectOutputStream` argument and the internal state of `this`.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It performs I/O, which is a major side effect, and depends on the object's internal state. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "static int calculateHashMapCapacity(int numMappings)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This static method reads the static final field `DEFAULT_LOAD_FACTOR`. As this is a constant, it does not represent a dependency on mutable state.",
+      "stateAccesses": [
+        {
+          "name": "java.util.HashMap.DEFAULT_LOAD_FACTOR",
+          "scope": "GLOBAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method performs a mathematical calculation and has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method uses deterministic floating-point arithmetic (`Math.ceil`). It is fully deterministic.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's output is determined solely by its input argument `numMappings` and the compile-time constant `DEFAULT_LOAD_FACTOR`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is pure. It is a deterministic calculation based on its input and a constant, and it has no side effects. It is suitable for memoization.",
+        "isPureLLM": true,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "static <K, V> HashMap<K, V> newHashMap(int numMappings)",
+      "className": "java.util.HashMap",
+      "reasonAboutStateAccesses": "This static factory method does not access any state. It calls `calculateHashMapCapacity` which reads a static final constant.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method's primary purpose is to create a new `HashMap` object, which is a side effect (object instantiation and memory allocation).",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method itself is deterministic; for a given `numMappings`, it will always attempt to create a HashMap with the same calculated initial capacity.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's outcome (the returned HashMap) is determined by its input argument `numMappings`.",
+      "dependsOnArgumentsOnly": true,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its primary purpose is to create a new object, which is a side effect. Factory methods are inherently not pure.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}
