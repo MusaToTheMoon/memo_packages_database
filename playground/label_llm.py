@@ -397,7 +397,7 @@ Currently supported options for model_name: gemini-2.5-flash only.
                 failed_lines.append(line)
             print("="*50)
             
-        print("All filepaths/lines in the CSV file have been processed (with or without succses) by the LLM.")
+        print("All filepaths/lines in the CSV file have been processed (with or without success) by the LLM.")
         
         # Write failed lines to CSV file
         if failed_lines:
