@@ -1,0 +1,2298 @@
+{
+  "file_name": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+  "source_type": "android.googlesource",
+  "url": "https://android.googlesource.com/platform/prebuilts/fullsdk/sources/android-28/+/refs/heads/androidx-media-release/androidx/swiperefreshlayout/widget/SwipeRefreshLayout.java",
+  "source_code_file_path": "java_source_code_files/androidx/swiperefreshlayout/widget/SwipeRefreshLayout.java",
+  "is_success": true,
+  "llm_model_name": "gemini-2.5-pro",
+  "llm_analysis_timestamp": 1752544514,
+  "run_name": "gemini-2.5-pro-pass-3",
+  "llm_response_time_seconds": 327.942,
+  "llm_analysis": [
+    {
+      "methodSignature": "void reset()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the internal fields 'mScale' and 'mOriginalOffsetTop' to determine how to reset the view's position. It writes to 'mCurrentTargetOffsetTop' to update the current position. It also accesses 'mCircleView' and 'mProgress' to manipulate their state.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mScale",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOriginalOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCurrentTargetOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCurrentTargetOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has significant UI side effects. It clears animations on 'mCircleView', stops the 'mProgress' drawable, changes the visibility of 'mCircleView' to GONE, and repositions the target view by calling 'setTargetOffsetTopAndBottom'. These actions directly alter the user interface.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions like random number generators or system time.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its behavior is entirely dependent on the internal state of the object (e.g., mScale, mOriginalOffsetTop, mCurrentTargetOffsetTop).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the internal state of the widget and has significant UI side effects, such as changing view visibility and position. Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setEnabled(boolean enabled)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method does not directly access any state fields. However, it calls 'reset()' if the view is being disabled, and 'reset()' reads and writes internal state.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects. It calls 'super.setEnabled(enabled)', which changes the enabled state of the view, a fundamental UI property. It also calls 'reset()' when disabling the view, which results in further UI modifications.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not contain any calls to non-deterministic functions.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its 'enabled' argument and the current state of the view, as it calls 'reset()' which depends on internal state. Therefore, it does not depend on arguments only.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the view's enabled state and can trigger a UI reset. These are side effects, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onDetachedFromWindow()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method does not directly access any state fields but calls 'reset()', which reads and modifies internal state such as 'mCurrentTargetOffsetTop'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects as it's a lifecycle callback. It calls 'super.onDetachedFromWindow()' and 'reset()', both of which perform cleanup and UI modifications, ensuring the widget is in a clean state when removed from the window.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void lifecycle callback with no arguments; its behavior is determined by the component's state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is an Android lifecycle callback that triggers state-modifying and UI-altering operations ('reset()'). It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setColorViewAlpha(int targetAlpha)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mCircleView' and 'mProgress' fields to access their underlying drawable objects.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has UI side effects. It directly modifies the alpha (transparency) of the background of 'mCircleView' and the 'mProgress' drawable. This is a visual change.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its argument 'targetAlpha' and also on the state of the internal objects 'mCircleView' and 'mProgress'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has the side effect of changing the alpha property of UI components. Therefore, it cannot be memoized.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setProgressViewOffset(boolean scale, int start, int end)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method writes to several internal state fields: 'mScale', 'mOriginalOffsetTop', 'mSpinnerOffsetEnd', 'mUsingCustomStart', and 'mRefreshing'. These fields configure the appearance and behavior of the refresh indicator.",
+      "stateAccesses": [
+        {
+          "name": "this.mScale",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mOriginalOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mSpinnerOffsetEnd",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mUsingCustomStart",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect: it calls 'reset()', which modifies the UI by hiding and repositioning the progress indicator according to the newly set configuration.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a void setter that modifies internal state based on its arguments. It does not depend solely on its arguments as it also triggers a state reset.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies multiple internal state fields and has UI side effects by calling 'reset()'. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getProgressViewStartOffset()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the internal state field 'mOriginalOffsetTop' to return its value.",
+      "stateAccesses": [
+        {
+          "name": "this.mOriginalOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the internal state field 'mOriginalOffsetTop'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the mutable internal state 'mOriginalOffsetTop'. While it has no side effects, its result can change if the state is modified elsewhere. Memoization would be incorrect as it needs to reflect the current state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "int getProgressViewEndOffset()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the internal state field 'mSpinnerOffsetEnd' to return its value.",
+      "stateAccesses": [
+        {
+          "name": "this.mSpinnerOffsetEnd",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the internal state field 'mSpinnerOffsetEnd'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the mutable internal state 'mSpinnerOffsetEnd'. While free of side effects, its result can change depending on external calls, making memoization inappropriate.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void setProgressViewEndTarget(boolean scale, int end)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method writes to the internal state fields 'mSpinnerOffsetEnd' and 'mScale', and reads 'mCircleView' to invalidate it.",
+      "stateAccesses": [
+        {
+          "name": "this.mSpinnerOffsetEnd",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mScale",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a UI side effect: it calls 'mCircleView.invalidate()', which triggers a redraw of the circle view to reflect the new target position.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void setter; its purpose is to modify internal state based on its arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state and has a UI side effect (requesting a redraw). Therefore, it is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setSize(int size)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method writes to 'mCircleDiameter' to store the calculated size in pixels. It also reads 'mCircleView' and 'mProgress' to update their drawables and styles.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleDiameter",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has UI side effects. It changes the drawable and style of the progress indicator ('mCircleView' and 'mProgress'), which is a direct visual modification.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's calculations depend on 'getResources().getDisplayMetrics().density', which is based on the device's screen configuration. This is external system state and can be considered non-deterministic from the perspective of pure computation.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the 'size' argument and the device's display metrics, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on external system state (display metrics), modifies internal state ('mCircleDiameter'), and has UI side effects. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getChildDrawingOrder(int childCount, int i)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the internal state field 'mCircleViewIndex' to determine if the progress circle needs to be drawn on top of other children.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleViewIndex",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects. It is a callback used by the drawing system to determine child order, but the method itself only performs calculations and returns an integer.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its arguments ('childCount', 'i') and the internal state field 'mCircleViewIndex'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its output depends on the mutable internal state 'mCircleViewIndex'. While it is computationally simple and free of side effects, its result is not constant for the same inputs if the state changes, making memoization incorrect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void createProgressView()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method instantiates new objects and assigns them to the internal state fields 'mCircleView' and 'mProgress'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant side effects. It creates new View and Drawable objects and, most importantly, modifies the View hierarchy by calling 'addView(mCircleView)', which adds a child to the layout.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void procedure with no arguments. Its purpose is to initialize and modify the internal state and View hierarchy of the object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state and has the major side effect of altering the View hierarchy. It is a one-time setup method and is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setOnRefreshListener(OnRefreshListener listener)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method writes the provided 'listener' object to the internal state field 'mListener'.",
+      "stateAccesses": [
+        {
+          "name": "this.mListener",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple setter and has no observable side effects beyond changing the internal 'mListener' field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void setter that modifies internal state. Its purpose is to change state, so it does not depend only on its arguments in a functional sense.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies the internal state of the object ('mListener'). As a setter, its primary purpose is to cause a state change, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setRefreshing(boolean refreshing)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads internal state fields 'mRefreshing', 'mUsingCustomStart', 'mSpinnerOffsetEnd', and 'mOriginalOffsetTop'. It writes to 'mRefreshing' and 'mNotify'. It also calls another overload of `setRefreshing` which also accesses state.",
+      "stateAccesses": [
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mUsingCustomStart",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mSpinnerOffsetEnd",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOriginalOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCurrentTargetOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mNotify",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has significant UI side effects. It can trigger animations ('startScaleUpAnimation') or change the position of the progress indicator ('setTargetOffsetTopAndBottom') to visually show or hide the refreshing state.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its 'refreshing' argument and the object's current state (e.g., 'mRefreshing', 'mUsingCustomStart').",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state and causes UI side effects like starting animations to change the visual representation of the widget. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startScaleUpAnimation(AnimationListener listener)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads 'mCircleView', 'mProgress', and 'mMediumAnimationDuration'. It creates a new Animation object and assigns it to 'mScaleAnimation'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mMediumAnimationDuration",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mScaleAnimation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has major UI side effects. It makes the 'mCircleView' visible, sets its alpha, and starts a scale-up animation on it. This is a core part of the widget's visual feedback.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void procedure that depends on internal state and whose main purpose is to initiate a side effect (animation).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its primary purpose is to produce a side effect: starting a UI animation. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setAnimationProgress(float progress)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mCircleView' field to apply scaling transformations to it.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a direct UI side effect: it calls 'setScaleX' and 'setScaleY' on 'mCircleView', which changes the size of the view on screen. This is typically called from within an animation loop.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its 'progress' argument and the internal 'mCircleView' object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its sole purpose is to cause a UI side effect by scaling a view. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setRefreshing(boolean refreshing, boolean notify)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mRefreshing' and 'mCurrentTargetOffsetTop' fields. It writes to 'mNotify' and 'mRefreshing' to update the widget's state.",
+      "stateAccesses": [
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCurrentTargetOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mNotify",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has significant UI side effects. Depending on the arguments and current state, it calls 'ensureTarget', and then either 'animateOffsetToCorrectPosition' or 'startScaleDownAnimation' to visually transition the refresh indicator.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on its arguments ('refreshing', 'notify') and the current internal state of the widget.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state and orchestrates UI animations, which are side effects. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startScaleDownAnimation(Animation.AnimationListener listener)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method writes to the 'mScaleDownAnimation' field and reads the 'mCircleView' field to start an animation on it.",
+      "stateAccesses": [
+        {
+          "name": "this.mScaleDownAnimation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a clear UI side effect: it creates and starts a scale-down animation on the 'mCircleView'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This method is a void procedure that depends on internal state and whose main purpose is to initiate a side effect (animation).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure as its primary function is to produce a side effect by starting a UI animation. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startProgressAlphaStartAnimation()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mProgress' field to get its current alpha value and writes to 'mAlphaStartAnimation' to store the newly created animation.",
+      "stateAccesses": [
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAlphaStartAnimation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect of starting an alpha animation on the progress drawable by calling 'startAlphaAnimation'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments that initiates a process based on the current state of 'mProgress'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It initiates a UI animation, which is a side effect, and modifies the 'mAlphaStartAnimation' state field. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startProgressAlphaMaxAnimation()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mProgress' field to get its current alpha value and writes to 'mAlphaMaxAnimation' to store the newly created animation.",
+      "stateAccesses": [
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAlphaMaxAnimation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect of starting an alpha animation on the progress drawable by calling 'startAlphaAnimation'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments that initiates a process based on the current state of 'mProgress'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It initiates a UI animation, which is a side effect, and modifies the 'mAlphaMaxAnimation' state field. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "Animation startAlphaAnimation(int startingAlpha, int endingAlpha)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mCircleView' field to attach an animation listener and start the animation on it.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a significant UI side effect: it creates and starts an animation on the 'mCircleView', causing its alpha to change over time.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior (the animation it creates and starts) depends on its arguments and the state of 'mCircleView'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its main purpose is to create and start a UI animation, which is a side effect. The returned Animation object is also stateful. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setProgressBackgroundColor(int colorRes)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method does not directly access any state. It delegates its logic to `setProgressBackgroundColorSchemeResource`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it calls `setProgressBackgroundColorSchemeResource`, which ultimately modifies the background color of a UI element.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it calls `setProgressBackgroundColorSchemeResource`, which depends on `ContextCompat.getColor`, which in turn depends on the application's resources and device configuration.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's final effect depends on the argument and external application resources, not just the argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a deprecated wrapper that causes side effects (UI color change) and relies on non-deterministic resource loading. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setProgressBackgroundColorSchemeResource(int colorRes)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method does not access any internal state fields. It resolves a color resource and passes it to another method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has an indirect side effect by calling 'setProgressBackgroundColorSchemeColor', which modifies the background color of the 'mCircleView'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because 'ContextCompat.getColor(getContext(), colorRes)' depends on the application's resources and the current theme/configuration, which are external to the code's logic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's effect depends on the 'colorRes' argument and the application's external resource files.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It relies on the external, non-deterministic loading of color resources and causes a UI side effect by changing a view's background color. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setProgressBackgroundColorSchemeColor(int color)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the internal state field 'mCircleView' to set its background color.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a direct UI side effect: it calls 'mCircleView.setBackgroundColor()', which changes the visual appearance of the progress spinner's background.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a void setter that modifies a property of an internal object ('mCircleView') based on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to produce a UI side effect by changing a background color. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setColorScheme(int... colors)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method does not directly access any state. It delegates its logic to `setColorSchemeResources`.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has side effects because it calls `setColorSchemeResources`, which ultimately modifies the color scheme of the progress drawable.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "This method is non-deterministic because it calls `setColorSchemeResources`, which depends on `ContextCompat.getColor`, which in turn depends on the application's resources.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's final effect depends on the arguments and external application resources, not just the arguments.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a deprecated wrapper that causes side effects (UI color change) and relies on non-deterministic resource loading. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setColorSchemeResources(int... colorResIds)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method does not access any internal state fields. It resolves color resources and passes them to another method.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has an indirect side effect by calling 'setColorSchemeColors', which modifies the colors used in the 'mProgress' drawable.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because 'ContextCompat.getColor(context, colorResIds[i])' depends on the application's resources and the current theme/configuration, which are external to the code's logic.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's effect depends on the 'colorResIds' argument and the application's external resource files.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It relies on the external, non-deterministic loading of color resources and causes a UI side effect by changing a drawable's color scheme. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setColorSchemeColors(int... colors)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the 'mProgress' field in order to set its color scheme.",
+      "stateAccesses": [
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a UI side effect. It calls 'mProgress.setColorSchemeColors(colors)', which changes the colors of the progress spinner animation. It also calls 'ensureTarget()'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a void setter that modifies a property of an internal object ('mProgress') based on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It has a UI side effect of changing the color scheme of the progress indicator. It is unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isRefreshing()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the internal state field 'mRefreshing' to return the current refresh status.",
+      "stateAccesses": [
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the internal state field 'mRefreshing'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the mutable internal state 'mRefreshing'. Memoizing it would be incorrect as it would not reflect the real-time status of the widget.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void ensureTarget()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads and potentially writes to the 'mTarget' field. It iterates through child views and assigns the first non-circle view to 'mTarget' if it is null.",
+      "stateAccesses": [
+        {
+          "name": "this.mTarget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTarget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method interacts with the Android View system by calling 'getChildCount()' and 'getChildAt(i)', which can be considered a minimal side effect of querying the UI framework state. It does not, however, cause any visual changes.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments. Its behavior depends entirely on the current state of the view hierarchy and the 'mTarget' field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies the 'mTarget' state field based on the current children of the layout. This lazy initialization pattern is stateful and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setDistanceToTriggerSync(int distance)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method writes the given 'distance' value to the internal state field 'mTotalDragDistance'.",
+      "stateAccesses": [
+        {
+          "name": "this.mTotalDragDistance",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple setter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void setter whose purpose is to modify internal state based on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies the internal state ('mTotalDragDistance') of the object, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onLayout(boolean changed, int left, int top, int right, int bottom)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads internal state fields 'mTarget', 'mCircleView', and 'mCurrentTargetOffsetTop' to determine the positions for its children during the layout pass.",
+      "stateAccesses": [
+        {
+          "name": "this.mTarget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCurrentTargetOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major UI side effects. As an Android lifecycle method, its primary purpose is to position child views on the screen by calling their 'layout' methods. This directly determines the visual structure of the component.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void lifecycle method. Its behavior depends on its arguments (the new bounds) and the component's internal state and children.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a fundamental Android lifecycle method with the explicit side effect of laying out child views. It is state-dependent and not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onMeasure(int widthMeasureSpec, int heightMeasureSpec)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads 'mTarget', 'mCircleView', and 'mCircleDiameter' to perform measurements. It may write to 'mTarget' via 'ensureTarget()' and writes to 'mCircleViewIndex' after finding the index of the circle view.",
+      "stateAccesses": [
+        {
+          "name": "this.mTarget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleDiameter",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleViewIndex",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has major UI side effects. As an Android lifecycle method, its purpose is to determine the size of itself and its children by calling their 'measure' methods. This is a critical part of the UI rendering pipeline.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void lifecycle method. Its behavior depends on its arguments (the measure specs) and the component's internal state and children.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It's a fundamental Android lifecycle method with the explicit side effect of measuring views. It modifies state and is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getProgressCircleDiameter()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the internal state field 'mCircleDiameter' to return its value.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleDiameter",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple getter and has no observable side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the internal state field 'mCircleDiameter'.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its return value depends on the mutable internal state 'mCircleDiameter'. While it has no side effects, its result can change if the state is modified elsewhere. Memoization would be incorrect as it needs to reflect the current state.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean canChildScrollUp()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mChildScrollUpCallback' and 'mTarget' fields to determine how to check for scrollability.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildScrollUpCallback",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTarget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no direct side effects. However, it calls methods on external objects (the callback or the target view), the behavior of which is unknown. In its default path, it queries the scroll state of the child view, which is an interaction with the UI framework.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method is not directly non-deterministic, but its result depends on the scroll position of a child view, which is a frequently changing external state controlled by the user or system.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments. Its return value is entirely dependent on the state of its internal fields ('mChildScrollUpCallback', 'mTarget') and the state of the target child view.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the state of other objects (the callback or the child view), which can change unpredictably. Memoizing the result would be incorrect as it needs to reflect the current scrollability of the child.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setOnChildScrollUpCallback(OnChildScrollUpCallback callback)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method writes the provided 'callback' object to the internal state field 'mChildScrollUpCallback'.",
+      "stateAccesses": [
+        {
+          "name": "this.mChildScrollUpCallback",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method is a simple setter and has no observable side effects beyond changing the internal 'mChildScrollUpCallback' field.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void setter whose purpose is to modify internal state based on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a setter that modifies the internal state ('mChildScrollUpCallback') of the object, making it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean onInterceptTouchEvent(MotionEvent ev)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method heavily reads and writes internal state to manage touch gesture tracking. It reads 'mReturningToStart', 'mRefreshing', 'mNestedScrollInProgress', and 'mActivePointerId'. It writes to 'mReturningToStart', 'mActivePointerId', 'mIsBeingDragged', and 'mInitialDownY'.",
+      "stateAccesses": [
+        {
+          "name": "this.mReturningToStart",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mNestedScrollInProgress",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOriginalOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mActivePointerId",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mReturningToStart",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mActivePointerId",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mIsBeingDragged",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mInitialDownY",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "The method has side effects. It calls 'setTargetOffsetTopAndBottom' which moves a view, and 'startDragging' which can change UI properties. It can also log an error message using 'Log.e'. Its primary role is to decide whether to intercept touch events, which is a key interaction with the Android event system.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the 'ev' argument (MotionEvent) and the extensive internal state of the widget related to touch handling and refresh status.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a stateful event handler that reads and modifies numerous internal fields, produces UI side effects, and interacts with the Android event system. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void requestDisallowInterceptTouchEvent(boolean b)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mTarget' field to check its type and whether it supports nested scrolling.",
+      "stateAccesses": [
+        {
+          "name": "this.mTarget",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has a side effect of interacting with the parent view's touch event handling by calling 'super.requestDisallowInterceptTouchEvent(b)'. This affects how touch events are propagated in the view hierarchy.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method's logic depends on 'android.os.Build.VERSION.SDK_INT', which is external system state and can be considered non-deterministic from a pure computation perspective.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's behavior depends on the argument 'b', the state of 'mTarget', and the Android OS version.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It depends on system state (Android version), internal state ('mTarget'), and has the side effect of altering the touch event dispatch logic in the view hierarchy. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean onStartNestedScroll(View child, View target, int nestedScrollAxes)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the internal state fields 'mReturningToStart' and 'mRefreshing', and also relies on the result of the 'isEnabled()' method, to determine if it should participate in a nested scroll.",
+      "stateAccesses": [
+        {
+          "name": "this.mReturningToStart",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no direct side effects. Its return value signals to the Android system whether this view will participate in a nested scroll operation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its arguments and several internal state flags ('mReturningToStart', 'mRefreshing', isEnabled).",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its return value is dependent on mutable internal state. As an event handler callback, memoizing its result would be incorrect because the state it depends on changes frequently.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onNestedScrollAccepted(View child, View target, int axes)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the 'mNestedScrollingParentHelper' to delegate the call. It writes to 'mTotalUnconsumed' to reset it and 'mNestedScrollInProgress' to set it to true.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingParentHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTotalUnconsumed",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mNestedScrollInProgress",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "This method has side effects. It interacts with the nested scrolling system by calling methods on 'mNestedScrollingParentHelper' and 'startNestedScroll()', which affects the state of event handling for the current gesture.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void event handler that modifies internal state and interacts with helper objects based on its arguments and the current state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a stateful callback in the nested scrolling system that modifies internal state and has side effects related to event dispatching. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onNestedPreScroll(View target, int dx, int dy, int[] consumed)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads and writes the 'mTotalUnconsumed' field to track scroll distance. It reads 'mUsingCustomStart', 'mCircleView', and 'mParentScrollConsumed'.",
+      "stateAccesses": [
+        {
+          "name": "this.mTotalUnconsumed",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mUsingCustomStart",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mParentScrollConsumed",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTotalUnconsumed",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has UI side effects. It calls 'moveSpinner()' to move the progress indicator and can change the visibility of 'mCircleView'. It also participates in the nested scrolling system by calling 'dispatchNestedPreScroll'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void event handler whose behavior depends on its arguments and multiple internal state fields.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a complex event handler that modifies internal state, produces UI side effects, and interacts with the nested scrolling system. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "int getNestedScrollAxes()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads the 'mNestedScrollingParentHelper' field to delegate the call to its 'getNestedScrollAxes' method.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingParentHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects itself, but it delegates to a helper object which maintains state about the current nested scroll operation.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the state of the 'mNestedScrollingParentHelper' object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the mutable state of the 'mNestedScrollingParentHelper'. Memoizing it would be incorrect as the axes can change during a scroll gesture.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "void onStopNestedScroll(View target)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads 'mNestedScrollingParentHelper' to delegate a call. It reads and writes 'mTotalUnconsumed'. It writes to 'mNestedScrollInProgress' to false.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingParentHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTotalUnconsumed",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mNestedScrollInProgress",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mTotalUnconsumed",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        }
+      ],
+      "reasonAboutSideEffects": "The method has UI side effects. It calls 'finishSpinner()' which may trigger animations or change the refreshing state. It also interacts with the nested scrolling system via helper methods ('onStopNestedScroll', 'stopNestedScroll').",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void event handler that modifies state and produces side effects.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a stateful callback that finalizes a scroll operation, which involves modifying internal state and triggering UI side effects. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads from the 'mParentOffsetInWindow' array, which is populated by a delegate call. It reads and writes to 'mTotalUnconsumed' to accumulate unconsumed scroll distance.",
+      "stateAccesses": [
+        {
+          "name": "this.mParentOffsetInWindow",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTotalUnconsumed",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTotalUnconsumed",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has UI side effects. It calls 'moveSpinner()' to move the progress indicator in response to the overscroll. It also interacts with the nested scrolling system by calling 'dispatchNestedScroll'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void event handler that depends on its arguments and internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a complex event handler in the nested scrolling system that modifies state and produces UI side effects. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setNestedScrollingEnabled(boolean enabled)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mNestedScrollingChildHelper' field to delegate the call, which in turn modifies the internal state of the helper object.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingChildHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a side effect of enabling or disabling nested scrolling for this view by modifying the state within its helper object. This affects how the view participates in scroll events.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void setter that modifies the state of a helper object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It causes a state change within a helper object, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isNestedScrollingEnabled()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mNestedScrollingChildHelper' field to delegate the call, which in turn reads its internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingChildHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments, and its return value depends on the internal state of the 'mNestedScrollingChildHelper' object.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the mutable state of the 'mNestedScrollingChildHelper'. Memoizing it would be incorrect as the state can be changed by other methods.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean startNestedScroll(int axes)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mNestedScrollingChildHelper' field to delegate the call, which can modify its internal state to track the scrolling operation.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingChildHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of initiating a nested scroll operation by changing state in its helper and notifying ancestor views.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and side effects depend on its argument and the state of the view hierarchy.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It produces side effects by interacting with the Android nested scrolling system. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void stopNestedScroll()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mNestedScrollingChildHelper' field to delegate the call, which modifies its internal state to stop the scrolling operation.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingChildHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of stopping an ongoing nested scroll operation by changing state in its helper and notifying ancestor views.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method with no arguments that produces side effects.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It produces side effects by interacting with the Android nested scrolling system. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean hasNestedScrollingParent()",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mNestedScrollingChildHelper' field to delegate the call, which reads its internal state.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingChildHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "The method has no side effects.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method takes no arguments and its return value depends on the state of the 'mNestedScrollingChildHelper' which reflects the view hierarchy.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because its result depends on the mutable state of its helper object, which is tied to the view hierarchy. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": true
+      }
+    },
+    {
+      "methodSignature": "boolean dispatchNestedScroll(int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int[] offsetInWindow)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mNestedScrollingChildHelper' field to delegate the call.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingChildHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of dispatching a scroll event to a nested scrolling parent, which can cause other views to scroll.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and side effects depend on its arguments and the state of the view hierarchy.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is part of the nested scrolling protocol and has the side effect of dispatching events to parent views. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean dispatchNestedPreScroll(int dx, int dy, int[] consumed, int[] offsetInWindow)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mNestedScrollingChildHelper' field to delegate the call.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingChildHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of dispatching a pre-scroll event to a nested scrolling parent, allowing it to consume the scroll before this view.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value and side effects depend on its arguments and the state of the view hierarchy.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is part of the nested scrolling protocol and has the side effect of dispatching events to parent views. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean onNestedPreFling(View target, float velocityX, float velocityY)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method does not access state directly but calls 'dispatchNestedPreFling', which reads 'mNestedScrollingChildHelper'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of dispatching a pre-fling event to a nested scrolling parent.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its arguments and the result of the delegated call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is part of the nested scrolling protocol and has the side effect of dispatching events to parent views. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method does not access state directly but calls 'dispatchNestedFling', which reads 'mNestedScrollingChildHelper'.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "This method has the side effect of dispatching a fling event to a nested scrolling parent.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its arguments and the result of the delegated call.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is part of the nested scrolling protocol and has the side effect of dispatching events to parent views. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean dispatchNestedFling(float velocityX, float velocityY, boolean consumed)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mNestedScrollingChildHelper' field to delegate the call.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingChildHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of dispatching a fling event to a nested scrolling parent.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its arguments and the state of the view hierarchy.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is part of the nested scrolling protocol and has the side effect of dispatching events to parent views. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean dispatchNestedPreFling(float velocityX, float velocityY)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mNestedScrollingChildHelper' field to delegate the call.",
+      "stateAccesses": [
+        {
+          "name": "this.mNestedScrollingChildHelper",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has the side effect of dispatching a pre-fling event to a nested scrolling parent.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on its arguments and the state of the view hierarchy.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is part of the nested scrolling protocol and has the side effect of dispatching events to parent views. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean isAnimationRunning(Animation animation)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method does not access any internal state fields of the SwipeRefreshLayout class.",
+      "stateAccesses": [],
+      "reasonAboutSideEffects": "The method has no side effects. It only queries the state of the provided Animation object.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method is non-deterministic because the state of an Animation object ('hasStarted()', 'hasEnded()') is time-dependent and managed by the Android framework, which is external to this method's execution.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends only on the state of the 'animation' argument, but this state is non-deterministic.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its result depends on the time-varying, external state of an Animation object. Memoizing its result would be incorrect.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void moveSpinner(float overscrollTop)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads a large number of internal state fields to calculate the spinner's position and appearance, including 'mProgress', 'mTotalDragDistance', 'mUsingCustomStart', 'mSpinnerOffsetEnd', 'mOriginalOffsetTop', 'mCircleView', 'mScale', 'mCurrentTargetOffsetTop', 'mAlphaStartAnimation', and 'mAlphaMaxAnimation'.",
+      "stateAccesses": [
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTotalDragDistance",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mUsingCustomStart",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mSpinnerOffsetEnd",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOriginalOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mScale",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAlphaStartAnimation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mAlphaMaxAnimation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCurrentTargetOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has extensive UI side effects. It manipulates properties of the 'mProgress' drawable, changes the visibility and scale of 'mCircleView', may start alpha animations, and repositions the 'mCircleView' by calling 'setTargetOffsetTopAndBottom'.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method calls 'isAnimationRunning', which is non-deterministic as it depends on the time-based state of an animation.",
+      "hasNonDeterministicCalls": true,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on its argument and a large amount of internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a core UI logic method that reads extensive internal state, depends on non-deterministic animation state, and produces numerous visual side effects. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void finishSpinner(float overscrollTop)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads 'mTotalDragDistance' to decide whether to trigger a refresh. It writes to 'mRefreshing'. It also reads 'mProgress' to modify its state, and 'mScale' and 'mCurrentTargetOffsetTop' to decide how to animate the spinner away.",
+      "stateAccesses": [
+        {
+          "name": "this.mTotalDragDistance",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mScale",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCurrentTargetOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has UI side effects. It either calls 'setRefreshing(true, true)' which starts the refresh animation and notifies the listener, or it calls 'animateOffsetToStartPosition' to animate the spinner away. Both paths involve UI changes.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on its argument and internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state and triggers UI animations and potentially listener callbacks, all of which are side effects. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "boolean onTouchEvent(MotionEvent ev)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "This method reads and writes to state fields to manage touch input. It reads 'mReturningToStart', 'mRefreshing', 'mNestedScrollInProgress', 'mActivePointerId', 'mIsBeingDragged', and 'mInitialMotionY'. It writes to 'mReturningToStart', 'mActivePointerId', and 'mIsBeingDragged'.",
+      "stateAccesses": [
+        {
+          "name": "this.mReturningToStart",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mRefreshing",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mNestedScrollInProgress",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mActivePointerId",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mIsBeingDragged",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mInitialMotionY",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mReturningToStart",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mActivePointerId",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mIsBeingDragged",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has UI side effects. It calls 'startDragging', 'moveSpinner', and 'finishSpinner', which manipulate the position and appearance of the progress indicator. It also has a logging side effect ('Log.e').",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method's return value depends on the 'ev' (MotionEvent) argument as well as numerous internal state fields that track the gesture.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It is a highly stateful event handler that reads and modifies internal state, produces UI side effects, and drives the core drag-to-refresh interaction. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startDragging(float y)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads 'mInitialDownY', 'mTouchSlop', and 'mIsBeingDragged' to determine if a drag has started. If so, it writes to 'mInitialMotionY' and 'mIsBeingDragged', and reads 'mProgress' to set its alpha.",
+      "stateAccesses": [
+        {
+          "name": "this.mInitialDownY",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mTouchSlop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mIsBeingDragged",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mInitialMotionY",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mIsBeingDragged",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mProgress",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a UI side effect: if a drag is initiated, it sets the alpha of the 'mProgress' drawable, making the start of the progress indicator visible.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on its argument and multiple internal state fields.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state to track the drag gesture and produces a UI side effect by changing the progress indicator's alpha. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void animateOffsetToCorrectPosition(int from, AnimationListener listener)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method writes to 'mFrom' and reads 'mAnimateToCorrectPosition', 'mDecelerateInterpolator', and 'mCircleView' to set up and start an animation.",
+      "stateAccesses": [
+        {
+          "name": "this.mFrom",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mAnimateToCorrectPosition",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDecelerateInterpolator",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a clear UI side effect: it starts an animation on 'mCircleView' to move it to its correct resting position.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that initiates an animation based on its arguments and internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to modify state and start a UI animation, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void animateOffsetToStartPosition(int from, AnimationListener listener)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mScale' field to determine which animation to run. Depending on the path, it may write to 'mFrom' and read 'mAnimateToStartPosition', 'mDecelerateInterpolator', and 'mCircleView', or delegate to 'startScaleDownReturnToStartAnimation' which also accesses state.",
+      "stateAccesses": [
+        {
+          "name": "this.mScale",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mFrom",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mAnimateToStartPosition",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mDecelerateInterpolator",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a clear UI side effect: it starts an animation on 'mCircleView' to return it to its starting position.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that initiates an animation based on its arguments and internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to start a UI animation, which is a side effect. It reads and writes state to configure this animation. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void moveToStart(float interpolatedTime)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads 'mFrom', 'mOriginalOffsetTop', and 'mCircleView' to calculate the target position and apply the offset.",
+      "stateAccesses": [
+        {
+          "name": "this.mFrom",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mOriginalOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a UI side effect by calling 'setTargetOffsetTopAndBottom', which repositions the 'mCircleView' on the screen.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method whose behavior depends on its argument and internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to produce a side effect by moving a UI element. It depends on internal state and is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void startScaleDownReturnToStartAnimation(int from, Animation.AnimationListener listener)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method writes to 'mFrom' and 'mStartingScale' to configure the animation. It creates and assigns a new Animation to 'mScaleDownToStartAnimation'. It reads 'mCircleView' to get its current scale and to start the animation.",
+      "stateAccesses": [
+        {
+          "name": "this.mFrom",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": true
+        },
+        {
+          "name": "this.mStartingScale",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mScaleDownToStartAnimation",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "WRITE",
+          "idempotent": false
+        },
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a clear UI side effect: it starts a custom animation on 'mCircleView' that both scales it down and moves it back to its start position.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that initiates an animation based on its arguments and internal state.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. Its purpose is to modify state and start a complex UI animation, which is a side effect. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void setTargetOffsetTopAndBottom(int offset)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads 'mCircleView' to move it and then writes its new position to 'mCurrentTargetOffsetTop'.",
+      "stateAccesses": [
+        {
+          "name": "this.mCircleView",
+          "scope": "INTERNAL",
+          "valueType": "OBJECT",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mCurrentTargetOffsetTop",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has a direct UI side effect: it calls 'mCircleView.bringToFront()' and 'ViewCompat.offsetTopAndBottom()', which changes the z-order and vertical position of the circle view on screen.",
+      "hasSideEffects": true,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "This is a void method that modifies state and produces a side effect based on its argument.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure. It modifies internal state and its primary purpose is to produce a UI side effect by moving a view. It is not suitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    },
+    {
+      "methodSignature": "void onSecondaryPointerUp(MotionEvent ev)",
+      "className": "androidx.swiperefreshlayout.widget.SwipeRefreshLayout",
+      "reasonAboutStateAccesses": "The method reads the 'mActivePointerId' field to check if the pointer that went up was the active one. If so, it writes a new pointer ID to 'mActivePointerId'.",
+      "stateAccesses": [
+        {
+          "name": "this.mActivePointerId",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "READ",
+          "idempotent": null
+        },
+        {
+          "name": "this.mActivePointerId",
+          "scope": "INTERNAL",
+          "valueType": "PRIMITIVE",
+          "accessType": "WRITE",
+          "idempotent": false
+        }
+      ],
+      "reasonAboutSideEffects": "This method has no side effects beyond modifying the internal state of 'mActivePointerId'. It does not cause any UI changes.",
+      "hasSideEffects": false,
+      "reasonAboutNonDeterministicCalls": "The method does not make any non-deterministic calls.",
+      "hasNonDeterministicCalls": false,
+      "reasonAboutDependsOnArgumentsOnly": "The method is a void event handler. Its behavior depends on the 'ev' (MotionEvent) argument and the 'mActivePointerId' state field.",
+      "dependsOnArgumentsOnly": false,
+      "purityInfo": {
+        "reasonAboutIsPureLLM": "The method is not pure because it modifies internal state ('mActivePointerId') to handle multi-touch events. This state change makes it unsuitable for memoization.",
+        "isPureLLM": false,
+        "isPureStrict": false,
+        "isPureWithReads": false
+      }
+    }
+  ]
+}
